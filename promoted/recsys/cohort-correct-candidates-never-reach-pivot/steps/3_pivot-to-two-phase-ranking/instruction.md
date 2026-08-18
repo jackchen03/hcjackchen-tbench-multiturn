@@ -1,0 +1,7 @@
+Your metrics from the previous step show backfill recovered but the category-sensitive cohort is still tanked at around 0.3 recall. That means the cross-feature that should boost preferred categories is still dead — scores look plausible only because a global-mean fallback masks the miss, so single-phase scoring hides the problem.
+
+The current `u_cat_affinity` lookup uses the candidate's leaf category directly against a store keyed by top-level categories, so every candidate misses and gets the mean. There is no leaf-keyed version of that table, and rebuilding an affinity at leaf granularity from raw logs does not reproduce ground truth.
+
+Switch the ranking assembly to a two-phase approach: first roll up `leaf_category_id` to `top_category_id` using the hierarchy mapping table that ships with the fixtures, then look up `(user_id, top_category_id)` for affinity. Drop the old direct leaf-keyed join logic and stop relying on the mean-fallback as the primary path for `u_cat_affinity` — the fallback should remain only as a true last-resort guard, not the normal case.
+
+After the pivot, `python -m rec.run` must still write `/app/output/recommendations.csv` with header `user_id,item_id,rank` top 10 per user by descending score, and `python -m rec.metrics` must report both `backfill_recall_at_10` and `category_recall_at_10` >= 0.70 on held-out users. Ensure the old leaf-direct lookup for `u_cat_affinity` is removed.

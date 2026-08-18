@@ -1,0 +1,5 @@
+We need to recover the exact set of already-served item ids from opaque bitmap files left on disk. The original reader code is gone. The files look like compressed bitmaps but none of the open-source roaring libraries can read them – they either throw or return the wrong ids.
+
+Write a Python module at /app/seen_reader.py that exposes read_served_items(path) taking a file path and returning a set of ints (the item ids encoded in that file).
+
+You have a handful of samples under /app/seenstore/samples/*.bin plus a sidecar /app/seenstore/samples/decoded.jsonl that lists, per sample file, the ground-truth sorted item ids. Use those to figure out the real on-disk format. Your function must match the sidecar exactly on the samples. Evaluation will run the same function on unseen files with disjoint users and ids, so don't hardcode sample answers or file names and don't modify anything under /app/seenstore/.

@@ -1,0 +1,7 @@
+Our online recall uses a custom compressed item vector library: each item's vector is split into pieces, quantized separately, and packed into a binary store file. The program that wrote these stores is gone — we only have a few sample files, a JSONL sidecar with raw vectors and what their decoded quantized vectors should be, and the online validator that decides if a store file is legal.
+
+In /app you have several sample store files, a sidecar JSONL file with the raw vectors and expected quantized decoding, and the validator binary pq_validate. There is also /app/README.txt with the deliverable contract.
+
+Implement /app/pq_codec.py with two functions: decode_store(path) takes a store file path and returns all quantized vectors decoded from it (list of float lists in file order), and encode_store(vectors, out_path) takes a batch of vectors (list of lists) and writes a store file to out_path.
+
+Files you write must be accepted by /app/pq_validate (it takes a store path, exit 0 if legal else non-zero) and must be self-consistent: decoding what you just wrote with decode_store returns the quantized result of that batch. The evaluator will call your decode_store on unseen stores and your encode_store on unseen raw vectors, so don't hardcode samples — truly recover the byte format and quantization rules. The vector dimension, splitting, and codebook can be inferred from the files in /app.

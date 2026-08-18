@@ -1,0 +1,7 @@
+The VaR is now correct on both shared and staggered calendars, but the report still does not finish before open on production-scale inputs. On the production-scale fixture under `/app/sample_prod/` with `prices.csv` and `positions.csv` (about 4000 dates by 500 assets), the current implementation takes minutes because it re-prices with a per-date Python/pandas row-wise `apply` loop with per-cell label lookups.
+
+New evidence from profiling the late run: the job must complete within about 20 seconds on production-scale inputs, and the old row-wise apply approach is too slow and must be dropped.
+
+Pivot the implementation to remove the per-date apply loop and replace it with a vectorized re-pricing that produces the identical historical P&L vector. Keep the date-aligned return matrix fixed in the previous step and the discrete order-statistic definition of VaR; only the re-pricing path should change. The final program must still be invoked as `python3 /app/var_report.py <price_history_csv> <positions_csv> <output_path>` and write a JSON object with `var_99` as a positive loss, matching the reference on `/app/sample/`, `/app/sample_staggered/`, and finishing within about 20 seconds on `/app/sample_prod/` while producing the correct VaR.
+
+Ensure there is no duplicate logic left from the old loop — the final file should not contain the row-wise `apply(lambda row: ...)` pattern for P&L.

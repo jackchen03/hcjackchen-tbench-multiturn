@@ -1,0 +1,5 @@
+The home recommendation carousel is showing duplicate items. Several users report seeing the same product appear twice in their list. This is most visible for long-history, high-frequency shoppers; new users with little history look fine. We measured offline recall and the overall average looks okay, but heavy users have unstable behavior.
+
+The whole offline pipeline lives under /app, entry is /app/recommend.py. It reads candidate sources at /app/data/cand_cf.parquet and /app/data/cand_pop.parquet and writes per-user results to /app/out/recs.csv with columns user_id,rank,item_id, each user ranked 1..20.
+
+Fix the pipeline so that for any user the 20 rows have no duplicate item_id, the list is exactly 20 rows with ranks 1 to 20 contiguous, scoring and ordering semantics stay the same as now, and the output stays at the same path /app/out/recs.csv with the same columns user_id,rank,item_id. Do not modify the data files in /app/data themselves. The check will rerun /app/recommend.py on users you have not seen.

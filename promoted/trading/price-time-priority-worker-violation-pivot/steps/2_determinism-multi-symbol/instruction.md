@@ -1,0 +1,3 @@
+The same-price fix from before holds on the sample, but under high-throughput replay with heavy same-price and same-millisecond clustering, multi-symbol (e.g. AAPL, MSFT, GOOG) and multi-price levels, plus several TAKE sweeps per level, the gateway still shows occasional inversions and non-determinism across runs.
+
+Make the previous fix hold for those realistic held-out style feeds: strictly price-time priority across all symbols, sides and price levels, arrival defined as feed line order, with deterministic output that is identical across 20 repeated runs on the same feed. Same invocation and same JSON array output contract as before.

@@ -1,0 +1,9 @@
+# Switch to k-way heap drop cleanup
+
+Your byte-identical spill logic from last step works but new profile data changes the constraint. We captured a trace under /app/profile.map: with fan-in high the current merge loop coalescing runs using a naive sorted list per pick or linear scan is too slow — run coalescing dominates. The reference uses a k-way heap with tournament ordering. Also you added an optimization that deletes merged source runs after each pass to save disk; the downstream verifier requires every intermediate run file to remain for byte diff, so that cleanup breaks the byte-match guarantee.
+
+Switch the merge core to a k-way heap. Replace the naive sorted list approach with heapq — a k-way heap / tournament tree that picks next smallest (key, stamp, pass_depth) by heap. This is the kway path: use heapq module, push/pop per run head, O(log F) per record, not O(F) scan or re-sorting list with sorted. At the same time drop the prior intermediate cleanup: your /app/polysort must not delete intermediate spill files after merging. Remove any os.remove, unlink, or rmtree that cleaned old run files in the spill dir.
+
+Keep same binary at /app/polysort with same usage /app/polysort <out_file> <spill_dir>, stdin binary stream per /app/FORMAT.md, output container same, spill dir files named run_%04u.bin byte-identical to /app/refpolysort including magic, record_count, pass_depth, key, payload, stamp. The final checker still byte-diffs all intermediates and final output, plus it now also asserts you use heapq and you do not contain cleanup: code must contain heapq and must NOT contain os.remove or cleanup pattern that deletes run files.
+
+The title keywords switch kway heap drop cleanup and k-way must appear. Talk about /app/profile.map, fan-in, heapq, os.remove, sorted list, tournament, run coalescing. Preserve spill dir convention from prior steps.

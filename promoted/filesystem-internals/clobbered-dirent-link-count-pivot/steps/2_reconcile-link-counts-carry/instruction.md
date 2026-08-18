@@ -1,0 +1,7 @@
+Your previous `/workdir/repair.sh` fixes the shipped `/workdir/case/broken.img` via `file_type` residual, but now fails additional held-out images where the same class of damage comes with different superblock layout — `block_size` 1024 vs 4096, different `inodes_per_group`, `inode_size`, `s_log_block_size`, GDT location, and different inode numbers for the hardlink pair and symlink.
+
+Add link count reconciliation relying on the same conventions you already use — do not re-explain raw directory scan, superblock parsing, `file_type` 1 vs 7, `i_mode`, `inode:u32, rec_len:u16, name_len:u8, file_type:u8` dirent layout, or `debugfs`/`dumpe2fs`/`fsck.ext4 -n`. Assume that context is carried.
+
+Extend `/workdir/repair.sh` so after locating over-referenced and under-referenced inodes via counted refs vs `i_links_count`, it also ensures every inode's `i_links_count` equals its counted dirent refs using the same `file_type` vs mode cross-check and `i_links_count` probing you already have. Keep generic — same `<input> <output>` args, no hardcoded inode numbers.
+
+After fix, output must still be byte-identical to hidden original — the link count reconciliation must be done by the same mechanism that restores the dirent, not by blindly setting counts, so that final image bytes match original exactly.

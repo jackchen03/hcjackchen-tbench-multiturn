@@ -1,0 +1,7 @@
+We run a daily pre-open portfolio risk report that computes 99% 1-day historical-simulation VaR. The program is at `/app/var_report.py` and is invoked as `python3 /app/var_report.py <price_history_csv> <positions_csv> <output_path>`. It reads per-asset historical prices and current holdings, builds daily returns, re-prices the whole book under each historical scenario, and writes the 99% loss to the output path you give it.
+
+A sample is under `/app/sample/` with `prices.csv`, `positions.csv`, and the correct result `expected.json` for that sample. The sample prices have a shared calendar — every asset misses the same few dates, so gaps look realistic. If you run `python3 /app/var_report.py /app/sample/prices.csv /app/sample/positions.csv /tmp/out.json` and compare `/tmp/out.json` against `/app/sample/expected.json`, the numbers do not match — our reported VaR is systematically too low.
+
+Fix `/app/var_report.py` so it computes the reference 99% 1-day VaR for the sample and matches `/app/sample/expected.json`. Keep the existing CLI `python3 /app/var_report.py <price_history_csv> <positions_csv> <output_path>` unchanged. Output must remain a JSON object at the path given on the command line, containing one key `var_99` whose value is the 99% 1-day historical-simulation VaR as a positive number representing the loss amount.
+
+There are more steps after this; conserve resources and keep the fix minimal for now.

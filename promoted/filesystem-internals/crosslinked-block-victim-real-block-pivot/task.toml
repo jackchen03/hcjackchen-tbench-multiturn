@@ -1,0 +1,33 @@
+schema_version = "1.1"
+slug = "crosslinked-block-victim-real-block-pivot"
+title = "Cross-linked block where victim real block is leaked - generic repair to deep extents pivot"
+difficulty = "hard"
+category = "filesystem-internals"
+tags = ["multi-turn", "context-following", "context-overriding"]
+canary_guid = "TBENCH-MT-FSINT-XLINK-24-ac3c809e-ad1b-475d-a562-0488d8299043"
+original_single_turn_slug = "cross-linked-block-where-the-victim-s-real-block-24"
+
+[[steps]]
+id = "1"
+name = "diagnose-and-repair-disk"
+dir = "steps/1_diagnose-and-repair-disk"
+timeout_sec = 1800
+min_reward = 1.0
+
+[[steps]]
+id = "2"
+name = "generalize-repair-tool"
+dir = "steps/2_generalize-repair-tool"
+timeout_sec = 1800
+min_reward = 1.0
+inherit_prior_session = true
+depends_on = ["1"]
+
+[[steps]]
+id = "3"
+name = "handle-deep-extents-and-selective-leaks"
+dir = "steps/3_handle-deep-extents-and-selective-leaks"
+timeout_sec = 1800
+min_reward = 1.0
+inherit_prior_session = true
+depends_on = ["2"]

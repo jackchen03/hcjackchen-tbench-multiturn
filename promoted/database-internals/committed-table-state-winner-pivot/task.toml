@@ -1,0 +1,28 @@
+schema_version = "1.1"
+authors = ["hcjackchen"]
+description = "Reconstruct committed table state where write interleaving / winner determination tricky, then apply incremental log on recovered exact shape, then pivot to retention-based conflict resolution dropping consumption semantics."
+tags = ["multi-turn", "context-following", "context-overriding"]
+
+[[steps]]
+name = "reconstruct-committed-state"
+step_dir = "1_reconstruct-committed-state"
+dependencies = []
+inherit_prior_session = false
+min_reward = 1.0
+timeout_sec = 1800
+
+[[steps]]
+name = "apply-incremental-on-recovered-shape"
+step_dir = "2_apply-incremental-on-recovered-shape"
+dependencies = ["reconstruct-committed-state"]
+inherit_prior_session = true
+min_reward = 1.0
+timeout_sec = 1800
+
+[[steps]]
+name = "pivot-to-retention-resolution"
+step_dir = "3_pivot-to-retention-resolution"
+dependencies = ["apply-incremental-on-recovered-shape"]
+inherit_prior_session = true
+min_reward = 1.0
+timeout_sec = 1800

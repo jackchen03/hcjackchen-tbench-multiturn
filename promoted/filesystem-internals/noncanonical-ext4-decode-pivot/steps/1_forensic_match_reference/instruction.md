@@ -1,0 +1,9 @@
+We have a batch of disk images from an internal archiver that wrote ext4-compatible images, but with a non-canonical dialect. Files stored inside can currently only be recovered by a single remaining binary extractor that we are about to lose. The source is gone; only the binary remains.
+
+The old extractor is at /app/reference/refextract and is runnable now. Usage: refextract <image file path> <inode number>, file bytes go to stdout (e.g. refextract disk.img 12 > out.bin). You can probe it freely on the sample images under /app/samples/. That directory contains several *.img images and a files.txt listing "<image filename> <inode number>" for regular files that exist inside, for you to compare. Note: at evaluation time /app/reference/refextract will be deleted, so your program cannot call it at runtime — you must reimplement its logic yourself.
+
+Incidental: these images open fine with debugfs, dumpe2fs and other standard tools and look normal, but the bytes those tools dump for files do not match what the old extractor outputs — don't get misled by them.
+
+Your task (step 1 noncanonical ext4 decode): Reimplement the extractor. Place your implementation at /app/myextract as an executable, CLI identical to the old one: myextract <image file path> <inode number>, writing that file's original bytes to stdout. Evaluation will run /app/myextract on unseen images (different from /app/samples/) and compare its stdout byte-for-byte against ground truth; all must match.
+
+The on-disk structure keeps canonical eh_magic=0xF30A framing, but the logical mapping is non-canonical ext4 — this is the forensic core and your decode must match the reference exactly. Focus on the provided samples first.

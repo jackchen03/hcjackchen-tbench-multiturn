@@ -1,0 +1,7 @@
+We're doing forensic recovery. A SQLite database file is unreadable — sqlite3 says "file is not a database" and .recover fails. We carved the raw bytes of one b-tree leaf page that holds a single table's data. That page is now at /app/case/table.page (and also /workdir/case/table.page if that path exists). It's a full leaf page, not a valid database file. We also recovered the CREATE TABLE statement at /app/case/schema.sql.
+
+We tried a quick parser: it gets column counts right and text looks okay, but one integer column shows up empty on every row while business says that column is non-null and unique, and a couple other integers look wrong.
+
+Write a reusable script at /app/carve.sh (make it executable, and also copy/link to /workdir/carve.sh if that dir exists): it must read /app/case/table.page and /app/case/schema.sql, and write all recovered rows to /app/rows.txt (and /workdir/rows.txt if that dir exists). Output is one record per line, fields separated by single `|`, in CREATE TABLE declaration order, sorted by primary key ascending. A NULL field is empty between delimiters, integers as decimal, text as-is (values never contain `|`). A sha256 of the correct rows.txt for this sample is at /app/case/expected.sha256 for self-check.
+
+Your carver must be generic — we will swap in a different page and schema with different table/column names, different column count, different key position and values under /app/case/ when grading. Hardcoding the sample output or hardcoding key position will fail.

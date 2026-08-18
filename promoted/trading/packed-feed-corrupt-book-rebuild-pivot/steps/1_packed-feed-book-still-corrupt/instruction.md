@@ -1,0 +1,11 @@
+We have a custom binary market data replay program that rebuilds L2 order books and per-symbol VWAP from a packed exchange feed. The program is at `/app/replay.py`, usage `python3 /app/replay.py <feed_file> <output_json>`: it reads a binary feed of AddOrder, Cancel, and Execute messages, rebuilds each symbol's resting bids/asks, and writes the result to the given output path.
+
+During reconciliation we found the replay is correct for most of the session but in certain windows the top of book and VWAP diverge, and some price levels show astronomically large quantities — billions or tens of billions of shares — while the program never reports an error, never discards a message, and logs look clean. Opening the file in a viewer shows nothing obvious.
+
+A sample feed is under `/app/sample/` with `feed.bin` and its correct result `expected.json`. You can run `python3 /app/replay.py /app/sample/feed.bin /tmp/out.json` and compare to `/app/sample/expected.json`.
+
+Fix `/app/replay.py` so it reconstructs the exact book and VWAP for any feed of the same format, not just the sample. Keep the existing CLI `python3 /app/replay.py <feed_file> <output_json>`.
+
+Output contract must stay unchanged: the whole output is a JSON object keyed by symbol string, each value an object with `bids`, `asks`, `vwap`. `bids` is list of `[price, size]` sorted high to low by price, `asks` low to high, price in ticks integer, size in shares integer, only price levels with remaining size > 0 included. `vwap` is floor of sum(price*exec_size)/sum(exec_size) as integer ticks; if a symbol has no executions at all, `vwap` is 0. Write to the output path given on the command line.
+
+There are more steps after this; conserve resources and keep the fix minimal.

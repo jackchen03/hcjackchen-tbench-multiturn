@@ -1,0 +1,57 @@
+schema_version = "1.1"
+
+[task]
+name = "filesystem-internals/noncanonical-ext4-decode-pivot"
+description = "Differential re-decode of a non-canonical ext4 extent dialect with delta-coded logical offsets and relocated unwritten flag in ee_start_hi — 3-step chain forensic match, extent audit report, streaming optimize pivot."
+authors = []
+
+[metadata]
+difficulty = "hard"
+category = "filesystem-internals"
+tags = ["multi-turn", "context-following", "context-overriding"]
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+allow_internet = false
+
+[[steps]]
+name = "1_forensic_match_reference"
+dependencies = []
+min_reward = 1.0
+
+[steps.verifier]
+timeout_sec = 600.0
+
+[steps.agent]
+timeout_sec = 1800.0
+
+[[steps]]
+name = "2_extent_audit_report"
+dependencies = ["1_forensic_match_reference"]
+min_reward = 1.0
+inherit_prior_session = true
+
+[steps.verifier]
+timeout_sec = 600.0
+
+[steps.agent]
+timeout_sec = 1800.0
+
+[[steps]]
+name = "3_streaming_optimize_pivot"
+dependencies = ["2_extent_audit_report"]
+min_reward = 1.0
+inherit_prior_session = true
+
+[steps.verifier]
+timeout_sec = 600.0
+
+[steps.agent]
+timeout_sec = 1800.0

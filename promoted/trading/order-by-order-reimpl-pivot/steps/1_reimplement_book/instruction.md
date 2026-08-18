@@ -1,0 +1,9 @@
+We have an exchange matching system's order-by-order book rebuilder that we need to replace with our own version. The old rebuilder is only left as a compiled black box at `/opt/refbook/refbook`. It takes an ITCH-style replay file path as its first argument and prints an ordered snapshot of each price level's queue to stdout.
+
+You can run the black box on any replay files you craft yourself to observe how it maintains the book — that is the only way to learn its behavior, its source is gone. The format: messages are self-delimiting with types `A` AddOrder `ref` `side` B/S `price` ticks `size`, `E` OrderExecuted `ref` `exec_size`, `X` OrderCancel `ref` `cancel_size`, `D` OrderDelete `ref`, `U` OrderReplace `orig_ref` `new_ref` `price` `size`. Snapshot prints bids by price desc, asks by price asc, and within each level orders in queue order as `ref:size` — including entries whose details you need to discover by probing.
+
+Samples are under `/app/sample/` with a few `*.feed` files and the reference's output `*.expected` so you can bootstrap the output format without guessing. Formatting is inferable; the rebuilder rules are not — the sample deliberately under-covers.
+
+Write your own rebuilder at `/app/build_book.py`, same CLI: first argument is the feed path, ordered snapshot to stdout, byte-exact identical to `/opt/refbook/refbook` on the same input. We will grade with a batch of replay files whose order ids, prices, and sizes are disjoint from samples, comparing stdout byte-for-byte to the old program's output on those files. In the grading environment `/opt/refbook/refbook` will be deleted, so calling the black box won't work — you must truly reproduce its book logic. Don't hardcode samples; implement the rules.
+
+There are more steps after this; conserve resources and keep the fix minimal.

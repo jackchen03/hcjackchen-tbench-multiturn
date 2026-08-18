@@ -1,0 +1,36 @@
+{
+  "taskSlug": "crosslinked-block-victim-real-block-pivot",
+  "canaryGuid": "TBENCH-MT-FSINT-XLINK-24-ac3c809e-ad1b-475d-a562-0488d8299043",
+  "difficulty": "hard",
+  "category": "filesystem-internals",
+  "dynamics": ["context-following", "context-overriding"],
+  "stepArtifacts": {
+    "1": ["/work/disk.img"],
+    "2": ["/solution/repair"],
+    "3": ["/solution/repair"]
+  },
+  "overExecMap": {
+    "1": ["/solution/repair"],
+    "2": ["/tmp/deep_test_scratch.img"]
+  },
+  "recall_resistance": {
+    "1": "e2fsck -fy clone heuristic textbook but WRONG; need fusing duplicate+leak and interior-of-run direction via probing",
+    "2": "hardcoded offsets from example fail held-out disjoint layout; must parse sb/gdt generically",
+    "3": "depth-0 inline only + single leak==victim fails deep index and multi-leak; need full tree walk + selective free",
+    "cross": "carry leak IS data S1->S2 but override to selective free vs assign S2->S3"
+  },
+  "partial_failure_mode": {
+    "1": "runs e2fsck -fy and stops, victim holds aggressor bytes, or patches wrong direction",
+    "2": "hardcodes D/P_B offsets from disk.img, passes local but fails held-out, or clones dup",
+    "3": "keeps depth 0 parser deep stays dup fail, or picks wrong leaked among multiple, or fails to clear genuine leaks",
+    "cross": "creates repair in step1 over-exec, loses exec bit, overwrites disk.img fix"
+  },
+  "mechanism": "coupled cross-linked + leaked where leak IS victim data + interior-run victology + generic extent parsing + depth index walk + selective assign vs free",
+  "predicted_rates": {
+    "Avocado": ["3/5", "2/3", "1/2"],
+    "weak": ["0/5", "0/3", "0/2"]
+  },
+  "originalSingleTurnSlug": "cross-linked-block-where-the-victim-s-real-block-24",
+  "originalSingleTurnFamily": "filesystem-internals",
+  "tags": ["multi-turn", "context-following", "context-overriding"]
+}

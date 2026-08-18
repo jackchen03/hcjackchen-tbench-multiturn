@@ -1,0 +1,57 @@
+schema_version = "1.1"
+
+[task]
+name = "filesystem-internals/nonstandard-journal-reimpl-pivot"
+description = "Differentially reimplement nonstandard jbd2-like journal replayer from opaque binary /app/reference/jrecover with 4 coupled quirks (strict > revoke, conditional inline UUID tag geometry, non-magic escape sentinel, nonstandard crc32c seed/range), then audit committed/revoke/escape relying on exact dialect, then overriding pivot to canonical jbd2 recovery dropping all quirks."
+authors = []
+
+[metadata]
+difficulty = "hard"
+category = "iterate_on_feature"
+tags = ["multi-turn", "context-following", "context-overriding"]
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+allow_internet = false
+
+[[steps]]
+name = "1_byte-exact-nonstandard-reimpl"
+dependencies = []
+min_reward = 1.0
+
+[steps.verifier]
+timeout_sec = 600.0
+
+[steps.agent]
+timeout_sec = 1800.0
+
+[[steps]]
+name = "2_audit-committed-revoke-escape"
+dependencies = ["1_byte-exact-nonstandard-reimpl"]
+min_reward = 1.0
+inherit_prior_session = true
+
+[steps.verifier]
+timeout_sec = 600.0
+
+[steps.agent]
+timeout_sec = 1800.0
+
+[[steps]]
+name = "3_pivot-canonical-jbd2-recovery"
+dependencies = ["2_audit-committed-revoke-escape"]
+min_reward = 1.0
+inherit_prior_session = true
+
+[steps.verifier]
+timeout_sec = 600.0
+
+[steps.agent]
+timeout_sec = 1800.0

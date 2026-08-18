@@ -1,0 +1,7 @@
+We have an incremental SfM pipeline under /app, entry is sfm_reconstruct.py. It reads a scene file containing camera intrinsics, camera poses, and precomputed pairwise feature matches with 2D observations, builds feature tracks with union-find, does two-view initialization, incremental camera registration and triangulation, then a final global bundle adjustment, and exports a 3D point cloud.
+
+The pipeline runs without error, the exported cloud looks clean and dense, RMS reprojection is low, logs show track counts and lengths in normal range. But when the recovered cloud is aligned against a hidden reference surface (same datum — camera 0 identity and pinned baseline scale already fixed by the scene, don't change it), it is systematically off — some regions drift, a small cluster of points is clearly off-surface, chamfer distance stays high and fails downstream geometric consistency.
+
+Fix the pipeline so the reconstructed cloud actually sticks to the reference surface on this class of scenes (both mean chamfer and high-percentile / tail chamfer plus outlier count under thresholds), not just low average residual. Keep existing CLI: still use --scene to pass scene file and --out to write result; output still as .npz with 3D points under key points (N×3 float64 world coordinates) and keep the scene's fixed datum/scale convention (camera 0 fixed etc). Don't introduce new bias elsewhere — reference checks from multiple angles.
+
+Sample scene for probing is at /app/sample_scene.npz. More steps follow; conserve resources.

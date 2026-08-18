@@ -1,0 +1,11 @@
+We have ext4 filesystem images that are just regular files, not mounted block devices. No mount, no root, no loop or fuse in this container — you can only read/write their raw bytes as a normal file or use userspace tools that work without mounting like `debugfs`, `dumpe2fs`, `fsck.ext4 -n` from `e2fsprogs`.
+
+One image is corrupted. At first glance it looks fine: `ls` lists every file and each file opens and reads. But careful check shows two files have `i_links_count` mismatched vs actual number of directory entries pointing to them — one file's count is more than real dirents, another less. Meanwhile one path still accessible but now serves a completely unrelated object — reading it gives another file's bytes.
+
+The image was fully correct before corruption; damage touched only a few bytes. We need to restore it to byte-exact original before corruption, not just any `fsck` clean self-consistent state. Notably, setting each file's `i_links_count` to equal currently counted dirents pointing to it yields self-consistent but WRONG result and fails byte-compare.
+
+Make your logic a reusable executable at `/workdir/repair.sh` called as `/workdir/repair.sh <input image> <output image>`: it reads a damaged image and writes restored image at second path. Shipped sample to debug is `/workdir/case/broken.img`. Hidden tests will call same script on different corrupted images and byte-compare output to hidden pristine originals — must be identical, so don't hardcode sample bytes.
+
+Inside: you need raw directory block scan, count dirent references per inode, find exactly two inodes where `i_links_count != counted_refs`, and among dirents pointing at over-referenced inode, impostor is UNIQUE dirent whose `file_type` byte (1 for `EXT2_FT_REG_FILE`, 7 for `EXT2_FT_SYMLINK`) disagrees with target inode's `i_mode` type bits. That surviving `file_type` residual reveals the clobbered entry — the 4-byte little-endian `inode` field of that dirent was overwritten. Restore it to under-referenced inode.
+
+After restore `/workdir/repair.sh` should produce image where `fsck.ext4 -n` is clean, every dirent's `file_type` matches its target inode mode, and every `i_links_count` equals counted refs WITHOUT having modified any `i_links_count` or `file_type` byte yourself — only the 4-byte inode field.

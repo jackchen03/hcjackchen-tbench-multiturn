@@ -1,0 +1,57 @@
+schema_version = "1.1"
+
+[task]
+name = "filesystem-internals/sparsepack-three-state-archive-pivot"
+description = "Reimplement opaque sparsepack three-state archive byte-for-byte via 3-step reverse-engineering: basic SPK1 layout with hole/written and written-only rolling CRC, then unwritten type trichotomy and written-zeros, then physical-tree segmentation that forbids merging across extent leaf boundaries on >340-extent two-level trees."
+authors = []
+
+[metadata]
+difficulty = "hard"
+category = "reverse_engineering"
+tags = ["multi-turn", "context-following", "context-overriding"]
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+allow_internet = false
+
+[[steps]]
+name = "1_reverse-basic-spk-format"
+dependencies = []
+min_reward = 1.0
+
+[steps.verifier]
+timeout_sec = 600.0
+
+[steps.agent]
+timeout_sec = 1800.0
+
+[[steps]]
+name = "2_handle-unwritten-and-written-zeros"
+dependencies = ["1_reverse-basic-spk-format"]
+min_reward = 1.0
+inherit_prior_session = true
+
+[steps.verifier]
+timeout_sec = 600.0
+
+[steps.agent]
+timeout_sec = 1800.0
+
+[[steps]]
+name = "3_fix-physical-tree-segmentation"
+dependencies = ["2_handle-unwritten-and-written-zeros"]
+min_reward = 1.0
+inherit_prior_session = true
+
+[steps.verifier]
+timeout_sec = 600.0
+
+[steps.agent]
+timeout_sec = 1800.0
