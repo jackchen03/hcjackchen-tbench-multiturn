@@ -1,0 +1,9 @@
+Profiled your fixed solver on larger rigs from held-out seeds — sigma span 0.1–5 px, camera rigs and point clouds disjoint from /app/sample_problem.npz.
+
+After step 2 the small sample passes chi-square, but profiling shows the solver still carries a dual code path: /app/ba_refine.py still contains reproj_error_px helper that recomputes raw unwhitened pixel errors and linear_predicted_reduction_raw helper that builds predicted reduction from raw residuals and unwhitened Jacobian. Logging fallback can trigger the raw path, so rho compares weighted actual vs unweighted predicted and reproduces early-stop under wide sigma. Previous patch fixed predicted for the main path but old helpers are still present and referenced — a second problem family with different sigma bucketing hits the fallback and fails again.
+
+Pivot to a single weighted path: rewrite the LM loop as a clean heteroscedastic weighted Levenberg-Marquardt where both actual reduction C(x)-C(x+dx) and predicted reduction come from the same weighted linearization (weighted g = J_white^T r_white, H = J_white^T J_white). Remove reproj_error_px and linear_predicted_reduction_raw entirely — they must not exist in final /app/ba_refine.py. Drop any averaged sigma clamping or per-bucket normalization introduced as a quick fix. This is an overriding pivot: abandon the dual-path patch approach and use one unified weighted path.
+
+Also write /workdir/unified_weighted_proof.json confirming single weighted path and listing removed helpers ["reproj_error_px", "linear_predicted_reduction_raw"].
+
+Keep CLI --input/--output, output keys points and poses with existing conventions, and datum/gauge fixing first camera fixed as before. The bundle adjustment must still converge to GT-consistent structure and whitened residuals must pass reduced chi-square near 1 on held-out rigs.

@@ -1,0 +1,9 @@
+We have a small tool at `/app/rebuild.py` that rebuilds an aggregated L2 book from an L3 order-by-order feed. Usage is `python3 /app/rebuild.py <feed_file> <output_json>`. It reads the feed line by line, maintains resting order state, and writes the final aggregated book to the output path you give it.
+
+A sample is in `/app/sample/` with `feed.txt` and the correct book `expected.json` for that feed. If you run `python3 /app/rebuild.py /app/sample/feed.txt /tmp/out.json` and compare to `/app/sample/expected.json`, the rebuilt book diverges — some price levels show double the volume or missing orders, sometimes size goes negative, best bid can cross best ask, and the top-of-book is wrong. The feed itself looks well-formed — every line has valid fields like `order_id`, `price`, `quantity`, `side` — you only see the problem after replaying to L2 and reconciling per level.
+
+The feed contains event types `ADD`, `REPLACE`, `REPRICE`, `CANCEL` (mapped in the file as `A|seq|order_id|side|price|size`, `X|seq|order_id|size`, `E|seq|order_id|exec_size`, `T|seq|exec_id|order_id|price|exec_size`, `R|seq|old_order_id|new_order_id|new_price|new_size`). Naive rebuild double counts REPLACE as ADD+DELETE or double counts REPRICE/executions as new quantity, because it applies both execution streams to the book and keeps stale price levels.
+
+Fix `/app/rebuild.py` so it correctly rebuilds L2 for any feed of the same format. Keep the CLI `python3 /app/rebuild.py <feed_file> <output_json>` and the output format: a JSON object with `bids` and `asks` fields, each a list of `[price, quantity]` where price and quantity are integers, `bids` sorted from high to low price, `asks` from low to high, and only price levels with remaining quantity > 0 included. Example output path is `/app/l2_book.json` but the tool must respect whatever output path is passed.
+
+There are more steps after this; conserve resources and keep the fix minimal.

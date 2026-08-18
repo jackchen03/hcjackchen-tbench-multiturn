@@ -1,0 +1,7 @@
+New evidence from the late trace: top-of-book is still wrong because reprice was double counted after worker fanout, and price-time priority was violated because worker reordering happened under replace-reprice.
+
+The exchange's `REPRICE` logic is not prior-price removal plus new price add. It is an in-place price move that preserves time priority — same `order_id` keeps its queue position when its `price` changes, not a delete-then-add that appends to the tail. The old approach that did `CANCEL` at old price then `ADD` at new price loses priority and fails fencing, and under fanout the same event applied twice double counts quantity.
+
+Pivot the implementation: handle `REPRICE` as in-place move preserving priority queue order, not creating a new `order_id`. Keep `REPLACE` (old→new id) as remove old / add new with fresh priority, but `REPRICE` (same `order_id`) must move price without resetting time priority. Remove the old double-count handling and delete-then-add path for `REPRICE`. The final book must have no duplicate `order_id`, correct aggregated size per price level, bids descending and asks ascending, and must pass worker fanout idempotency and price-time priority checks.
+
+Ensure `/app/rebuild.py` still satisfies `python3 /app/rebuild.py <feed_file> <output_json>` producing `{"bids": [[price, quantity], ...], "asks": [[price, quantity], ...]}` with integer fields and no level with quantity <= 0.
