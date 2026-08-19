@@ -1,3 +1,0 @@
-f683cfe0b85411af5b7b9995e6fc0b174c66216fbc25ea10b4b8c6285c0ccf38  steps/1_match-kernel-offline-sparse/instruction.md
-7698ea4fe629bbc60b909786ccf90f216a2b1aa5d1bc58b837d8f96901e8886d  steps/2_handle-unwritten-and-eof-cutoff/instruction.md
-86f33074c1a3f9903770781220d5fcc1fa242730c5d446e20b18ce83b57a6aae  steps/3_raw-parser-no-debugfs-and-straddle/instruction.md

@@ -1,3 +1,0 @@
-98b37e077e431ea694c5e30a45cb05c2ed7f41a0018268f5356914810994d124  steps/1_fsm-byte-match-heapload/instruction.md
-0d6415e5ba6f7e6b6491cd47943c1a759e1e04d2dc3c4bdc8fe2792e9afd91f9  steps/2_persist-state-after-insert/instruction.md
-e0bb4162a438e76b4d456c77047970cd7466a42c117f2732f8cb637fe01db881  steps/3_pivot-append-only-drop-fsm/instruction.md

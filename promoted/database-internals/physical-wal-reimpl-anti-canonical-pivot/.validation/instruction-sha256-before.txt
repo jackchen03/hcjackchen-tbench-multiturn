@@ -1,3 +1,0 @@
-05b7408c6ff55778849a4b3211fd61b5620e5dee2d9ffc0d189adaf063b9333c  steps/1_byte-match-wal-replay/instruction.md
-7c04683e23076faee0bad92a6c0e104ba679233839abae6e4a7ff8570b346695  steps/2_checkpoint-recovery-verification/instruction.md
-7ef20c75566e1b68a5b3f14f265518ed26377306c0d1cc1e578f42b10bb5b9be  steps/3_pivot-logical-wal-drop-physical/instruction.md
