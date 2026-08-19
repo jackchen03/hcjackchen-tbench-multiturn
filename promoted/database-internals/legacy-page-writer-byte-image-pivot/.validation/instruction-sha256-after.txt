@@ -1,0 +1,3 @@
+764e1ab501dd74cd8fef95b0268666ec87b26362e644f9af9e6f2f845aef1ee4  steps/1_bulk-and-slot-layout/instruction.md
+0251245dcc2ecca595df819dede5fd172a9caff600522f535c5395301f5f6710  steps/2_delete-reinsert-sliver-reuse/instruction.md
+11ee6b0a6f575d8583db3a3b6f51fe8b341404772cf87a93a3d91c591b2c2543  steps/3_compaction-cascade-reclaim-pivot/instruction.md

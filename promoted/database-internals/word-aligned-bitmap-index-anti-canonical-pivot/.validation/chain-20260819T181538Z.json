@@ -1,0 +1,15 @@
+{
+  "task": "word-aligned-bitmap-index-anti-canonical-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "FAIL",
+      "detail": "docker build failed"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "0/2 probed",
+  "unproven": true
+}

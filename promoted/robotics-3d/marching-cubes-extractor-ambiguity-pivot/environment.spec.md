@@ -19,7 +19,7 @@ FROM public.ecr.aws/docker/library/python:3.11-slim
 ## Planted state (must cover ALL steps, built deterministically)
 
 Build stage (author side, not agent visible source):
-1. Compile refmc: author has Python source `refmc.pyx` implementing reference extractor with Layer A (per-cell min-max rescale g=(f-cmin)/(cmax-cmin), alpha_g) + Layer B (face_owner raster ownership). Uses same case table as mymc.py and same linear interpolation. Cython compile to binary `refmc` via `cython --embed` or PyInstaller `--onefile`, strip symbols. Output installed to `/usr/local/bin/refmc`, `chmod +x`, `chown root:root`, `chmod 755`, not writable by agent. Source deleted after build: `rm -rf /author_src`.
+1. Compile refmc: author has Python source `refmc.pyx` implementing reference extractor with Layer A (per-cell non-linear min-max rescale t=(f-cmin)/(cmax-cmin), g=t**1.5 non-affine warp, alpha_g=((iso-cmin)/(cmax-cmin))**1.5) + Layer B (face_owner raster ownership x-fastest lower-coord owner). The non-affine warp is required because affine min/max rescaling is mathematically invariant (S_g = a*S+b) and cannot change saddle decision or cause neighboring cells to disagree; non-linear warp CAN. Uses same case table as mymc.py and same linear interpolation. Cython compile to binary `refmc` via `cython --embed` or PyInstaller `--onefile`, strip symbols. Output installed to `/usr/local/bin/refmc`, `chmod +x`, `chown root:root`, `chmod 755`, not writable by agent. Source deleted after build: `rm -rf /author_src`.
 
 Runtime image ships:
 

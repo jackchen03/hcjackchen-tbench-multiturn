@@ -4,4 +4,12 @@ Extend the same binary at `/app/btapply` (overwrite it, keep the same path and u
 
 We will now validate on all streams, including those in `/app/samples/` that trigger splits and merges, plus larger held-out streams with delete-heavy patterns, variable-length keys crafted so byte-fill vs key-count underflow differs, and cascades of split then merge. You need to discover the split point rule, the underflow trigger quantity and threshold, when compaction of ghosts happens, and which sibling is preferred for borrow and merge.
 
-Also write `/app/split_boundary.json` with the thresholds and sibling preference you discovered, containing exactly keys `split_pct`, `merge_pct`, `borrow_order`, `merge_order` — for example `{"split_pct":<int>,"merge_pct":<int>,"borrow_order":["right","left"],"merge_order":["right","left"]}`. The integer values must be the actual percentages you reverse engineered. This file is part of this step's contract.
+Deterministic byte-fill formulas you must match:
+
+- Page size = 256, header = 16, slot dir = nslots*2, usable_bytes = 256 - 16 - (nslots*2).
+- Old dialect live-byte accounting: live_bytes counts only live cells, excluding ghost slots and dead cells.
+- Split: when (live_bytes + new_cell_bytes) > usable_bytes * split_pct / 100 where split_pct=55. Split point = smallest i where sum(live bytes left) <= 55% usable. More precisely, split point = smallest i where sum(live bytes of left partition in key order) <= 55% of usable_bytes. Left takes as many live cells as keeps sum <= usable*55/100, right gets remainder, separator pushed up. This is byte-based, not median key-count.
+- Merge trigger: merge trigger = live_bytes < 40% usable, borrow-right-first, merge-right-first. Formal: when live_bytes < usable_bytes * merge_pct / 100 where merge_pct=40. Borrow-right-first: try borrow one entry from right sibling if right stays >=40% live-fill after lend; else borrow-left-first under same guard; else merge-right-first (merge with right if exists, else left). Any borrow/merge rewrites involved pages — compaction purges ghosts/slack and repacks live cells.
+- Compaction only on structural rewrite (split/merge/borrow), not on every delete.
+
+Also write `/app/split_boundary.json` with the thresholds and sibling preference you discovered, containing exactly keys `split_pct`, `merge_pct`, `borrow_order`, `merge_order` — for example `{"split_pct":55,"merge_pct":40,"borrow_order":["right","left"],"merge_order":["right","left"]}`. The integer values must be the actual percentages you reverse engineered (55 and 40). This file is part of this step's contract.

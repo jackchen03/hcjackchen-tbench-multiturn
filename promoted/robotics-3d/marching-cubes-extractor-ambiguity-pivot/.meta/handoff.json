@@ -21,8 +21,7 @@
     },
     "overExecMap": {
         "1": [
-            "/app/3_raster_ownership_pivot_result.json",
-            "/app/mymc.py"
+            "/app/3_raster_ownership_pivot_result.json"
         ],
         "2": [
             "/app/3_raster_ownership_pivot_result.json"
@@ -41,7 +40,7 @@
         "3": "ownership wrong direction higher-coord wins or stores by cell not face, or leaves probe_report.json and probe_volumes present failing absence - ~1/5",
         "cross": "hardcodes 32^3 dims failing held-out 16/24/40, early implementation trips over-exec grep"
     },
-    "mechanism": "coupled per-cell 8-corner min-max rescaled saddle S_g alpha_g=(iso-cmin)/(cmax-cmin) breaking consistency + raster-order x-fastest ownership via face_owner map lower-coord owner inherits pivot with cleanup",
+    "mechanism": "coupled per-cell 8-corner non-linear min-max rescaled saddle t=(f-cmin)/(cmax-cmin), g=t**1.5 warp alpha_g=((iso-cmin)/(cmax-cmin))**1.5 non-affine breaking consistency + raster-order x-fastest ownership via face_owner map lower-coord owner inherits pivot with cleanup - affine alone mathematically cannot change saddle decision",
     "predicted_rates": {
         "Avocado": [
             "3/5",

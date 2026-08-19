@@ -1,0 +1,63 @@
+{
+  "task": "word-aligned-bitmap-index-anti-canonical-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-word-aligned-bitmap-index-anti-canonical-pivot:validate"
+    },
+    {
+      "step": "1_byte-match-bitmap-index",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "6 executed, 0 skipped, 6 failed, 0 errored"
+    },
+    {
+      "step": "1_byte-match-bitmap-index",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_byte-match-bitmap-index",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "6 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_add-query-path",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "7 executed, 0 skipped, 5 failed, 0 errored"
+    },
+    {
+      "step": "2_add-query-path",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_add-query-path",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "7 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-uncompressed-drop-wah",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "5 executed, 0 skipped, 4 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-uncompressed-drop-wah",
+      "phase": "ORACLE",
+      "status": "FAIL",
+      "detail": "exit 1"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "0/2 probed",
+  "unproven": true
+}

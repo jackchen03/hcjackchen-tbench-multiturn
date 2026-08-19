@@ -334,3 +334,10 @@ filesystem-internals
 ## Tags
 
 multi-turn, context-following, context-overriding
+
+## Phase 2 builder addendum — 2026-08-19
+
+- The deterministic corruption preserves a normal SQLite body but destroys the header and appends a compressed authoritative live-row recovery record plus a ghost decoy.
+- Hidden tests generate disjoint row values with the same corruption mechanism, preventing hardcoded sample rows.
+- 4D disposition step 2: `test_recovered_live_table_regression_is_unchanged` explicitly rechecks the carried table before validating checksums.
+- 4D disposition step 3: `test_lr01_binary_records_are_sorted_and_byte_exact` validates the complete carried row set while enforcing the overriding archive format.

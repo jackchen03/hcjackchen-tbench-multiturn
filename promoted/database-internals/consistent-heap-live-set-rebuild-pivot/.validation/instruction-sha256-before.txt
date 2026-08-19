@@ -1,0 +1,3 @@
+fd6d2d2e0cbad837b6f4216fe1a14ed1f0a31fc5006020f771bf10272c0e3ac1  steps/1_reconstruct-live-set/instruction.md
+26a44da19a55d65ed249ff4ef92b75938c1aebe2528e64ac88e3533ca4ef7f0b  steps/2_rebuild-fsm-from-live-set/instruction.md
+7658073a70751ef32812c0c33f754406ba1d5f8c2df67aeed869d1fcbf426bbc  steps/3_fsm-residual-override-pivot/instruction.md

@@ -23,8 +23,7 @@
     },
     "overExecMap": {
         "1": [
-            "/app/fix_report.txt",
-            "/tmp/out.img"
+            "/app/replay"
         ],
         "2": [
             "/app/fix_report.txt"

@@ -3,15 +3,15 @@ schema_version = "1.1"
 [task]
 name = "filesystem-internals/nonstandard-journal-reimpl-pivot"
 description = "Differentially reimplement nonstandard jbd2-like journal replayer from opaque binary /app/reference/jrecover with 4 coupled quirks (strict > revoke, conditional inline UUID tag geometry, non-magic escape sentinel, nonstandard crc32c seed/range), then audit committed/revoke/escape relying on exact dialect, then overriding pivot to canonical jbd2 recovery dropping all quirks."
-authors = []
+authors = [{ name = "Jack Chen", email = "hcjackchen@meta.com" }]
 
 [metadata]
 difficulty = "hard"
 category = "iterate_on_feature"
 tags = ["multi-turn", "context-following", "context-overriding"]
-
-[agent]
-timeout_sec = 1800.0
+author_name = "Jack Chen"
+author_email = "hcjackchen@meta.com"
+reward_type = "binary"
 
 [environment]
 build_timeout_sec = 600.0

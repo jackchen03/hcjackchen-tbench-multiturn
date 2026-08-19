@@ -231,3 +231,11 @@ cat /app/profile_trace/README.md
 ## Original single-turn mechanism preserved
 - Load-bearing chain: feedback-triggered trim + per-correspondence normal-gated metric switch + freeze-at-stabilization. New addition: pivot to deterministic indexed search.
 - Original fixtures: clean, partial-overlap, outlier-contaminated, golden poses, basin margin >1e-2 rad.
+
+## Phase-2 implementation addendum
+
+- The opaque oracle is compiled to source-stripped CPython bytecode in a Docker builder stage; `oracle_impl.py` is absent from the runtime image. Hidden pairs and goldens live under `/opt/grader`, not `/tests`, because the multi-turn verifier mount replaces `/tests` at each step.
+- Deterministic fixtures use known rigid transforms but no transform metadata is stored in agent-readable PLY files. Clean pairs contain one coherent cluster; partial pairs add distant unmatched source clutter; outlier pairs contain a second coherent cluster whose target normals are incompatible with its source normals.
+- `4D disposition step 2: mutated — test_preserves_clean_and_partial_poses reruns every step-1 family before grading outliers.`
+- `4D disposition step 3: mutated — test_preserves_all_sparse_poses reruns clean, partial, and outlier families after indexed-search replacement.`
+- Boundary 1 is behaviorally enforced by requiring the shipped outlier pair to remain outside tolerance after step 1, alongside literal absence of `cKDTree`; boundary 2 requires literal `cKDTree` absence.

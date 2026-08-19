@@ -5,5 +5,4 @@ The crash happened mid-write of the top merge. Its header is intact so `header_c
 Fix it: for each partition, full run set is `0..max(consumed_runs)`. Per group, pick the frontier antichain — the highest-level durable batches whose `consumed_runs` sets are disjoint and union to the full set (e.g., group the top durably rolled up → frontier {top}; group past torn point → frontier {level-1 over {0,1}} ∪ {leftover level-0 {2}}). Combine frontier states with real combine (int-add SUM, set-UNION distinct). Keep same binary path `/app/recover` and same output contract (`\t` separated, sorted by `group_key`, `\n`).
 
 More steps follow; conserve resources.
-This step must handle drop hash partitioning correctly.
 Additionally, write a short JSON report of what you fixed to /app/2_merge-partial-aggregates_report.json.

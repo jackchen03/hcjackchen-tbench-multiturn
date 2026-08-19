@@ -202,6 +202,18 @@ No root [verifier]/[agent]
 
 - **Step3 omitted:** internal hash implementation details (rotation, split), exact JSON value sorting method (decoder), that old binary must be removed? Actually kept removal requirement as part of pivot legibility: "old per-file binary must be absent" is kept because hidden test asserts absence and solver can't infer otherwise — absence is non-inferable contract. Also kept bulk calling convention and output path /app/buckets.json and sorting requirement (lexicographically by raw byte) as non-inferable contract. Omitted: that bulk should reuse premix logic.
 
+## Phase-2 builder addendum
+
+- The runtime oracle is a stripped ELF launcher with the canary retained and its Python implementation encoded in the binary. Oracle source and build generators are absent from the final image.
+- The appliance fixture is a deterministic 32 MiB sparse image carrying only the advertised htree/half-MD4 probe surface; grading is driven by independent hash vectors rather than mounting the image.
+- Step 1 validates twenty ASCII vectors across four seeds and multiple transform-block lengths. Its immediate Step-2 boundary is behavioral: the major word must already match on a high-bit probe while the future unsigned minor must still differ.
+- 4D disposition step 2: `/usr/local/bin/dirhash` is intentionally overridden. `test_ascii_regression_remains_exact` preserves the Step-1 contract, while `test_full_byte_range_matches_both_hash_words` proves the signed-major/unsigned-minor split on all forty vectors.
+- Step 1 and Step 2 both require `/usr/local/bin/dirhash-bulk` and `/app/buckets.json` to remain absent, guarding the later workflow pivot.
+- 4D disposition step 3: the per-file executable is intentionally removed. Two hundred raw-byte names are bucketed by major hash and round-tripped through JSON using surrogateescape; each bucket is checked against bytewise ordering and both old single-file workflows must be absent.
+- Every per-file verifier removes the oracle before invoking the candidate, so delegation cannot satisfy the fixed independent vectors.
+- The phrase about a seed on the first line is resolved by the immediately stated normative CLI: `dirhash-bulk <seed_hex> <names_file>`; the names file contains filenames only.
+- Oracle ×3, model trials, difficulty balance, contamination, provenance, registration, and cloud validation remain unmeasured.
+
 Each step's title keywords appear in body: dirhash, htree, ext4, placement, pivot.
 
 ## Canary GUID

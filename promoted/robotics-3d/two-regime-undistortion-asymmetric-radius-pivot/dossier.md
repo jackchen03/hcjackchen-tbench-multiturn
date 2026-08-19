@@ -275,3 +275,10 @@ python3 -c "
 
 - Load-bearing chain: fixed threshold R_TH=0.35 on distorted radius, inner converged true inverse vs outer truncated single-step, radial-only warm start u0 = x_d / radial(rd^2), mixed-domain tangential using rd2. New addition: 3-step split with over-execution guards and pivot to mixed-domain.
 - Original fixtures: held-out cameras with coeffs disjoint, points sampled INNER, NEAR-OUTER, FAR-CORNER, golden precomputed at build, oracle source deleted after compilation, grade hides oracle before import.
+
+## Phase 2 builder addendum — 2026-08-19
+
+- The final image contains only the stripped `undistort_ref` executable; its C source exists solely in the Docker builder stage and is not agent-readable.
+- Hidden tests use three cameras and points disjoint from the shipped samples, and compute the specified dialect directly without calling the opaque reference.
+- Immediate boundary guards are behavioral: step 1 must still differ from the radial warm-start output, and step 2 must still differ from the mixed-domain far-corner output. The sample paths are planted for probing, so path absence is deliberately not used as a boundary assertion.
+- Each step requires the exact intended intermediate map, preserving the converged inner branch and rejecting both premature successor behavior and regression of prior state.

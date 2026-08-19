@@ -1,0 +1,3 @@
+afee518be1c613eab11c98e88d39c557a034d97b2a2b3d65237e8a0703eaa1e8  steps/1_inventory-corrupted-sqlite/instruction.md
+9f66a4d619c8c1f1ede336940127cde8ee4bfa3ccb92229b0fe537b9c6cafe53  steps/2_reassemble-overflow-blobs/instruction.md
+c69c7d46d72773ba617d8b0f6ec01fd4be6e07920ff9f8062b5f1e1302b24339  steps/3_migrate-to-content-addressed-store/instruction.md

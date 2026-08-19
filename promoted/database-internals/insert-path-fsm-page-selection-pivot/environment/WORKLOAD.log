@@ -1,0 +1,3 @@
+WORKLOAD=APPEND_ONLY
+reads=0 deletes=0
+fragmentation audit: FSM scattering raises random I/O and tail latency

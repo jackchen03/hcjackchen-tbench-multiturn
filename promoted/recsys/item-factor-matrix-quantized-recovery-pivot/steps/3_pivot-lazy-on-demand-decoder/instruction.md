@@ -10,3 +10,5 @@ Both must return the same correct factors as before (including the head correcti
 Drop the old eager full-matrix allocation: __init__ must not allocate a (num_items, factor_dim) float32 array upfront, and the main decode path should not build the entire dense matrix unless explicitly asked via the wrapper. The previous approach of allocating a full dense array in the constructor or in get_item_factor should be removed.
 
 get_head_flags and /app/ckpt/head_diagnostics.json from the prior step should continue to work.
+
+Additionally, write a short JSON report to /app/2_item-factor-matrix-quantized-recovery-pivot_guard_3_pivot-lazy-on-demand-decoder.json tracking this step's output.

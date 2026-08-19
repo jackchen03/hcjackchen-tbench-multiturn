@@ -9,10 +9,12 @@
     ],
     "stepArtifacts": {
         "1": [
-            "/app/annindex/index.bin"
+            "/app/annindex/index.bin",
+            "/app/original_neighbors.json"
         ],
         "2": [
-            "/app/annindex/index.bin"
+            "/app/annindex/index.bin",
+            "/app/original_neighbors.json"
         ],
         "3": [
             "/app/annindex/index.bin"

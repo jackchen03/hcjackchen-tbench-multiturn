@@ -1,17 +1,18 @@
 schema_version = "1.1"
 
 [task]
-name = "filesystem-internals/vfat-anti-canonical-reimpl-pivot"
-description = "Byte-for-byte reimplementation of anti-canonical VFAT directory-entry generator with quirky dialect (global tail, always-LFN, extra slot at %13==0), then listing/recovery relying on exact format, then overriding pivot to canonical representation and different cluster-chain format dropping prior quirks."
-authors = []
+name = "codimango/vfat-anti-canonical-reimpl-pivot"
+description = "Reimplement an anti-canonical VFAT directory dialect, recover its long names, then pivot to canonical representation and cluster manifests."
+authors = [{ name = "Jack Chen", email = "hcjackchen@meta.com" }]
+keywords = ["vfat", "directory", "lfn", "short-name", "canonical", "pivot"]
 
 [metadata]
+author_name = "Jack Chen"
+author_email = "hcjackchen@meta.com"
 difficulty = "hard"
 category = "iterate_on_feature"
+reward_type = "binary"
 tags = ["multi-turn", "context-following", "context-overriding"]
-
-[agent]
-timeout_sec = 1800.0
 
 [environment]
 build_timeout_sec = 600.0
@@ -20,38 +21,35 @@ memory_mb = 2048
 storage_mb = 10240
 gpus = 0
 allow_internet = false
+mcp_servers = []
+[environment.env]
+[solution.env]
 
 [[steps]]
 name = "1_byte-exact-vfatdir-reimpl"
 dependencies = []
 min_reward = 1.0
-
 [steps.verifier]
-timeout_sec = 600.0
-
+timeout_sec = 1800.0
 [steps.agent]
 timeout_sec = 1800.0
 
 [[steps]]
 name = "2_listing-recovery"
 dependencies = ["1_byte-exact-vfatdir-reimpl"]
-min_reward = 1.0
 inherit_prior_session = true
-
+min_reward = 1.0
 [steps.verifier]
-timeout_sec = 600.0
-
+timeout_sec = 1800.0
 [steps.agent]
 timeout_sec = 1800.0
 
 [[steps]]
 name = "3_pivot-canonical-representation"
 dependencies = ["2_listing-recovery"]
-min_reward = 1.0
 inherit_prior_session = true
-
+min_reward = 1.0
 [steps.verifier]
-timeout_sec = 600.0
-
+timeout_sec = 1800.0
 [steps.agent]
 timeout_sec = 1800.0

@@ -1,0 +1,8 @@
+Image: tbench-mt-byte-match-external-merge-intermediate-pivot:validate
+Chain evidence: chain-20260819T182734Z.json
+Initial /app/refpolysort: present, executable mode 0755, ELF magic 7f454c46
+Reference lifecycle: executes successfully and reproduces the planted multi sample output plus all 8 spill files byte-for-byte
+Initial /app/polysort: absent
+Opaque-source audit: /app/refpolysort.py, /app/build_reference.py, /app/generate_samples.py, and /build are absent
+Initial public artifacts: /app/FORMAT.md, /app/profile.map, deterministic samples, and opaque reference only
+Result: runtime contains the intended discovery surface without reference source or a pre-solved candidate artifact.

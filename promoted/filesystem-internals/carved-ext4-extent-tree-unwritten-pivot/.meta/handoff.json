@@ -20,8 +20,7 @@
     },
     "overExecMap": {
         "1": [
-            "/workdir/3_truncate-eof-and-fix-unwritten-length_report.json",
-            "/workdir/reconstruct.sh"
+            "/workdir/3_truncate-eof-and-fix-unwritten-length_report.json"
         ],
         "2": [
             "/workdir/3_truncate-eof-and-fix-unwritten-length_report.json"

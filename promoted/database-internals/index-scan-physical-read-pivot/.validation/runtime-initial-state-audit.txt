@@ -1,0 +1,8 @@
+Image: tbench-mt-index-scan-physical-read-pivot:validate
+Chain evidence: chain-20260819T184706Z.json
+Initial /app/scan: symlink to /app/reference_scan, executable stripped ELF magic 7f454c46
+Initial /verifier/scan: executable stripped ELF magic 7f454c46
+Reference lifecycle: /app/scan executes successfully and reproduces the warm/extent sample final trace byte-for-byte
+Initial /app/scan_demand, /app/scan_prefetch, /app/scan_impl: all absent
+Opaque-source audit: /app/refscan.py, /app/build_reference.py, /app/generate_fixtures.py, and /build are absent
+Result: runtime exposes the intended opaque probing binary and fixtures without source or pre-solved candidate artifacts.

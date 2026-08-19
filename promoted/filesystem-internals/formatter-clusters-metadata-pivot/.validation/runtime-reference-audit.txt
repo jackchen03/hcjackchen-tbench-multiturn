@@ -1,0 +1,13 @@
+Image: tbench-mt-formatter-clusters-metadata-pivot:validate
+Chain evidence: chain-20260819T173349Z.json
+Executable: /app/reference/myfs-mkfs
+Executable mode: present and executable
+First four bytes: 7f454c46 (ELF)
+Readable source paths: absent
+Successor reference paths: absent
+Initial /app/mymkfs: absent
+Initial /app/stride_audit.json: absent
+Initial /app/flex_modulo_audit.json: absent
+dumpe2fs: parsed magic 0xEF53 from a generated image
+debugfs: parsed inode 2 as a directory
+Result: initial runtime image preserves the opaque step-1 reference lifecycle and exposes no future artifact.

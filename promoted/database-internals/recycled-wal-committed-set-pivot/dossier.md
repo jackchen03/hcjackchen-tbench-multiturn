@@ -223,6 +223,13 @@ Original single-turn: reconstruct-committed-set-from-a-recycled-wal-se-6
 Family: database-internals
 Mechanism chain: recycled WAL segment physical generation boundary via block-address + record prev_lsn continuity + valid-CRC stale tail + sorted commit index sidecar + hash pivot dropping ordering.
 
+## Phase 2 builder addendum — 2026-08-19
+
+- Deterministic fixtures include both a mid-block predecessor-chain break and a whole recycled block with a mismatched page address.
+- `INDEX_FORMAT.md` is verifier-staged after the Step-1 contract, so its future format identifiers are absent from the initial solve image.
+- 4D disposition step 2: `test_committed_text_regression_remains_exact` explicitly rechecks the recovered set while the index test pins exact LSNs.
+- 4D disposition step 3: `test_committed_set_regression_survives_hash_pivot` preserves recovery while the CIDY test validates bucket lookup and chaining.
+
 ## Cross-check and decontamination
 
 - Ensure no overlap with existing promoted tasks: byte-exact-lob-recovery-chain-generation-pivot uses overflow.store LOB, not WAL; btree index builder uses B-tree pages; this uses WAL prev_lsn continuity, different mechanism chain.

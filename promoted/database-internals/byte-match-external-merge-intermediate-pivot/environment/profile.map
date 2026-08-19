@@ -1,0 +1,2 @@
+fan-in=3 live_runs=10 merge_steps=4 per_record_scan_cost=O(F)
+switch to k-way heap tournament; preserve all spill files and drop cleanup

@@ -1,0 +1,51 @@
+{
+  "task": "join-output-tuple-order-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-join-output-tuple-order-pivot:validate"
+    },
+    {
+      "step": "1_fit-order-and-spill",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_fit-order-and-spill",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_fit-order-and-spill",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_byte-threshold-recursion",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_byte-threshold-recursion",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_byte-threshold-recursion",
+      "phase": "GREEN",
+      "status": "FAIL",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "0/2 probed",
+  "unproven": true
+}

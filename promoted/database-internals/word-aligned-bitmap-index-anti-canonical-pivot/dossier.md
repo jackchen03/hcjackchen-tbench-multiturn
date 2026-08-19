@@ -219,3 +219,9 @@ Chain completes end-to-end: seed gen -> oracle.py WAH -> step1 byte-match -> ste
 
 ## No solution/, tests/, environment/Dockerfile here — Codex builds.
 
+## Phase-2 builder evidence addendum
+
+- Built the shared environment, deterministic opaque references and held-out fixtures, cumulative reference solutions, fail-closed tests, finalized task metadata, and README without modifying any step instruction.
+- The initial image exposes only `/app/reference/bitmap_index` as a stripped ELF (`7f454c46`), contains no readable reference source, and contains neither `/app/reference/bitmap_index_v2` nor `/app/migration.log`. The v2 ELF is held under grader staging and promoted only after the Step-2 boundary succeeds.
+- Local real-Docker validation proved every step red before its reference work and green afterward: Step 1 `6/6`, Step 2 `7/7`, Step 3 `5/5`, with zero skips or errors in green runs.
+- Both transition replay probes are fail-closed: Step 1 rejects early Step-2 work and Step 2 rejects early Step-3 work. Calibration remains unmeasured because local oracle-chain proof is not a model trial.

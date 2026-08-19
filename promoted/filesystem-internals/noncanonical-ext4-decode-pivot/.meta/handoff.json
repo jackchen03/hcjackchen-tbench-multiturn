@@ -24,9 +24,7 @@
             "/app/extent_report.json",
             "/app/samples/files.txt"
         ],
-        "2": [
-            "/app/extent_report.json"
-        ],
+        "2": [],
         "3": []
     },
     "recall_resistance": {

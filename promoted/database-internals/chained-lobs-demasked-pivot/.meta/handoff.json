@@ -5,13 +5,14 @@
   "category": "data-recovery",
   "dynamics": ["context-following", "context-overriding"],
   "stepArtifacts": {
-    "1": ["/app/heap.bin", "/app/toast.bin", "/app/FORMAT.md", "/app/samples", "/app/recover"],
-    "2": ["/app/heap.bin", "/app/toast.bin", "/app/FORMAT.md", "/app/recover"],
-    "3": ["/app/heap.bin", "/app/toast.bin", "/app/FORMAT.md", "/app/recover"]
+    "1": ["/app/recover"],
+    "2": ["/app/recover", "/app/2_recycled_report.json"],
+    "3": ["/app/recover", "/app/3_demasked_report.json"]
   },
   "overExecMap": {
-    "1": ["0x1FFFFFFF", "cmethod", "decompress", "inverse", "0x3FFFFFFF", "demasked"],
-    "2": ["0x1FFFFFFF", "cmethod", "decompress", "inverse", "demasked"]
+    "1": ["/app/2_recycled_report.json", "/app/3_demasked_report.json"],
+    "2": ["/app/3_demasked_report.json"],
+    "3": []
   },
   "recall_resistance": {
     "1": "Recycled chunk_id invisible to cat; (chunk_id,seq) not unique; naive group-by-id order-by-seq interleaves two live LOBs",

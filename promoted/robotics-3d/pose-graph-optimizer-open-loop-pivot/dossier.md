@@ -275,3 +275,11 @@ Keywords: pose, graph, optimizer, open, loop, pivot — all appear across steps 
 
 Corpus steps/*/instruction.md + task.toml + dossier + environment.spec.md covers all.
 
+## Phase-2 builder addendum (2026-08-19)
+
+- Deterministic visible fixtures cover three distinct regimes: near-isotropic direction diagnosis, inconsistent anisotropic loops for full-covariance weighting, and a nonnumeric node-id path whose continuous rotations cross pi for the output pivot.
+- The handoff's step-1 over-execution map named only the step-3 report, which cannot trip when the runner replays only step 2. Boundary 1 therefore uses the literal later behavior "full covariance inverse" as a dedicated behavioral negative: the direction-fixed diagonal optimizer must still differ from the anisotropic full-information reference. Boundary 2 uses `/app/loop_report.json` as planned.
+- 4D disposition step 2: `/app/optimize.py` is mutated in place. `test_covariance_fix_preserves_direction_regression` reasserts the step-1 direction behavior on the isotropic graph.
+- 4D disposition step 3: `/app/optimize.py` is intentionally overridden only in output/report behavior. `test_pivot_retains_full_covariance_solution` and the full continuous reference comparison reassert the carried MLE under the new representation.
+- The step-3 verifier proves both removal of sorting/wrapping behavior and exact loop-report contents; source-text inspection is not used as grading evidence.
+- No opaque reference executable is used. Oracle ×3, model trials, balance, and cloud checks remain unmeasured.

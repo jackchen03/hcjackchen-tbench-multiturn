@@ -201,3 +201,10 @@ Chain feasible: single env with both reference replays, no starved resource.
 
 - Step3 omitted: does not re-state audit JSON schema beyond p-fired==evaluated, does not re-pin v1 quirks. Kept: /app/samples_v2, /app/REPLAY_VERSION exact content "v2\n", canonical semantics description (overwrite, unconditional, stream order) as needed for pivot, absence assertion that old quirks removed, byte-exact contract for v2.
 
+## Phase-2 builder addendum (2026-08-19)
+
+- Five deterministic v1 and five v2 witness directories isolate already-durable LSN filtering, nonzero-target DELTA, live/dead PRUNE behavior, and same-LSN ordering. Reference outputs are generated at image build and shipped only as witness bytes.
+- Boundary 1 uses the later audit executables/files; boundary 2 uses `/app/REPLAY_VERSION`. Each is a dedicated pure-negative existence check and successor replay creates the artifact.
+- 4D disposition step 2: `/app/replay` is read-only and `/app/replay_audit` delegates to its exact logic. `test_audit_replay_preserves_all_quirky_outputs` reasserts every v1 recovered byte.
+- 4D disposition step 3: `/app/replay` is intentionally replaced with canonical semantics while `/app/replay_audit` remains a read-only wrapper. V2 audit tests prove the wrapper now observes unconditional prune behavior and the exact version marker.
+- No opaque reference executable is used. Oracle ×3, model trials, balance, and cloud checks remain unmeasured.

@@ -23,7 +23,8 @@
     "overExecMap": {
         "1": [
             "/app/manifest.json",
-            "/app/report.json"
+            "/app/recover",
+            "/app/recover_pitr"
         ],
         "2": [
             "/app/manifest.json"

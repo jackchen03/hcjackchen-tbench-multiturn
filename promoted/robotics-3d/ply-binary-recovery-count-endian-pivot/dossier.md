@@ -243,3 +243,11 @@ All steps keep literal tokens verbatim: file paths /app/data/scan_corrupted.ply,
 
 ## No solution/, tests/, environment/Dockerfile here — Codex builds.
 
+## Phase-2 implementation addendum
+
+- Hidden fixtures live under `/opt/grader` rather than `/tests`: Harbor and the local chain mount each step's verifier at `/tests`, so environment fixtures there would be erased and would violate the cross-step fixture boundary.
+- The deterministic generator uses sample seed 42 and held-out seeds 1337/4242, with the same 16-byte padded vertex records, big-endian z field, honest little-endian face payload, disjoint coordinate ranges, non-uniform face areas, and degenerate faces.
+- `4D disposition step 2: mutated — test_enriched_mesh_preserves_recovered_geometry_and_faces compares the carried recovered artifact against the enriched artifact exactly.`
+- `4D disposition step 3: read-only — test_ascii_final_preserves_step2_xyz_and_normals compares every final row against the carried enriched artifact.`
+- The final pivot absence check is behavioral and structural: the parsed ASCII header must contain only six float vertex properties and no face/color/list declarations.
+- The clean step-1 output is graded by exact property order/types and exact vertex/color/face values, not whole-file byte identity: PLY comments are not part of the user contract and compliant writers may serialize different harmless comments.

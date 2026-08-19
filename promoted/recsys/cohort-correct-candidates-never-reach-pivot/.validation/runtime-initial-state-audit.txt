@@ -1,0 +1,9 @@
+Image: tbench-mt-cohort-correct-candidates-never-reach-pivot:validate
+Chain evidence: chain-20260819T175521Z.json
+Initial ranking pipeline: present and runnable
+Initial recommendations.csv: produced
+Frozen rank.py SHA-256: 3f85b90d902e6b5a64525be2c4fc631c3ae36e7b892e6171aafffeccb37d263b
+Initial /app/rec/metrics.py: absent
+Initial /app/output/cohort_metrics.json: absent
+Initial /app/3_pivot-to-two-phase-ranking_metrics.json: absent
+Result: initial runtime exposes only current-step ranking artifacts and does not pre-stage metrics or pivot outputs.

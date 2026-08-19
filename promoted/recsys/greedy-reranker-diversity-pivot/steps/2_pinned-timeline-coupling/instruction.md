@@ -6,5 +6,4 @@ When you diff the legacy `ranking` against a post-hoc approach that diversifies 
 
 Reuse the diversity logic and conventions you discovered — do not re-pin or re-explain them. This step's hidden tests include both no-pin and pinned requests and require exact match to legacy `ranking`, plus that pinned item_ids appear at their reserved slots.
 
-There is one more step after this that will change the pin handling requirement, so conserve the current behavior cleanly.
-This step must handle must NOT contribute correctly.
+There is one more step after this that will change the pin handling requirement, so conserve the current behavior cleanly. For this step, pins MUST contribute to diversity — their categories must be counted in the evolving prefix when computing the penalty for later slots (legacy behavior). The opposite (pin-free) will be the next step's pivot.

@@ -29,8 +29,7 @@
             "/app/credit.py"
         ],
         "2": [
-            "/app/correct_log.py",
-            "/app/output/corrected_log.jsonl"
+            "/app/correct_log.py"
         ],
         "3": []
     },

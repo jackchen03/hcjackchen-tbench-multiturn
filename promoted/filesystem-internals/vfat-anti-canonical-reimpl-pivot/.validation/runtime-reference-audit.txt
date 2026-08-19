@@ -1,0 +1,11 @@
+Image: tbench-mt-vfat-anti-canonical-reimpl-pivot:validate
+Chain evidence: chain-20260819T180740Z.json
+Executable: /app/reference/vfatdir
+First four bytes: 7f454c46 (ELF)
+Readable reference source: absent
+Canonical successor source/executable: absent
+Initial /app/myvfatdir: absent
+Initial /app/vfat_ls: absent
+Initial /app/clusters.json: absent
+mtools and sqlite3: functional
+Result: initial runtime preserves the opaque reference lifecycle and exposes no successor artifacts.

@@ -1,28 +1,49 @@
 schema_version = "1.1"
-authors = ["hcjackchen"]
-description = "Reconstruct committed table state where winning txn partially rolled back to savepoint with consumption dialect (duplicate-label re-unwind discriminator), then apply incremental log on exact recovered shape, then pivot to retention+abort dropping consumption semantics."
+[task]
+name = "codimango/committed-table-state-where-wi-pivot"
+description = "Recover a custom transaction-unwind replay, apply it incrementally, then pivot to retention and abort-on-miss."
+authors = [{ name = "Jack Chen", email = "hcjackchen@meta.com" }]
+keywords = ["transaction-log", "savepoint", "binary-replay", "incremental", "recovery"]
+[metadata]
+author_name = "Jack Chen"
+author_email = "hcjackchen@meta.com"
+difficulty = "hard"
+category = "iterate_on_feature"
+reward_type = "binary"
 tags = ["multi-turn", "context-following", "context-overriding"]
-
+[environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+allow_internet = false
+mcp_servers = []
+[environment.env]
+[solution.env]
 [[steps]]
-name = "reconstruct-committed-state"
-step_dir = "1_reconstruct-committed-state"
+name = "1_reconstruct-committed-state"
 dependencies = []
-inherit_prior_session = false
 min_reward = 1.0
-timeout_sec = 1800
-
+[steps.verifier]
+timeout_sec = 1800.0
+[steps.agent]
+timeout_sec = 1800.0
 [[steps]]
-name = "apply-incremental-on-recovered-shape"
-step_dir = "2_apply-incremental-on-recovered-shape"
-dependencies = ["reconstruct-committed-state"]
-inherit_prior_session = true
+name = "2_apply-incremental-on-recovered-shape"
+dependencies = ["1_reconstruct-committed-state"]
 min_reward = 1.0
-timeout_sec = 1800
-
+inherit_prior_session = true
+[steps.verifier]
+timeout_sec = 1800.0
+[steps.agent]
+timeout_sec = 1800.0
 [[steps]]
-name = "pivot-to-retention-abort"
-step_dir = "3_pivot-to-retention-abort"
-dependencies = ["apply-incremental-on-recovered-shape"]
-inherit_prior_session = true
+name = "3_pivot-to-retention-abort"
+dependencies = ["2_apply-incremental-on-recovered-shape"]
 min_reward = 1.0
-timeout_sec = 1800
+inherit_prior_session = true
+[steps.verifier]
+timeout_sec = 1800.0
+[steps.agent]
+timeout_sec = 1800.0

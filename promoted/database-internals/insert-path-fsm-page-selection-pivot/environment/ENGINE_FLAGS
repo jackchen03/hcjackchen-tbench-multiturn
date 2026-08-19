@@ -1,0 +1,2 @@
+USE_APPEND_ONLY=1
+centralized space management owns extension; second-argument state accounting is deprecated

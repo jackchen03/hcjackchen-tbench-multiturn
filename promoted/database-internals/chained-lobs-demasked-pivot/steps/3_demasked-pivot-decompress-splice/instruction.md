@@ -8,4 +8,6 @@ Switch to de-masked pivot. For any row, de-mask len_word to get true extsize and
 
 Remove the old PG mask logic that used 0x3FFFFFFF. The previous path that masked extsize with 0x3FFFFFFF must go — it is wrong and must not be present in final /app/recover. Keep same command /app/recover <row_id> and same stdout contract. Read FORMAT.md for heap.bin, toast.bin, method-1 layout. You need de-masked extsize, demasked pivot, chained lobs, pivot, and byte-exact splice with cmethod, extsize, rawsize, 0x1FFFFFFF all together.
 
-This final recover must produce byte-exact LOBs for all rows, including compressed second-run shared-id chained LOBs.
+Write a short JSON report of demasked handling to /app/3_demasked_report.json containing at least counts of cmethod=0 vs cmethod=1 rows handled and that you used mask 0x1FFFFFFF. This final recover must produce byte-exact LOBs for all rows, including compressed second-run shared-id chained LOBs.
+
+The output for this step must include /app/3_demasked_report.json. Also keep /app/2_recycled_report.json from previous step intact for regression.

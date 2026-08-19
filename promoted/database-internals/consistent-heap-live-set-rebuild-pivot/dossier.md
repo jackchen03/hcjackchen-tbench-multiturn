@@ -207,3 +207,11 @@ Chain completes seed gen → heap+fsm+commit.log → step1 naive visibility → 
 ## task.toml skeleton already written — check tags BEFORE steps, timeout 1800, inherit_prior_session, min_reward.
 
 ## No solution/, tests/, environment/Dockerfile here — Codex builds.
+
+## Phase-2 builder addendum (2026-08-19)
+
+- Deterministic main and sample fixtures contain clean visibility, aborted insert, stamped committed delete with FSM behind, unstamped committed delete with FSM ahead, and aborted-delete/FSM-behind trap pages. Tuple lengths are distinct and only the ahead page has a positive residual equal to one tuple length.
+- The planted `/app/fsm.bin` is input evidence; generated output remains `<outputDir>/fsm.bin` per the primary contract. Boundary 1 guards early source reference to `/app/fsm.bin`; boundary 2 guards the later residual report.
+- 4D disposition step 2: `/app/reconcile` is replaced with a superset implementation. `test_fsm_extension_preserves_step1_sample_live_set` reasserts the complete canonical-visibility output while checking rebuilt free bytes.
+- 4D disposition step 3: the canonical live-set interpretation is intentionally overridden only on positive signed residual. Final sample tests compare both `live.txt` and `fsm.bin` byte-for-byte, while the report proves only the unstamped tuple was removed.
+- No opaque reference executable is used. Oracle ×3, model trials, balance, and cloud checks remain unmeasured.

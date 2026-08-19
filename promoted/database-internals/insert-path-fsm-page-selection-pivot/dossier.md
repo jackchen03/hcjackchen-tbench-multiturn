@@ -172,7 +172,14 @@ Per step Codex builder:
   Depends on step1. Run reference heapload on held-out to produce golden landing and golden new state using same logic (decrement, cursor last, npages). Then run agent's binary with two args, compare stdout vs golden landing and file vs golden new state. Check second arg handling. Over-exec grep for append-only tokens.
 
 - Step3 oracle:
-  Final. Run /verifier/refheapload_append on held-out append-only inputs, produce golden. Run agent's /app/heapload single arg, byte-compare stdout vs golden. Assert no second file created when extra arg probed. Assert absence of ceil/floor category and wrap search and second-arg write via static analysis, presence of last-page else extend. Regression state reader.
+Final. Run /verifier/refheapload_append on held-out append-only inputs, produce golden. Run agent's /app/heapload single arg, byte-compare stdout vs golden. Assert no second file created when extra arg probed. Assert absence of ceil/floor category and wrap search and second-arg write via static analysis, presence of last-page else extend. Regression state reader.
+
+## Phase 2 builder addendum — 2026-08-19
+
+- Reference behavior is exposed through source-stripped Python bytecode; readable reference sources are absent from the initial image.
+- Step 2 derives persisted free-space values from the exact landing sequence, and Step 3 verifies both append-only behavior and removal of the second-argument output path.
+- 4D disposition step 2: `test_landing_sequence_regresses_exact_fsm_logic` explicitly rechecks the complete carried Step-1 selector.
+- 4D disposition step 3: `test_append_only_uses_only_last_page_or_extend` includes empty and non-empty state-reader regressions while enforcing the overriding selection rule.
 
 Chain completes end-to-end: seed gen -> heapload binary with anti-canonical dialect -> step1 byte-match -> step2 persisted state from actual landing -> step3 pivot to append-only dropping FSM and second-arg file.
 

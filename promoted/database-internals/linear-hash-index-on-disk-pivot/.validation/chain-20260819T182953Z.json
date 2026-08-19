@@ -1,0 +1,81 @@
+{
+  "task": "linear-hash-index-on-disk-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-linear-hash-index-on-disk-pivot:validate"
+    },
+    {
+      "step": "1_recover-header-and-addressing",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "5 executed, 0 skipped, 5 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-header-and-addressing",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover-header-and-addressing",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "5 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_add-split-trigger-and-overflow-chain",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "5 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_add-split-trigger-and-overflow-chain",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_add-split-trigger-and-overflow-chain",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "5 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-seq-order-redistribution",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "5 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-seq-order-redistribution",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-seq-order-redistribution",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "5 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-header-and-addressing",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "5 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_add-split-trigger-and-overflow-chain",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "5 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

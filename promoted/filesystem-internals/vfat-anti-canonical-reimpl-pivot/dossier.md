@@ -285,3 +285,13 @@ tags before steps in task.toml under [metadata] — verified.
 ## Handoff JSON
 
 See .meta/handoff.json with stepArtifacts, overExecMap, recall_resistance, partial_failure_mode, mechanism, predicted_rates, originalSingleTurnSlug.
+
+## Phase-2 builder addendum
+
+- The anti-canonical reference is a stripped ELF built from an encoded builder-only payload. The final image contains no readable formatter source and no canonical successor implementation.
+- Step-1 grading uses planted byte comparisons, disjoint full-file SHA-256 values, short-entry inspection, NTRes checks, and global-tail sequencing. Tests delete `/app/reference/vfatdir` before invoking the agent artifact.
+- The step-1 boundary is `/app/vfat_ls`; the step-2 boundary is `/app/canonical_vfatdir`. Both are literal later artifacts and dedicated pure-negative tests.
+- 4D disposition step 2: `/app/myvfatdir` is read-only carried input. Round-trip tests generate held-out directory bytes through it and recover exact case, Unicode, insertion order, and 13-unit boundary names.
+- 4D disposition step 3: `/app/myvfatdir` is intentionally removed. Tests prove canonical NTRes case bits, suppressed LFN entries, per-basis tails, canonical 13-unit slot count, and contiguous one-cluster manifests.
+- `/app/samples/` is read-only carried input. The initial runtime exposes neither `/app/myvfatdir`, `/app/vfat_ls`, `/app/canonical_vfatdir`, nor `/app/clusters.json`.
+- Oracle ×3, model trials, balance, contamination, provenance, and cloud validation remain unmeasured.

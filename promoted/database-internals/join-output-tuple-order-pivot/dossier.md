@@ -230,6 +230,14 @@ Per step Codex will build:
 
 Chain completes end-to-end: seed generator -> fixtures -> refjoin golden -> hashjoin runs -> byte diff -> pass.
 
+## Phase 2 builder addendum — 2026-08-19
+
+- The solve image exposes a source-stripped Python bytecode reference behind `/app/refjoin`; the readable reference source is absent from the image.
+- Hidden checks use disjoint, programmatically constructed fit, one-level, and two-level cases and compare exact serialized bytes.
+- Boundary checks require the step-2 report to be absent after step 1 and require a two-level case to remain red after step 2, using only later instruction identifiers.
+- 4D disposition step 2: `test_fit_and_single_recursion_inputs_match` jointly rechecks the carried fit ordering while adding the new one-level behavior.
+- 4D disposition step 3: `test_fit_and_recursive_child_grouped_outputs_match_full_dialect` explicitly includes a fit regression alongside the two-level pivot case.
+
 ## What omitted from each step (inferable/solution-revealing/carried) and what kept (non-inferable contract)
 
 - Omitted per step:

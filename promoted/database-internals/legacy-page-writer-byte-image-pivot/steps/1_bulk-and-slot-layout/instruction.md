@@ -2,5 +2,6 @@ We have a legacy heap table page writer that has been used for years. It writes 
 
 The old writer binary is still available at /app/goldwriter. Usage: /app/goldwriter <ops_file> <out_page_file> — it reads an operation sequence and writes the final page's complete raw bytes. Operation files are text, one per line: for this step you only need to handle bulk inserts, i.e. lines starting with `I ` where the rest of the line up to newline is the raw payload bytes for that record. Slot numbers are assigned in insertion order starting at 0. Under /app/samples/ there are sample pairs (ops file and its old-engine output page file) covering bulk loads for warmup. You can run the old tool arbitrarily to observe behavior; hexdump the page files.
 
+Deliver an executable at /app/writer with usage /app/writer <ops_file> <out_page_file> that reads the operation file and writes the final page's complete raw bytes matching /app/goldwriter byte-exact on bulk inserts. It must be executable and produce a 512-byte page file.
 
 More steps will follow after this; conserve the oracle for deeper probing and keep your implementation extensible.

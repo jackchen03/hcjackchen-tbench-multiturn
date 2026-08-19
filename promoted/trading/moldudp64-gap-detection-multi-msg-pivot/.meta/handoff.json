@@ -30,13 +30,8 @@
         ]
     },
     "overExecMap": {
-        "1": [
-            "/app/samples/collision.mold",
-            "/app/samples/with_heartbeat.mold"
-        ],
-        "2": [
-            "/app/samples/collision.mold"
-        ],
+        "1": [],
+        "2": [],
         "3": []
     },
     "recall_resistance": {

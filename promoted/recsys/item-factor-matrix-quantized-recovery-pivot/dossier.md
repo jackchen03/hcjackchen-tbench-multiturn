@@ -197,6 +197,12 @@ schema_version="1.1", tags ["multi-turn","context-following","context-overriding
 
 Cross-round feasibility: single shared env python-only, numpy, fixed seeds, no starved resource.
 
+## Phase 2 builder addendum — 2026-08-19
+
+- The initial reader intentionally decodes only stage one; both the sample and disjoint held-out checkpoint are generated deterministically during image build.
+- Immediate boundary checks use only later instruction identifiers and require the future diagnostic/lazy APIs to remain absent until introduced.
+- Step 3 checks lazy state behaviorally by rejecting any constructor attribute shaped `(num_items, dim)`, while still requiring the compatibility wrapper to use the batch path.
+
 ## What omitted / kept per step
 
 - **Step1 omitted:** m1/k1 values in aux.bin parsing? Actually kept hidden — not told about aux.bin layout, bitmap LSB-first, m2/k2, residual_codebook shape, prefix-count rank — all solution-revealing, must be probed via od -c / hexdump and sample error analysis. Kept: /app/ckpt/, /app/ckpt/FORMAT.md, /app/factorstore.py, load_item_factors(ckpt_dir) signature, return shape (num_items, factor_dim) float32, don't modify data files or FORMAT.md, held-out checkpoint note, head band symptom.
@@ -209,4 +215,3 @@ Cross-round feasibility: single shared env python-only, numpy, fixed seeds, no s
 
 - Step2 re-checks step1 core: load_item_factors still correct on sample + held-out.
 - Step3 re-checks step1 core (wrapper still correct) and step2 (get_head_flags + head_diagnostics.json valid) plus absence.
-

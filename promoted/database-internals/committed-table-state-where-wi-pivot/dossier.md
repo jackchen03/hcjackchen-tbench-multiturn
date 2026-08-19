@@ -201,6 +201,14 @@ What omitted from each step (inferable/solution-revealing/carried) and what kept
 
 ## Tags / dynamics / category
 
+## Phase-2 builder evidence addendum
+
+- Built opaque v1/v2 ELF references, deterministic visible samples and disjoint hidden corpora, delayed incremental/v2 staging, cumulative reference solutions, fail-closed tests, finalized task metadata, and README without modifying any step instruction.
+- Initial-image audit records `/app/gold_replay` as ELF magic `7f454c46`, no readable reference source, no v2 files under `/app`, and no initial replay/apply artifacts. The v2 ELF remains under grader staging until Step 2 succeeds.
+- Real-Docker validation proved red-before/green-after behavior: Step 1 `8/8`, Step 2 `7/7`, and Step 3 `7/7`, with zero skips or errors in green runs, plus both guarded over-execution transitions.
+- 4D disposition: Step 3 intentionally replaces the reused `/app/replay`; `test_plain_commit_and_empty_output_regression` preserves the unaffected plain-commit and empty-file contracts, while the v2 corpus verifies the intended resolution override.
+- Calibration remains explicitly unmeasured because local oracle-chain validation is not a model trial.
+
 - category: database-internals
 - dynamics: 1->2 context-following, 2->3 context-overriding
 - tags root: multi-turn, context-following, context-overriding

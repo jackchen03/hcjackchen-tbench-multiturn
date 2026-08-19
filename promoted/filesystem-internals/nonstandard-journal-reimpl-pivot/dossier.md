@@ -300,3 +300,10 @@ tags before steps in task.toml under [metadata] — verified.
 ## Handoff JSON
 
 See .meta/handoff.json with stepArtifacts, overExecMap, recall_resistance, partial_failure_mode, mechanism, predicted_rates, originalSingleTurnSlug.
+
+## Phase-2 builder evidence addendum
+
+- Built the stripped opaque nonstandard reference, deterministic visible and disjoint hidden block-journal corpora, delayed canonical sample staging, cumulative reference solutions, fail-closed tests, finalized task metadata, and README without modifying any step instruction.
+- Initial-image audit records `/app/reference/jrecover` as ELF magic `7f454c46`, no readable reference source, no canonical samples exposed under `/app`, and no initial solver/audit/canonical artifacts. Canonical samples remain grader-staged until the Step-2 boundary succeeds.
+- Real-Docker validation proved red-before/green-after behavior: Step 1 `8/8`, Step 2 `7/7`, and Step 3 `5/5`, with zero skips or errors in green runs and both over-execution replay boundaries proven.
+- Canonical behavioral tests explicitly prove same-sequence revoke removal, restoration of `0xc03b3998`, canonical checksum/report output, and absence of the nonstandard sentinel branch. Calibration remains unmeasured because local oracle-chain proof is not a model trial.

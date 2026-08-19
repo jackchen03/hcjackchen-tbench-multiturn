@@ -4,8 +4,10 @@ During reconciliation we found the replay is correct for most of the session but
 
 A sample feed is under `/app/sample/` with `feed.bin` and its correct result `expected.json`. You can run `python3 /app/replay.py /app/sample/feed.bin /tmp/out.json` and compare to `/app/sample/expected.json`.
 
-Fix `/app/replay.py` so it reconstructs the exact book and VWAP for any feed of the same format, not just the sample. Keep the existing CLI `python3 /app/replay.py <feed_file> <output_json>`.
+Fix `/app/replay.py` so it correctly parses/consumes any feed of the same format without crashing or leaving trailing bytes — focus on packed struct alignment (phantom padding after header and after variable symbol). For this first step, scope to parsing/consumption only: ensure full file is consumed, message count matches, no mis-aligned garbage causing astronomically large quantities from reading price bytes as sym_len, and Cancel/Execute lookups start resolving because offsets are correct. Exact book and VWAP for all fields may still be off due to per-field byte-order (price big-endian vs rest little-endian) and v2 structural reorder which are deliberately left broken for later steps — so do NOT yet require exact book/VWAP matching for any same-format feed, only that consumption is correct and huge garbage disappears.
 
-Output contract must stay unchanged: the whole output is a JSON object keyed by symbol string, each value an object with `bids`, `asks`, `vwap`. `bids` is list of `[price, size]` sorted high to low by price, `asks` low to high, price in ticks integer, size in shares integer, only price levels with remaining size > 0 included. `vwap` is floor of sum(price*exec_size)/sum(exec_size) as integer ticks; if a symbol has no executions at all, `vwap` is 0. Write to the output path given on the command line.
+Keep the existing CLI `python3 /app/replay.py <feed_file> <output_json>`.
 
-There are more steps after this; conserve resources and keep the fix minimal.
+Output contract must stay unchanged: the whole output is a JSON object keyed by symbol string, each value an object with `bids`, `asks`, `vwap`. `bids` is list of `[price, size]` sorted high to low by price, `asks` low to high, price in ticks integer, size in shares integer, only price levels with remaining size > 0 included. `vwap` is floor of sum(price*exec_size)/sum(exec_size) as integer ticks; if a symbol has no executions at all, `vwap` is 0. Write to the output path given on the command line. For this step, the book/VWAP may still be off due to endian and v2, but parsing must be correct.
+
+There are more steps after this; conserve resources and keep the fix minimal — leave endian and v2 broken for next steps.

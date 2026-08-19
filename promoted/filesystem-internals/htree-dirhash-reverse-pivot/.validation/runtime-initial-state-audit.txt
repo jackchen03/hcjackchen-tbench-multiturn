@@ -1,0 +1,8 @@
+Image: tbench-mt-htree-dirhash-reverse-pivot:validate
+Chain evidence: chain-20260819T185501Z.json
+Initial /usr/local/bin/dirhash-oracle: executable mode 0755, stripped ELF magic 7f454c46, embedded oracle canary present
+Reference lifecycle: oracle executes successfully and matches an independent frozen vector exactly
+Initial /usr/local/bin/dirhash, /usr/local/bin/dirhash-bulk, /app/buckets.json: all absent
+Initial /work/appliance.img: present at 33554432 bytes
+Opaque-source audit: oracle.py, build_reference.py, generate_data.py, /build, and /opt/oracle_src are absent
+Result: runtime exposes the intended opaque probing oracle and appliance without source or pre-solved artifacts.

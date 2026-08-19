@@ -1,17 +1,18 @@
 schema_version = "1.1"
 
 [task]
-name = "filesystem-internals/formatter-clusters-metadata-pivot"
-description = "Reimplement byte-exact myfs-mkfs formatter with flex-clustered metadata dialect: baseline STRIDE=1 clustering plus fixed constants, then STRIDE>1 stride round-up and pad-as-used accounting, then pivot to modulo bump (F mod STRIDE) for inode-table and full generalization."
-authors = []
+name = "codimango/formatter-clusters-metadata-pivot"
+description = "Recover a byte-exact flex-clustered filesystem formatter, add stride padding accounting, then pivot inode-table placement to a flex-index modulo rule."
+authors = [{ name = "Jack Chen", email = "hcjackchen@meta.com" }]
+keywords = ["filesystem", "formatter", "metadata", "flex", "stride", "pivot"]
 
 [metadata]
+author_name = "Jack Chen"
+author_email = "hcjackchen@meta.com"
 difficulty = "hard"
 category = "iterate_on_feature"
+reward_type = "binary"
 tags = ["multi-turn", "context-following", "context-overriding"]
-
-[agent]
-timeout_sec = 1800.0
 
 [environment]
 build_timeout_sec = 600.0
@@ -20,6 +21,10 @@ memory_mb = 2048
 storage_mb = 10240
 gpus = 0
 allow_internet = false
+mcp_servers = []
+
+[environment.env]
+[solution.env]
 
 [[steps]]
 name = "1_baseline-stride1-clustering"
@@ -27,7 +32,7 @@ dependencies = []
 min_reward = 1.0
 
 [steps.verifier]
-timeout_sec = 600.0
+timeout_sec = 1800.0
 
 [steps.agent]
 timeout_sec = 1800.0
@@ -35,11 +40,11 @@ timeout_sec = 1800.0
 [[steps]]
 name = "2_stride-pad-accounting"
 dependencies = ["1_baseline-stride1-clustering"]
-min_reward = 1.0
 inherit_prior_session = true
+min_reward = 1.0
 
 [steps.verifier]
-timeout_sec = 600.0
+timeout_sec = 1800.0
 
 [steps.agent]
 timeout_sec = 1800.0
@@ -47,11 +52,11 @@ timeout_sec = 1800.0
 [[steps]]
 name = "3_modulo-bump-pivot"
 dependencies = ["2_stride-pad-accounting"]
-min_reward = 1.0
 inherit_prior_session = true
+min_reward = 1.0
 
 [steps.verifier]
-timeout_sec = 600.0
+timeout_sec = 1800.0
 
 [steps.agent]
 timeout_sec = 1800.0

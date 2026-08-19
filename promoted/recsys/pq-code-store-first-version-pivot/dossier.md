@@ -238,3 +238,10 @@ keyframe M absolute per block + block_offset table + record_len decoy lie + mask
 
 ## No solution/, tests/, environment/Dockerfile here — Codex builds.
 
+## Phase-2 implementation addendum
+
+- The validator is compiled and stripped in a Docker builder stage; its source is absent from the runtime image. The step-2 canonical writer is compiled there, XOR-sealed as non-ELF `/opt/grader/staged/phase2.bin`, and decrypted to `/opt/grader/canonical_writer` only after a successful step-1 hidden decode check. Staging is idempotent for boundary replay.
+- Step 1 verifies concatenated shipped rows and disjoint per-store held-out matrices before staging the successor reference. Its boundary uses the later literal report paths.
+- Step 2 writes `/app/2_encode-byte-identical-writer_report.json` only after byte identity, validator acceptance, and round-trip checks. `4D disposition step 2: mutated — test_preserves_decoder_regression re-runs shipped and held-out decoding exactly.`
+- Step 3 writes `/app/3_resilient-rebuild-and-crc-enforcement_report.json` after zeroed-offset, CRC, and random-access checks. `4D disposition step 3: mutated — test_preserves_decode_encode_and_reports re-runs both earlier behavior and the step-2 report.`
+- The encode API has no block-size argument, so its canonical writer uses B=16. Variable M/B fixtures grade generic decoding and random access; variable-B byte-identical encoding is not asserted.

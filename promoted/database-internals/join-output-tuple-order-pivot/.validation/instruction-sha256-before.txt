@@ -1,0 +1,3 @@
+fce1f6cb22e50c4c2be4a54634421e76134ee99577b3ea9eaab3835ae6972754  promoted/database-internals/join-output-tuple-order-pivot/steps/1_fit-order-and-spill/instruction.md
+25f5a9ee96cc02046e54a9f94725749d5653270a524f30edcde6991d43a47d18  promoted/database-internals/join-output-tuple-order-pivot/steps/2_byte-threshold-recursion/instruction.md
+1d78e20d6b49ae1ce61b2acd47725137a6ae5db077b2021f1d0cfd40188ceca5  promoted/database-internals/join-output-tuple-order-pivot/steps/3_child-grouped-emission-pivot/instruction.md

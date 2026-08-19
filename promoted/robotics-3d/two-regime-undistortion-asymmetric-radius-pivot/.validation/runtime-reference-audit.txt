@@ -1,0 +1,6 @@
+2026-08-19 local initial-image audit
+- /opt/ref/undistort_ref is executable and begins with ELF magic 7f454c46.
+- The embedded canary banner is present in the stripped binary.
+- /opt/ref/undistort_ref.c and /app/undistort_ref.c are absent from the initial image.
+- All three instruction hashes match the pre-build baseline.
+- Each step tests directory contains exactly test.sh and test_outputs.py.

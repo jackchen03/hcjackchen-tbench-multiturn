@@ -9,4 +9,4 @@ page_count must equal the actual number of pages in the file you just wrote, nle
 We will run your builder on new key sets and check that /app/btbuild.meta exists, valid JSON, keys present, values integer, and consistency: total_bytes == file size on disk, total_bytes == page_count * page_size, and page_count derived from file header matches your JSON. Byte-exact index requirement still holds.
 
 Use your carried conventions and file from previous step; don't re-derive format docs.
-The output for this step must include /app/deletes.txt.
+The output for this step must include /app/btbuild.meta.

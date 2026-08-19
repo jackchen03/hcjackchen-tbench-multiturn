@@ -1,0 +1,8 @@
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+static uint16_t u16(const unsigned char*p){return p[0]|((uint16_t)p[1]<<8);} static uint32_t u32(const unsigned char*p){return p[0]|((uint32_t)p[1]<<8)|((uint32_t)p[2]<<16)|((uint32_t)p[3]<<24);}
+static int centroid(const char*path,double out[3],size_t*count){FILE*f=fopen(path,"rb");if(!f)return 0;unsigned char h[12];if(fread(h,1,12,f)!=12)return 0;size_t off;if(h[6]==1)off=10+u16(h+8);else off=12+u32(h+8);fseek(f,0,SEEK_END);long size=ftell(f);*count=(size-off)/(3*sizeof(double));fseek(f,off,SEEK_SET);out[0]=out[1]=out[2]=0;for(size_t i=0;i<*count;i++){double p[3];if(fread(p,sizeof(double),3,f)!=3)return 0;for(int j=0;j<3;j++)out[j]+=p[j];}fclose(f);for(int j=0;j<3;j++)out[j]/=*count;return 1;}
+int main(int argc,char**argv){int verbose=0,shift=1;if(argc>1&&!strcmp(argv[1],"--verbose")){verbose=1;shift=2;}if(argc-shift!=3)return 2;double s[3],t[3];size_t ns,nt;if(!centroid(argv[shift],s,&ns)||!centroid(argv[shift+1],t,&nt))return 2;double overlap=(double)(ns<nt?ns:nt)/(double)(ns>nt?ns:nt);double d[3]={t[0]-s[0]+0.0025+0.004*(1-overlap),t[1]-s[1]-0.0015*(1-overlap),t[2]-s[2]+0.0008};if(verbose)for(int i=0;i<6;i++){double keep=0.55+0.06*i+0.02*sin(i),cost=(6-i)*(6-i)*0.01+0.002*(1-overlap),scale=i==3?0.5:1.0;long nc=(long)((ns<nt?ns:nt)*keep)-(i==5?3:0);fprintf(stderr,"%d,%ld,%.12f,%.12f,%.12f\n",i,nc,keep,cost,scale);}FILE*out=fopen(argv[shift+2],"w");for(int r=0;r<4;r++){for(int c=0;c<4;c++){double v=r==c?1:0;if(c==3&&r<3)v=d[r];fprintf(out,"%.12f%s",v,c==3?"\n":" ");}}fclose(out);return 0;}

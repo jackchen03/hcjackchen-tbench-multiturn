@@ -405,3 +405,14 @@ Chain self-contained given declared outputs, cross-round feasible, no starved re
 - Step3 kept: /app/scan_impl path and usage <fixture> <lo> <hi> <warmpool_file> <out_file>, final output contract one decimal per line exact issue order demand+prefetch interleaved, residency-coupled dialect exact rules (budget consumption per leaf regardless of residency, ramp advance even when demand resident, extent grouping E fixed hidden, batch truncation at first candidate in different extent than current demand leaf, ramp reset on first transition into new extent even if adjacent), motivation via warm-pool reshuffle tail shift and extent truncation observed in probing, abandonment of suppress-only approach (absence assertion), byte-exact matching against /verifier/scan golden on held-out M>=30 covering cold short, warm-inside-batch, warm demand, long straddle, combined warm+straddle — needed because hidden tests assert exact byte equality and absence of old approach.
 
 ## No solution/, tests/, environment/Dockerfile here — Codex builds.
+
+## Phase-2 builder addendum
+
+- The runtime fixture uses 512-byte little-endian pages, a one-level internal root, and physically scattered leaf chains. A second alternate fixture with disjoint keys and page ids prevents hard-coded decoding.
+- `/app/scan` and `/verifier/scan` are identical stripped ELF launchers containing an encoded reference implementation; reference source and build generators are absent from the runtime image.
+- The empirically recoverable constants are `W_max = 4` and extent size `E = 8` physical pages. Public samples expose cold, reset, warm, and extent-crossing behavior without documenting those values in `FORMAT.md`.
+- Step 1 is graded on twelve disjoint cases across both fixtures and emits the internal descent page before sibling-chain leaves. Its pure-negative boundary requires both successor artifact paths to be absent.
+- 4D disposition step 2: `/app/scan_demand` is a preserved executable input. `test_prior_demand_artifact_still_matches_its_contract` re-runs it on main and alternate fixtures, while `test_textbook_adaptive_prefetch_matches_naive_dialect` proves `/app/scan_prefetch` adds the intended bounded doubling behavior.
+- 4D disposition step 3: both earlier executables remain preserved. `test_prior_artifacts_remain_behaviorally_correct` re-runs their exact scoped dialects, while thirty-two final cases prove budget consumption, resident-demand ramping, extent clamp, and crossing reset together.
+- Every verifier removes both reference executables before invoking the candidate, so shell delegation cannot satisfy grading. Expected traces are fixed independent bytes generated at image build time.
+- Oracle ×3, model trials, difficulty balance, contamination, provenance, registration, and cloud validation remain unmeasured.

@@ -330,3 +330,10 @@ Chain self-contained given declared outputs, cross-round feasible, no starved re
 - Step3 kept: /app/repair_pages path and invocation <data_dir> <output_pages_file>, repaired binary layout same as FORMATS.md record (u32 LE id, i64 LE balance, 6 BE trx_id, 7 zero roll_ptr, info 0x02), sorted, omission of phantoms, absence of aborted balances, roll_ptr zeroed, info fixed, downstream engine reading pages.bin directly motivation, drop of text primary approach — needed because hidden tests assert binary valid, absence checks, non-inferable from prior.
 
 ## No solution/, tests/, environment/Dockerfile here — Codex builds.
+
+## Phase-2 builder evidence addendum
+
+- Built the deterministic binary crash archive, agent-visible format/decoy tools, hidden disjoint fixtures, cumulative reference solutions, fail-closed tests, modern task metadata, and README without modifying any step instruction.
+- No oracle or expected answer is exposed under `/app`; the initial image contains only the sample crash scene and diagnostic aids. `/app/diagnose`, `/app/reconstruct`, and `/app/repair_pages` are all absent initially. The required `/app/inspect.py` remains runnable and safely delegates to the standard-library `inspect` module when imported by Python tooling.
+- Local real-Docker validation proved red-before/green-after behavior: Step 1 `7/7`, Step 2 `5/5`, and Step 3 `5/5`, with zero skips or errors in every green run.
+- Both transition replay probes are fail-closed: Step 1 rejects early reconstruction/repair work and Step 2 rejects early repair work. Calibration remains unmeasured because local oracle-chain proof is not a model trial.

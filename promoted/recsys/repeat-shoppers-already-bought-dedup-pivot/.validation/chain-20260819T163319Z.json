@@ -1,0 +1,15 @@
+{
+  "task": "repeat-shoppers-already-bought-dedup-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "FAIL",
+      "detail": "docker build failed"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "0/2 probed",
+  "unproven": true
+}

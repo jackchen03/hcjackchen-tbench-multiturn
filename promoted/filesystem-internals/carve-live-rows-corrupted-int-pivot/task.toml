@@ -1,18 +1,16 @@
 schema_version = "1.1"
-
 [task]
-name = "filesystem-internals/carve-live-rows-corrupted-int-pivot"
-description = "Carve exact live rows from corrupted SQLite with zeroed interior pointer orphaning subtree and freelist ghosts, then add checksum secondary index relying on carried recovery, then pivot to flat 64-bit varint binary encoding dropping SQLite varint handling."
-authors = []
-
+name = "codimango/carve-live-rows-corrupted-int-pivot"
+description = "Carve exact live rows from corrupted SQLite, add checksum indexing, then pivot to an explicit binary archive."
+authors = [{ name = "Jack Chen", email = "hcjackchen@meta.com" }]
+keywords = ["sqlite", "carving", "checksum", "binary-archive"]
 [metadata]
+author_name = "Jack Chen"
+author_email = "hcjackchen@meta.com"
 difficulty = "hard"
 category = "iterate_on_feature"
+reward_type = "binary"
 tags = ["multi-turn", "context-following", "context-overriding"]
-
-[agent]
-timeout_sec = 1800.0
-
 [environment]
 build_timeout_sec = 600.0
 cpus = 1
@@ -20,38 +18,32 @@ memory_mb = 2048
 storage_mb = 10240
 gpus = 0
 allow_internet = false
-
+mcp_servers = []
+[environment.env]
+[solution.env]
 [[steps]]
 name = "1_carve_live_rows"
 dependencies = []
 min_reward = 1.0
-
 [steps.verifier]
-timeout_sec = 600.0
-
+timeout_sec = 1800.0
 [steps.agent]
 timeout_sec = 1800.0
-
 [[steps]]
 name = "2_add_checksum_index"
 dependencies = ["1_carve_live_rows"]
 min_reward = 1.0
 inherit_prior_session = true
-
 [steps.verifier]
-timeout_sec = 600.0
-
+timeout_sec = 1800.0
 [steps.agent]
 timeout_sec = 1800.0
-
 [[steps]]
 name = "3_pivot_to_varint_encoding"
 dependencies = ["2_add_checksum_index"]
 min_reward = 1.0
 inherit_prior_session = true
-
 [steps.verifier]
-timeout_sec = 600.0
-
+timeout_sec = 1800.0
 [steps.agent]
 timeout_sec = 1800.0

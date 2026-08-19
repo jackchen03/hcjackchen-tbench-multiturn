@@ -7,4 +7,4 @@ Build `/app/apply` with usage: `/app/apply <base_state_file> <inc_log_file> <out
 It should read the base state as starting table, replay the incremental log using the *same* adjudication rules you implemented for `/app/replay` (which committed txn wins, which records were logically undone inside a committed txn), and write the final state after applying surviving records in global log order — same output format as before: `<key> <value>` sorted ascending, one per line, deleted keys omitted, empty if none.
 
 Your step 1 binary `/app/replay` should stay working; hidden tests will invoke both `/app/replay` and `/app/apply` with new disjoint keys. The correctness of this step depends on the exact shape you recovered earlier — if the base is off, this step fails even if the incremental logic is right.
-The output for this step must include /app/gold_replay_v2.
+The output for this step must include /app/apply.

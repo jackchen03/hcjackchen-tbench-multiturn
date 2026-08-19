@@ -4,7 +4,7 @@ Your uniform remap from step1 double-remapped the already-migrated half and scra
 
 Look at the per-slot `generation` byte you saw via hexdump: slots `[0,cut)` are `generation==1` with `neighbor_ids` already in new-space, slots `[cut,)` are `generation==0` still old-space. Uniform apply corrupts the first half because a new-space id `< ` is coincidentally a valid old id that maps elsewhere.
 
-Fix it gen-gated: for each slot if `generation==1` leave `neighbor_ids` untouched; if `generation==0` remap each neighbor id via table then set `generation=1`. Remap `entry_point` via table as well (it was still old-space). Keep using `/app/annindex/` same file, same loader `load_index`/`knn_search` in `annlib.py`, same layout from `FORMAT.md`. Title keywords gen-gated and remap appear.
+Fix it gen-gated: for each slot if `generation==1` restore `neighbor_ids` from `/app/original_neighbors.json` (or leave untouched if already restored), do NOT re-apply remap to those; if `generation==0` remap each neighbor id via table then set `generation=1`. Remap `entry_point` via table as well (it was still old-space). If the double-remap from step 1 corrupted gen-1 entries, invert it by restoring the pristine list saved at `/app/original_neighbors.json`. Keep using `/app/annindex/` same file, same loader `load_index`/`knn_search` in `annlib.py`, same layout from `FORMAT.md`. Title keywords gen-gated and remap appear.
 
 You still will see deleted near-duplicates crowding results — that's expected for now, the stale deletion handling remains. Don't address deletion eviction yet. Just make navigation correct for live items and reach expected recall ~0.8+ after gate.
 Additionally, write a short JSON report of what you fixed to /app/2_gen-gated-remap_metrics.json.

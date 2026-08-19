@@ -1,0 +1,3 @@
+3944b148383925024f78b73c28cd27464b29cfcc71dee8ac16eef9701673cce6  steps/1_byte-exact-nonstandard-reimpl/instruction.md
+767b03d0dd34a52b875809f8465042eae80f32ad7affc4423ed7bb5620745b89  steps/2_audit-committed-revoke-escape/instruction.md
+263d24fc7fa3e5571d154391832bdc37b2ea7622fe25ddaa79ae49f400207d0a  steps/3_pivot-canonical-jbd2-recovery/instruction.md
