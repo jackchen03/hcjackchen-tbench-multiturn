@@ -1,3 +1,0 @@
-300632ae0eaf7cf4081ed7f67e08d75dd3036460c06495ecd4e069a77e9883df  steps/1_reconstruct-committed-state/instruction.md
-f551d853c28acbea4b7bea2e92a563c8c47f8f82bd9eb29bc991fe79b5623340  steps/2_apply-incremental-on-recovered-shape/instruction.md
-be9983b0f529c78ec0d47205fe4219e2908564e30bbb94f4756de3c96a3b4ab1  steps/3_pivot-to-retention-abort/instruction.md

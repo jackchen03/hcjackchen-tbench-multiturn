@@ -1,3 +1,0 @@
-005323439e8e2fe96aafb8407422e161d599e06f9911c1247f96f9c51700d549  steps/1_build-external-sort-basic/instruction.md
-fc0bd782ba26b1ac85e532d8c7ba4f8f65a4802e049acdedc835ff09c412c515  steps/2_enforce-intermediate-spill-identity/instruction.md
-b050ac8c77c5ddab55c4acf854cf6d145588bfaf8e0236eb150ec0483879e538  steps/3_switch-to-kway-heap-drop-cleanup/instruction.md

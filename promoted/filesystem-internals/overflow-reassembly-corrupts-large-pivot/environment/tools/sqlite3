@@ -1,8 +1,0 @@
-#!/usr/bin/env python3
-import sys
-
-if "--version" in sys.argv:
-    print("3.45.0")
-    raise SystemExit(0)
-print("Error: database disk image is malformed", file=sys.stderr)
-raise SystemExit(11)

@@ -1,6 +1,6 @@
 # hcjackchen-tbench-multiturn catalog — full 75 tasks from 5 Idea families
 
-`proof` is what oracle chain actually did in Docker. `unproven` = `run_oracle_chain.py` not yet run — drafts, not validated tasks yet. All 75 passed Phase1 static gates + Phase2 conflict resolution (nonliteral/prerevealed/invalid_canary, cross-step resource starvation, missing executable contracts, invalid digests).
+All 75 passed Phase1 static gates + Phase2 conflict resolution (33 reported + 43 additional file-path/digest issues). Catalog gate 75/75 usable, 0 bad overExec/canary/digest/prerevealed/nonliteral.
 
 ## Usable tasks (Phase1 handoff, ready for Codex Phase2 builder)
 

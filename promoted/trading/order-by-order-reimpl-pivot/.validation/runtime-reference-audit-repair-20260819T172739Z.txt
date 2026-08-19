@@ -1,8 +1,0 @@
-Image: tbench-mt-order-by-order-reimpl-pivot:validate
-Chain evidence: chain-20260819T172739Z.json
-Executable: /opt/refbook/refbook
-Executable mode: present and executable
-First four bytes: 7f454c46 (ELF)
-Readable source paths: absent
-Successor reference paths: absent
-Result: repaired initial runtime image contains only the required step-1 opaque executable and no readable source or successor reference.

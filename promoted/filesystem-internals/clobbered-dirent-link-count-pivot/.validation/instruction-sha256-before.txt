@@ -1,3 +1,0 @@
-958f3eda94a4564c96f5026645178b1746abc163f10571fe6c4835584d643061  steps/1_fix-dirent-inode-mismatch/instruction.md
-1936185be26f3e3932cdd758ab432517ba3c180dd8127f609c45be86ec1df2b4  steps/2_reconcile-link-counts-carry/instruction.md
-4e574963a19d22035826243fce66fce0418c894681d98b91fbb0a26f8613801d  steps/3_pivot-restore-only-drop-rewrite/instruction.md

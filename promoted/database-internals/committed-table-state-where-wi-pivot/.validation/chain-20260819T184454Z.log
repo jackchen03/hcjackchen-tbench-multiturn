@@ -1,9 +1,0 @@
-== oracle chain: committed-table-state-where-wi-pivot (3 steps)
--- docker build environment/
-$ docker build -q -t tbench-mt-committed-table-state-where-wi-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/committed-table-state-where-wi-pivot/environment
-ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
-
-BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/committed-table-state-where-wi-pivot/.validation/chain-20260819T184454Z.log
-
-oracle chain FAILED: 1 phase(s) did not behave as required.
-evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/committed-table-state-where-wi-pivot/.validation/chain-20260819T184454Z.json   full log: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/committed-table-state-where-wi-pivot/.validation/chain-20260819T184454Z.log

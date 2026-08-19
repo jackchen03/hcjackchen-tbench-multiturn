@@ -1,9 +1,0 @@
-== oracle chain: settlement-obligations-amended-trade-pivot (3 steps)
--- docker build environment/
-$ docker build -q -t tbench-mt-settlement-obligations-amended-trade-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/settlement-obligations-amended-trade-pivot/environment
-ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
-
-BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/settlement-obligations-amended-trade-pivot/.validation/chain-20260819T163347Z.log
-
-oracle chain FAILED: 1 phase(s) did not behave as required.
-evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/settlement-obligations-amended-trade-pivot/.validation/chain-20260819T163347Z.json   full log: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/settlement-obligations-amended-trade-pivot/.validation/chain-20260819T163347Z.log

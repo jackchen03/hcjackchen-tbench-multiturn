@@ -1,1 +1,0 @@
-Probe notes: cold sequential scans exhibit a bounded doubling window. Warm pages and physical extent crossings produce a different downstream trace; derive the constants from `/app/scan`.
