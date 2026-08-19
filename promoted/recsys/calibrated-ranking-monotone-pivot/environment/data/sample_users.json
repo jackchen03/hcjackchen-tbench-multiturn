@@ -1,0 +1,6 @@
+[
+  {"user_id": "u01", "embedding": [0.8, -0.3, 0.5]},
+  {"user_id": "u02", "embedding": [-0.4, 0.9, 0.2]},
+  {"user_id": "u03", "embedding": [0.3, 0.4, -0.8]}
+]
+

@@ -1,0 +1,3 @@
+db42345117f6ea0e8ee83b9010a39e6d220e07b409c726232e57ffabe6045b3d  steps/1_rebuild-l2-from-l3/instruction.md
+229f41a3c08ae3bc02fa1b083f4f23693d772809590ce0a2704705a689bdf2f4  steps/2_replace-still-double-counted/instruction.md
+c4fba4c389cb3482932687d6e342f649cd12356ce03d8da1beb8a6d58895df15  steps/3_pivot-reprice-inplace-fencing/instruction.md

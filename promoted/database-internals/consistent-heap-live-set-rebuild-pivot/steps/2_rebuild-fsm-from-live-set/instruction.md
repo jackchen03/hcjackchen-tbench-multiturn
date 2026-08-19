@@ -13,3 +13,4 @@ Keep /app/reconcile at same path and keep writing live.txt exactly like before (
 Ensure you read overflow? No, just heap.bin, fsm.bin, commit.log, FORMAT.md, and write live.txt + fsm.bin. Both outputs must be byte-valid per FORMAT.md, but live.txt will still be RED vs final golden on case-3.
 
 This step talks about rebuilding FSM from live set — body must mention fsm.bin, free_bytes, USABLE, live.txt, first_page, n_entries.
+The output for this step must include /app/fsm.bin.

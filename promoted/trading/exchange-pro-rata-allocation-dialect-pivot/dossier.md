@@ -210,6 +210,14 @@ How each step will hit >=1 pass >=1 fail among trials reaching it (min_reward=1.
 - What must build: `docker build` green; `python /app/matcher.py /app/blotter/sample_blotter.json /tmp/out.json` reproduces symptom (sum matches ref but per-order diff) before fix.
 - What Codex should NOT invent: no extra binaries, no network download, no alternative matcher path.
 
+## Phase-2 builder addendum
+
+- The future allocation-v2 specification is not placed in the initial image. The step-2 verifier stages /app/specs/allocation_v2.md only after independently confirming the current MIN_FILL contract; this keeps the later reference lifecycle hidden until the preceding contract succeeds. The reference step-3 oracle does not require that staged file because the over-execution probe intentionally runs successor oracles without predecessor verifiers; the user-facing step-3 instruction itself states the same allocation rules, while the normal carried chain still stages the file.
+- The immediate step-1 boundary is behavioral: test_does_not_apply_min_fill_repool_yet uses the later literal MIN_FILL and a tiny-order event whose fill changes from 1 to 0 when the step-2 oracle runs. The step-2 boundary retains the planned absence check for /app/reports/pnl_impact.json.
+- 4D disposition step 2: /app/matcher.py is replaced; test_preserves_step1_carveout_sample reasserts exact step-1 behavior.
+- 4D disposition step 3: /app/matcher.py is intentionally overridden; test_v2_allocation_removes_carveout_and_retains_minfill proves removal of the old carve-out and retention of the prior MIN_FILL behavior.
+- /app/blotter/sample_blotter.json and /app/FORMAT.md are read-only carried inputs.
+
 ## task.toml skeleton shape
 
 schema_version="1.1", slug, title, difficulty hard, category trading, tags ["multi-turn","context-following","context-overriding"] BEFORE [[steps]], canary_guid, original_single_turn_slug.
@@ -288,4 +296,3 @@ Slug words: exchange, pro-rata, allocation, dialect, pivot — all appear in ste
 ## Over-exec negatives sourced from later identifiers only
 
 Identifiers verbatim from later instructions: step2 names `MIN_FILL`, step3 names `/app/reports/pnl_impact.json`, `/app/specs/allocation_v2.md`, `participant_id`, `total_filled_qty`. Used to guard.
-

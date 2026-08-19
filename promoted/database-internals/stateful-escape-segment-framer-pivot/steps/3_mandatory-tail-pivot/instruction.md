@@ -11,3 +11,4 @@ Remove the old logic. The previous path that escaped 0xAA unconditionally withou
 Keep the same command /app/framer reading {"records":[b64]} from stdin and writing raw segment to stdout, same as before. Read /app/PROFILING.md and /app/BOUNDARY_CASES.json for the mandatory tail contract and use /app/samples/ and /app/EDGE_PAYLOADS.json for regression. You need 0xAA, 0x55, 0x00, 0x11, 0x1F, LEB128, /app/framer, /verifier/legacy_framer, /app/BOUNDARY_CASES.json, /app/PROFILING.md all together.
 
 This step is about mandatory tail pivot — body includes mandatory, final block, rem==0, empty, unconditional, /app/BOUNDARY_CASES.json, /app/PROFILING.md, 0x11, 0x1F, LEB128, /app/framer.
+This step must handle rem==0 footer correctly.

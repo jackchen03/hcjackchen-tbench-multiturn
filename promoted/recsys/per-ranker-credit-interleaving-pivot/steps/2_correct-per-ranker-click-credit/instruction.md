@@ -9,3 +9,4 @@ You can reuse the replay logic you built in the previous step. Don't re-read the
 Keep `/app/output/slate.jsonl` working — we still need it — but the graded file this step is `credit.csv`.
 
 Don't emit corrected log files yet; that comes next.
+The output for this step must include /app/output/audit.jsonl.

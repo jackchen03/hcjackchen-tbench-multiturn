@@ -7,3 +7,6 @@ Pivot the implementation: AddOrder has two structurally different layouts gated 
 Remove the old single-layout assumption and any single-format-string decode that uses one endianness for all fields. The final `/app/replay.py` must still satisfy `python3 /app/replay.py <feed_file> <output_json>` producing `{"bids": [[price, size], ...], "asks": [[price, size], ...], "vwap": int}` with integer ticks, bids descending, asks ascending, size>0 only, and exact VWAP floor, with no duplicate `order_id` phantom and no garbage lengths from misreading `price` bytes as `sym_len`.
 
 Ensure Cancel (`X`) and Execute (`E`) with `exec_size` still work — Execute contributes `price*exec_size` to VWAP at the resting order's price looked up by `order_id`.
+The output for this step must include price/size before sym_len.
+This step must handle fixed-width prefix through side correctly.
+Additionally, write a report to /app/3_pivot-v2-structural-reorder-version_report.json.

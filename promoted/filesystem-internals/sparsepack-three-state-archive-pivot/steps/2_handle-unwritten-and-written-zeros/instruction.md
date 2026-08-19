@@ -7,3 +7,6 @@ Two new classes appear in the same ext4 images you already handle:
 Fix `/app/mysparsepack` in place — keep the `SPK1` header, inode `u32`, `i_size` `u64`, record count `u32`, record `type u8` `start_block u32` `block_count u32` CRC payload for type `2`, trailer `final_crc u32`, little-endian layout, and `mke2fs`/`debugfs`/`dumpe2fs` workflow you already have. After fix, archives must be byte-identical on images that mix hole, unwritten type `1`, and written with all-zero blocks. Do not re-explain `block_size` or `i_size` handling — reuse prior understanding.
 
 The reference at `/app/reference/sparsepack` is still queryable for probing; use it to observe type trichotomy.
+This step must handle ee_len>0x8000 correctly.
+This step must handle eh_depth>0 correctly.
+Additionally, write a short JSON report of what you fixed to /workdir/2_handle-unwritten-and-written-zeros_report.json.

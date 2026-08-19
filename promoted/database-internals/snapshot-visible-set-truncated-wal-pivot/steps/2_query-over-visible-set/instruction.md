@@ -11,3 +11,4 @@ Use your visibility logic from the previous step; don't trust the old buggy repo
 We will test with different queries.bin and different data directories with disjoint row_ids, so your counting must be based on the actual live set, not hardcoded. The title keywords query and visible set must be reflected in this step.
 
 More steps follow.
+The output for this step must include /app/data_v2/snapshot.bin.

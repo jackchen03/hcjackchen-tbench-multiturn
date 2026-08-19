@@ -8,6 +8,5 @@ Investigate: write a small reproduction using `load_index` and `knn_search` from
 
 The compaction left a remap table at `remap_table_off` that maps old physical slot ids to new slot ids. The slot array starts at `slot_array_off` and each slot contains `item_id` and `neighbor_ids`. `entry_point` in the header is a physical slot id. To finish the interrupted compaction, finish applying that remap table: for every slot parse its `neighbor_ids` and replace each entry via the remap table from `remap_table_off`, remap `entry_point` via the same table, and make the file self-consistent per `FORMAT.md` so `load_index` still reads it clean.
 
-After your fix `/app/annindex/index.bin` must still be loadable by existing `load_index`, and `knn_search` should recover recall toward expected recall ~0.95 on live items. Do not modify `/app/annindex/annlib.py` or `/app/annindex/FORMAT.md`, only fix data in `/app/annindex/`.
 
 Title keywords: finish and compaction must appear in your reasoning but output remains the fixed `/app/annindex/index.bin`.

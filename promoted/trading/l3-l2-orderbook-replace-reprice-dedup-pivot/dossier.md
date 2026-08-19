@@ -204,3 +204,6 @@ Existing tasks:
 
 - l3, l2, orderbook, replace, reprice, dedup, pivot all appear in steps: step1 mentions L3→L2 rebuild, step2 mentions REPLACE dedup, step3 mentions REPRICE in-place and pivot.
 
+## Phase-2 blocker addendum
+
+The step-1 instruction already requires /app/rebuild.py to correctly handle REPLACE and REPRICE for any feed of the stated format. The planned step-1 over-execution verifier would reject an implementation that already performs the later in-place REPRICE behavior. That punishes a fully correct response to step 1 and makes the boundary unfair. A human must either narrow step 1's required behavior or remove or redesign the REPRICE over-execution boundary.

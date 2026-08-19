@@ -1,0 +1,3 @@
+190bcf001fefb988247f9737cb18de4bfa52de61ffca2cc5d4c75b47af4d085f  steps/1_multi-msg-count-drift/instruction.md
+709842fb1a271e7b4ab2794a0e7710197e82e3b0a138987d758b2e63b8b8da85  steps/2_heartbeat-eos-sentinel/instruction.md
+edeb93bb4fdf90a4377a6ab1d0557e54f7615cea465f9e004e05738578fe4148  steps/3_global-seq-dedup-pivot/instruction.md

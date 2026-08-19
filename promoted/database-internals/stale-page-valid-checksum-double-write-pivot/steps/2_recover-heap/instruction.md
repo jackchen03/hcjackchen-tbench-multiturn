@@ -11,5 +11,3 @@ Correct recovery per page:
 - Crucial: CRC is only for eligibility, never for deciding currency. And do not pick the ring's newest `slot_seq` or max `page_lsn` across all slots — the crash batch that never got a `BATCH_COMMIT` left post-images in the ring with highest `slot_seq` and higher `page_lsn` than committed, which must be ignored.
 
 Your previous `/app/triage` and `/app/report.json` can stay, but this binary must work on its own for any crash scene with disjoint `row_id`, page numbers, batch_ids, and LSNs — not just `/app/data/`.
-
-Keep `/app/recover` signature exactly as above. More steps follow; do not add extra arguments or manifest outputs yet and keep your triage tool intact.

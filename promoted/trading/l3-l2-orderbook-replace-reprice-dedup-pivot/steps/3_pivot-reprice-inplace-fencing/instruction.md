@@ -5,3 +5,4 @@ The exchange's `REPRICE` logic is not prior-price removal plus new price add. It
 Pivot the implementation: handle `REPRICE` as in-place move preserving priority queue order, not creating a new `order_id`. Keep `REPLACE` (old→new id) as remove old / add new with fresh priority, but `REPRICE` (same `order_id`) must move price without resetting time priority. Remove the old double-count handling and delete-then-add path for `REPRICE`. The final book must have no duplicate `order_id`, correct aggregated size per price level, bids descending and asks ascending, and must pass worker fanout idempotency and price-time priority checks.
 
 Ensure `/app/rebuild.py` still satisfies `python3 /app/rebuild.py <feed_file> <output_json>` producing `{"bids": [[price, quantity], ...], "asks": [[price, quantity], ...]}` with integer fields and no level with quantity <= 0.
+Additionally, write a report to /app/3_pivot-reprice-inplace-fencing_report.json.

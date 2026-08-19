@@ -13,3 +13,4 @@ Implement in /app/annsearch.py: seed frontier with entry_point and its first s=4
 Remove the old visited-at-push and canonical stop logic — final /app/annsearch.py must NOT contain a visited check at push time that prevents re-push, must NOT de-duplicate frontier, must contain re-push, beta=1.25, P=3, slack, patience, POP semantics. Keep load_graph and knn_search(graph, q, k) signature, keep /app/anngraph/ intact, and still importable.
 
 This step is the pop-visited re-push slack patience pivot with beta=1.25, P=3, push_ctr, slack, patience, visited marked at POP, frontier NOT de-duplicated, re-push.
+Additionally, write a short JSON report of what you fixed to /app/3_pop-visited-repush-slack-patience-pivot_metrics.json.

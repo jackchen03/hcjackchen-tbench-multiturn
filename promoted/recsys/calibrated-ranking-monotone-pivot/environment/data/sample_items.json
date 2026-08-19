@@ -1,0 +1,21 @@
+[
+  {"item_id": "i01", "feature_f": 3, "embedding": [0.7, 0.1, 0.2]},
+  {"item_id": "i02", "feature_f": 7, "embedding": [0.2, 0.8, -0.1]},
+  {"item_id": "i03", "feature_f": 12, "embedding": [0.9, -0.2, 0.4]},
+  {"item_id": "i04", "feature_f": 18, "embedding": [-0.1, 0.7, 0.6]},
+  {"item_id": "i05", "feature_f": 24, "embedding": [0.4, 0.5, 0.3]},
+  {"item_id": "i06", "feature_f": 29, "embedding": [0.6, -0.4, 0.8]},
+  {"item_id": "i07", "feature_f": 33, "embedding": [-0.3, 0.9, 0.5]},
+  {"item_id": "i08", "feature_f": 38, "embedding": [0.8, 0.2, -0.5]},
+  {"item_id": "i09", "feature_f": 44, "embedding": [0.1, -0.7, 0.9]},
+  {"item_id": "i10", "feature_f": 49, "embedding": [0.5, 0.6, -0.2]},
+  {"item_id": "i11", "feature_f": 53, "embedding": [-0.6, 0.3, 0.7]},
+  {"item_id": "i12", "feature_f": 58, "embedding": [0.3, -0.8, 0.6]},
+  {"item_id": "i13", "feature_f": 63, "embedding": [0.9, 0.4, 0.1]},
+  {"item_id": "i14", "feature_f": 68, "embedding": [-0.2, 0.5, -0.7]},
+  {"item_id": "i15", "feature_f": 73, "embedding": [0.6, 0.7, 0.2]},
+  {"item_id": "i16", "feature_f": 77, "embedding": [0.4, -0.1, -0.9]},
+  {"item_id": "i17", "feature_f": 26, "embedding": [-0.7, 0.6, 0.4]},
+  {"item_id": "i18", "feature_f": 46, "embedding": [0.2, 0.3, 0.8]}
+]
+

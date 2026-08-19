@@ -7,5 +7,3 @@ The old tool is still in the environment at `/verifier/btapply` usable as `/veri
 Focus on the single-page case first. For streams that stay within one page, figure out exactly how this engine handles deletes at the page level and how later inserts reuse freed space — the slot directory, cell bytes, counters and high-water mark must all become byte-identical.
 
 Deliver an executable at `/app/btapply` with identical usage `/app/btapply <output file>` reading `I <key>` / `D <key>` lines from stdin and writing the whole index file. For this step we will validate it only on single-page streams (delete-heavy, delete-then-reinsert on the same page) with disjoint keys from the samples. All files must be byte-exact vs the old tool on those streams. More steps will follow, so conserve the binary and its conventions.
-
-Do not write `/app/split_boundary.json` or `/app/migration_report.json` yet.

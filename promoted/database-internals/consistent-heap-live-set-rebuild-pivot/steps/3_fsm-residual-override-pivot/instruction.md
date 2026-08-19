@@ -25,3 +25,4 @@ Remove the old unconditional "xmax==0 ⇒ live" trust and the old "FSM free is a
 Keep same command `/app/reconcile <inputDir> <outputDir>` and same outputs. Read FORMAT.md for all layouts. Your program must stay self-contained, not depend on report_naive or samples at runtime.
 
 This step is about signed residual override and alternative heap layout witness — body must include free_fsm, free_after, delta, tuple_len, xmax==0, signed residual, fsm.bin, heap.bin, commit.log, USABLE, live.txt.
+Additionally, write a short JSON report of what you fixed to /app/3_fsm-residual-override-pivot_report.json.

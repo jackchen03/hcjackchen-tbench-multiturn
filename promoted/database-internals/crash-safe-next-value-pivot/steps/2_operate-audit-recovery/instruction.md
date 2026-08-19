@@ -9,3 +9,4 @@ Change output format to name|next|committed_csv per line, sorted by name, csv co
 We will run your binary on held-out fixtures (disjoint names/ranges, includes aborted top-of-block ids, in-progress txn, descending, cycle crossing, zero REFILL) and check exact byte equality. Also verify adaptation to prior step: next values must still equal your step 1 output for same pre-crash fixtures before post-crash work, and committed set must exclude aborted/in-progress.
 
 Use carried conventions and files from previous step; don't re-derive FORMATS.md or seqcat/ckpt paths from scratch.
+The output for this step must include /app/data/sample/expected_full.txt.

@@ -9,3 +9,4 @@ Your old append-only, rightmost-only split path that never checked underflow mus
 Keep your previous /app/btbuild.meta accounting from last step — after delete, its fields must reflect final post-delete index. Keep byte-exact invariant for final file.
 
 Paths to know from carried context: /app/btbuild is your binary, /app/btbuild.meta accounting, /verifier/btbuild-delete is the new oracle at /verifier/btbuild-delete <deletes_file> <output file> reading base keys on stdin, /verifier/dump-tree still works on final files.
+Additionally, write a short JSON report of what you fixed to /app/3_deletion-merge-redistribution-pivot_report.json.

@@ -1,0 +1,5 @@
+{"msg_type":"NEW","trade_id":"sample-amend","counterparty":"SAMPLE_A","trade_date":"2026-06-25","bought_ccy":"EUR","bought_amount":1000,"sold_ccy":"JPY","sold_amount":160000}
+{"msg_type":"AMEND","trade_id":"sample-amend","counterparty":"SAMPLE_A","trade_date":"2026-07-01","bought_ccy":"EUR","bought_amount":1200,"sold_ccy":"JPY","sold_amount":192000}
+{"msg_type":"NEW","trade_id":"sample-intermediate","counterparty":"SAMPLE_B","trade_date":"2026-07-02","bought_ccy":"GBP","bought_amount":500,"sold_ccy":"CHF","sold_amount":600}
+{"msg_type":"NEW","trade_id":"sample-cancel","counterparty":"SAMPLE_C","trade_date":"2026-07-01","bought_ccy":"EUR","bought_amount":90,"sold_ccy":"JPY","sold_amount":10000}
+{"msg_type":"CANCEL","trade_id":"sample-cancel"}

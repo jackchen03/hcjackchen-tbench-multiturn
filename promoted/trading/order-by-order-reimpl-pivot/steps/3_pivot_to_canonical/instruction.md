@@ -9,3 +9,4 @@ Pivot your implementation at `/app/build_book.py` to canonical book semantics:
 We will validate byte-exact against a new reference generator that implements this canonical behavior on held-out feeds whose refs, prices, sizes are disjoint from previous samples. Also assert old quirks are absent: your builder must not contain a code path that retains zero-size orders after `E`, and must not keep priority on `U`.
 
 Keep the same CLI: feed path as first arg, snapshot to stdout. `/app/quirks_report.json` is no longer required but leaving it does not break grading; main check is stdout and absence of old logic.
+Write report to /app/3_pivot_to_canonical_report.json.

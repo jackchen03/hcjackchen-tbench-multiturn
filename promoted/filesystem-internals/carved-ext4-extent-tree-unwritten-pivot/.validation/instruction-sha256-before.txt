@@ -1,0 +1,3 @@
+7fe744a982dff1cf77cc5d3db6ee8a84ea4d33aebbe19e561fa0ba64684b43c5  steps/1_recover-file-contiguous-extent/instruction.md
+bf898bec52f2c31e7e65014797aa1daecde7acf4292aef4ade23bfef7d8c5591  steps/2_handle-unwritten-and-decoy-bound/instruction.md
+ce693a0723d67840f529a7fcd7dd7f2683b24f04139d243ffde34e819766a5ff  steps/3_truncate-eof-and-fix-unwritten-length/instruction.md

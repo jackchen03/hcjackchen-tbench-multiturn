@@ -220,3 +220,11 @@ All oracles run on prior end state (inherit_prior_session true, /app present), s
 - Step3 omitted nothing new beyond diversity.json, product_id duplicate assertion — kept both file paths recs.csv and diversity.json and product_id grouping requirement because hidden test asserts them, not inferable from earlier steps.
 
 Canary GUID must be copied to each solve.sh/test_outputs.py as comment.
+
+## Phase-2 builder addendum
+
+- Step 1 uses a pure-negative source check for the later catalog, purchases, and product_id identifiers; the step-2 oracle trips it immediately.
+- Step 2 uses absence of /app/out/diversity.json; the step-3 oracle trips that boundary.
+- 4D disposition step 2: /app/recommend.py is replaced and test_exclusion_and_prior_dedup_match_reference reasserts canonicalized SKU uniqueness.
+- 4D disposition step 3: /app/recommend.py is intentionally overridden; test_product_diversity_preserves_exclusion_and_order reasserts bought-product exclusion and ranking order while proving product-level uniqueness.
+- All files under /app/data are read-only carried inputs.

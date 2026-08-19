@@ -10,3 +10,7 @@ Now `<out_dir>` must contain both:
 - `poses.json`: a JSON object where keys are `image_id` as **string**, values are objects with fields `"qvec": [qw, qx, qy, qz]`, `"tvec": [tx, ty, tz]`, `"camera_id": <int>`, `"name": <str>`. Quaternion uses COLMAP convention: Hamilton, order strictly `qw, qx, qy, qz`, world-to-camera rotation `X_cam = R(qvec) · X_world + tvec`. Keep original values, coordinate system, units — no transform, no normalization, no scale. Include all registered images.
 
 Same invocation: `python3 /app/recover.py <corrupted_model_dir> <out_dir>`. More steps will follow.
+The output for this step must include /tmp/out/poses.json.
+The output for this step must include /tmp/out/cameras.bin.
+The output for this step must include /tmp/out/images.bin.
+The output for this step must include /tmp/out/points3D.bin.

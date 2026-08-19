@@ -7,3 +7,4 @@ Switch to different recovery strategy: only overwrite impostor dirent's 4-byte l
 Old direct rewrite of link counts without restoring dirent must be removed, and old file_type fix must be absent. Keep carried conventions: raw-scan every directory block, count refs per inode, over-referenced vs under-referenced, impostor is UNIQUE dirent whose `file_type` disagrees with target mode, mode of impostor's `file_type` matches under-referenced. Touch nothing else.
 
 Update `/workdir/repair.sh` to implement this pivot. After it runs, `/tmp/out.img` from `/workdir/repair.sh /opt/tbench/holdout/caseX/broken.img /tmp/out.img` must be byte-identical to original, `fsck.ext4 -n` clean, every dirent `file_type` matches its target mode, every `i_links_count` equals counted refs, without you modifying any `i_links_count` or `file_type` byte.
+This step must handle drop correctly.

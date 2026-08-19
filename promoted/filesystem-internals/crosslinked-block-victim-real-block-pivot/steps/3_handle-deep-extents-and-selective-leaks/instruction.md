@@ -10,3 +10,4 @@ Rework `/solution/repair` to handle the full class:
 - Free any remaining genuine leaked blocks by clearing their bits in the block bitmaps, so the final image has no leaked blocks. Do not leave them allocated.
 
 And drop the old shortcuts: the new tool must not assume `depth == 0`, must not assume `len(leaked) == 1`, must not assign every leaked block to the victim. It must pass on both the old single-leak inline images and the new deep-extent multi-leak images. Keep it executable at `/solution/repair` with same usage `repair <image_path>`.
+The output for this step must include /tmp/deep_test_scratch.img.

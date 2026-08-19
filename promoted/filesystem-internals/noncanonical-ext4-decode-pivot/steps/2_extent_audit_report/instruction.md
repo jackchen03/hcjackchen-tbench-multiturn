@@ -2,7 +2,6 @@ Now that extraction works, we need an audit artifact for forensics that proves y
 
 Using the working decoder you built, generate an extent audit report for the files listed in /app/samples/files.txt.
 
-Write /app/extent_report.json with exact format:
 
 [
   {
@@ -25,7 +24,3 @@ Requirements:
 - holes are gaps implied by positive deltas between extents, staying zero at read time.
 - Order extents by ascending logical_block as decoded.
 - i_size from the inode's i_size_lo | i_size_high<<32.
-
-Do not re-explain the extractor path /app/myextract — reuse it. Keep /app/myextract working; add this report alongside. The hidden tests will check /app/extent_report.json fields against ground truth built from the same dialect rules.
-
-Keep output path exactly /app/extent_report.json and field names logical_block, physical_block, is_unwritten, length, holes, i_size, inode, image, extents verbatim.

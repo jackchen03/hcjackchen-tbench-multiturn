@@ -7,3 +7,4 @@ The block_offset table can no longer be trusted. If its entries are all zero or 
 On top of that, decode_store must now verify the trailing CRC32 which is computed over bytes [0 : len-4] and stored as u32 LE at file end. If CRC mismatches, raise ValueError. And add a new helper decode_vector(path, idx) that returns the single vector at global index idx as uint8 array shape (M,) without decoding the whole file — it should also work on zeroed-offset stores by using rebuilt offsets plus scanning inside the target block.
 
 Keep encode_store writing correct offsets and correct CRC. Keep pq_codec.py as the only deliverable. Your decoder now covers first version pivot, writer version, and resilient rebuild.
+Write report to /app/3_resilient-rebuild-and-crc-enforcement_report.json.

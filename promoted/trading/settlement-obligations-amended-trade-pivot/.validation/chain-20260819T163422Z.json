@@ -1,0 +1,81 @@
+{
+  "task": "settlement-obligations-amended-trade-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-settlement-obligations-amended-trade-pivot:validate"
+    },
+    {
+      "step": "1_fix-settlement-netting",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "1_fix-settlement-netting",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_fix-settlement-netting",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_add-funding-ledger",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_add-funding-ledger",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_add-funding-ledger",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-to-gross-exposure",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-to-gross-exposure",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-to-gross-exposure",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_fix-settlement-netting",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_add-funding-ledger",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

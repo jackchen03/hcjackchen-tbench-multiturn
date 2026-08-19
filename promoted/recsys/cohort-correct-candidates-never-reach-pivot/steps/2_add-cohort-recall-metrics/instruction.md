@@ -5,3 +5,5 @@ Add a metrics module that reports recall for the cohorts that were previously su
 The metrics should be runnable via `python -m rec.metrics` after `python -m rec.run` has produced `/app/output/recommendations.csv`. When you run it on the visible sample users it should show backfill recall recovered but category-sensitive recall still low — that will motivate the next change.
 
 Keep the existing top-10 output contract from step 1 intact.
+The output for this step must include rec/metrics.py.
+This step must handle category_hierarchy correctly.

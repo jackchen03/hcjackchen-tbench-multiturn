@@ -7,3 +7,4 @@ Profiled traces from the carved ext4 extent tree reconstruction show your curren
 Switch: old code that treated every extent as direct block copy without zeroing must be dropped — tail beyond `i_size` must not be written, unwritten extents must be logical zeros per `FORMAT.md`. Also ensure loop bound remains `eh_entries` not `eh_max`, checked via `eh_magic 0xF30A`, `EXT4_EXTENTS_FL 0x80000` in `i_flags`, using `i_block`, `ee_block`, `ee_start_lo`.
 
 Update `/workdir/reconstruct.sh` to implement truncation to `i_size_lo`/`i_size_high` and correct unwritten length `ee_len - 0x8000`. After this, `/workdir/recovered.bin` sha256 must match `expected_sha256` from `/workdir/case/manifest.json`. Direct block copy without zeroing unwritten must be absent; loop to `eh_max` must be absent.
+Additionally, write a short JSON report of what you fixed to /workdir/3_truncate-eof-and-fix-unwritten-length_report.json.

@@ -217,3 +217,10 @@ Consume this dossier + environment.spec.md + steps/*/instruction.md as read-only
 ## Anticheat
 
 Held-out users/items disjoint from shipped sample, fixtures off /app, checksums on frozen files, reference never ships writable, hardcoded/result-write cheating fails due disjoint values and actual subprocess run, sort-table shortcut fails due non-monotone, boundary-only fails due loader, loader-only fails edge-heavy.
+
+## Phase-2 builder addendum
+
+- The planned step-1 audit-file absence check did not make the immediate step-1 to step-2 boundary observable because step 2 does not create the audit artifact. The verifier instead uses the later instruction's edge-equality behavior as a pure negative: step 1 retains left-bucket equality, and the step-2 oracle makes that negative trip. Step 2 retains the planned absence check for /app/output/calibration_audit.json, which the step-3 oracle trips.
+- 4D disposition step 2: /app/rec/features.py is mutated; test_preserves_loader_fix_on_original_sample reasserts the exact step-1 ranking behavior and the bucket-id mapping.
+- 4D disposition step 3: /app/rec/calib.py and /app/rec/serve.py are intentionally replaced; test_preserves_rankings_and_writes_exact_audit reasserts prior ranking behavior, while test_binary_parser_path_is_removed_and_unused proves the overridden binary path is gone.
+- /app/rec/rank.py, /app/data/edges.json, the sample inputs, and both calibration artifacts are read-only carried inputs.

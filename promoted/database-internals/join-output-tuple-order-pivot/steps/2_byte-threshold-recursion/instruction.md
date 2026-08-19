@@ -9,3 +9,4 @@ Extend your existing /app/hashjoin to implement this. Keep the spill-completion 
 The title keywords byte, threshold, recursion, and partition must be relevant. Do not re-implement from scratch — adapt your prior artifact.
 
 Output contract: same executable path /app/hashjoin, same stdin JSON -> argv[1] file contract per /app/FORMAT.md, now byte-matches refjoin on both fit-only and single-level-recursion held-out inputs.
+Additionally, write a short JSON report of what you fixed to /app/2_byte-threshold-recursion_report.json.

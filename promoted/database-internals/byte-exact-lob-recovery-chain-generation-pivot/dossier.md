@@ -208,3 +208,6 @@ Chain completes end-to-end: seed gen → overflow.store+lob.dir+alloc.map+undo.l
 
 ## No solution/, tests/, environment/Dockerfile here — Codex builds.
 
+## Phase-2 blocker addendum
+
+Step 2 is not currently gradeable without changing the human-owned contract. Its instruction introduces only alloc.map and requires replacing a reused slot with the original bytes, but the specified environment gives alloc.map metadata only; the only stated source of original before-images is undo.log, introduced in step 3. At the same time, the step-2 over-execution plan forbids using undo.log. A human must choose one fair contract: expose or permit a byte source in step 2, or make step 2 detection-only and defer byte restoration to step 3.

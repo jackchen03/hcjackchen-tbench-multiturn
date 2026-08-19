@@ -13,3 +13,5 @@ Keep your existing /app/recover <dataDir> <outputFile> contract for txt committe
 Motivation for pivot is legible: sorted array too slow on traces we just profiled, lookups dominate, switch to hash map and drop ordering assumption.
 
 Title keywords: hash, pivot, lookup, commit, index. Must mention bucket, next_offset, 0x43494459, CIDY, 64, /app/commit.idx.
+This step must handle hash pivot correctly.
+Additionally, write a short JSON report of what you fixed to /app/3_hash-lookup-pivot_report.json.

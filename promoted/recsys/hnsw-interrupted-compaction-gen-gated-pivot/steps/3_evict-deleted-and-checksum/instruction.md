@@ -9,3 +9,4 @@ Crucially: old approach of post-filtering deleted `item_id` at query time inside
 Final state in `/app/annindex/index.bin` must: be loadable by `load_index`, yield expected recall ~0.95 on held-out queries over live set via `knn_search`, return zero deleted `item_id`s, have `free_list_head` chain covering all deleted slots, have `node_count` equal live count, and have valid `checksum`. Do not modify `annlib.py` or `FORMAT.md`. Absence checks: no deleted filtering code in `annlib.py`, no relying on `version` bump as fix.
 
 Title keywords evict, deleted, checksum must appear.
+Additionally, write a short JSON report of what you fixed to /app/3_evict-deleted-and-checksum_metrics.json.

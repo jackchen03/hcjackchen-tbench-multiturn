@@ -1,0 +1,12 @@
+Image: tbench-mt-order-by-order-reimpl-pivot:validate
+Audit date: 2026-08-19
+Executable: /opt/refbook/refbook
+Executable mode: present and executable
+First four bytes: 7f454c46 (ELF)
+Absent: /opt/refbook/refbook.c
+Absent: /app/refbook.c
+Absent: /app/generate_samples.py
+Absent: /opt/refbook/refbook_v2
+Absent: /opt/refbook/refbook_final
+Absent: /app/canonical_reference.py
+Result: initial runtime image contains only the required step-1 opaque executable and no readable source or successor reference path.

@@ -7,3 +7,4 @@ Concretely, add a face_owner dict keyed by shared face index/coord that records 
 Keep the per-cell min-max rescaling from the previous step and keep the case table and interpolation untouched. After this, /app/mymc.py must match refmc on all volumes — smooth blobs, isolated ambiguous cells, and clustered ambiguous volumes including thin necks, near-touching lobes, and pinched tori.
 
 Finally, remove the temporary probing artifacts you created earlier — delete /app/probe_report.json and the directory /app/probe_volumes/ entirely. The final submission should contain only the fixed /app/mymc.py with no leftover probe files. The output contract is still `python3 /app/mymc.py <volume.npy> <isovalue> <out.obj>` producing OBJ with triangle sets identical to refmc regardless of vertex/order.
+Additionally, write a short JSON report of what you fixed to /app/3_raster_ownership_pivot_result.json.

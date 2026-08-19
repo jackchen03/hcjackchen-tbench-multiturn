@@ -7,3 +7,5 @@ Switch /app/solution/recover to scan every byte offset in the image for a valid 
 The old cluster-aligned fast path that iterated offsets by cluster size (reading BPB at 0x0B and 0x0D and stepping by cluster_size) must be removed entirely — we will assert its absence. Keep the same interface: /app/solution/recover <input_image> <output_file> must still produce the original report bytes that pass /app/tools/rptverify, now for both aligned and unaligned images, and must still reproduce /app/recovered.bin from /app/card.img.
 
 This final pivot completes the fat16 cluster chain recovery — byte-wise scan replaces cluster scan and the FAT is still untrusted.
+This step must handle range(len(img)) SDR1 scan correctly.
+Additionally, write a short JSON report of what you fixed to /workdir/3_pivot-to-unaligned-scan_report.json.

@@ -4,7 +4,6 @@ Your previous /app/framer matches the legacy framer on basic samples and on most
 
 The transform must be reversible: a literal 0xAA 0x00 0x55 sequence in one record must not collide with an escaped 0xAA 0x55 marker from another. If you only escape 0xAA when the next byte is 0x55, the 0x00 case causes ambiguity, the escaped stream shifts, and every downstream block footer moves, making the whole segment byte-different.
 
-You have /app/EDGE_PAYLOADS.json now in addition to /app/samples/ and /verifier/legacy_framer. Those batches deliberately contain 0xAA 0x00 windows. Figure out how to know when a 0xAA needs a stuff byte for both followers and where the ambiguity comes from. Don't re-derive the block layout, magic, or footer algorithm from scratch; you already have the area and conventions from last step.
 
 Update the executable at /app/framer at the same path — it still reads stdin JSON {"records":[b64]} and writes raw segment on stdout byte-identical to legacy_framer. Keep writing raw bytes, no wrapper. Now it must also handle payloads containing 0xAA 0x00 correctly, not just 0xAA 0x55. For now it's okay if you still skip the empty final block case — that will be tackled next.
 

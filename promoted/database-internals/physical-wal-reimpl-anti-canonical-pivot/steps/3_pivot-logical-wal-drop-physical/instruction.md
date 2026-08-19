@@ -9,3 +9,4 @@ Crucially, this is a pivot: drop the physical path entirely. Your new /app/decod
 Samples are in /app/logical_samples/. Grading feeds held-out logical WAL segments with disjoint values and byte-diffs your output against /app/logical2stream golden, and asserts physical handling absence.
 
 This completes the physical-wal-reimpl anti-canonical pivot to logical.
+This step must handle pivot-logical correctly.

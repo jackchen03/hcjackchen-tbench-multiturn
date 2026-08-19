@@ -6,6 +6,5 @@ A previous teammate tried a simple replayer that just wrote logged blocks back s
 
 Recover the image to a consistent state: parse the detached jbd2 journal and apply its committed contents onto the crash image so the result would pass a filesystem check. Write the recovered image to /app/recovered.img. The hidden grader will run `fsck.ext4 -n /app/recovered.img` and it must exit 0 clean for this step.
 
-Output contract: /app/recovered.img must exist after this step and be fsck clean. Do not create any other new binaries yet — in particular do not create /app/replay at this stage; that comes next. More steps will follow, so conserve resources and don't try to build a general tool yet.
 
 Keywords that must appear in your work: jbd2 journal replay consistent.

@@ -3,5 +3,3 @@ Your probing from step 1 showed that the marching cubes ambiguous face choice de
 Edit /app/mymc.py to replace the standard asymptotic decider that uses raw scalar values with a per-cell min-max rescaled saddle test: for each cell compute cmin = min of its 8 corner values, cmax = max, rescale g = (f - cmin)/(cmax - cmin), rescale the isovalue to alpha_g = (iso - cmin)/(cmax - cmin), and evaluate the saddle S_g on the rescaled face corners. Keep the case table and edge interpolation unchanged — vertex positions are already correct.
 
 After this change, /app/mymc.py should match refmc on isolated single-ambiguous-cell volumes, but it will still disagree on clustered ambiguous volumes where two adjacent cells both have ambiguous faces (thin necks, pinched tori), and may produce cracks/non-watertight meshes there. That's expected for this step.
-
-Leave your probe artifacts from step 1 in place for now; you will clean them later. Focus only on /app/mymc.py rescaling this step — do not add any face ownership or raster logic yet.

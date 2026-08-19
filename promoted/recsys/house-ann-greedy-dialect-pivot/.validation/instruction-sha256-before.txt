@@ -1,0 +1,3 @@
+4b4b4a5659b8d2286690e0975db69f0c13fb4636b840f9b1b543e2e5f6d1ed08  steps/1_recover-integer-distance-ordered-output/instruction.md
+16c54e872592baa45d79c3ab1fdffc29c473abdf298f835b452d4fa20513c601  steps/2_fix-tie-order-per-push-counter/instruction.md
+8fa6b5b15af70f673c5dead0ee24c6031de36aa9adbe84dd272cbba0c86dac50  steps/3_pop-visited-repush-slack-patience-pivot/instruction.md

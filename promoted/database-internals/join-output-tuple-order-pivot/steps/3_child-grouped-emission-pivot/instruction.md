@@ -7,3 +7,6 @@ Previous code emitted a recursed partition in flat probe-scan times build-insert
 After this pivot, /app/hashjoin must byte-match /app/refjoin on all inputs: fit-only, single-level recursion, two-level recursion, mixed fit/recursed coexistence, multi-build-match keys, and skewed distributions that force non-ascending spill-completion processing order. During grading /app/refjoin will be absent, so your binary must be self-contained.
 
 Output contract: /app/hashjoin at same path, same JSON stdin -> argv[1] file per /app/FORMAT.md, byte-matches on full held-out set spanning fit, single-level, two-level, mixed, multi-match, skewed spill-completion.
+This step must handle flat emission branch must be removed correctly.
+This step must handle second level recursion correctly.
+Additionally, write a short JSON report of what you fixed to /app/3_child-grouped-emission-pivot_report.json.

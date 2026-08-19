@@ -5,5 +5,3 @@ Extend the same binary at `/app/btapply` (overwrite it, keep the same path and u
 We will now validate on all streams, including those in `/app/samples/` that trigger splits and merges, plus larger held-out streams with delete-heavy patterns, variable-length keys crafted so byte-fill vs key-count underflow differs, and cascades of split then merge. You need to discover the split point rule, the underflow trigger quantity and threshold, when compaction of ghosts happens, and which sibling is preferred for borrow and merge.
 
 Also write `/app/split_boundary.json` with the thresholds and sibling preference you discovered, containing exactly keys `split_pct`, `merge_pct`, `borrow_order`, `merge_order` — for example `{"split_pct":<int>,"merge_pct":<int>,"borrow_order":["right","left"],"merge_order":["right","left"]}`. The integer values must be the actual percentages you reverse engineered. This file is part of this step's contract.
-
-Do not yet write `/app/migration_report.json`. The old tool remains at `/verifier/btapply` and `/verifier/dump-tree` for probing.

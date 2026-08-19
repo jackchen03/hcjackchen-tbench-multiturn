@@ -6,6 +6,5 @@ Build an executable at /app/replay with usage `/app/replay <disk_image> <journal
 
 For this step, running `/app/replay /app/disk.img /app/journal.bin /tmp/out.img` must produce an image that is fsck clean (`fsck.ext4 -n /tmp/out.img` exit 0) and byte-identical to your /app/recovered.img from step 1. The grader will also run it on that exact shipped sample and compare byte-for-byte against the true ground truth.
 
-Do not yet create /app/fix_report.txt — that belongs to the next pivot. Keep the binary at /app/replay, keep /app/recovered.img valid, and rely on the parsing you already did for s_start, s_sequence and tag handling without re-deriving everything from scratch.
 
 Title keywords jbd2 journal replay should still describe your work.

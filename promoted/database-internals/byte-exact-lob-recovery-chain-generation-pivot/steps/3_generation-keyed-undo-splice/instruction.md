@@ -7,3 +7,4 @@ Switch to generation-keyed undo selection. For any slot where expected_gen != cu
 Remove the old owner-only logic. The previous path that consulted the overflow slot header owner field to decide reuse must go — it is wrong and must not be present in the final /app/recover. Keep the same command /app/recover <inputDir> <outputDir> and same output files <value_id>.bin. Read FORMAT.md for undo.log, alloc.map, overflow.store, lob.dir layout and use value_id to name outputs. You need expected_gen, current_gen, gen_before, len_before all together.
 
 This step is about generation-keyed undo splice — body includes generation, undo, splice, undo.log, gen_before, len_before, expected_gen, current_gen.
+Additionally, write a short JSON report of what you fixed to /app/3_generation-keyed-undo-splice_report.json.

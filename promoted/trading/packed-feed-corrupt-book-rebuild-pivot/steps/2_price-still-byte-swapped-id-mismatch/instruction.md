@@ -3,3 +3,4 @@ The book after the first fix is closer but still off — top of book shows astro
 The feed header is 2 bytes: `msg_type` (uint8 `A`=65 add, `X`=88 cancel, `E`=69 execute) then `version` (uint8). You already probed the packed offsets for fields `seq`, `ts`, `order_id`, `side`, `sym_len`, `symbol`, `price`, `size`, `exec_size` using `hexdump`/`od -c` against `/app/sample/expected.json`.
 
 Fix the remaining byte-order issue so that book levels, sizes, and VWAP match exactly, and Cancel/Execute lookups by `order_id` resolve correctly. Do not re-state the CLI or JSON schema already handled — rely on prior context.
+Additionally, write a report to /app/2_price-still-byte-swapped-id-mismatch_report.json.

@@ -269,3 +269,10 @@ Check: slug `historical-var-underreports-pivot` keywords: historical in step1 "h
 ## Canary + original mapping
 - originalSingleTurnSlug: historical-simulation-var-under-reports-and-the--20
 - originalSingleTurnFamily: trading-risk / data-processing? Use trading-risk.
+
+## Phase-2 builder addendum
+
+- The planned static source-path over-execution checks were replaced by behavioral boundary probes. Step 1 must still disagree with the later `/app/sample_staggered/` reference, and step 2 must still exceed the short `/app/sample_prod/` probe. Running the successor oracle makes each predecessor negative trip.
+- 4D disposition step 2: `/app/var_report.py` is mutated; `test_preserves_shared_calendar_discrete_quantile` reasserts the exact step-1 behavior.
+- 4D disposition step 3: `/app/var_report.py` is replaced in place; `test_preserves_shared_and_staggered_results` reasserts both prior behaviors, while `test_removed_row_wise_apply_path` proves the overridden row-wise path is absent.
+- `/app/sample/`, `/app/sample_staggered/`, and `/app/sample_prod/` are read-only inputs across the chain.

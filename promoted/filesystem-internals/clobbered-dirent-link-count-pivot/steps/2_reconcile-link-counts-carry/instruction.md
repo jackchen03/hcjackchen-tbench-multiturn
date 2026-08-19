@@ -4,4 +4,4 @@ Add link count reconciliation relying on the same conventions you already use �
 
 Extend `/workdir/repair.sh` so after locating over-referenced and under-referenced inodes via counted refs vs `i_links_count`, it also ensures every inode's `i_links_count` equals its counted dirent refs using the same `file_type` vs mode cross-check and `i_links_count` probing you already have. Keep generic — same `<input> <output>` args, no hardcoded inode numbers.
 
-After fix, output must still be byte-identical to hidden original — the link count reconciliation must be done by the same mechanism that restores the dirent, not by blindly setting counts, so that final image bytes match original exactly.
+After fix, output must still be  to hidden original — the link count reconciliation must be done by the same mechanism that restores the dirent, not by blindly setting counts, so that final image bytes match original exactly.

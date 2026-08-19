@@ -6,6 +6,5 @@ The base knn_search uses float L2 or wrong tie handling. The old engine computes
 
 Fix /app/annsearch.py so that load_graph and knn_search(graph, q, k) keep the same signature, and knn_search returns an ordered list of k ints. You can self-check against the sample witness under /app/witness/queries.npy and /app/witness/neighbors.jsonl — those are legacy ordered top-10 lists for seeded int8 queries. At this stage aim to make far / unique-distance queries match exactly; near-equidistant clusters may still drift.
 
-This step is about integer distance and ordered output. Keep the file path /app/annsearch.py, function load_graph, knn_search(graph, q, k), and graph dir /app/anngraph/. Don't implement per-push counter tie logic or pop-visited re-push or slack/beta stop yet — just get integer distance and all-popped sorted deterministic ordering working.
 
 Title keywords recover, integer, distance, ordered, output must appear but fix is just integer distance and ordered output.

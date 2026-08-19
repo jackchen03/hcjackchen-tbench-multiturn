@@ -13,3 +13,4 @@ Pivot `/app/reconcile.py` which you fixed earlier:
 - It must still correctly dedup PossDup resends under the new feed.
 
 In other words, drop the cumulative logic you added for carry/reset, switch index to hash, and drop net-only aggregation — produce buy/sell/gross/net and ensure no CumQty read remains.
+Additionally, write a short JSON report of what you fixed to /app/3_pivot-to-gross-exposure-hash-index_audit.json.

@@ -6,7 +6,6 @@ Since the last artifact sync about 3% of items are completely broken: querying t
 
 Investigate: inspect `/app/embstore/` byte sizes versus declared headers in `meta.json` and per-shard headers, recompute crc32 per `FORMAT.md`, scan `idmap.bin` which maps each global id to `(primary_shard: uint16, row: uint32)` for primary shards only. Find which primary shard is short and which id range is missing. Then locate replica copies: each `replica_XXX.bin` contains a `backptr_table` of global ids and stored rows as `true_vec - replica_mean`. Use that to recover the missing tail.
 
-Repair `/app/embstore/` in place: materialize recovered rows inside the truncated `primary_002.bin`, rebuild its replica pointer table and trailing crc32 so the shard becomes byte-complete and crc-valid per `FORMAT.md`. Do not modify `/app/embstore_lib.py` or `/app/embstore/FORMAT.md`, only fix data files in `/app/embstore/`.
 
 After your fix `/app/embstore/` must still be loadable by existing `load_store`, file sizes must match declared rows (`declared_rows * (2*D + 6) + 16` style per FORMAT) and crc32 must match, and the zero/centroid junk vectors must be gone. Some recovered items may still return wrong neighbors due to offset calc or channel order mismatch — that's expected to be addressed next, but the store must be structurally valid now.
 
