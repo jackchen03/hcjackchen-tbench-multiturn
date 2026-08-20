@@ -21,12 +21,12 @@ ____________ test_shipped_card_payload_recovered_in_sequence_order _____________
 >       assert Path("/app/recovered.bin").read_bytes()==b"hello world" and Path("/app/card.img").read_bytes().count(b"SDR1")==2
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:5: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:5:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
     with self.open(mode='rb') as f:
          ^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recovered.bin'), mode = 'rb', buffering = -1
 encoding = None, errors = None, newline = None
@@ -59,12 +59,12 @@ $ docker exec tbench-mt-fat16-cluster-chain-recovery-pivot-chain cat /logs/verif
 &gt;       assert Path("/app/recovered.bin").read_bytes()==b"hello world" and Path("/app/card.img").read_bytes().count(b"SDR1")==2
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:5: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:5:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
     with self.open(mode='rb') as f:
          ^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recovered.bin'), mode = 'rb', buffering = -1
 encoding = None, errors = None, newline = None
@@ -124,14 +124,14 @@ _____________ test_general_scanner_selects_dominant_stream_and_crc _____________
 >       p=Path("/tmp/card2.img"); p.write_bytes(img); out=Path("/tmp/report.bin"); subprocess.run([recover,str(p),str(out)],check=True)
                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/solution/recover', '/tmp/card2.img', '/...>
 args = ['/app/solution/recover', '/tmp/card2.img', '/tmp/report.bin']
@@ -151,7 +151,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -161,7 +161,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -169,12 +169,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -195,9 +195,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -215,7 +215,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -249,11 +249,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -265,7 +265,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -275,7 +275,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -327,14 +327,14 @@ $ docker exec tbench-mt-fat16-cluster-chain-recovery-pivot-chain cat /logs/verif
 &gt;       p=Path("/tmp/card2.img"); p.write_bytes(img); out=Path("/tmp/report.bin"); subprocess.run([recover,str(p),str(out)],check=True)
                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/solution/recover', '/tmp/card2.img', '/...&gt;
 args = ['/app/solution/recover', '/tmp/card2.img', '/tmp/report.bin']
@@ -354,7 +354,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -364,7 +364,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -372,12 +372,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -398,9 +398,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -418,7 +418,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -452,11 +452,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -468,7 +468,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -478,7 +478,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -555,7 +555,7 @@ ________________ test_unaligned_bytewise_scan_and_carried_card _________________
 >       out=Path("/tmp/u.bin"); subprocess.run([recover,str(p),str(out)],check=True); assert out.read_bytes()==b"head-tail"
                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E       AssertionError: assert b'head-' == b'head-tail'
-E         
+E
 E         Use -v to get more diff
 
 /tests/test_outputs.py:10: AssertionError
@@ -574,7 +574,7 @@ $ docker exec tbench-mt-fat16-cluster-chain-recovery-pivot-chain cat /logs/verif
 &gt;       out=Path("/tmp/u.bin"); subprocess.run([recover,str(p),str(out)],check=True); assert out.read_bytes()==b"head-tail"
                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E       AssertionError: assert b'head-' == b'head-tail'
-E         
+E
 E         Use -v to get more diff
 
 /tests/test_outputs.py:10: AssertionError</failure></testcase></testsuite></testsuites>

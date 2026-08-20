@@ -70,12 +70,12 @@ _________ test_per_push_counter_orders_equal_distance_frontier_entries _________
 >       assert json.loads(Path("/app/2_fix-tie-order-per-push-counter_metrics.json").read_text())["tie_key"]=="distance,push_ctr"
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_fix-tie-order-per-push-counter_metrics.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -111,12 +111,12 @@ $ docker exec tbench-mt-house-ann-greedy-dialect-pivot-chain cat /logs/verifier/
 &gt;       assert json.loads(Path("/app/2_fix-tie-order-per-push-counter_metrics.json").read_text())["tie_key"]=="distance,push_ctr"
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_fix-tie-order-per-push-counter_metrics.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -177,12 +177,12 @@ _________ test_removes_push_time_frontier_dedup_and_records_parameters _________
 >       report=json.loads(Path("/app/3_pop-visited-repush-slack-patience-pivot_metrics.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:34: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:34:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_pop-visited-repush-slack-patience-pivot_metrics.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -217,12 +217,12 @@ $ docker exec tbench-mt-house-ann-greedy-dialect-pivot-chain cat /logs/verifier/
 &gt;       report=json.loads(Path("/app/3_pop-visited-repush-slack-patience-pivot_metrics.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:34: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:34:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_pop-visited-repush-slack-patience-pivot_metrics.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None

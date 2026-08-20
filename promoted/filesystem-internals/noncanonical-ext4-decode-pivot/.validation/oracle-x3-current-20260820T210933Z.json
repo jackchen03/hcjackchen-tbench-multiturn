@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:f7e10d748bba8e128b0fbfa3c0f15b4d1319e55ad12a730fff231dfec08f1dcc",
+  "command": "codimango bench run -p noncanonical-ext4-decode-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "616be54df0518231267513f61b85e92c2335dc55ce6f16d820ab1d12158d6250",
+  "issues": [],
+  "source_final_audit": "promoted/filesystem-internals/noncanonical-ext4-decode-pivot/.validation/final-audit-20260820T202438Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/filesystem-internals/noncanonical-ext4-decode-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:37:57.315636Z",
+      "harbor_task_checksum": "616be54df0518231267513f61b85e92c2335dc55ce6f16d820ab1d12158d6250",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:37:20.392919Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_forensic_match_reference",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_extent_audit_report",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_streaming_optimize_pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "22336be9-f24e-4b1a-8511-46946fc1a4bd",
+      "trial_name": "noncanonical-ext4-decode-pivot__eav3gF9"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:37:56.658778Z",
+      "harbor_task_checksum": "616be54df0518231267513f61b85e92c2335dc55ce6f16d820ab1d12158d6250",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:37:20.378629Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_forensic_match_reference",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_extent_audit_report",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_streaming_optimize_pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "eb0a7ec8-888b-4403-af6a-a4d51346ddf2",
+      "trial_name": "noncanonical-ext4-decode-pivot__qLLq4Rz"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:37:55.595461Z",
+      "harbor_task_checksum": "616be54df0518231267513f61b85e92c2335dc55ce6f16d820ab1d12158d6250",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:37:20.330523Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_forensic_match_reference",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_extent_audit_report",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_streaming_optimize_pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "523bb152-ea83-4607-a320-654ffd702cb4",
+      "trial_name": "noncanonical-ext4-decode-pivot__uPWKFqD"
+    }
+  ],
+  "wall_time_seconds": 118,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

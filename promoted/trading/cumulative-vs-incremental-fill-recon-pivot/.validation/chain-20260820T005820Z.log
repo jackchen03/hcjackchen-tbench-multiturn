@@ -26,7 +26,7 @@ _______________ test_sample_reconciles_to_expected_net_positions _______________
         assert result.returncode == 0, result.stderr
 >       assert json.loads(Path("/tmp/step1-sample.json").read_text()) == {"AAPL": 25, "MSFT": 10}
 E       AssertionError: assert {'AAPL': 65, 'MSFT': 10} == {'AAPL': 25, 'MSFT': 10}
-E         
+E
 E         Omitting 1 identical items, use -vv to show
 E         Differing items:
 E         {'AAPL': 65} != {'AAPL': 25}
@@ -48,7 +48,7 @@ ____________ test_disjoint_carry_reset_omitted_lastqty_and_possdup _____________
     """
 >       assert run_reconcile(body, "step1-disjoint") == {"BABA": 5, "NVDA": 20}
 E       AssertionError: assert {'BABA': 5, 'NVDA': 35} == {'BABA': 5, 'NVDA': 20}
-E         
+E
 E         Omitting 1 identical items, use -vv to show
 E         Differing items:
 E         {'NVDA': 35} != {'NVDA': 20}
@@ -76,7 +76,7 @@ $ docker exec tbench-mt-cumulative-vs-incremental-fill-recon-pivot-chain cat /lo
         assert result.returncode == 0, result.stderr
 &gt;       assert json.loads(Path("/tmp/step1-sample.json").read_text()) == {"AAPL": 25, "MSFT": 10}
 E       AssertionError: assert {'AAPL': 65, 'MSFT': 10} == {'AAPL': 25, 'MSFT': 10}
-E         
+E
 E         Omitting 1 identical items, use -vv to show
 E         Differing items:
 E         {'AAPL': 65} != {'AAPL': 25}
@@ -95,7 +95,7 @@ E         Use -v to get more diff
     """
 &gt;       assert run_reconcile(body, "step1-disjoint") == {"BABA": 5, "NVDA": 20}
 E       AssertionError: assert {'BABA': 5, 'NVDA': 35} == {'BABA': 5, 'NVDA': 20}
-E         
+E
 E         Omitting 1 identical items, use -vv to show
 E         Differing items:
 E         {'NVDA': 35} != {'NVDA': 20}
@@ -142,8 +142,8 @@ ______ test_ledger_is_appearance_ordered_deduped_and_transitively_rooted _______
     def test_ledger_is_appearance_ordered_deduped_and_transitively_rooted():
 >       actual = run_tool(LEDGER, Path("/tmp/step2-ledger.json"))
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tool = PosixPath('/app/ledger.py'), output = PosixPath('/tmp/step2-ledger.json')
 
@@ -153,7 +153,7 @@ tool = PosixPath('/app/ledger.py'), output = PosixPath('/tmp/step2-ledger.json')
         result = subprocess.run(["python3", str(tool), str(source), str(output)], text=True, capture_output=True)
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger.json'], returncode=2, stdout='', stderr="python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory\n").returncode
 
@@ -163,8 +163,8 @@ _____________ test_ledger_sums_tie_to_preserved_net_reconciliation _____________
     def test_ledger_sums_tie_to_preserved_net_reconciliation():
 >       ledger = run_tool(LEDGER, Path("/tmp/step2-ledger-tie.json"))
 
-/tests/test_outputs.py:40: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tool = PosixPath('/app/ledger.py')
 output = PosixPath('/tmp/step2-ledger-tie.json')
@@ -175,7 +175,7 @@ output = PosixPath('/tmp/step2-ledger-tie.json')
         result = subprocess.run(["python3", str(tool), str(source), str(output)], text=True, capture_output=True)
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger-tie.json'], returncode=2, stdout='', stderr="python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory\n").returncode
 
@@ -195,8 +195,8 @@ $ docker exec tbench-mt-cumulative-vs-incremental-fill-recon-pivot-chain cat /lo
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.054" timestamp="2026-08-20T00:58:25.306911+00:00" hostname="372e640010c8"><testcase classname="test_outputs" name="test_ledger_is_appearance_ordered_deduped_and_transitively_rooted" time="0.015"><failure message="AssertionError: python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory&#10;  &#10;assert 2 == 0&#10; +  where 2 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger.json'], returncode=2, stdout='', stderr=&quot;python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory\n&quot;).returncode">def test_ledger_is_appearance_ordered_deduped_and_transitively_rooted():
 &gt;       actual = run_tool(LEDGER, Path("/tmp/step2-ledger.json"))
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tool = PosixPath('/app/ledger.py'), output = PosixPath('/tmp/step2-ledger.json')
 
@@ -206,15 +206,15 @@ tool = PosixPath('/app/ledger.py'), output = PosixPath('/tmp/step2-ledger.json')
         result = subprocess.run(["python3", str(tool), str(source), str(output)], text=True, capture_output=True)
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger.json'], returncode=2, stdout='', stderr="python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory\n").returncode
 
 /tests/test_outputs.py:25: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_ledger_sums_tie_to_preserved_net_reconciliation" time="0.014"><failure message="AssertionError: python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory&#10;  &#10;assert 2 == 0&#10; +  where 2 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger-tie.json'], returncode=2, stdout='', stderr=&quot;python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory\n&quot;).returncode">def test_ledger_sums_tie_to_preserved_net_reconciliation():
 &gt;       ledger = run_tool(LEDGER, Path("/tmp/step2-ledger-tie.json"))
 
-/tests/test_outputs.py:40: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tool = PosixPath('/app/ledger.py')
 output = PosixPath('/tmp/step2-ledger-tie.json')
@@ -225,7 +225,7 @@ output = PosixPath('/tmp/step2-ledger-tie.json')
         result = subprocess.run(["python3", str(tool), str(source), str(output)], text=True, capture_output=True)
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger-tie.json'], returncode=2, stdout='', stderr="python3: can't open file '/app/ledger.py': [Errno 2] No such file or directory\n").returncode
 
@@ -279,7 +279,7 @@ _________ test_gross_exposure_uses_lastqty_and_dedups_by_venue_execid __________
             "NVDA": {"buy": 12, "sell": 2, "gross": 14, "net": 10},
         }
 E       AssertionError: assert {'MSFT': -4, 'NVDA': 10} == {'MSFT': {'bu...0, 'sell': 2}}
-E         
+E
 E         Differing items:
 E         {'MSFT': -4} != {'MSFT': {'buy': 0, 'gross': 4, 'net': -4, 'sell': 4}}
 E         {'NVDA': 10} != {'NVDA': {'buy': 12, 'gross': 14, 'net': 10, 'sell': 2}}
@@ -301,11 +301,11 @@ ____________________ test_writes_nonempty_json_pivot_audit _____________________
     def test_writes_nonempty_json_pivot_audit():
 >       report = json.loads(AUDIT.read_text(encoding="utf-8"))
 
-/tests/test_outputs.py:62: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:62:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_pivot-to-gross-exposure-hash-index_audit.json')
 mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
@@ -345,7 +345,7 @@ $ docker exec tbench-mt-cumulative-vs-incremental-fill-recon-pivot-chain cat /lo
             "NVDA": {"buy": 12, "sell": 2, "gross": 14, "net": 10},
         }
 E       AssertionError: assert {'MSFT': -4, 'NVDA': 10} == {'MSFT': {'bu...0, 'sell': 2}}
-E         
+E
 E         Differing items:
 E         {'MSFT': -4} != {'MSFT': {'buy': 0, 'gross': 4, 'net': -4, 'sell': 4}}
 E         {'NVDA': 10} != {'NVDA': {'buy': 12, 'gross': 14, 'net': 10, 'sell': 2}}
@@ -361,11 +361,11 @@ E       AssertionError: assert '14' not in {'', '\x01', '\n', '1', '11', '14', .
 /tests/test_outputs.py:38: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_writes_nonempty_json_pivot_audit" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/3_pivot-to-gross-exposure-hash-index_audit.json'">def test_writes_nonempty_json_pivot_audit():
 &gt;       report = json.loads(AUDIT.read_text(encoding="utf-8"))
 
-/tests/test_outputs.py:62: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:62:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_pivot-to-gross-exposure-hash-index_audit.json')
 mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
@@ -505,8 +505,8 @@ ______ test_ledger_is_appearance_ordered_deduped_and_transitively_rooted _______
     def test_ledger_is_appearance_ordered_deduped_and_transitively_rooted():
 >       actual = run_tool(LEDGER, Path("/tmp/step2-ledger.json"))
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tool = PosixPath('/app/ledger.py'), output = PosixPath('/tmp/step2-ledger.json')
 
@@ -519,7 +519,7 @@ E       AssertionError: Traceback (most recent call last):
 E           File "/app/ledger.py", line 6, in <module>
 E             from reconcile import iter_fills
 E         ImportError: cannot import name 'iter_fills' from 'reconcile' (/app/reconcile.py)
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger.json'], returncode=1, ... reconcile import iter_fills\nImportError: cannot import name \'iter_fills\' from \'reconcile\' (/app/reconcile.py)\n').returncode
 
@@ -529,8 +529,8 @@ _____________ test_ledger_sums_tie_to_preserved_net_reconciliation _____________
     def test_ledger_sums_tie_to_preserved_net_reconciliation():
 >       ledger = run_tool(LEDGER, Path("/tmp/step2-ledger-tie.json"))
 
-/tests/test_outputs.py:40: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tool = PosixPath('/app/ledger.py')
 output = PosixPath('/tmp/step2-ledger-tie.json')
@@ -544,7 +544,7 @@ E       AssertionError: Traceback (most recent call last):
 E           File "/app/ledger.py", line 6, in <module>
 E             from reconcile import iter_fills
 E         ImportError: cannot import name 'iter_fills' from 'reconcile' (/app/reconcile.py)
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger-tie.json'], returncode... reconcile import iter_fills\nImportError: cannot import name \'iter_fills\' from \'reconcile\' (/app/reconcile.py)\n').returncode
 
@@ -573,8 +573,8 @@ $ docker exec tbench-mt-cumulative-vs-incremental-fill-recon-pivot-oe2 cat /logs
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.154" timestamp="2026-08-20T00:58:36.381650+00:00" hostname="ff498085b473"><testcase classname="test_outputs" name="test_ledger_is_appearance_ordered_deduped_and_transitively_rooted" time="0.064"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;/app/ledger.py&quot;, line 6, in &lt;module&gt;&#10;      from reconcile import iter_fills&#10;  ImportError: cannot import name 'iter_fills' from 'reconcile' (/app/reconcile.py)&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger.json'], returncode=1, ... reconcile import iter_fills\nImportError: cannot import name \'iter_fills\' from \'reconcile\' (/app/reconcile.py)\n').returncode">def test_ledger_is_appearance_ordered_deduped_and_transitively_rooted():
 &gt;       actual = run_tool(LEDGER, Path("/tmp/step2-ledger.json"))
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tool = PosixPath('/app/ledger.py'), output = PosixPath('/tmp/step2-ledger.json')
 
@@ -587,15 +587,15 @@ E       AssertionError: Traceback (most recent call last):
 E           File "/app/ledger.py", line 6, in &lt;module&gt;
 E             from reconcile import iter_fills
 E         ImportError: cannot import name 'iter_fills' from 'reconcile' (/app/reconcile.py)
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger.json'], returncode=1, ... reconcile import iter_fills\nImportError: cannot import name \'iter_fills\' from \'reconcile\' (/app/reconcile.py)\n').returncode
 
 /tests/test_outputs.py:25: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_ledger_sums_tie_to_preserved_net_reconciliation" time="0.062"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;/app/ledger.py&quot;, line 6, in &lt;module&gt;&#10;      from reconcile import iter_fills&#10;  ImportError: cannot import name 'iter_fills' from 'reconcile' (/app/reconcile.py)&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger-tie.json'], returncode... reconcile import iter_fills\nImportError: cannot import name \'iter_fills\' from \'reconcile\' (/app/reconcile.py)\n').returncode">def test_ledger_sums_tie_to_preserved_net_reconciliation():
 &gt;       ledger = run_tool(LEDGER, Path("/tmp/step2-ledger-tie.json"))
 
-/tests/test_outputs.py:40: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tool = PosixPath('/app/ledger.py')
 output = PosixPath('/tmp/step2-ledger-tie.json')
@@ -609,7 +609,7 @@ E       AssertionError: Traceback (most recent call last):
 E           File "/app/ledger.py", line 6, in &lt;module&gt;
 E             from reconcile import iter_fills
 E         ImportError: cannot import name 'iter_fills' from 'reconcile' (/app/reconcile.py)
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/ledger.py', '/tmp/step2-ledger.fix', '/tmp/step2-ledger-tie.json'], returncode... reconcile import iter_fills\nImportError: cannot import name \'iter_fills\' from \'reconcile\' (/app/reconcile.py)\n').returncode
 

@@ -20,8 +20,8 @@ ___________________ test_recovers_sorted_float64_points_only ___________________
     def test_recovers_sorted_float64_points_only():
 >       subprocess.run(["python3","/app/recover.py","/app/sample_model","/tmp/out"],check=True)
 
-/tests/test_outputs.py:6: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python3', '/app/recover.py', '/app/sample_model', '/tmp/out'],)
@@ -32,45 +32,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output & stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -115,8 +115,8 @@ $ docker exec tbench-mt-colmap-binary-model-recovery-typing-pivot-chain cat /log
 <?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.203" timestamp="2026-08-20T01:13:10.980596+00:00" hostname="63b014b6477a"><testcase classname="test_outputs" name="test_recovers_sorted_float64_points_only" time="0.013"><failure message="subprocess.CalledProcessError: Command '['python3', '/app/recover.py', '/app/sample_model', '/tmp/out']' returned non-zero exit status 2.">def test_recovers_sorted_float64_points_only():
 &gt;       subprocess.run(["python3","/app/recover.py","/app/sample_model","/tmp/out"],check=True)
 
-/tests/test_outputs.py:6: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python3', '/app/recover.py', '/app/sample_model', '/tmp/out'],)
@@ -127,45 +127,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output &amp; stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -235,12 +235,12 @@ ______________ test_recovers_poses_with_typed_colmap_conventions _______________
 >       assert json.loads(Path("/tmp/out/poses.json").read_text())==json.loads(Path("/app/sample_gt/poses.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/out/poses.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -274,12 +274,12 @@ $ docker exec tbench-mt-colmap-binary-model-recovery-typing-pivot-chain cat /log
 &gt;       assert json.loads(Path("/tmp/out/poses.json").read_text())==json.loads(Path("/app/sample_gt/poses.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/out/poses.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -499,12 +499,12 @@ ______________ test_recovers_poses_with_typed_colmap_conventions _______________
 >       assert json.loads(Path("/tmp/out/poses.json").read_text())==json.loads(Path("/app/sample_gt/poses.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/out/poses.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -548,12 +548,12 @@ $ docker exec tbench-mt-colmap-binary-model-recovery-typing-pivot-oe2 cat /logs/
 &gt;       assert json.loads(Path("/tmp/out/poses.json").read_text())==json.loads(Path("/app/sample_gt/poses.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/out/poses.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None

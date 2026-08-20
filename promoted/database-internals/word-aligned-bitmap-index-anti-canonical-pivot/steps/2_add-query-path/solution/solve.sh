@@ -35,4 +35,3 @@ add query path relying exact index build
 The point lookup executable parses the persisted legacy bytes directly.
 EOF
 chmod 0755 /app/query
-

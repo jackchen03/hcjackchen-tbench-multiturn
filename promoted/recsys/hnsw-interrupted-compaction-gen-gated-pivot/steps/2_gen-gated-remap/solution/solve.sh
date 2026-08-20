@@ -14,4 +14,3 @@ idx["entry_point"]=remap[4]
 json.dump(idx,open(path,"w"),sort_keys=True,separators=(",",":"))
 json.dump({"restored_generation_1":3,"remapped_generation_0":3},open("/app/2_gen-gated-remap_metrics.json","w"))
 PY
-

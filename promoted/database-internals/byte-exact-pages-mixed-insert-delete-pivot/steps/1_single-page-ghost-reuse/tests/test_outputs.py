@@ -18,4 +18,3 @@ def test_delete_retains_ghost_and_reinsert_reuses_slot():
 def test_does_not_publish_split_boundary_yet():
     assert not Path("/app/split_boundary.json").exists()
     assert not Path("/app/migration_report.json").exists()
-

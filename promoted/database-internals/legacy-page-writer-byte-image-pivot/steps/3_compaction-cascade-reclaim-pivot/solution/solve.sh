@@ -37,4 +37,3 @@ for i,(off,n,live) in enumerate(slots):
 open(sys.argv[2],"wb").write(page)
 PY
 chmod +x /app/writer
-

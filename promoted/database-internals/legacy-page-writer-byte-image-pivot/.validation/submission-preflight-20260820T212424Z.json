@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 25,
+  "bundle_fingerprint": "bundle-sha256-v1:88073ce00027323c4ebed6f828ef775c908a67d64e126b475866b338d9eb0285",
+  "final_audit": "promoted/database-internals/legacy-page-writer-byte-image-pivot/.validation/final-audit-20260820T202807Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/legacy-page-writer-byte-image-pivot/.validation/chain-20260820T201704Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/legacy-page-writer-byte-image-pivot/.validation/oracle-x3-current-20260820T210827Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/legacy-page-writer-byte-image-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/legacy-page-writer-byte-image-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

@@ -26,4 +26,3 @@ json.dump(result,open(sys.argv[2],"w"),sort_keys=True,separators=(",",":"))
 PY
 chmod +x /app/replay.py
 python3 /app/replay.py /app/sample/feed.bin /tmp/out.json
-

@@ -14,4 +14,3 @@ with open(sys.argv[2],"w") as f:
         f.write(json.dumps(item,sort_keys=True,separators=(",",":"))+"\n")
 PY
 chmod +x /app/decode
-

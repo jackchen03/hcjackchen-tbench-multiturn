@@ -14,4 +14,3 @@ for row in a+b:
 text="".join("|".join("" if v is None else str(v) for v in by[k])+"\n" for k in sorted(by))
 open("/app/merged.txt","w").write(text); open("/workdir/merged.txt","w").write(text)
 PY
-

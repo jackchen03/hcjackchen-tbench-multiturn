@@ -1,0 +1,19 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b5252af44dd849bbb76c43019b68bf82bd0890a8da2cbbe316d98626415717a4",
+  "final_audit": "promoted/trading/cumulative-vs-incremental-fill-recon-pivot/.validation/final-audit-20260820T203351Z.json",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/trading/cumulative-vs-incremental-fill-recon-pivot/.validation/chain-20260820T202028Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/trading/cumulative-vs-incremental-fill-recon-pivot/.validation/oracle-x3-current-20260820T210954Z.json",
+  "proposed_commit_pathspec": "promoted/trading/cumulative-vs-incremental-fill-recon-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/trading/cumulative-vs-incremental-fill-recon-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

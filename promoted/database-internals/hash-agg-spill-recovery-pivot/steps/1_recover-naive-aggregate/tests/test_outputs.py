@@ -9,4 +9,3 @@ def test_combine_sum_and_distinct_sets():
 def test_does_not_publish_frontier_report_or_sorted_recovery_yet():
     assert not Path("/app/2_merge-partial-aggregates_report.json").exists()
     assert not Path("/app/recover_sorted").exists()
-

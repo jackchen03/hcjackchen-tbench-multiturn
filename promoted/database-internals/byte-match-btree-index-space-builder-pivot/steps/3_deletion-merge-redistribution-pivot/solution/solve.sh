@@ -28,4 +28,3 @@ json.dump({"page_count":len(chunks),"nlevels":1 if len(chunks)==1 else 2,"root_p
 json.dump({"deleted":len(deletes),"merge_strategy":"size-balanced","redistribution":True},open("/app/3_deletion-merge-redistribution-pivot_report.json","w"),sort_keys=True)
 PY
 chmod +x /app/btbuild
-

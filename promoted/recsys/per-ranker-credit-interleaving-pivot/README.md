@@ -10,4 +10,3 @@ The carried state is the exact PCG64 replay rule: first used to reproduce served
 | Avocado | unmeasured | unmeasured | unmeasured | unmeasured |
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
-

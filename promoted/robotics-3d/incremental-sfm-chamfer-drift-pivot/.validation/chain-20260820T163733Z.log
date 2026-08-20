@@ -22,11 +22,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_all_heldout_surfaces_hav
     def test_all_heldout_surfaces_have_zero_chamfer(tmp_path):
 >       assert all(assert_scene(index,tmp_path) for index in range(6))
 
-/tests/test_outputs.py:18: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:18: in <genexpr>
     assert all(assert_scene(index,tmp_path) for index in range(6))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index = 0
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_all_heldout_surfaces_have0')
@@ -68,11 +68,11 @@ $ docker exec tbench-mt-incremental-sfm-chamfer-drift-pivot-chain cat /logs/veri
     def test_all_heldout_surfaces_have_zero_chamfer(tmp_path):
 &gt;       assert all(assert_scene(index,tmp_path) for index in range(6))
 
-/tests/test_outputs.py:18: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:18: in &lt;genexpr&gt;
     assert all(assert_scene(index,tmp_path) for index in range(6))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index = 0
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_all_heldout_surfaces_have0')
@@ -136,15 +136,15 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_chamfer_regression_and_r
     def test_chamfer_regression_and_report_counts(tmp_path):
 >       assert all(run_and_check(index,tmp_path) for index in range(6))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in <genexpr>
     assert all(run_and_check(index,tmp_path) for index in range(6))
 /tests/test_outputs.py:11: in run_and_check
     import tracks;importlib.reload(tracks);scene=np.load(scene_path);built=tracks.build_tracks(scene);report=json.loads(Path('/app/recon_report.json').read_text())
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recon_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -168,11 +168,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_report_is_overwritten_fo
     def test_report_is_overwritten_for_sample_run(tmp_path):
 >       out=tmp_path/'sample.npz';subprocess.run(['python3','/app/sfm_reconstruct.py','--scene','/app/sample_scene.npz','--out',str(out)],check=True);report=json.loads(Path('/app/recon_report.json').read_text());assert report=={'duplicate_image_track_count':0,'total_tracks':100,'points_count':100}
 
-/tests/test_outputs.py:20: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:20:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recon_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -206,15 +206,15 @@ $ docker exec tbench-mt-incremental-sfm-chamfer-drift-pivot-chain cat /logs/veri
     def test_chamfer_regression_and_report_counts(tmp_path):
 &gt;       assert all(run_and_check(index,tmp_path) for index in range(6))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in &lt;genexpr&gt;
     assert all(run_and_check(index,tmp_path) for index in range(6))
 /tests/test_outputs.py:11: in run_and_check
     import tracks;importlib.reload(tracks);scene=np.load(scene_path);built=tracks.build_tracks(scene);report=json.loads(Path('/app/recon_report.json').read_text())
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recon_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -235,11 +235,11 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/recon_repo
     def test_report_is_overwritten_for_sample_run(tmp_path):
 &gt;       out=tmp_path/'sample.npz';subprocess.run(['python3','/app/sfm_reconstruct.py','--scene','/app/sample_scene.npz','--out',str(out)],check=True);report=json.loads(Path('/app/recon_report.json').read_text());assert report=={'duplicate_image_track_count':0,'total_tracks':100,'points_count':100}
 
-/tests/test_outputs.py:20: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:20:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recon_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -298,8 +298,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_ply_chamfer_and_report_r
     def test_ply_chamfer_and_report_regression(tmp_path):
 >       assert all(run_and_check(index,tmp_path) for index in range(6))
 
-/tests/test_outputs.py:18: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:18: in <genexpr>
     assert all(run_and_check(index,tmp_path) for index in range(6))
 /tests/test_outputs.py:12: in run_and_check
@@ -308,7 +308,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     raw=Path(path).read_bytes();marker=b'end_header\n';end=raw.index(marker)+len(marker);header=raw[:end].decode('ascii');count=int(next(line.split()[2] for line in header.splitlines() if line.startswith('element vertex ')));points=np.frombuffer(raw[end:],dtype='<f8').reshape(count,3).copy();return header,points
 /usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
     with self.open(mode='rb') as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/pytest-of-root/pytest-4/test_ply_chamfer_and_report_re0/heldout_0.ply')
 mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
@@ -362,8 +362,8 @@ $ docker exec tbench-mt-incremental-sfm-chamfer-drift-pivot-chain cat /logs/veri
     def test_ply_chamfer_and_report_regression(tmp_path):
 &gt;       assert all(run_and_check(index,tmp_path) for index in range(6))
 
-/tests/test_outputs.py:18: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:18: in &lt;genexpr&gt;
     assert all(run_and_check(index,tmp_path) for index in range(6))
 /tests/test_outputs.py:12: in run_and_check
@@ -372,7 +372,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     raw=Path(path).read_bytes();marker=b'end_header\n';end=raw.index(marker)+len(marker);header=raw[:end].decode('ascii');count=int(next(line.split()[2] for line in header.splitlines() if line.startswith('element vertex ')));points=np.frombuffer(raw[end:],dtype='&lt;f8').reshape(count,3).copy();return header,points
 /usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
     with self.open(mode='rb') as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/pytest-of-root/pytest-4/test_ply_chamfer_and_report_re0/heldout_0.ply')
 mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
@@ -529,13 +529,13 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_chamfer_regression_and_r
     def test_chamfer_regression_and_report_counts(tmp_path):
 >       assert all(run_and_check(index,tmp_path) for index in range(6))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in <genexpr>
     assert all(run_and_check(index,tmp_path) for index in range(6))
 /tests/test_outputs.py:10: in run_and_check
     points=np.load(out)['points'];surface=np.load(f'/opt/grader/surfaces/heldout_{index}_surface.npz')['points'];dist=np.concatenate([cKDTree(points).query(surface)[0],cKDTree(surface).query(points)[0]]);assert np.max(dist)<1e-10
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = PosixPath('/tmp/pytest-of-root/pytest-0/test_chamfer_regression_and_re0/heldout_0.npz')
 mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
@@ -545,13 +545,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -571,10 +571,10 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -592,13 +592,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -610,13 +610,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -627,24 +627,24 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         >>> np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         >>> np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         >>> a=np.array([[1, 2, 3], [4, 5, 6]])
         >>> b=np.array([1, 2])
         >>> np.savez('/tmp/123.npz', a=a, b=b)
@@ -655,14 +655,14 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         >>> data['b']
         array([1, 2])
         >>> data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         >>> X = np.load('/tmp/123.npy', mmap_mode='r')
         >>> X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -677,9 +677,9 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -687,7 +687,7 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             else:
                 fid = stack.enter_context(open(os_fspath(file), "rb"))
                 own_fid = True
-    
+
             # Code to distinguish from NumPy binary files and pickles.
             _ZIP_PREFIX = b'PK\x03\x04'
             _ZIP_SUFFIX = b'PK\x05\x06' # empty zip files start with this
@@ -752,13 +752,13 @@ $ docker exec tbench-mt-incremental-sfm-chamfer-drift-pivot-oe2 cat /logs/verifi
     def test_chamfer_regression_and_report_counts(tmp_path):
 &gt;       assert all(run_and_check(index,tmp_path) for index in range(6))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in &lt;genexpr&gt;
     assert all(run_and_check(index,tmp_path) for index in range(6))
 /tests/test_outputs.py:10: in run_and_check
     points=np.load(out)['points'];surface=np.load(f'/opt/grader/surfaces/heldout_{index}_surface.npz')['points'];dist=np.concatenate([cKDTree(points).query(surface)[0],cKDTree(surface).query(points)[0]]);assert np.max(dist)&lt;1e-10
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = PosixPath('/tmp/pytest-of-root/pytest-0/test_chamfer_regression_and_re0/heldout_0.npz')
 mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
@@ -768,13 +768,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -794,10 +794,10 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -815,13 +815,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -833,13 +833,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -850,24 +850,24 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         &gt;&gt;&gt; np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         &gt;&gt;&gt; np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         &gt;&gt;&gt; a=np.array([[1, 2, 3], [4, 5, 6]])
         &gt;&gt;&gt; b=np.array([1, 2])
         &gt;&gt;&gt; np.savez('/tmp/123.npz', a=a, b=b)
@@ -878,14 +878,14 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         &gt;&gt;&gt; data['b']
         array([1, 2])
         &gt;&gt;&gt; data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         &gt;&gt;&gt; X = np.load('/tmp/123.npy', mmap_mode='r')
         &gt;&gt;&gt; X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -900,9 +900,9 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -910,7 +910,7 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             else:
                 fid = stack.enter_context(open(os_fspath(file), "rb"))
                 own_fid = True
-    
+
             # Code to distinguish from NumPy binary files and pickles.
             _ZIP_PREFIX = b'PK\x03\x04'
             _ZIP_SUFFIX = b'PK\x05\x06' # empty zip files start with this

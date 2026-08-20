@@ -11,4 +11,3 @@ def test_preserves_sigma_whitened_jacobian_rows():
     assert np.allclose(out["weighted_rows"],[2.0,0.5])
 def test_does_not_create_unified_weighted_proof_yet():
     assert not Path("/workdir/unified_weighted_proof.json").exists()
-

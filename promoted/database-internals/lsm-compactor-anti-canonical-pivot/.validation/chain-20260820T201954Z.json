@@ -1,0 +1,81 @@
+{
+  "task": "lsm-compactor-anti-canonical-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-lsm-compactor-anti-canonical-pivot:validate"
+    },
+    {
+      "step": "1_byte-match-anti-canonical-compactor",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_byte-match-anti-canonical-compactor",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_byte-match-anti-canonical-compactor",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_add-level-accounting-from-sstable",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_add-level-accounting-from-sstable",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_add-level-accounting-from-sstable",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-tiered-no-parity-drop-accounting",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-tiered-no-parity-drop-accounting",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-tiered-no-parity-drop-accounting",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_byte-match-anti-canonical-compactor",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_add-level-accounting-from-sstable",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

@@ -21,8 +21,8 @@ ____________ test_product_codec_round_trip_quantizes_and_validates _____________
 >       codec=module(); path="/tmp/store.bin"; raw=[[0.12,0.88,-0.31],[1.14,1.62,2.01]]
               ^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in module
     spec=importlib.util.spec_from_file_location("pq_codec","/app/pq_codec.py"); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); return mod
                                                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -30,7 +30,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7f27a9fe22d0>
 path = '/app/pq_codec.py'
@@ -54,8 +54,8 @@ $ docker exec tbench-mt-pq-codec-product-quantization-pivot-chain cat /logs/veri
 &gt;       codec=module(); path="/tmp/store.bin"; raw=[[0.12,0.88,-0.31],[1.14,1.62,2.01]]
               ^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in module
     spec=importlib.util.spec_from_file_location("pq_codec","/app/pq_codec.py"); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); return mod
                                                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -63,7 +63,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7f27a9fe22d0&gt;
 path = '/app/pq_codec.py'
@@ -113,13 +113,13 @@ ______________ test_index_uses_precise_decoded_quantized_vectors _______________
 >       spec=importlib.util.spec_from_file_location("pq_index","/app/pq_index.py"); idx=importlib.util.module_from_spec(spec); spec.loader.exec_module(idx)
                                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 <frozen importlib._bootstrap_external>:936: in exec_module
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7fc306c2d2d0>
 path = '/app/pq_index.py'
@@ -145,13 +145,13 @@ $ docker exec tbench-mt-pq-codec-product-quantization-pivot-chain cat /logs/veri
 &gt;       spec=importlib.util.spec_from_file_location("pq_index","/app/pq_index.py"); idx=importlib.util.module_from_spec(spec); spec.loader.exec_module(idx)
                                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 &lt;frozen importlib._bootstrap_external&gt;:936: in exec_module
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7fc306c2d2d0&gt;
 path = '/app/pq_index.py'
@@ -202,7 +202,7 @@ _________________ test_isq1_scalar_header_codes_crc_and_decode _________________
         codec.encode_store(raw,path); data=Path(path).read_bytes()
 >       assert data[:4]==b"ISQ1"
 E       AssertionError: assert b'IPQ1' == b'ISQ1'
-E         
+E
 E         At index 1 diff: b'P' != b'S'
 E         Use -v to get more diff
 
@@ -228,12 +228,12 @@ _______________ test_scalar_pivot_report_records_removed_format ________________
 >       report=__import__("json").loads(Path("/app/2_pq-codec-product-quantization-pivot_guard_3_scalar-pivot.json").read_text())
                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:24: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:24:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_pq-codec-product-quantization-pivot_guard_3_scalar-pivot.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -267,7 +267,7 @@ $ docker exec tbench-mt-pq-codec-product-quantization-pivot-chain cat /logs/veri
         codec.encode_store(raw,path); data=Path(path).read_bytes()
 &gt;       assert data[:4]==b"ISQ1"
 E       AssertionError: assert b'IPQ1' == b'ISQ1'
-E         
+E
 E         At index 1 diff: b'P' != b'S'
 E         Use -v to get more diff
 
@@ -287,12 +287,12 @@ E        +      where PosixPath('/app/pq_index.py') = Path('/app/pq_index.py')
 &gt;       report=__import__("json").loads(Path("/app/2_pq-codec-product-quantization-pivot_guard_3_scalar-pivot.json").read_text())
                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:24: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:24:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_pq-codec-product-quantization-pivot_guard_3_scalar-pivot.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -434,13 +434,13 @@ ______________ test_index_uses_precise_decoded_quantized_vectors _______________
 >       spec=importlib.util.spec_from_file_location("pq_index","/app/pq_index.py"); idx=importlib.util.module_from_spec(spec); spec.loader.exec_module(idx)
                                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 <frozen importlib._bootstrap_external>:936: in exec_module
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7f4000715810>
 path = '/app/pq_index.py'
@@ -455,7 +455,7 @@ _______________________ test_preserves_codec_round_trip ________________________
         codec=module(); codec.encode_store([[0.2,0.7]],"/tmp/again.bin")
 >       assert codec.decode_store("/tmp/again.bin")==[[0.25,0.75]]
 E       assert [[0.200000002...999988079071]] == [[0.25, 0.75]]
-E         
+E
 E         At index 0 diff: [0.20000000298023224, 0.699999988079071] != [0.25, 0.75]
 E         Use -v to get more diff
 
@@ -465,14 +465,14 @@ _________________ test_does_not_accept_isq1_scalar_format_yet __________________
     def test_does_not_accept_isq1_scalar_format_yet():
 >       assert "ISQ1" not in Path("/app/pq_codec.py").read_text()
 E       assert 'ISQ1' not in 'import bina...eturn rows\n'
-E         
+E
 E         'ISQ1' is contained here:
 E              body=b"ISQ1"+struct.pack("<II",dim,count)+struct.pack("<"+"f"*dim,*mins)+struct.pack("<"+"f"*dim,*maxs)+bytes(codes)
 E         ?           ++++
 E               open(out_path,"wb").write(body+struct.pack("<I",binascii.crc32(body)&0xffffffff))
 E           def decode_store(path):
 E               data=open(path,"rb").read()...
-E         
+E
 E         ...Full output truncated (11 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:17: AssertionError
@@ -492,13 +492,13 @@ $ docker exec tbench-mt-pq-codec-product-quantization-pivot-oe2 cat /logs/verifi
 &gt;       spec=importlib.util.spec_from_file_location("pq_index","/app/pq_index.py"); idx=importlib.util.module_from_spec(spec); spec.loader.exec_module(idx)
                                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 &lt;frozen importlib._bootstrap_external&gt;:936: in exec_module
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7f4000715810&gt;
 path = '/app/pq_index.py'
@@ -510,21 +510,21 @@ E   FileNotFoundError: [Errno 2] No such file or directory: '/app/pq_index.py'
         codec=module(); codec.encode_store([[0.2,0.7]],"/tmp/again.bin")
 &gt;       assert codec.decode_store("/tmp/again.bin")==[[0.25,0.75]]
 E       assert [[0.200000002...999988079071]] == [[0.25, 0.75]]
-E         
+E
 E         At index 0 diff: [0.20000000298023224, 0.699999988079071] != [0.25, 0.75]
 E         Use -v to get more diff
 
 /tests/test_outputs.py:15: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_accept_isq1_scalar_format_yet" time="0.001"><failure message="assert 'ISQ1' not in 'import bina...eturn rows\n'&#10;  &#10;  'ISQ1' is contained here:&#10;       body=b&quot;ISQ1&quot;+struct.pack(&quot;&lt;II&quot;,dim,count)+struct.pack(&quot;&lt;&quot;+&quot;f&quot;*dim,*mins)+struct.pack(&quot;&lt;&quot;+&quot;f&quot;*dim,*maxs)+bytes(codes)&#10;  ?           ++++&#10;        open(out_path,&quot;wb&quot;).write(body+struct.pack(&quot;&lt;I&quot;,binascii.crc32(body)&amp;0xffffffff))&#10;    def decode_store(path):&#10;        data=open(path,&quot;rb&quot;).read()...&#10;  &#10;  ...Full output truncated (11 lines hidden), use '-vv' to show">def test_does_not_accept_isq1_scalar_format_yet():
 &gt;       assert "ISQ1" not in Path("/app/pq_codec.py").read_text()
 E       assert 'ISQ1' not in 'import bina...eturn rows\n'
-E         
+E
 E         'ISQ1' is contained here:
 E              body=b"ISQ1"+struct.pack("&lt;II",dim,count)+struct.pack("&lt;"+"f"*dim,*mins)+struct.pack("&lt;"+"f"*dim,*maxs)+bytes(codes)
 E         ?           ++++
 E               open(out_path,"wb").write(body+struct.pack("&lt;I",binascii.crc32(body)&amp;0xffffffff))
 E           def decode_store(path):
 E               data=open(path,"rb").read()...
-E         
+E
 E         ...Full output truncated (11 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:17: AssertionError</failure></testcase></testsuite></testsuites>

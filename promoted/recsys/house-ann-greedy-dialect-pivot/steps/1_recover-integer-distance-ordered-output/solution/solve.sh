@@ -13,4 +13,3 @@ def knn_search(graph,q,k):
         rows.append((distance,node["item_id"]))
     return [item for _,item in sorted(rows)[:k]]
 PY
-

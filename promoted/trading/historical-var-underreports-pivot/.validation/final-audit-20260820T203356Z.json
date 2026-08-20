@@ -1,0 +1,55 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:f904acca0fa975ff2ed9663599a4ef6b0fc8cf3209ed86fc7cf4caa318276e43",
+  "chain_evidence": "promoted/trading/historical-var-underreports-pivot/.validation/chain-20260820T202226Z.json",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "green_phases": [
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "1_fix-sample-quantile"
+    },
+    {
+      "detail": "4 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "2_fix-staggered-alignment"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "3_pivot-vectorized-perf"
+    }
+  ],
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "overexec_phases": [
+    {
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "1_fix-sample-quantile"
+    },
+    {
+      "detail": "4 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "2_fix-staggered-alignment"
+    }
+  ],
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "skipped": 0,
+  "static_audit": "PASS",
+  "static_finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "WARN": 0
+  },
+  "status": "PASS",
+  "task": "promoted/trading/historical-var-underreports-pivot"
+}

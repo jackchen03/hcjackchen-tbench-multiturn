@@ -1,0 +1,458 @@
+== oracle chain: price-time-priority-worker-violation-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-price-time-priority-worker-violation-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/environment
+sha256:3f90aa3a8ccdbade4b6c1ba68b535bb19ac2f3961b0251aed53acaf87c38787e
+
+$ docker rm -f tbench-mt-price-time-priority-worker-violation-pivot-chain
+Error response from daemon: No such container: tbench-mt-price-time-priority-worker-violation-pivot-chain
+
+$ docker run -d --name tbench-mt-price-time-priority-worker-violation-pivot-chain tbench-mt-price-time-priority-worker-violation-pivot:validate sleep infinity
+bf4836941c46ae3c1aa329657fd84af6a074149035e61544b6425cb6e2082b16
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/1_fix-price-time-priority/tests/. tbench-mt-price-time-priority-worker-violation-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+_______________ test_single_symbol_single_price_arrival_priority _______________
+
+    def test_single_symbol_single_price_arrival_priority():
+        events=[
+            {"oid":11,"sym":"ONE","side":"ASK","price":500,"qty":4,"action":"ADD"},
+            {"oid":12,"sym":"ONE","side":"ASK","price":500,"qty":6,"action":"ADD"},
+            {"oid":20,"sym":"ONE","side":"ASK","price":500,"qty":7,"action":"TAKE"},
+        ]
+        actual,_=run(events,"single")
+>       assert actual==oracle(events)
+E       AssertionError: assert [] == [{'maker': 11... 'taker': 20}]
+E
+E         Right contains 2 more items, first extra item: {'maker': 11, 'price': 500, 'qty': 4, 'taker': 20}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:32: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_does_not_have_multi_symbol_global_order_yet
+FAILED ../tests/test_outputs.py::test_single_symbol_single_price_arrival_priority
+1 failed, 1 passed in 0.14s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.145" timestamp="2026-08-20T20:25:57.050318+00:00" hostname="bf4836941c46"><testcase classname="test_outputs" name="test_single_symbol_single_price_arrival_priority" time="0.062"><failure message="AssertionError: assert [] == [{'maker': 11... 'taker': 20}]&#10;  &#10;  Right contains 2 more items, first extra item: {'maker': 11, 'price': 500, 'qty': 4, 'taker': 20}&#10;  Use -v to get more diff">def test_single_symbol_single_price_arrival_priority():
+        events=[
+            {"oid":11,"sym":"ONE","side":"ASK","price":500,"qty":4,"action":"ADD"},
+            {"oid":12,"sym":"ONE","side":"ASK","price":500,"qty":6,"action":"ADD"},
+            {"oid":20,"sym":"ONE","side":"ASK","price":500,"qty":7,"action":"TAKE"},
+        ]
+        actual,_=run(events,"single")
+&gt;       assert actual==oracle(events)
+E       AssertionError: assert [] == [{'maker': 11... 'taker': 20}]
+E
+E         Right contains 2 more items, first extra item: {'maker': 11, 'price': 500, 'qty': 4, 'taker': 20}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:32: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_have_multi_symbol_global_order_yet" time="0.061" /></testsuite></testsuites>
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests
+STEP 1 1_fix-price-time-priority  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/1_fix-price-time-priority/solution/. tbench-mt-price-time-priority-worker-violation-pivot-chain:/solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /solution
+STEP 1 1_fix-price-time-priority  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/1_fix-price-time-priority/tests/. tbench-mt-price-time-priority-worker-violation-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_single_symbol_single_price_arrival_priority
+PASSED ../tests/test_outputs.py::test_does_not_have_multi_symbol_global_order_yet
+2 passed in 0.23s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.236" timestamp="2026-08-20T20:25:58.870623+00:00" hostname="bf4836941c46"><testcase classname="test_outputs" name="test_single_symbol_single_price_arrival_priority" time="0.108" /><testcase classname="test_outputs" name="test_does_not_have_multi_symbol_global_order_yet" time="0.112" /></testsuite></testsuites>
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests
+STEP 1 1_fix-price-time-priority  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/2_determinism-multi-symbol/tests/. tbench-mt-price-time-priority-worker-violation-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-chain bash /tests/test.sh
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+______ test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered ______
+
+    def test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered():
+        events=[
+            {"oid":101,"sym":"A","side":"ASK","price":10,"qty":4,"action":"ADD"},
+            {"oid":201,"sym":"B","side":"ASK","price":20,"qty":5,"action":"ADD"},
+            {"oid":301,"sym":"A","side":"BID","price":9,"qty":6,"action":"ADD"},
+            {"oid":401,"sym":"B","side":"ASK","price":20,"qty":3,"action":"TAKE"},
+            {"oid":402,"sym":"A","side":"ASK","price":10,"qty":2,"action":"TAKE"},
+            {"oid":403,"sym":"A","side":"BID","price":9,"qty":4,"action":"TAKE"},
+        ]
+        expected=oracle(events); blobs=[]
+        for index in range(20):
+            actual,blob=run(events,f"multi-{index}"); blobs.append(blob)
+>           assert actual==expected
+E           AssertionError: assert [{'maker': 10...'taker': 403}] == [{'maker': 20...'taker': 403}]
+E
+E             At index 0 diff: {'taker': 402, 'maker': 101, 'price': 10, 'qty': 2} != {'taker': 401, 'maker': 201, 'price': 20, 'qty': 3}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:37: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_preserves_single_symbol_price_time_priority
+PASSED ../tests/test_outputs.py::test_does_not_create_perf_note_yet
+FAILED ../tests/test_outputs.py::test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered
+1 failed, 2 passed in 0.24s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.245" timestamp="2026-08-20T20:26:00.194767+00:00" hostname="bf4836941c46"><testcase classname="test_outputs" name="test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered" time="0.114"><failure message="AssertionError: assert [{'maker': 10...'taker': 403}] == [{'maker': 20...'taker': 403}]&#10;  &#10;  At index 0 diff: {'taker': 402, 'maker': 101, 'price': 10, 'qty': 2} != {'taker': 401, 'maker': 201, 'price': 20, 'qty': 3}&#10;  Use -v to get more diff">def test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered():
+        events=[
+            {"oid":101,"sym":"A","side":"ASK","price":10,"qty":4,"action":"ADD"},
+            {"oid":201,"sym":"B","side":"ASK","price":20,"qty":5,"action":"ADD"},
+            {"oid":301,"sym":"A","side":"BID","price":9,"qty":6,"action":"ADD"},
+            {"oid":401,"sym":"B","side":"ASK","price":20,"qty":3,"action":"TAKE"},
+            {"oid":402,"sym":"A","side":"ASK","price":10,"qty":2,"action":"TAKE"},
+            {"oid":403,"sym":"A","side":"BID","price":9,"qty":4,"action":"TAKE"},
+        ]
+        expected=oracle(events); blobs=[]
+        for index in range(20):
+            actual,blob=run(events,f"multi-{index}"); blobs.append(blob)
+&gt;           assert actual==expected
+E           AssertionError: assert [{'maker': 10...'taker': 403}] == [{'maker': 20...'taker': 403}]
+E
+E             At index 0 diff: {'taker': 402, 'maker': 101, 'price': 10, 'qty': 2} != {'taker': 401, 'maker': 201, 'price': 20, 'qty': 3}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:37: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_preserves_single_symbol_price_time_priority" time="0.106" /><testcase classname="test_outputs" name="test_does_not_create_perf_note_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests
+STEP 2 2_determinism-multi-symbol  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/2_determinism-multi-symbol/solution/. tbench-mt-price-time-priority-worker-violation-pivot-chain:/solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /solution
+STEP 2 2_determinism-multi-symbol  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/2_determinism-multi-symbol/tests/. tbench-mt-price-time-priority-worker-violation-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered
+PASSED ../tests/test_outputs.py::test_preserves_single_symbol_price_time_priority
+PASSED ../tests/test_outputs.py::test_does_not_create_perf_note_yet
+3 passed in 2.28s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="2.283" timestamp="2026-08-20T20:26:02.088083+00:00" hostname="bf4836941c46"><testcase classname="test_outputs" name="test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered" time="2.161" /><testcase classname="test_outputs" name="test_preserves_single_symbol_price_time_priority" time="0.106" /><testcase classname="test_outputs" name="test_does_not_create_perf_note_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests
+STEP 2 2_determinism-multi-symbol  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/3_pivot-sequential-ingest/tests/. tbench-mt-price-time-priority-worker-violation-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-chain bash /tests/test.sh
+.FF                                                                      [100%]
+=================================== FAILURES ===================================
+_______________ test_removes_worker_and_timestamp_ordering_path ________________
+
+    def test_removes_worker_and_timestamp_ordering_path():
+        source=Path("/app/gateway.py").read_text()
+        for banned in ("threading","queue","ThreadPoolExecutor","ts_ms","time.time()"):
+>           assert banned not in source
+E           assert 'queue' not in '#!/usr/bin/...(",",":"))\n'
+E
+E             'queue' is contained here:
+E               t["qty"]; queue=books.setdefault(key,[])
+E             ?           +++++
+E                           while remaining and queue:
+E                               maker=queue[0]; amount=min(remaining,maker[1])
+E                               fills.append({"taker":event["oid"],"maker":maker[0],"price":event["price"],"qty":amount})...
+E
+E             ...Full output truncated (9 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:39: AssertionError
+_____________ test_perf_note_explains_ingress_sequence_replacement _____________
+
+    def test_perf_note_explains_ingress_sequence_replacement():
+>       note=Path("/app/PERF_NOTE.md").read_text()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:41:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/PERF_NOTE.md'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/PERF_NOTE.md'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_sequential_ingest_preserves_global_price_time_behavior
+FAILED ../tests/test_outputs.py::test_removes_worker_and_timestamp_ordering_path
+FAILED ../tests/test_outputs.py::test_perf_note_explains_ingress_sequence_replacement
+2 failed, 1 passed in 0.15s
+reward=0 (2 failed, 0 errored)
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.152" timestamp="2026-08-20T20:26:05.486417+00:00" hostname="bf4836941c46"><testcase classname="test_outputs" name="test_sequential_ingest_preserves_global_price_time_behavior" time="0.108" /><testcase classname="test_outputs" name="test_removes_worker_and_timestamp_ordering_path" time="0.001"><failure message="assert 'queue' not in '#!/usr/bin/...(&quot;,&quot;,&quot;:&quot;))\n'&#10;  &#10;  'queue' is contained here:&#10;    t[&quot;qty&quot;]; queue=books.setdefault(key,[])&#10;  ?           +++++&#10;                while remaining and queue:&#10;                    maker=queue[0]; amount=min(remaining,maker[1])&#10;                    fills.append({&quot;taker&quot;:event[&quot;oid&quot;],&quot;maker&quot;:maker[0],&quot;price&quot;:event[&quot;price&quot;],&quot;qty&quot;:amount})...&#10;  &#10;  ...Full output truncated (9 lines hidden), use '-vv' to show">def test_removes_worker_and_timestamp_ordering_path():
+        source=Path("/app/gateway.py").read_text()
+        for banned in ("threading","queue","ThreadPoolExecutor","ts_ms","time.time()"):
+&gt;           assert banned not in source
+E           assert 'queue' not in '#!/usr/bin/...(",",":"))\n'
+E
+E             'queue' is contained here:
+E               t["qty"]; queue=books.setdefault(key,[])
+E             ?           +++++
+E                           while remaining and queue:
+E                               maker=queue[0]; amount=min(remaining,maker[1])
+E                               fills.append({"taker":event["oid"],"maker":maker[0],"price":event["price"],"qty":amount})...
+E
+E             ...Full output truncated (9 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:39: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_perf_note_explains_ingress_sequence_replacement" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/PERF_NOTE.md'">def test_perf_note_explains_ingress_sequence_replacement():
+&gt;       note=Path("/app/PERF_NOTE.md").read_text()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:41:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/PERF_NOTE.md'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/PERF_NOTE.md'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests
+STEP 3 3_pivot-sequential-ingest  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/3_pivot-sequential-ingest/solution/. tbench-mt-price-time-priority-worker-violation-pivot-chain:/solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /solution
+STEP 3 3_pivot-sequential-ingest  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/3_pivot-sequential-ingest/tests/. tbench-mt-price-time-priority-worker-violation-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_sequential_ingest_preserves_global_price_time_behavior
+PASSED ../tests/test_outputs.py::test_removes_worker_and_timestamp_ordering_path
+PASSED ../tests/test_outputs.py::test_perf_note_explains_ingress_sequence_replacement
+3 passed in 0.08s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.077" timestamp="2026-08-20T20:26:07.201858+00:00" hostname="bf4836941c46"><testcase classname="test_outputs" name="test_sequential_ingest_preserves_global_price_time_behavior" time="0.061" /><testcase classname="test_outputs" name="test_removes_worker_and_timestamp_ordering_path" time="0.000" /><testcase classname="test_outputs" name="test_perf_note_explains_ingress_sequence_replacement" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain rm -rf /tests
+STEP 3 3_pivot-sequential-ingest  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-price-time-priority-worker-violation-pivot-oe1
+Error response from daemon: No such container: tbench-mt-price-time-priority-worker-violation-pivot-oe1
+
+$ docker run -d --name tbench-mt-price-time-priority-worker-violation-pivot-oe1 tbench-mt-price-time-priority-worker-violation-pivot:validate sleep infinity
+c7c60154a69a0843127ec9938edf46cd5d3c26c25bd8fce4d2ea9f77cb97b78c
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/1_fix-price-time-priority/solution/. tbench-mt-price-time-priority-worker-violation-pivot-oe1:/solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/2_determinism-multi-symbol/solution/. tbench-mt-price-time-priority-worker-violation-pivot-oe1:/solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/1_fix-price-time-priority/tests/. tbench-mt-price-time-priority-worker-violation-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-oe1 bash /tests/test.sh
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_______________ test_does_not_have_multi_symbol_global_order_yet _______________
+
+    def test_does_not_have_multi_symbol_global_order_yet():
+        events=[
+            {"oid":101,"sym":"A","side":"ASK","price":10,"qty":4,"action":"ADD"},
+            {"oid":201,"sym":"B","side":"ASK","price":20,"qty":5,"action":"ADD"},
+            {"oid":301,"sym":"A","side":"BID","price":9,"qty":6,"action":"ADD"},
+            {"oid":401,"sym":"B","side":"ASK","price":20,"qty":3,"action":"TAKE"},
+            {"oid":402,"sym":"A","side":"ASK","price":10,"qty":2,"action":"TAKE"},
+            {"oid":403,"sym":"A","side":"BID","price":9,"qty":4,"action":"TAKE"},
+        ]
+        actual,_=run(events,"future-multi")
+>       assert actual != oracle(events)
+E       AssertionError: assert [{'maker': 201, 'price': 20, 'qty': 3, 'taker': 401}, {'maker': 101, 'price': 10, 'qty': 2, 'taker': 402}, {'maker': 301, 'price': 9, 'qty': 4, 'taker': 403}] != [{'maker': 201, 'price': 20, 'qty': 3, 'taker': 401}, {'maker': 101, 'price': 10, 'qty': 2, 'taker': 402}, {'maker': 301, 'price': 9, 'qty': 4, 'taker': 403}]
+E        +  where [{'maker': 201, 'price': 20, 'qty': 3, 'taker': 401}, {'maker': 101, 'price': 10, 'qty': 2, 'taker': 402}, {'maker': 301, 'price': 9, 'qty': 4, 'taker': 403}] = oracle([{'action': 'ADD', 'oid': 101, 'price': 10, 'qty': 4, ...}, {'action': 'ADD', 'oid': 201, 'price': 20, 'qty': 5, ...},... {'action': 'TAKE', 'oid': 402, 'price': 10, 'qty': 2, ...}, {'action': 'TAKE', 'oid': 403, 'price': 9, 'qty': 4, ...}])
+
+/tests/test_outputs.py:43: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_single_symbol_single_price_arrival_priority
+FAILED ../tests/test_outputs.py::test_does_not_have_multi_symbol_global_order_yet
+1 failed, 1 passed in 0.25s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.249" timestamp="2026-08-20T20:26:09.995367+00:00" hostname="c7c60154a69a"><testcase classname="test_outputs" name="test_single_symbol_single_price_arrival_priority" time="0.110" /><testcase classname="test_outputs" name="test_does_not_have_multi_symbol_global_order_yet" time="0.117"><failure message="AssertionError: assert [{'maker': 201, 'price': 20, 'qty': 3, 'taker': 401}, {'maker': 101, 'price': 10, 'qty': 2, 'taker': 402}, {'maker': 301, 'price': 9, 'qty': 4, 'taker': 403}] != [{'maker': 201, 'price': 20, 'qty': 3, 'taker': 401}, {'maker': 101, 'price': 10, 'qty': 2, 'taker': 402}, {'maker': 301, 'price': 9, 'qty': 4, 'taker': 403}]&#10; +  where [{'maker': 201, 'price': 20, 'qty': 3, 'taker': 401}, {'maker': 101, 'price': 10, 'qty': 2, 'taker': 402}, {'maker': 301, 'price': 9, 'qty': 4, 'taker': 403}] = oracle([{'action': 'ADD', 'oid': 101, 'price': 10, 'qty': 4, ...}, {'action': 'ADD', 'oid': 201, 'price': 20, 'qty': 5, ...},... {'action': 'TAKE', 'oid': 402, 'price': 10, 'qty': 2, ...}, {'action': 'TAKE', 'oid': 403, 'price': 9, 'qty': 4, ...}])">def test_does_not_have_multi_symbol_global_order_yet():
+        events=[
+            {"oid":101,"sym":"A","side":"ASK","price":10,"qty":4,"action":"ADD"},
+            {"oid":201,"sym":"B","side":"ASK","price":20,"qty":5,"action":"ADD"},
+            {"oid":301,"sym":"A","side":"BID","price":9,"qty":6,"action":"ADD"},
+            {"oid":401,"sym":"B","side":"ASK","price":20,"qty":3,"action":"TAKE"},
+            {"oid":402,"sym":"A","side":"ASK","price":10,"qty":2,"action":"TAKE"},
+            {"oid":403,"sym":"A","side":"BID","price":9,"qty":4,"action":"TAKE"},
+        ]
+        actual,_=run(events,"future-multi")
+&gt;       assert actual != oracle(events)
+E       AssertionError: assert [{'maker': 201, 'price': 20, 'qty': 3, 'taker': 401}, {'maker': 101, 'price': 10, 'qty': 2, 'taker': 402}, {'maker': 301, 'price': 9, 'qty': 4, 'taker': 403}] != [{'maker': 201, 'price': 20, 'qty': 3, 'taker': 401}, {'maker': 101, 'price': 10, 'qty': 2, 'taker': 402}, {'maker': 301, 'price': 9, 'qty': 4, 'taker': 403}]
+E        +  where [{'maker': 201, 'price': 20, 'qty': 3, 'taker': 401}, {'maker': 101, 'price': 10, 'qty': 2, 'taker': 402}, {'maker': 301, 'price': 9, 'qty': 4, 'taker': 403}] = oracle([{'action': 'ADD', 'oid': 101, 'price': 10, 'qty': 4, ...}, {'action': 'ADD', 'oid': 201, 'price': 20, 'qty': 5, ...},... {'action': 'TAKE', 'oid': 402, 'price': 10, 'qty': 2, ...}, {'action': 'TAKE', 'oid': 403, 'price': 9, 'qty': 4, ...}])
+
+/tests/test_outputs.py:43: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe1 rm -rf /tests
+STEP 1 1_fix-price-time-priority  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-price-time-priority-worker-violation-pivot-oe1
+tbench-mt-price-time-priority-worker-violation-pivot-oe1
+
+$ docker rm -f tbench-mt-price-time-priority-worker-violation-pivot-oe2
+Error response from daemon: No such container: tbench-mt-price-time-priority-worker-violation-pivot-oe2
+
+$ docker run -d --name tbench-mt-price-time-priority-worker-violation-pivot-oe2 tbench-mt-price-time-priority-worker-violation-pivot:validate sleep infinity
+9a5a1c25cde4beaff0c90da953fd48535e0c6fe86226739093aca66ab3112e8c
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/1_fix-price-time-priority/solution/. tbench-mt-price-time-priority-worker-violation-pivot-oe2:/solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/2_determinism-multi-symbol/solution/. tbench-mt-price-time-priority-worker-violation-pivot-oe2:/solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/3_pivot-sequential-ingest/solution/. tbench-mt-price-time-priority-worker-violation-pivot-oe2:/solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/steps/2_determinism-multi-symbol/tests/. tbench-mt-price-time-priority-worker-violation-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-price-time-priority-worker-violation-pivot-oe2 bash /tests/test.sh
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+______________________ test_does_not_create_perf_note_yet ______________________
+
+    def test_does_not_create_perf_note_yet():
+>       assert not Path("/app/PERF_NOTE.md").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/PERF_NOTE.md').exists
+E        +      where PosixPath('/app/PERF_NOTE.md') = Path('/app/PERF_NOTE.md')
+
+/tests/test_outputs.py:48: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered
+PASSED ../tests/test_outputs.py::test_preserves_single_symbol_price_time_priority
+FAILED ../tests/test_outputs.py::test_does_not_create_perf_note_yet - Asserti...
+1 failed, 2 passed in 1.30s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="1.301" timestamp="2026-08-20T20:26:13.576957+00:00" hostname="9a5a1c25cde4"><testcase classname="test_outputs" name="test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered" time="1.216" /><testcase classname="test_outputs" name="test_preserves_single_symbol_price_time_priority" time="0.060" /><testcase classname="test_outputs" name="test_does_not_create_perf_note_yet" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/PERF_NOTE.md').exists&#10; +      where PosixPath('/app/PERF_NOTE.md') = Path('/app/PERF_NOTE.md')">def test_does_not_create_perf_note_yet():
+&gt;       assert not Path("/app/PERF_NOTE.md").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/PERF_NOTE.md').exists
+E        +      where PosixPath('/app/PERF_NOTE.md') = Path('/app/PERF_NOTE.md')
+
+/tests/test_outputs.py:48: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-price-time-priority-worker-violation-pivot-oe2 rm -rf /tests
+STEP 2 2_determinism-multi-symbol  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-price-time-priority-worker-violation-pivot-oe2
+tbench-mt-price-time-priority-worker-violation-pivot-oe2
+
+$ docker rm -f tbench-mt-price-time-priority-worker-violation-pivot-chain
+tbench-mt-price-time-priority-worker-violation-pivot-chain
+
+$ docker rm -f tbench-mt-price-time-priority-worker-violation-pivot-oe1
+Error response from daemon: No such container: tbench-mt-price-time-priority-worker-violation-pivot-oe1
+
+$ docker rm -f tbench-mt-price-time-priority-worker-violation-pivot-oe2
+Error response from daemon: No such container: tbench-mt-price-time-priority-worker-violation-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/price-time-priority-worker-violation-pivot/.validation/chain-20260820T202554Z.json

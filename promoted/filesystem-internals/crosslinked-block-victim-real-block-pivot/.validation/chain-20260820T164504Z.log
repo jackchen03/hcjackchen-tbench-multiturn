@@ -21,12 +21,12 @@ _________ test_victim_gets_real_leaked_block_and_owner_keeps_crosslink _________
 >       d=json.loads(Path("/work/disk.img").read_text()); assert d["files"]["victim"]==[1,12,3] and d["files"]["owner"]==[7,9,8]
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:6: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/work/disk.img'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -59,12 +59,12 @@ $ docker exec tbench-mt-crosslinked-block-victim-real-block-pivot-chain cat /log
 &gt;       d=json.loads(Path("/work/disk.img").read_text()); assert d["files"]["victim"]==[1,12,3] and d["files"]["owner"]==[7,9,8]
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:6: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/work/disk.img'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -124,14 +124,14 @@ ______________________ test_generic_tool_repairs_in_place ______________________
 >       subprocess.run([repair,str(p)],check=True); d=json.loads(p.read_text())
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/repair', '/tmp/cross.img']>
 args = ['/app/repair', '/tmp/cross.img'], executable = b'/app/repair'
@@ -151,7 +151,7 @@ start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -161,7 +161,7 @@ start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -169,12 +169,12 @@ start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -195,9 +195,9 @@ start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -215,7 +215,7 @@ start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -249,11 +249,11 @@ start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -265,7 +265,7 @@ start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -275,7 +275,7 @@ start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -317,14 +317,14 @@ __________________ test_does_not_handle_deep_test_scratch_yet __________________
 >       assert subprocess.run(["/app/repair",str(p)],capture_output=True).returncode!=0
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:15: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:15:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/repair', '/tmp/deep_test_scratch.img']>
 args = ['/app/repair', '/tmp/deep_test_scratch.img']
@@ -344,7 +344,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -354,7 +354,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -362,12 +362,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -388,9 +388,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -408,7 +408,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -442,11 +442,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -458,7 +458,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -468,7 +468,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -518,14 +518,14 @@ $ docker exec tbench-mt-crosslinked-block-victim-real-block-pivot-chain cat /log
 &gt;       subprocess.run([repair,str(p)],check=True); d=json.loads(p.read_text())
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/repair', '/tmp/cross.img']&gt;
 args = ['/app/repair', '/tmp/cross.img'], executable = b'/app/repair'
@@ -545,7 +545,7 @@ start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -555,7 +555,7 @@ start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -563,12 +563,12 @@ start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -589,9 +589,9 @@ start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -609,7 +609,7 @@ start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -643,11 +643,11 @@ start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -659,7 +659,7 @@ start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -669,7 +669,7 @@ start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -708,14 +708,14 @@ E                   FileNotFoundError: [Errno 2] No such file or directory: '/ap
 &gt;       assert subprocess.run(["/app/repair",str(p)],capture_output=True).returncode!=0
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:15: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:15:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/repair', '/tmp/deep_test_scratch.img']&gt;
 args = ['/app/repair', '/tmp/deep_test_scratch.img']
@@ -735,7 +735,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -745,7 +745,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -753,12 +753,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -779,9 +779,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -799,7 +799,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -833,11 +833,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -849,7 +849,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -859,7 +859,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -936,8 +936,8 @@ _________________ test_deep_extent_selects_only_matching_leak __________________
 >       p.write_text(json.dumps(d)); subprocess.run([repair,str(p)],check=True); x=json.loads(p.read_text())
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['/app/repair', '/tmp/deep_test_scratch.img'],), kwargs = {}
@@ -947,45 +947,45 @@ stdout = None, stderr = None, retcode = 1
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output & stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -1048,8 +1048,8 @@ $ docker exec tbench-mt-crosslinked-block-victim-real-block-pivot-chain cat /log
 &gt;       p.write_text(json.dumps(d)); subprocess.run([repair,str(p)],check=True); x=json.loads(p.read_text())
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['/app/repair', '/tmp/deep_test_scratch.img'],), kwargs = {}
@@ -1059,45 +1059,45 @@ stdout = None, stderr = None, retcode = 1
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output &amp; stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)

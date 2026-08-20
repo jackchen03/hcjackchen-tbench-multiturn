@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b5252af44dd849bbb76c43019b68bf82bd0890a8da2cbbe316d98626415717a4",
+  "command": "codimango bench run -p cumulative-vs-incremental-fill-recon-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "8da484a266275445ad512f37a83ab6f87f99d5140ce401911891a4b55e94bd8f",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.eQ4SLE/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.eQ4SLE",
+  "source_final_audit": "promoted/trading/cumulative-vs-incremental-fill-recon-pivot/.validation/final-audit-20260820T203351Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/trading/cumulative-vs-incremental-fill-recon-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:09:50.523367Z",
+      "harbor_task_checksum": "8da484a266275445ad512f37a83ab6f87f99d5140ce401911891a4b55e94bd8f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:09:14.309433Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-cumulative-reconciliation",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-incremental-ledger-audit",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-gross-exposure-hash-index",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "fce142f8-b4d0-465b-8195-8509abcd62eb",
+      "trial_name": "cumulative-vs-incremental-fill-r__G7YRU4H"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:09:50.264874Z",
+      "harbor_task_checksum": "8da484a266275445ad512f37a83ab6f87f99d5140ce401911891a4b55e94bd8f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:09:14.261775Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-cumulative-reconciliation",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-incremental-ledger-audit",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-gross-exposure-hash-index",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "157f848e-9e6c-4dc5-b405-e0aa82f0b37a",
+      "trial_name": "cumulative-vs-incremental-fill-r__KvasJXQ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:09:51.464346Z",
+      "harbor_task_checksum": "8da484a266275445ad512f37a83ab6f87f99d5140ce401911891a4b55e94bd8f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:09:14.324229Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-cumulative-reconciliation",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-incremental-ledger-audit",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-gross-exposure-hash-index",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "729e1fa6-f6d1-4803-8b59-0f23487d986b",
+      "trial_name": "cumulative-vs-incremental-fill-r__RFpLKBT"
+    }
+  ],
+  "wall_time_seconds": 124,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

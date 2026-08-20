@@ -72,4 +72,3 @@ def test_does_not_handle_securedata_family_yet():
     payload = b"secure\x0155=HACK\x01tail"
     rows = run_gateway(message("SECURE_REAL", "510.75", (90, 91), payload))
     assert ("SECURE_REAL", "510.75") not in rows
-

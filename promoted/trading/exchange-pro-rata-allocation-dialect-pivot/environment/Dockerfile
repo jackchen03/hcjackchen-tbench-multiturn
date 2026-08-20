@@ -20,4 +20,3 @@ RUN python3 /tmp/generate_sample.py /app/blotter/sample_blotter.json \
     && mkdir -p /app/reports /app/specs \
     && chmod +x /app/matcher.py \
     && find /app -type f -exec touch -t 202001010000.00 {} +
-

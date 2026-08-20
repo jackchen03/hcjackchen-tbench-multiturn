@@ -1,0 +1,19 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:4cc9966510b81e573b1d56ac54ccbf2c1ad91073806051f04e99353bc27080c6",
+  "final_audit": "promoted/recsys/session-feature-reader-writer-pivot/.validation/final-audit-20260820T203345Z.json",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/recsys/session-feature-reader-writer-pivot/.validation/chain-20260820T201811Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/recsys/session-feature-reader-writer-pivot/.validation/oracle-x3-current-20260820T210530Z.json",
+  "proposed_commit_pathspec": "promoted/recsys/session-feature-reader-writer-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/recsys/session-feature-reader-writer-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

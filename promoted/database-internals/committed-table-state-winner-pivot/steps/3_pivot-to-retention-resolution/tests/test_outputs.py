@@ -14,4 +14,3 @@ def test_retained_mark_supports_repeated_unwind():
 def test_missing_label_aborts_transaction_and_preserves_prior_commits():
     records=[{"op":"BEGIN"},{"op":"PUT","key":1,"value":10},{"op":"END_OK"},{"op":"BEGIN"},{"op":"PUT","key":2,"value":20},{"op":"UNWIND","label":"missing"},{"op":"END_OK"}]
     assert run(records)=="1 10\n"
-

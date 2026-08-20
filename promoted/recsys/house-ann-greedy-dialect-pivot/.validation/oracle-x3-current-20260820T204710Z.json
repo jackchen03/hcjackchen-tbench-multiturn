@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:2a54d311ea073e9577fbe265a79530bfbea881a49af8ffe94c472b6d3eee60ad",
+  "command": "codimango bench run -p house-ann-greedy-dialect-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "a5efce1d3cf13a92f476fa311803329f78cc2171dac2a2f39c71505538316d5d",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.GdDzkp/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.GdDzkp",
+  "source_final_audit": "promoted/recsys/house-ann-greedy-dialect-pivot/.validation/final-audit-20260820T203324Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/recsys/house-ann-greedy-dialect-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:47:06.825314Z",
+      "harbor_task_checksum": "a5efce1d3cf13a92f476fa311803329f78cc2171dac2a2f39c71505538316d5d",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:46:30.766531Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-integer-distance-ordered-output",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_fix-tie-order-per-push-counter",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pop-visited-repush-slack-patience-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "e0bcabb1-d098-43aa-9ac4-27c3cf8e707a",
+      "trial_name": "house-ann-greedy-dialect-pivot__EoeAaaH"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:47:08.098185Z",
+      "harbor_task_checksum": "a5efce1d3cf13a92f476fa311803329f78cc2171dac2a2f39c71505538316d5d",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:46:30.931951Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-integer-distance-ordered-output",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_fix-tie-order-per-push-counter",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pop-visited-repush-slack-patience-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "fddb5ff0-cb57-4d96-a11e-2e835766f1dd",
+      "trial_name": "house-ann-greedy-dialect-pivot__gu3Zsxq"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:47:07.442678Z",
+      "harbor_task_checksum": "a5efce1d3cf13a92f476fa311803329f78cc2171dac2a2f39c71505538316d5d",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:46:30.869668Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-integer-distance-ordered-output",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_fix-tie-order-per-push-counter",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pop-visited-repush-slack-patience-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "c0ae7fc5-ffc6-4bd8-bf12-3d2748eaaaa9",
+      "trial_name": "house-ann-greedy-dialect-pivot__tw5m53Z"
+    }
+  ],
+  "wall_time_seconds": 122,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

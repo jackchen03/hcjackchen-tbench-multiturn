@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 26,
+  "bundle_fingerprint": "bundle-sha256-v1:4b2fc08dfb85435613ea47a221b3775469f5b07012c935c82438d75ff002e47c",
+  "final_audit": "promoted/database-internals/stateful-escape-segment-framer-pivot/.validation/final-audit-20260820T202824Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/stateful-escape-segment-framer-pivot/.validation/chain-20260820T202428Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/stateful-escape-segment-framer-pivot/.validation/oracle-x3-current-20260820T211923Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/stateful-escape-segment-framer-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/stateful-escape-segment-framer-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

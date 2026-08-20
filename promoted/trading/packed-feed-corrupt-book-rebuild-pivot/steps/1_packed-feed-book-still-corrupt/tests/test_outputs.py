@@ -22,4 +22,3 @@ def test_packed_records_are_consumed_without_phantom_padding():
     assert max(value for side in ("bids","asks") for row in out["AAA"][side] for value in row) < 10000000
 def test_does_not_create_price_byte_swap_report_yet():
     assert not Path("/app/2_price-still-byte-swapped-id-mismatch_report.json").exists()
-

@@ -1,2 +1,1 @@
 [{"slot_seq":4,"batch_id":2,"page_no":0,"page_lsn":20,"crc_ok":true,"content":"A20"},{"slot_seq":5,"batch_id":2,"page_no":1,"page_lsn":21,"crc_ok":true,"content":"B21"},{"slot_seq":9,"batch_id":3,"page_no":0,"page_lsn":40,"crc_ok":true,"content":"ABORTED"}]
-

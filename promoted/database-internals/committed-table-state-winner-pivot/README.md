@@ -8,4 +8,3 @@ The replay engine carries a recovered line-oriented table into incremental repla
 | Avocado | unmeasured | unmeasured | unmeasured | unmeasured |
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
-

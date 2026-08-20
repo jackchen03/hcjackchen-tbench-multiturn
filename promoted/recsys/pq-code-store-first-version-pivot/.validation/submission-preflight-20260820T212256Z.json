@@ -1,0 +1,19 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b0fb42786e4e5eadcc4a1ed6a09932b5c5d746732a2c5dca055b46eef09e6770",
+  "final_audit": "promoted/recsys/pq-code-store-first-version-pivot/.validation/final-audit-20260820T203335Z.json",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/recsys/pq-code-store-first-version-pivot/.validation/chain-20260820T201317Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/recsys/pq-code-store-first-version-pivot/.validation/oracle-x3-current-20260820T205609Z.json",
+  "proposed_commit_pathspec": "promoted/recsys/pq-code-store-first-version-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/recsys/pq-code-store-first-version-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

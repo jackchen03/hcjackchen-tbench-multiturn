@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:6d019800ec2edd1b1100b8870f33c98292fab59a7cdce2404703bdc4a1badff0",
+  "command": "codimango bench run -p stream-desync-embedded-soh-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "aaa84245ffb79bc7423610cdc250772a1cd3f9f16954d40f7b6646533c6209a9",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.KaCIGr/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.KaCIGr",
+  "source_final_audit": "promoted/trading/stream-desync-embedded-soh-pivot/.validation/final-audit-20260820T203412Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/trading/stream-desync-embedded-soh-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:21:44.976612Z",
+      "harbor_task_checksum": "aaa84245ffb79bc7423610cdc250772a1cd3f9f16954d40f7b6646533c6209a9",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:21:06.682590Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-rawdata-embedded-soh",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_generalize-family-dictionary",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-checksum-resync-drop-report",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "5e154500-1b57-485f-9abf-7226b68e01fb",
+      "trial_name": "stream-desync-embedded-soh-pivot__CRPBqp9"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:21:43.747029Z",
+      "harbor_task_checksum": "aaa84245ffb79bc7423610cdc250772a1cd3f9f16954d40f7b6646533c6209a9",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:21:06.624126Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-rawdata-embedded-soh",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_generalize-family-dictionary",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-checksum-resync-drop-report",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "faa1f3fb-d6b0-4c95-932d-dc2eaef41a58",
+      "trial_name": "stream-desync-embedded-soh-pivot__k3JMm9C"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:21:44.002831Z",
+      "harbor_task_checksum": "aaa84245ffb79bc7423610cdc250772a1cd3f9f16954d40f7b6646533c6209a9",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:21:06.672326Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-rawdata-embedded-soh",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_generalize-family-dictionary",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-checksum-resync-drop-report",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "f4cea414-f6ec-43ec-a203-b7eee9f5d34f",
+      "trial_name": "stream-desync-embedded-soh-pivot__oZMuwtN"
+    }
+  ],
+  "wall_time_seconds": 100,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

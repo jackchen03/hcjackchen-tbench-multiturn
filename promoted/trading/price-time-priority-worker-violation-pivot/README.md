@@ -18,4 +18,3 @@ This task carries one gateway through single-level arrival ordering, determinist
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
 
 Local chain evidence proves only the reference path and over-execution boundaries. Calibration and cloud validation remain unmeasured.
-

@@ -107,4 +107,3 @@ def test_does_not_apply_min_fill_repool_yet():
     rows = run_matcher([event], "step1-future")
     tiny_fill = next(row["filled_qty"] for row in rows if row["order_id"] == "tiny")
     assert tiny_fill != 0
-

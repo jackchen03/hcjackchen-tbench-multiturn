@@ -13,4 +13,3 @@ idx["checksum"]=""; encoded=json.dumps(idx,sort_keys=True,separators=(",",":")).
 json.dump(idx,open(path,"w"),sort_keys=True,separators=(",",":"))
 json.dump({"evicted":len(dead),"node_count":len(live),"checksum":idx["checksum"]},open("/app/3_evict-deleted-and-checksum_metrics.json","w"))
 PY
-

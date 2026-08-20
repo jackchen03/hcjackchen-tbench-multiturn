@@ -15,4 +15,3 @@ open(sys.argv[3],"w").write("".join(f"{sum(low<=row<=high for row in live)}\n" f
 PY
 chmod +x /app/query
 /app/query /app/data /app/data/queries.bin /app/output/query_results.txt
-

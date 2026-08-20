@@ -11,4 +11,3 @@ def test_preserves_triage_report_behavior():
     assert json.loads(Path("/tmp/report.json").read_text())["pages"][0]["status"]=="stale_valid"
 def test_does_not_create_pitr_manifest_yet():
     assert not Path("/app/manifest.json").exists()
-

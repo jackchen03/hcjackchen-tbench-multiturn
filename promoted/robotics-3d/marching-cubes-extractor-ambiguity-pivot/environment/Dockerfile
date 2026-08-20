@@ -8,4 +8,3 @@ RUN pip install --no-cache-dir --no-index --find-links=/tmp/wheels -r /tmp/requi
 WORKDIR /app
 COPY mymc.py /app/mymc.py
 RUN find /app -type f -exec touch -t 202001010000.00 {} +
-

@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:4cc9966510b81e573b1d56ac54ccbf2c1ad91073806051f04e99353bc27080c6",
+  "command": "codimango bench run -p session-feature-reader-writer-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "5df9523c25e8025d41c3a124b8aeab3e524eedc94fd1a5a888cbc730307e1359",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.mZz2v4/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.mZz2v4",
+  "source_final_audit": "promoted/recsys/session-feature-reader-writer-pivot/.validation/final-audit-20260820T203345Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/recsys/session-feature-reader-writer-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:05:27.518692Z",
+      "harbor_task_checksum": "5df9523c25e8025d41c3a124b8aeab3e524eedc94fd1a5a888cbc730307e1359",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:04:51.006397Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode-reader",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_byte-exact-writer",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_scan-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "06f87824-8b5f-49a7-b4e8-f0f4c8b14249",
+      "trial_name": "session-feature-reader-writer-pi__HXPYfZr"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:05:27.213969Z",
+      "harbor_task_checksum": "5df9523c25e8025d41c3a124b8aeab3e524eedc94fd1a5a888cbc730307e1359",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:04:50.961135Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode-reader",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_byte-exact-writer",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_scan-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "e35343a9-a528-4133-9371-68ab5298502f",
+      "trial_name": "session-feature-reader-writer-pi__Q3wWJS3"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:05:28.091906Z",
+      "harbor_task_checksum": "5df9523c25e8025d41c3a124b8aeab3e524eedc94fd1a5a888cbc730307e1359",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:04:51.016587Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode-reader",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_byte-exact-writer",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_scan-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "e98091b0-f092-4c69-bbd1-e7838440f322",
+      "trial_name": "session-feature-reader-writer-pi__QUTtKwG"
+    }
+  ],
+  "wall_time_seconds": 122,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

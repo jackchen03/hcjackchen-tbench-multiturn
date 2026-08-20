@@ -11,4 +11,3 @@ This three-turn task carries one executable and its generated state forward. Eac
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 
 Local Docker chain proof is recorded separately under `.validation/` and is not model calibration.
-

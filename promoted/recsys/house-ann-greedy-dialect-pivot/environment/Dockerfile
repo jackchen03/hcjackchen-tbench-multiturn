@@ -10,4 +10,3 @@ COPY anngraph /app/anngraph
 COPY annsearch.py /app/annsearch.py
 COPY witness /app/witness
 RUN find /app -type f -exec touch -t 202001010000.00 {} +
-

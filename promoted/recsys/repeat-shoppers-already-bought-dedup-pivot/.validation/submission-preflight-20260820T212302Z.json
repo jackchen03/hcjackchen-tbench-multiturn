@@ -1,0 +1,19 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:354ace3c4a9683dfc0e660907abfaaa9fe85a58c767ce4c062170a05d6edd858",
+  "final_audit": "promoted/recsys/repeat-shoppers-already-bought-dedup-pivot/.validation/final-audit-20260820T203341Z.json",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/recsys/repeat-shoppers-already-bought-dedup-pivot/.validation/chain-20260820T201519Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/recsys/repeat-shoppers-already-bought-dedup-pivot/.validation/oracle-x3-current-20260820T210106Z.json",
+  "proposed_commit_pathspec": "promoted/recsys/repeat-shoppers-already-bought-dedup-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/recsys/repeat-shoppers-already-bought-dedup-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

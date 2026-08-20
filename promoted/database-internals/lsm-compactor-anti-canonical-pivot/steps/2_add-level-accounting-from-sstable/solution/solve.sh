@@ -25,4 +25,3 @@ acct={"target_level":doc["target_level"],"file_size":os.path.getsize(sys.argv[1]
 json.dump(acct,open(accounting_path,"w"),sort_keys=True)
 PY
 chmod +x /app/compact
-

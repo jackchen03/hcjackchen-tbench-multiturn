@@ -28,4 +28,3 @@ def knn_search(graph,q,k):
     return [graph["nodes"][slot]["item_id"] for _,_,slot in sorted(popped)[:k]]
 PY
 printf '%s\n' '{"beta":1.25,"patience":3,"visited":"pop","repush":true}' > /app/3_pop-visited-repush-slack-patience-pivot_metrics.json
-

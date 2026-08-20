@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:d9eaaa62bf2bed2b65a3f379fee240421826402eae8fd777f276f5940bb4293a",
+  "command": "codimango bench run -p colmap-binary-model-recovery-typing-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "4bfac32a960be48f6e027e09cc9e6cce5ef98781f940d2219702e48cc738bd32",
+  "issues": [],
+  "source_final_audit": "promoted/robotics-3d/colmap-binary-model-recovery-typing-pivot/.validation/final-audit-20260820T202459Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/robotics-3d/colmap-binary-model-recovery-typing-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:55:18.839912Z",
+      "harbor_task_checksum": "4bfac32a960be48f6e027e09cc9e6cce5ef98781f940d2219702e48cc738bd32",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:54:34.672456Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-points",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-poses",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-standard-binary",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "050b51c3-5d04-4b32-9574-9226087da0e0",
+      "trial_name": "colmap-binary-model-recovery-typ__Cxd5Acy"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:55:20.389887Z",
+      "harbor_task_checksum": "4bfac32a960be48f6e027e09cc9e6cce5ef98781f940d2219702e48cc738bd32",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:54:34.735941Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-points",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-poses",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-standard-binary",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "ebaea194-9547-415e-9883-db5911c5243d",
+      "trial_name": "colmap-binary-model-recovery-typ__t8KTe5F"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:55:18.656675Z",
+      "harbor_task_checksum": "4bfac32a960be48f6e027e09cc9e6cce5ef98781f940d2219702e48cc738bd32",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:54:34.571601Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-points",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-poses",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-standard-binary",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "894b3fdb-12a5-4f96-a11f-e71599e6fa90",
+      "trial_name": "colmap-binary-model-recovery-typ__yuGjV6w"
+    }
+  ],
+  "wall_time_seconds": 139,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

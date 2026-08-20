@@ -32,4 +32,3 @@ for off in range(0,len(pages),26):
 Path(sys.argv[2]).write_text(''.join(f'{a} {b}\n' for a,b in sorted(rows)))
 PY
 chmod 0755 /app/reconstruct
-

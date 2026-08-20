@@ -3,4 +3,3 @@ import binascii,struct,sys
 data=open(sys.argv[1],"rb").read()
 ok=len(data)>=16 and data[:4] in (b"IPQ1",b"ISQ1") and struct.unpack_from("<I",data,len(data)-4)[0]==(binascii.crc32(data[:-4])&0xffffffff)
 raise SystemExit(0 if ok else 1)
-

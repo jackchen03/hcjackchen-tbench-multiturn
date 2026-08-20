@@ -202,14 +202,14 @@ _______________________ test_removed_row_wise_apply_path _______________________
         assert "apply(lambda row" not in source
 >       assert ".apply(" not in source
 E       AssertionError: assert '.apply(' not in '#!/usr/bin/....argv[1:])\n'
-E         
+E
 E         '.apply(' is contained here:
 E            = returns.apply(
 E         ?           +++++++
 E                   lambda row: sum(positions.loc[a] * latest.loc[a] * row.loc[a] for a in assets),
 E                   axis=1,
 E               )...
-E         
+E
 E         ...Full output truncated (9 lines hidden), use '-vv' to show
 
 ../tests/test_outputs.py:56: AssertionError
@@ -229,14 +229,14 @@ $ docker exec tbench-mt-historical-var-underreports-pivot-chain cat /logs/verifi
         assert "apply(lambda row" not in source
 &gt;       assert ".apply(" not in source
 E       AssertionError: assert '.apply(' not in '#!/usr/bin/....argv[1:])\n'
-E         
+E
 E         '.apply(' is contained here:
 E            = returns.apply(
 E         ?           +++++++
 E                   lambda row: sum(positions.loc[a] * latest.loc[a] * row.loc[a] for a in assets),
 E                   axis=1,
 E               )...
-E         
+E
 E         ...Full output truncated (9 lines hidden), use '-vv' to show
 
 ../tests/test_outputs.py:56: AssertionError</failure></testcase></testsuite></testsuites>

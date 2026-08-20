@@ -21,8 +21,8 @@ ___________________ test_block_map_contiguous_reconstruction ___________________
 >       assert Path("/workdir/reconstruct.sh").stat().st_mode&0o111
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:5: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:5:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/workdir/reconstruct.sh')
 
@@ -51,8 +51,8 @@ $ docker exec tbench-mt-carved-ext4-extent-tree-unwritten-pivot-chain cat /logs/
 &gt;       assert Path("/workdir/reconstruct.sh").stat().st_mode&amp;0o111
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:5: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:5:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/workdir/reconstruct.sh')
 
@@ -106,7 +106,7 @@ _____________ test_unwritten_extent_zeroed_and_decoy_bound_ignored _____________
         b=Path("/workdir/recovered.bin").read_bytes()
 >       assert b[:12]==b"AAAA"+b"\0"*4+b"CCCC" and b"DECOY" not in b
 E       AssertionError: assert (b'AAAABBBBCCCC' == b'AAAA\x00\x00\x00\x00CCCC'
-E         
+E
 E         At index 4 diff: b'B' != b'\x00'
 E         Use -v to get more diff)
 
@@ -126,7 +126,7 @@ $ docker exec tbench-mt-carved-ext4-extent-tree-unwritten-pivot-chain cat /logs/
         b=Path("/workdir/recovered.bin").read_bytes()
 &gt;       assert b[:12]==b"AAAA"+b"\0"*4+b"CCCC" and b"DECOY" not in b
 E       AssertionError: assert (b'AAAABBBBCCCC' == b'AAAA\x00\x00\x00\x00CCCC'
-E         
+E
 E         At index 4 diff: b'B' != b'\x00'
 E         Use -v to get more diff)
 
@@ -247,7 +247,7 @@ ___________________ test_block_map_contiguous_reconstruction ___________________
         assert Path("/workdir/reconstruct.sh").stat().st_mode&0o111
 >       assert Path("/workdir/recovered.bin").read_bytes()==b"AAAABBBBCCCCDDDD"
 E       AssertionError: assert b'AAAA\x00\x0...0\x00CCCCTAIL' == b'AAAABBBBCCCCDDDD'
-E         
+E
 E         At index 4 diff: b'\x00' != b'B'
 E         Use -v to get more diff
 
@@ -267,7 +267,7 @@ $ docker exec tbench-mt-carved-ext4-extent-tree-unwritten-pivot-oe1 cat /logs/ve
         assert Path("/workdir/reconstruct.sh").stat().st_mode&amp;0o111
 &gt;       assert Path("/workdir/recovered.bin").read_bytes()==b"AAAABBBBCCCCDDDD"
 E       AssertionError: assert b'AAAA\x00\x0...0\x00CCCCTAIL' == b'AAAABBBBCCCCDDDD'
-E         
+E
 E         At index 4 diff: b'\x00' != b'B'
 E         Use -v to get more diff
 
@@ -313,7 +313,7 @@ _____________ test_unwritten_extent_zeroed_and_decoy_bound_ignored _____________
         b=Path("/workdir/recovered.bin").read_bytes()
 >       assert b[:12]==b"AAAA"+b"\0"*4+b"CCCC" and b"DECOY" not in b
 E       AssertionError: assert (b'AAAA\x00\x00\x00\x00CC' == b'AAAA\x00\x00\x00\x00CCCC'
-E         
+E
 E         Use -v to get more diff)
 
 /tests/test_outputs.py:6: AssertionError
@@ -341,7 +341,7 @@ $ docker exec tbench-mt-carved-ext4-extent-tree-unwritten-pivot-oe2 cat /logs/ve
         b=Path("/workdir/recovered.bin").read_bytes()
 &gt;       assert b[:12]==b"AAAA"+b"\0"*4+b"CCCC" and b"DECOY" not in b
 E       AssertionError: assert (b'AAAA\x00\x00\x00\x00CC' == b'AAAA\x00\x00\x00\x00CCCC'
-E         
+E
 E         Use -v to get more diff)
 
 /tests/test_outputs.py:6: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_have_truncate_eof_report_yet" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/workdir/3_truncate-eof-and-fix-unwritten-length_report.json').exists&#10; +      where PosixPath('/workdir/3_truncate-eof-and-fix-unwritten-length_report.json') = Path('/workdir/3_truncate-eof-and-fix-unwritten-length_report.json')">def test_does_not_have_truncate_eof_report_yet():

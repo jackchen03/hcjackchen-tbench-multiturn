@@ -12,4 +12,3 @@ def test_product_codec_round_trip_quantizes_and_validates():
     assert subprocess.run(["/app/pq_validate",path]).returncode==0
 def test_does_not_create_retrieval_index_yet():
     assert not Path("/app/pq_index.py").exists()
-

@@ -29,4 +29,3 @@ ops=[line.split(maxsplit=1) for line in sys.stdin if line.strip()]
 open(sys.argv[1],"wb").write(build(ops))
 PY
 chmod +x /app/btapply
-

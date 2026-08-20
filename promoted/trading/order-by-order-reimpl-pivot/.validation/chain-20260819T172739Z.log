@@ -23,8 +23,8 @@ ________________ test_samples_match_byte_exact_reference_output ________________
 >           assert run_builder(feed.read_text(encoding="utf-8"), f"sample-{feed.stem}") == expected
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:24: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:24:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 101 B 10000 9\nA 102 B 10000 5\nA 201 S 10005 7\nE 101 3\nU 102 112 10000 3\n'
 name = 'sample-basic'
@@ -36,7 +36,7 @@ name = 'sample-basic'
         result = subprocess.run(["python3", str(BUILDER), str(feed)], text=True, capture_output=True)
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: order book rebuilder is not implemented
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/build_book.py', '/tmp/sample-basic.feed'], returncode=1, stdout='', stderr='order book rebuilder is not implemented\n').returncode
 
@@ -61,8 +61,8 @@ _______ test_disjoint_feed_recovers_retention_replace_boundary_and_rekey _______
 >       assert run_builder(body, "step1-disjoint") == expected
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:42: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:42:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 10001 B 4201 13\nA 10002 B 4201 8\nA 10003 B 4199 6\nA 20001 S 4210 9\nA 20002 S 4208 7\nU 10001 11001 4201 5\nE 11001 5\nU 10002 11002 4201 8\nU 20001 21001 4208 12\nX 10003 6\n'
 name = 'step1-disjoint'
@@ -74,7 +74,7 @@ name = 'step1-disjoint'
         result = subprocess.run(["python3", str(BUILDER), str(feed)], text=True, capture_output=True)
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: order book rebuilder is not implemented
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/build_book.py', '/tmp/step1-disjoint.feed'], returncode=1, stdout='', stderr='order book rebuilder is not implemented\n').returncode
 
@@ -86,8 +86,8 @@ _____________________ test_does_not_have_quirks_report_yet _____________________
         later_artifact.unlink(missing_ok=True)
 >       run_builder("A 31001 B 7001 4\nE 31001 4\n", "step1-future-report")
 
-/tests/test_outputs.py:48: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 31001 B 7001 4\nE 31001 4\n', name = 'step1-future-report'
 
@@ -98,7 +98,7 @@ body = 'A 31001 B 7001 4\nE 31001 4\n', name = 'step1-future-report'
         result = subprocess.run(["python3", str(BUILDER), str(feed)], text=True, capture_output=True)
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: order book rebuilder is not implemented
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/build_book.py', '/tmp/step1-future-report.feed'], returncode=1, stdout='', stderr='order book rebuilder is not implemented\n').returncode
 
@@ -120,8 +120,8 @@ $ docker exec tbench-mt-order-by-order-reimpl-pivot-chain cat /logs/verifier/jun
 &gt;           assert run_builder(feed.read_text(encoding="utf-8"), f"sample-{feed.stem}") == expected
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:24: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:24:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 101 B 10000 9\nA 102 B 10000 5\nA 201 S 10005 7\nE 101 3\nU 102 112 10000 3\n'
 name = 'sample-basic'
@@ -133,7 +133,7 @@ name = 'sample-basic'
         result = subprocess.run(["python3", str(BUILDER), str(feed)], text=True, capture_output=True)
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: order book rebuilder is not implemented
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/build_book.py', '/tmp/sample-basic.feed'], returncode=1, stdout='', stderr='order book rebuilder is not implemented\n').returncode
 
@@ -155,8 +155,8 @@ E        +  where 1 = CompletedProcess(args=['python3', '/app/build_book.py', '/
 &gt;       assert run_builder(body, "step1-disjoint") == expected
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:42: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:42:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 10001 B 4201 13\nA 10002 B 4201 8\nA 10003 B 4199 6\nA 20001 S 4210 9\nA 20002 S 4208 7\nU 10001 11001 4201 5\nE 11001 5\nU 10002 11002 4201 8\nU 20001 21001 4208 12\nX 10003 6\n'
 name = 'step1-disjoint'
@@ -168,7 +168,7 @@ name = 'step1-disjoint'
         result = subprocess.run(["python3", str(BUILDER), str(feed)], text=True, capture_output=True)
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: order book rebuilder is not implemented
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/build_book.py', '/tmp/step1-disjoint.feed'], returncode=1, stdout='', stderr='order book rebuilder is not implemented\n').returncode
 
@@ -177,8 +177,8 @@ E        +  where 1 = CompletedProcess(args=['python3', '/app/build_book.py', '/
         later_artifact.unlink(missing_ok=True)
 &gt;       run_builder("A 31001 B 7001 4\nE 31001 4\n", "step1-future-report")
 
-/tests/test_outputs.py:48: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 31001 B 7001 4\nE 31001 4\n', name = 'step1-future-report'
 
@@ -189,7 +189,7 @@ body = 'A 31001 B 7001 4\nE 31001 4\n', name = 'step1-future-report'
         result = subprocess.run(["python3", str(BUILDER), str(feed)], text=True, capture_output=True)
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: order book rebuilder is not implemented
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/build_book.py', '/tmp/step1-future-report.feed'], returncode=1, stdout='', stderr='order book rebuilder is not implemented\n').returncode
 
@@ -242,8 +242,8 @@ _________________ test_preserves_step1_quirky_snapshot_exactly _________________
 >       output, _ = run_builder(body, "step2-regression")
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:32: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:32:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 51001 B 8800 11\nA 51002 B 8800 9\nA 61001 S 8810 8\nU 51001 51101 8800 4\nE 51101 4\nX 61001 3\n'
 name = 'step2-regression'
@@ -282,8 +282,8 @@ ______ test_report_counts_only_live_retained_zeros_and_strict_keep_rekeys ______
 >       output, report = run_builder(body, "step2-counts")
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:51: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:51:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 52001 B 9900 10\nA 52002 B 9900 7\nA 52003 B 9900 6\nA 52004 S 9910 5\nU 52001 52101 9900 4\nE 52101 4\nU 52002 52102 9900 7\nU 52003 52103 9901 3\nE 52004 5\nD 52004\nA 52005 S 9911 4\nE 52005 4\nX 52005 1\n'
 name = 'step2-counts'
@@ -315,8 +315,8 @@ _______________ test_does_not_have_canonical_book_semantics_yet ________________
 >       output, _ = run_builder(body, "step2-future-canonical")
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:69: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:69:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 53001 B 7600 5\nA 53002 B 7600 7\nU 53001 53101 7600 3\nE 53101 3\n'
 name = 'step2-future-canonical'
@@ -357,8 +357,8 @@ $ docker exec tbench-mt-order-by-order-reimpl-pivot-chain cat /logs/verifier/jun
 &gt;       output, _ = run_builder(body, "step2-regression")
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:32: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:32:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 51001 B 8800 11\nA 51002 B 8800 9\nA 61001 S 8810 8\nU 51001 51101 8800 4\nE 51101 4\nX 61001 3\n'
 name = 'step2-regression'
@@ -394,8 +394,8 @@ E        +    where is_file = PosixPath('/app/quirks_report.json').is_file
 &gt;       output, report = run_builder(body, "step2-counts")
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:51: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:51:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 52001 B 9900 10\nA 52002 B 9900 7\nA 52003 B 9900 6\nA 52004 S 9910 5\nU 52001 52101 9900 4\nE 52101 4\nU 52002 52102 9900 7\nU 52003 52103 9901 3\nE 52004 5\nD 52004\nA 52005 S 9911 4\nE 52005 4\nX 52005 1\n'
 name = 'step2-counts'
@@ -424,8 +424,8 @@ E        +    where is_file = PosixPath('/app/quirks_report.json').is_file
 &gt;       output, _ = run_builder(body, "step2-future-canonical")
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:69: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:69:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 53001 B 7600 5\nA 53002 B 7600 7\nU 53001 53101 7600 3\nE 53101 3\n'
 name = 'step2-future-canonical'
@@ -492,7 +492,7 @@ ____ test_canonical_execution_removes_zero_and_replace_always_moves_to_tail ____
         output = run_builder(body, "step3-canonical")
 >       assert output == "B 12000: 71003:5 71102:3\n"
 E       AssertionError: assert 'B 12000: 711...2:3 71003:5\n' == 'B 12000: 71003:5 71102:3\n'
-E         
+E
 E         - B 12000: 71003:5 71102:3
 E         + B 12000: 71101:0 71102:3 71003:5
 
@@ -531,7 +531,7 @@ $ docker exec tbench-mt-order-by-order-reimpl-pivot-chain cat /logs/verifier/jun
         output = run_builder(body, "step3-canonical")
 &gt;       assert output == "B 12000: 71003:5 71102:3\n"
 E       AssertionError: assert 'B 12000: 711...2:3 71003:5\n' == 'B 12000: 71003:5 71102:3\n'
-E         
+E
 E         - B 12000: 71003:5 71102:3
 E         + B 12000: 71101:0 71102:3 71003:5
 
@@ -681,8 +681,8 @@ _________________ test_preserves_step1_quirky_snapshot_exactly _________________
 >       output, _ = run_builder(body, "step2-regression")
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:32: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:32:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 51001 B 8800 11\nA 51002 B 8800 9\nA 61001 S 8810 8\nU 51001 51101 8800 4\nE 51101 4\nX 61001 3\n'
 name = 'step2-regression'
@@ -721,8 +721,8 @@ ______ test_report_counts_only_live_retained_zeros_and_strict_keep_rekeys ______
 >       output, report = run_builder(body, "step2-counts")
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:51: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:51:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 52001 B 9900 10\nA 52002 B 9900 7\nA 52003 B 9900 6\nA 52004 S 9910 5\nU 52001 52101 9900 4\nE 52101 4\nU 52002 52102 9900 7\nU 52003 52103 9901 3\nE 52004 5\nD 52004\nA 52005 S 9911 4\nE 52005 4\nX 52005 1\n'
 name = 'step2-counts'
@@ -754,8 +754,8 @@ _______________ test_does_not_have_canonical_book_semantics_yet ________________
 >       output, _ = run_builder(body, "step2-future-canonical")
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:69: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:69:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 53001 B 7600 5\nA 53002 B 7600 7\nU 53001 53101 7600 3\nE 53101 3\n'
 name = 'step2-future-canonical'
@@ -796,8 +796,8 @@ $ docker exec tbench-mt-order-by-order-reimpl-pivot-oe2 cat /logs/verifier/junit
 &gt;       output, _ = run_builder(body, "step2-regression")
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:32: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:32:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 51001 B 8800 11\nA 51002 B 8800 9\nA 61001 S 8810 8\nU 51001 51101 8800 4\nE 51101 4\nX 61001 3\n'
 name = 'step2-regression'
@@ -833,8 +833,8 @@ E        +    where is_file = PosixPath('/app/quirks_report.json').is_file
 &gt;       output, report = run_builder(body, "step2-counts")
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:51: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:51:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 52001 B 9900 10\nA 52002 B 9900 7\nA 52003 B 9900 6\nA 52004 S 9910 5\nU 52001 52101 9900 4\nE 52101 4\nU 52002 52102 9900 7\nU 52003 52103 9901 3\nE 52004 5\nD 52004\nA 52005 S 9911 4\nE 52005 4\nX 52005 1\n'
 name = 'step2-counts'
@@ -863,8 +863,8 @@ E        +    where is_file = PosixPath('/app/quirks_report.json').is_file
 &gt;       output, _ = run_builder(body, "step2-future-canonical")
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:69: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:69:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 body = 'A 53001 B 7600 5\nA 53002 B 7600 7\nU 53001 53101 7600 3\nE 53101 3\n'
 name = 'step2-future-canonical'

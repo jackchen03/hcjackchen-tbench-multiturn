@@ -39,4 +39,3 @@ int main(void) {
 #endif
   free(text);free(pos.v);free(raw);return ferror(stdout)?1:0;
 }
-

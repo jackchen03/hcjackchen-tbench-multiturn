@@ -23,4 +23,3 @@ def test_preserves_full_packed_consumption():
     assert run(add(1,1,1,1,0,"Q",257,3))["Q"]["bids"]==[[257,3]]
 def test_does_not_create_v2_structural_reorder_report_yet():
     assert not Path("/app/3_pivot-v2-structural-reorder-version_report.json").exists()
-

@@ -111,4 +111,3 @@ def test_stage_allocation_v2_after_current_contract_holds():
         encoding="utf-8",
     )
     assert "pure pro-rata" in SPEC.read_text(encoding="utf-8")
-

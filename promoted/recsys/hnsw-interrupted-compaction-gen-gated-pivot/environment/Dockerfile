@@ -9,4 +9,3 @@ WORKDIR /app
 COPY annindex /app/annindex
 COPY samples /app/samples
 RUN find /app -type f -exec touch -t 202401010000.00 {} +
-

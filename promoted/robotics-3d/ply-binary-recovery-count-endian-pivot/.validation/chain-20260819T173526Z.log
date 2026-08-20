@@ -23,12 +23,12 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_recovers_two_disjoint_co
 >       assert assert_case('hidden_a',tmp_path)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:26: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:26:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:16: in assert_case
     root=Path('/opt/grader/hidden');ply=run_recovery(root/f'{name}_corrupted.ply',tmp_path/f'{name}.ply')
                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 source = PosixPath('/opt/grader/hidden/hidden_a_corrupted.ply')
 output = PosixPath('/tmp/pytest-of-root/pytest-0/test_recovers_two_disjoint_cor0/hidden_a.ply')
@@ -49,12 +49,12 @@ _________________ test_shipped_recovery_is_canonical_and_exact _________________
 >       assert actual.read_bytes()==expected.read_bytes()
                ^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:31: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:31:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
     with self.open(mode='rb') as f:
          ^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recovered.ply'), mode = 'rb', buffering = -1
 encoding = None, errors = None, newline = None
@@ -78,12 +78,12 @@ ______________ test_recovery_source_does_not_read_hidden_answers _______________
 >       source=Path('/app/recover.py').read_text()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:35: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:35:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recover.py'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -120,12 +120,12 @@ $ docker exec tbench-mt-ply-binary-recovery-count-endian-pivot-chain cat /logs/v
 &gt;       assert assert_case('hidden_a',tmp_path)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:26: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:26:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:16: in assert_case
     root=Path('/opt/grader/hidden');ply=run_recovery(root/f'{name}_corrupted.ply',tmp_path/f'{name}.ply')
                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 source = PosixPath('/opt/grader/hidden/hidden_a_corrupted.ply')
 output = PosixPath('/tmp/pytest-of-root/pytest-0/test_recovers_two_disjoint_cor0/hidden_a.ply')
@@ -143,12 +143,12 @@ E        +      where PosixPath('/app/recover.py') = Path('/app/recover.py')
 &gt;       assert actual.read_bytes()==expected.read_bytes()
                ^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:31: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:31:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
     with self.open(mode='rb') as f:
          ^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recovered.ply'), mode = 'rb', buffering = -1
 encoding = None, errors = None, newline = None
@@ -169,12 +169,12 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/recovered.
 &gt;       source=Path('/app/recover.py').read_text()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:35: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:35:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recover.py'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -213,7 +213,7 @@ _________________ test_shipped_recovery_is_canonical_and_exact _________________
         actual=Path('/app/recovered.ply');expected=Path('/opt/grader/sample/sample_expected_recovered.ply')
 >       assert actual.read_bytes()==expected.read_bytes()
 E       AssertionError: assert b'ply\nformat...4\x02\x00\x00' == b'ply\nformat...4\x02\x00\x00'
-E         
+E
 E         At index 36 diff: b'e' != b'c'
 E         Use -v to get more diff
 
@@ -235,7 +235,7 @@ $ docker exec tbench-mt-ply-binary-recovery-count-endian-pivot-chain cat /logs/v
         actual=Path('/app/recovered.ply');expected=Path('/opt/grader/sample/sample_expected_recovered.ply')
 &gt;       assert actual.read_bytes()==expected.read_bytes()
 E       AssertionError: assert b'ply\nformat...4\x02\x00\x00' == b'ply\nformat...4\x02\x00\x00'
-E         
+E
 E         At index 36 diff: b'e' != b'c'
 E         Use -v to get more diff
 

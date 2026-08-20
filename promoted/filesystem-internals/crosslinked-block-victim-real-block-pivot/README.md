@@ -11,4 +11,3 @@ The chain carries a repaired image or executable forward. Later turns either ext
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 
 Local chain evidence under `.validation/` is not model calibration.
-

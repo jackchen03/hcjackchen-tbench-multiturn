@@ -118,11 +118,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_report_matches_actual_fi
     def test_report_matches_actual_final_verbose_row(tmp_path):
 >    Path('/app/overlap_report.json').unlink(missing_ok=True); src=sorted(Path('/app').glob('sample_src*.npy'))[1]; tgt=Path(str(src).replace('_src','_tgt')); result=run(['python3','/app/icp_register.py','--verbose',str(src),str(tgt),str(tmp_path/'pose.txt')]); last=[float(value) for value in result.stderr.splitlines()[-1].split(',')]; report=json.loads(Path('/app/overlap_report.json').read_text()); assert set(report)=={'source','target','final_n_corr','final_keep_pct','final_robust_cost','final_step_scale','overlap_score'}; assert report['source']==src.name and report['target']==tgt.name; assert report['final_n_corr']==int(last[1]); assert report['final_keep_pct']==last[2]; assert report['final_robust_cost']==last[3]; assert report['final_step_scale']==last[4]; assert report['overlap_score']==last[1]/min(len(np.load(src)),len(np.load(tgt)))
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/overlap_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -158,11 +158,11 @@ $ docker exec tbench-mt-icp-registrar-adaptive-rejection-pivot-chain cat /logs/v
     def test_report_matches_actual_final_verbose_row(tmp_path):
 &gt;    Path('/app/overlap_report.json').unlink(missing_ok=True); src=sorted(Path('/app').glob('sample_src*.npy'))[1]; tgt=Path(str(src).replace('_src','_tgt')); result=run(['python3','/app/icp_register.py','--verbose',str(src),str(tgt),str(tmp_path/'pose.txt')]); last=[float(value) for value in result.stderr.splitlines()[-1].split(',')]; report=json.loads(Path('/app/overlap_report.json').read_text()); assert set(report)=={'source','target','final_n_corr','final_keep_pct','final_robust_cost','final_step_scale','overlap_score'}; assert report['source']==src.name and report['target']==tgt.name; assert report['final_n_corr']==int(last[1]); assert report['final_keep_pct']==last[2]; assert report['final_robust_cost']==last[3]; assert report['final_step_scale']==last[4]; assert report['overlap_score']==last[1]/min(len(np.load(src)),len(np.load(tgt)))
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/overlap_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -420,11 +420,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_report_matches_actual_fi
     def test_report_matches_actual_final_verbose_row(tmp_path):
 >    Path('/app/overlap_report.json').unlink(missing_ok=True); src=sorted(Path('/app').glob('sample_src*.npy'))[1]; tgt=Path(str(src).replace('_src','_tgt')); result=run(['python3','/app/icp_register.py','--verbose',str(src),str(tgt),str(tmp_path/'pose.txt')]); last=[float(value) for value in result.stderr.splitlines()[-1].split(',')]; report=json.loads(Path('/app/overlap_report.json').read_text()); assert set(report)=={'source','target','final_n_corr','final_keep_pct','final_robust_cost','final_step_scale','overlap_score'}; assert report['source']==src.name and report['target']==tgt.name; assert report['final_n_corr']==int(last[1]); assert report['final_keep_pct']==last[2]; assert report['final_robust_cost']==last[3]; assert report['final_step_scale']==last[4]; assert report['overlap_score']==last[1]/min(len(np.load(src)),len(np.load(tgt)))
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/overlap_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -488,14 +488,14 @@ _____________________ test_does_not_reference_test_gt_yet ______________________
     def test_does_not_reference_test_gt_yet():
 >    assert '/app/test_gt/' not in Path('/app/icp_register.py').read_text()
 E    AssertionError: assert '/app/test_gt/' not in '#!/usr/bin/....argv[1:])\n'
-E      
+E
 E      '/app/test_gt/' is contained here:
 E        NTRACT = '/app/test_gt/'
-E        
+E
 E        def trace(nsrc,ntgt,legacy):
 E            overlap=min(nsrc,ntgt)/max(nsrc,ntgt)
 E            rows=[]...
-E      
+E
 E      ...Full output truncated (26 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:17: AssertionError
@@ -517,11 +517,11 @@ $ docker exec tbench-mt-icp-registrar-adaptive-rejection-pivot-oe2 cat /logs/ver
     def test_report_matches_actual_final_verbose_row(tmp_path):
 &gt;    Path('/app/overlap_report.json').unlink(missing_ok=True); src=sorted(Path('/app').glob('sample_src*.npy'))[1]; tgt=Path(str(src).replace('_src','_tgt')); result=run(['python3','/app/icp_register.py','--verbose',str(src),str(tgt),str(tmp_path/'pose.txt')]); last=[float(value) for value in result.stderr.splitlines()[-1].split(',')]; report=json.loads(Path('/app/overlap_report.json').read_text()); assert set(report)=={'source','target','final_n_corr','final_keep_pct','final_robust_cost','final_step_scale','overlap_score'}; assert report['source']==src.name and report['target']==tgt.name; assert report['final_n_corr']==int(last[1]); assert report['final_keep_pct']==last[2]; assert report['final_robust_cost']==last[3]; assert report['final_step_scale']==last[4]; assert report['overlap_score']==last[1]/min(len(np.load(src)),len(np.load(tgt)))
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/overlap_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -573,14 +573,14 @@ E     +  where False = any(&lt;generator object test_does_not_have_constant_step
 /tests/test_outputs.py:15: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_reference_test_gt_yet" time="0.001"><failure message="AssertionError: assert '/app/test_gt/' not in '#!/usr/bin/....argv[1:])\n'&#10;  &#10;  '/app/test_gt/' is contained here:&#10;    NTRACT = '/app/test_gt/'&#10;    &#10;    def trace(nsrc,ntgt,legacy):&#10;        overlap=min(nsrc,ntgt)/max(nsrc,ntgt)&#10;        rows=[]...&#10;  &#10;  ...Full output truncated (26 lines hidden), use '-vv' to show">def test_does_not_reference_test_gt_yet():
 &gt;    assert '/app/test_gt/' not in Path('/app/icp_register.py').read_text()
 E    AssertionError: assert '/app/test_gt/' not in '#!/usr/bin/....argv[1:])\n'
-E      
+E
 E      '/app/test_gt/' is contained here:
 E        NTRACT = '/app/test_gt/'
-E        
+E
 E        def trace(nsrc,ntgt,legacy):
 E            overlap=min(nsrc,ntgt)/max(nsrc,ntgt)
 E            rows=[]...
-E      
+E
 E      ...Full output truncated (26 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:17: AssertionError</failure></testcase></testsuite></testsuites>

@@ -12,4 +12,3 @@ def test_checkpoint_materialization_reuses_decoder_dialect():
 def test_logical_pivot_is_not_exposed_yet():
     assert not Path("/app/LOGICAL_FORMAT.md").exists()
     assert not Path("/app/MIGRATION.md").exists()
-

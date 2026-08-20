@@ -23,12 +23,12 @@ _______ test_inventory_recovers_every_declared_blob_length_and_page_size _______
             "1": 900, "2": 1500, "3": 20000, "4": 45000, "5": 1200, "6": 20000
         }
 
-/tests/test_outputs.py:12: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/inventory.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -55,12 +55,12 @@ ____________ test_sqlite_path_is_dead_but_raw_inventory_is_nonempty ____________
 >       assert len(json.loads(INVENTORY.read_text())) == 6
                               ^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:22: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/inventory.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -96,12 +96,12 @@ $ docker exec tbench-mt-overflow-reassembly-corrupts-large-pivot-chain cat /logs
             "1": 900, "2": 1500, "3": 20000, "4": 45000, "5": 1200, "6": 20000
         }
 
-/tests/test_outputs.py:12: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/inventory.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -125,12 +125,12 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/inventory.
 &gt;       assert len(json.loads(INVENTORY.read_text())) == 6
                               ^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:22: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/inventory.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -189,7 +189,7 @@ _____________ test_shipped_small_and_large_rows_recover_byte_exact _____________
         expected = json.loads(Path("/opt/grader/broken_truth.json").read_text())
 >       assert hashes("/app/recovered") == expected
 E       AssertionError: assert {} == {'1': '043fdf...d0d15ef', ...}
-E         
+E
 E         Right contains 6 more items:
 E         {'1': '043fdfc3ebd6e38f6097f30ea4990928b9c06804c7e48f46a5ab8d2834f314fd',
 E          '2': '0dac00c88a0893ff013c97ab787e2e969d8932c213cba3aaab5d6d6dcf9d3dcb',
@@ -210,14 +210,14 @@ ________ test_generic_recover_infers_disjoint_page_and_reserve_geometry ________
 >       result = subprocess.run([str(RECOVER), "/opt/grader/held.sqlite", str(output)], text=True, capture_output=True)
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:29: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:29:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/recover.sh', '/opt/grader/held.sqlite',...>
 args = ['/app/recover.sh', '/opt/grader/held.sqlite', '/tmp/held-recovered']
@@ -237,7 +237,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -247,7 +247,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -255,12 +255,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -281,9 +281,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -301,7 +301,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -335,11 +335,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -351,7 +351,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -361,7 +361,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -411,7 +411,7 @@ $ docker exec tbench-mt-overflow-reassembly-corrupts-large-pivot-chain cat /logs
         expected = json.loads(Path("/opt/grader/broken_truth.json").read_text())
 &gt;       assert hashes("/app/recovered") == expected
 E       AssertionError: assert {} == {'1': '043fdf...d0d15ef', ...}
-E         
+E
 E         Right contains 6 more items:
 E         {'1': '043fdfc3ebd6e38f6097f30ea4990928b9c06804c7e48f46a5ab8d2834f314fd',
 E          '2': '0dac00c88a0893ff013c97ab787e2e969d8932c213cba3aaab5d6d6dcf9d3dcb',
@@ -429,14 +429,14 @@ E         Use -v to get more diff
 &gt;       result = subprocess.run([str(RECOVER), "/opt/grader/held.sqlite", str(output)], text=True, capture_output=True)
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:29: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:29:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/recover.sh', '/opt/grader/held.sqlite',...&gt;
 args = ['/app/recover.sh', '/opt/grader/held.sqlite', '/tmp/held-recovered']
@@ -456,7 +456,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -466,7 +466,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -474,12 +474,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -500,9 +500,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -520,7 +520,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -554,11 +554,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -570,7 +570,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -580,7 +580,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -655,12 +655,12 @@ ____________ test_manifest_maps_every_row_to_lowercase_content_hash ____________
 >       manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:14: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:14:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/manifest.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -684,12 +684,12 @@ _________ test_store_is_deduplicated_byte_exact_and_old_layout_absent __________
 >       manifest = json.loads(MANIFEST.read_text())
                               ^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:21: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:21:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/manifest.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -723,12 +723,12 @@ $ docker exec tbench-mt-overflow-reassembly-corrupts-large-pivot-chain cat /logs
 &gt;       manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:14: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:14:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/manifest.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -749,12 +749,12 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/manifest.j
 &gt;       manifest = json.loads(MANIFEST.read_text())
                               ^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:21: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:21:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/manifest.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -896,7 +896,7 @@ _____________ test_shipped_small_and_large_rows_recover_byte_exact _____________
         expected = json.loads(Path("/opt/grader/broken_truth.json").read_text())
 >       assert hashes("/app/recovered") == expected
 E       AssertionError: assert {} == {'1': '043fdf...d0d15ef', ...}
-E         
+E
 E         Right contains 6 more items:
 E         {'1': '043fdfc3ebd6e38f6097f30ea4990928b9c06804c7e48f46a5ab8d2834f314fd',
 E          '2': '0dac00c88a0893ff013c97ab787e2e969d8932c213cba3aaab5d6d6dcf9d3dcb',
@@ -933,7 +933,7 @@ $ docker exec tbench-mt-overflow-reassembly-corrupts-large-pivot-oe2 cat /logs/v
         expected = json.loads(Path("/opt/grader/broken_truth.json").read_text())
 &gt;       assert hashes("/app/recovered") == expected
 E       AssertionError: assert {} == {'1': '043fdf...d0d15ef', ...}
-E         
+E
 E         Right contains 6 more items:
 E         {'1': '043fdfc3ebd6e38f6097f30ea4990928b9c06804c7e48f46a5ab8d2834f314fd',
 E          '2': '0dac00c88a0893ff013c97ab787e2e969d8932c213cba3aaab5d6d6dcf9d3dcb',

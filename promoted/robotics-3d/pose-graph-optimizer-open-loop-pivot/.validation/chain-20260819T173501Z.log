@@ -162,7 +162,7 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_pivot_uses_input_order_c
     def test_pivot_uses_input_order_continuous_angles_and_correct_mle(tmp_path):
 >    out=tmp_path/'pivot.traj'; run(out); actual=load(out); expected=load('/app/refs/pivot_continuous.traj'); assert list(actual[:,0].astype(int))==input_order(); assert list(actual[:,0].astype(int))!=sorted(input_order()); assert np.any(np.abs(actual[:,3])>np.pi); assert np.max(np.abs(np.diff(actual[:,3])))<np.pi; assert np.allclose(actual,expected,atol=1e-6)
 E    assert [10, 20, 30, 40, 50, 70, ...] == [30, 10, 50, 20, 70, 40, ...]
-E      
+E
 E      At index 0 diff: 10 != 30
 E      Use -v to get more diff
 
@@ -174,11 +174,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_loop_report_lists_every_
     def test_loop_report_lists_every_direction_correction(tmp_path):
 >    out=tmp_path/'pivot.traj'; run(out); assert json.loads(Path('/app/loop_report.json').read_text())==json.loads(Path('/app/refs/pivot_report.json').read_text())
 
-/tests/test_outputs.py:13: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/loop_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -225,7 +225,7 @@ $ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/ver
     def test_pivot_uses_input_order_continuous_angles_and_correct_mle(tmp_path):
 &gt;    out=tmp_path/'pivot.traj'; run(out); actual=load(out); expected=load('/app/refs/pivot_continuous.traj'); assert list(actual[:,0].astype(int))==input_order(); assert list(actual[:,0].astype(int))!=sorted(input_order()); assert np.any(np.abs(actual[:,3])&gt;np.pi); assert np.max(np.abs(np.diff(actual[:,3])))&lt;np.pi; assert np.allclose(actual,expected,atol=1e-6)
 E    assert [10, 20, 30, 40, 50, 70, ...] == [30, 10, 50, 20, 70, 40, ...]
-E      
+E
 E      At index 0 diff: 10 != 30
 E      Use -v to get more diff
 
@@ -234,11 +234,11 @@ E      Use -v to get more diff
     def test_loop_report_lists_every_direction_correction(tmp_path):
 &gt;    out=tmp_path/'pivot.traj'; run(out); assert json.loads(Path('/app/loop_report.json').read_text())==json.loads(Path('/app/refs/pivot_report.json').read_text())
 
-/tests/test_outputs.py:13: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/loop_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None

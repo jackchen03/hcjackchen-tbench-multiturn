@@ -166,8 +166,8 @@ _____________ test_flat_true_vector_matrix_and_metadata_are_exact ______________
 >    root=Path('/app/flat_embstore'); got=np.load(root/'embeddings.npy'); truth=np.load('/opt/grade/truth.npy'); meta=json.loads((root/'meta.json').read_text()); assert got.dtype==np.float32; assert got.shape==truth.shape; assert np.allclose(got,truth,rtol=0,atol=0.01); assert meta=={'num_items':120,'dim':8,'dtype':'float32'}
                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = PosixPath('/app/flat_embstore/embeddings.npy'), mmap_mode = None
 allow_pickle = False, fix_imports = True, encoding = 'ASCII'
@@ -177,13 +177,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -203,10 +203,10 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -224,13 +224,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -242,13 +242,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -259,24 +259,24 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         >>> np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         >>> np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         >>> a=np.array([[1, 2, 3], [4, 5, 6]])
         >>> b=np.array([1, 2])
         >>> np.savez('/tmp/123.npz', a=a, b=b)
@@ -287,14 +287,14 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         >>> data['b']
         array([1, 2])
         >>> data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         >>> X = np.load('/tmp/123.npy', mmap_mode='r')
         >>> X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -309,9 +309,9 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -328,13 +328,13 @@ ___________ test_flat_loader_topk_matches_direct_true_vector_search ____________
 >    spec=importlib.util.spec_from_file_location('loader','/app/flat_embstore/loader.py'); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); store=mod.load_store('/app/flat_embstore'); q=np.load('/opt/grade/truth.npy')[83]+0.001; expected=np.argsort(((store.matrix-q)**2).sum(1))[:10].tolist(); assert store.topk(q,10)==expected
                                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 <frozen importlib._bootstrap_external>:936: in exec_module
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7f0a3fb28dd0>
 path = '/app/flat_embstore/loader.py'
@@ -369,8 +369,8 @@ $ docker exec tbench-mt-item-embeddings-garbage-resolution-pivot-chain cat /logs
 &gt;    root=Path('/app/flat_embstore'); got=np.load(root/'embeddings.npy'); truth=np.load('/opt/grade/truth.npy'); meta=json.loads((root/'meta.json').read_text()); assert got.dtype==np.float32; assert got.shape==truth.shape; assert np.allclose(got,truth,rtol=0,atol=0.01); assert meta=={'num_items':120,'dim':8,'dtype':'float32'}
                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = PosixPath('/app/flat_embstore/embeddings.npy'), mmap_mode = None
 allow_pickle = False, fix_imports = True, encoding = 'ASCII'
@@ -380,13 +380,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -406,10 +406,10 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -427,13 +427,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -445,13 +445,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -462,24 +462,24 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         &gt;&gt;&gt; np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         &gt;&gt;&gt; np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         &gt;&gt;&gt; a=np.array([[1, 2, 3], [4, 5, 6]])
         &gt;&gt;&gt; b=np.array([1, 2])
         &gt;&gt;&gt; np.savez('/tmp/123.npz', a=a, b=b)
@@ -490,14 +490,14 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         &gt;&gt;&gt; data['b']
         array([1, 2])
         &gt;&gt;&gt; data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         &gt;&gt;&gt; X = np.load('/tmp/123.npy', mmap_mode='r')
         &gt;&gt;&gt; X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -512,9 +512,9 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -528,13 +528,13 @@ E               FileNotFoundError: [Errno 2] No such file or directory: '/app/fl
 &gt;    spec=importlib.util.spec_from_file_location('loader','/app/flat_embstore/loader.py'); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); store=mod.load_store('/app/flat_embstore'); q=np.load('/opt/grade/truth.npy')[83]+0.001; expected=np.argsort(((store.matrix-q)**2).sum(1))[:10].tolist(); assert store.topk(q,10)==expected
                                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 &lt;frozen importlib._bootstrap_external&gt;:936: in exec_module
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7f0a3fb28dd0&gt;
 path = '/app/flat_embstore/loader.py'
@@ -698,12 +698,12 @@ _______ test_recentered_sharded_store_matches_true_vectors_for_all_items _______
 >    got=embstore_lib.load_store('/app/embstore'); truth=np.load('/opt/grade/truth.npy'); assert got.shape==truth.shape; assert np.allclose(got,truth,rtol=0,atol=0.01)
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 embstore_lib.py:5: in load_store
     root=Path(root); meta=json.loads((root/'meta.json').read_text()); n,d=meta['num_items'],meta['dim']; means=np.load(root/'means.npy'); ids=(root/'idmap.bin').read_bytes(); out=np.empty((n,d),dtype=np.float32)
                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = PosixPath('/app/embstore/means.npy'), mmap_mode = None
 allow_pickle = False, fix_imports = True, encoding = 'ASCII'
@@ -713,13 +713,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -739,10 +739,10 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -760,13 +760,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -778,13 +778,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -795,24 +795,24 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         >>> np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         >>> np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         >>> a=np.array([[1, 2, 3], [4, 5, 6]])
         >>> b=np.array([1, 2])
         >>> np.savez('/tmp/123.npz', a=a, b=b)
@@ -823,14 +823,14 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         >>> data['b']
         array([1, 2])
         >>> data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         >>> X = np.load('/tmp/123.npy', mmap_mode='r')
         >>> X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -845,9 +845,9 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -877,7 +877,7 @@ E        File "/usr/local/lib/python3.11/pathlib.py", line 1044, in open
 E          return io.open(self, mode, buffering, encoding, errors, newline)
 E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E      FileNotFoundError: [Errno 2] No such file or directory: '/app/embstore/primary_000.bin'
-E      
+E
 E    assert 1 == 0
 E     +  where 1 = CompletedProcess(args=['/app/embstore/validate_integrity.py', '/app/embstore'], returncode=1, stdout='', stderr='Trace...^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: \'/app/embstore/primary_000.bin\'\n').returncode
 
@@ -908,12 +908,12 @@ $ docker exec tbench-mt-item-embeddings-garbage-resolution-pivot-oe2 cat /logs/v
 &gt;    got=embstore_lib.load_store('/app/embstore'); truth=np.load('/opt/grade/truth.npy'); assert got.shape==truth.shape; assert np.allclose(got,truth,rtol=0,atol=0.01)
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 embstore_lib.py:5: in load_store
     root=Path(root); meta=json.loads((root/'meta.json').read_text()); n,d=meta['num_items'],meta['dim']; means=np.load(root/'means.npy'); ids=(root/'idmap.bin').read_bytes(); out=np.empty((n,d),dtype=np.float32)
                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = PosixPath('/app/embstore/means.npy'), mmap_mode = None
 allow_pickle = False, fix_imports = True, encoding = 'ASCII'
@@ -923,13 +923,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -949,10 +949,10 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -970,13 +970,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -988,13 +988,13 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -1005,24 +1005,24 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         &gt;&gt;&gt; np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         &gt;&gt;&gt; np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         &gt;&gt;&gt; a=np.array([[1, 2, 3], [4, 5, 6]])
         &gt;&gt;&gt; b=np.array([1, 2])
         &gt;&gt;&gt; np.savez('/tmp/123.npz', a=a, b=b)
@@ -1033,14 +1033,14 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         &gt;&gt;&gt; data['b']
         array([1, 2])
         &gt;&gt;&gt; data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         &gt;&gt;&gt; X = np.load('/tmp/123.npy', mmap_mode='r')
         &gt;&gt;&gt; X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -1055,9 +1055,9 @@ allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -1084,7 +1084,7 @@ E        File "/usr/local/lib/python3.11/pathlib.py", line 1044, in open
 E          return io.open(self, mode, buffering, encoding, errors, newline)
 E                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E      FileNotFoundError: [Errno 2] No such file or directory: '/app/embstore/primary_000.bin'
-E      
+E
 E    assert 1 == 0
 E     +  where 1 = CompletedProcess(args=['/app/embstore/validate_integrity.py', '/app/embstore'], returncode=1, stdout='', stderr='Trace...^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: \'/app/embstore/primary_000.bin\'\n').returncode
 

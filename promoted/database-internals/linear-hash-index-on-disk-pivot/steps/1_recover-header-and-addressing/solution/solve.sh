@@ -25,4 +25,3 @@ for bid,pages in enumerate(buckets):
 open(sys.argv[2],'wb').write(out)
 PY
 chmod 0755 /app/hashbuild
-

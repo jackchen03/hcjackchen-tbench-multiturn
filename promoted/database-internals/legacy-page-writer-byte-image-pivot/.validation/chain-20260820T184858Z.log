@@ -22,14 +22,14 @@ ___________________ test_bulk_page_slot_order_and_alignment ____________________
 >       subprocess.run(["/app/writer",str(ops),str(out)],check=True); b=out.read_bytes()
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/writer', '/tmp/bulk.ops', '/tmp/page']>
 args = ['/app/writer', '/tmp/bulk.ops', '/tmp/page']
@@ -49,7 +49,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -59,7 +59,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -67,12 +67,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -93,9 +93,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -113,7 +113,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -147,11 +147,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -163,7 +163,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -173,7 +173,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -223,14 +223,14 @@ $ docker exec tbench-mt-legacy-page-writer-byte-image-pivot-chain cat /logs/veri
 &gt;       subprocess.run(["/app/writer",str(ops),str(out)],check=True); b=out.read_bytes()
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/writer', '/tmp/bulk.ops', '/tmp/page']&gt;
 args = ['/app/writer', '/tmp/bulk.ops', '/tmp/page']
@@ -250,7 +250,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -260,7 +260,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -268,12 +268,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -294,9 +294,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -314,7 +314,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -348,11 +348,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -364,7 +364,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -374,7 +374,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -449,8 +449,8 @@ ________________ test_best_fit_slot_reuse_and_sliver_absorption ________________
 >       subprocess.run(["/app/writer",str(ops),str(out)],check=True); b=out.read_bytes()
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['/app/writer', '/tmp/churn.ops', '/tmp/churn.page'],), kwargs = {}
@@ -460,45 +460,45 @@ stdout = None, stderr = None, retcode = 1
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output & stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -545,8 +545,8 @@ $ docker exec tbench-mt-legacy-page-writer-byte-image-pivot-chain cat /logs/veri
 &gt;       subprocess.run(["/app/writer",str(ops),str(out)],check=True); b=out.read_bytes()
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['/app/writer', '/tmp/churn.ops', '/tmp/churn.page'],), kwargs = {}
@@ -556,45 +556,45 @@ stdout = None, stderr = None, retcode = 1
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output &amp; stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -754,7 +754,7 @@ ___________________ test_bulk_page_slot_order_and_alignment ____________________
 >       assert len(b)==512 and b[:2]==b"LP" and struct.unpack_from("<H",b,2)[0]==2
 E       AssertionError: assert (512 == 512 and b'LR' == b'LP'
 E        +  where 512 = len(b'LR\x02\x00\xf4\x01\x00\x00\xfc\x01\x04\x00\xf4\x01\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x...00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0012345\x00\x00\x00abc\x00')
-E         
+E
 E         At index 1 diff: b'R' != b'P'
 E         Use -v to get more diff)
 
@@ -785,7 +785,7 @@ $ docker exec tbench-mt-legacy-page-writer-byte-image-pivot-oe1 cat /logs/verifi
 &gt;       assert len(b)==512 and b[:2]==b"LP" and struct.unpack_from("&lt;H",b,2)[0]==2
 E       AssertionError: assert (512 == 512 and b'LR' == b'LP'
 E        +  where 512 = len(b'LR\x02\x00\xf4\x01\x00\x00\xfc\x01\x04\x00\xf4\x01\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x...00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0012345\x00\x00\x00abc\x00')
-E         
+E
 E         At index 1 diff: b'R' != b'P'
 E         Use -v to get more diff)
 

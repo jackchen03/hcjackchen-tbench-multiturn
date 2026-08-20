@@ -1,0 +1,18 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:d23838a8e9d3f50422e359e4570e461d4314badf79c8c105614c5d62d3160b23",
+  "final_audit": "promoted/robotics-3d/ply-binary-recovery-count-endian-pivot/.validation/final-audit-20260820T202511Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/robotics-3d/ply-binary-recovery-count-endian-pivot/.validation/chain-20260820T202102Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/robotics-3d/ply-binary-recovery-count-endian-pivot/.validation/oracle-x3-current-20260820T210935Z.json",
+  "proposed_commit_pathspec": "promoted/robotics-3d/ply-binary-recovery-count-endian-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/robotics-3d/ply-binary-recovery-count-endian-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

@@ -41,4 +41,3 @@ if __name__=="__main__": write_table(replay(sys.argv[2],read_table(sys.argv[1]))
 PY
 chmod +x /app/apply
 /app/apply /tmp/base.txt /app/inc.log /tmp/incremental.txt
-

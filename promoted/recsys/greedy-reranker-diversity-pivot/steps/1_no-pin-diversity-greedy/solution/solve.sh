@@ -16,4 +16,3 @@ def rerank(request):
         out[slot]=best; remaining.remove(best)
     return [item["item_id"] for item in out]
 PY
-

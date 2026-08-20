@@ -19,4 +19,3 @@ expected=json.load(open(sys.argv[2]))
 json.dump({"verified":actual==expected,"mismatches":[] if actual==expected else ["row_count_or_hash"],"actual":actual},open(sys.argv[3],"w"),sort_keys=True)
 PY
 chmod +x /app/verify
-

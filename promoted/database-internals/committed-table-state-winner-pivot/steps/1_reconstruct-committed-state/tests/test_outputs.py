@@ -13,4 +13,3 @@ def test_committed_transactions_and_one_shot_unwind():
     assert run(records)=="1 10\n3 30\n"
 def test_does_not_create_incremental_apply_yet():
     assert not Path("/app/apply").exists()
-

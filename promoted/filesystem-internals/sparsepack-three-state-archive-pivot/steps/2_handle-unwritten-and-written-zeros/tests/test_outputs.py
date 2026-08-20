@@ -9,4 +9,3 @@ def test_three_states_distinguish_unwritten_and_written_zero():
  assert r.stdout[20] == 0 and r.stdout[29] == 1 and r.stdout[38] == 2
 def test_does_not_publish_physical_segmentation_report_yet():
  assert not Path("/workdir/3_fix-physical-tree-segmentation_report.json").exists()
-

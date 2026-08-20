@@ -23,8 +23,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_shipped_corruption_recov
 >    rows,schema=recover(Path('/app/broken.sqlite'),tmp_path/'out.sqlite'); assert rows==[(1,'alpha',11),(2,'bravo',-7),(7,'café',300),(19,'zero',0),(44,'tail',9999)]; assert 'INTEGER PRIMARY KEY' in schema
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:8: in recover
     r=subprocess.run(['/app/recover.sh',str(inp),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val from T order by id').fetchall(); schema=con.execute("select sql from sqlite_master where name='T'").fetchone()[0]; con.close(); return rows,schema
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -33,7 +33,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/recover.sh', '/app/broken.sqlite', '/tm...>
 args = ['/app/recover.sh', '/app/broken.sqlite', '/tmp/pytest-of-root/pytest-0/test_shipped_corruption_recove0/out.sqlite']
@@ -53,7 +53,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -63,7 +63,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -71,12 +71,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -97,9 +97,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -117,7 +117,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -151,11 +151,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -167,7 +167,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -177,7 +177,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -219,8 +219,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sa
 >    expected=[(-8,'neg',4),(3,'three',-20),(90,'ninety',0)]; inp=tmp_path/'held.sqlite'; broken(inp,expected); rows,_=recover(inp,tmp_path/'recovered.sqlite'); assert rows==expected
                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:12: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:8: in recover
     r=subprocess.run(['/app/recover.sh',str(inp),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val from T order by id').fetchall(); schema=con.execute("select sql from sqlite_master where name='T'").fetchone()[0]; con.close(); return rows,schema
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -229,7 +229,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/recover.sh', '/tmp/pytest-of-root/pytes...>
 args = ['/app/recover.sh', '/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0/held.sqlite', '/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0/recovered.sqlite']
@@ -249,7 +249,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -259,7 +259,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -267,12 +267,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -293,9 +293,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -313,7 +313,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -347,11 +347,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -363,7 +363,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -373,7 +373,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -425,8 +425,8 @@ $ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/veri
 &gt;    rows,schema=recover(Path('/app/broken.sqlite'),tmp_path/'out.sqlite'); assert rows==[(1,'alpha',11),(2,'bravo',-7),(7,'café',300),(19,'zero',0),(44,'tail',9999)]; assert 'INTEGER PRIMARY KEY' in schema
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:8: in recover
     r=subprocess.run(['/app/recover.sh',str(inp),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val from T order by id').fetchall(); schema=con.execute("select sql from sqlite_master where name='T'").fetchone()[0]; con.close(); return rows,schema
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -435,7 +435,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/recover.sh', '/app/broken.sqlite', '/tm...&gt;
 args = ['/app/recover.sh', '/app/broken.sqlite', '/tmp/pytest-of-root/pytest-0/test_shipped_corruption_recove0/out.sqlite']
@@ -455,7 +455,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -465,7 +465,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -473,12 +473,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -499,9 +499,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -519,7 +519,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -553,11 +553,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -569,7 +569,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -579,7 +579,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -618,8 +618,8 @@ E                   FileNotFoundError: [Errno 2] No such file or directory: '/ap
 &gt;    expected=[(-8,'neg',4),(3,'three',-20),(90,'ninety',0)]; inp=tmp_path/'held.sqlite'; broken(inp,expected); rows,_=recover(inp,tmp_path/'recovered.sqlite'); assert rows==expected
                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:12: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:8: in recover
     r=subprocess.run(['/app/recover.sh',str(inp),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val from T order by id').fetchall(); schema=con.execute("select sql from sqlite_master where name='T'").fetchone()[0]; con.close(); return rows,schema
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -628,7 +628,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/recover.sh', '/tmp/pytest-of-root/pytes...&gt;
 args = ['/app/recover.sh', '/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0/held.sqlite', '/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0/recovered.sqlite']
@@ -648,7 +648,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -658,7 +658,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -666,12 +666,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -692,9 +692,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -712,7 +712,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -746,11 +746,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -762,7 +762,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -772,7 +772,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -849,14 +849,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_checksum_rows_and_value_
 >    out=tmp_path/'idx.sqlite'; r=subprocess.run(['/app/build_index.sh','/app/recovered.sqlite',str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val,checksum from T_checksum order by id').fetchall(); indexes=con.execute("select name from sqlite_master where type='index'").fetchall(); con.close(); assert all(h==hashlib.sha256((n+str(v)).encode()).hexdigest() for _,n,v,h in rows); assert ('idx_T_val',) in indexes; assert len(rows)==5
                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/build_index.sh', '/app/recovered.sqlite...>
 args = ['/app/build_index.sh', '/app/recovered.sqlite', '/tmp/pytest-of-root/pytest-2/test_checksum_rows_and_value_i0/idx.sqlite']
@@ -876,7 +876,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -886,7 +886,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -894,12 +894,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -920,9 +920,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -940,7 +940,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -974,11 +974,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -990,7 +990,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -1000,7 +1000,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -1052,14 +1052,14 @@ $ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/veri
 &gt;    out=tmp_path/'idx.sqlite'; r=subprocess.run(['/app/build_index.sh','/app/recovered.sqlite',str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val,checksum from T_checksum order by id').fetchall(); indexes=con.execute("select name from sqlite_master where type='index'").fetchall(); con.close(); assert all(h==hashlib.sha256((n+str(v)).encode()).hexdigest() for _,n,v,h in rows); assert ('idx_T_val',) in indexes; assert len(rows)==5
                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/build_index.sh', '/app/recovered.sqlite...&gt;
 args = ['/app/build_index.sh', '/app/recovered.sqlite', '/tmp/pytest-of-root/pytest-2/test_checksum_rows_and_value_i0/idx.sqlite']
@@ -1079,7 +1079,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -1089,7 +1089,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -1097,12 +1097,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -1123,9 +1123,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -1143,7 +1143,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -1177,11 +1177,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -1193,7 +1193,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -1203,7 +1203,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -1280,14 +1280,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_lr01_binary_records_are_
 >    out=tmp_path/'rows.bin'; r=subprocess.run(['/app/encode.sh','/app/recovered_index.sqlite',str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; rows=parse(out.read_bytes()); assert [(i,n,v) for i,n,v,_ in rows]==[(1,'alpha',11),(2,'bravo',-7),(7,'café',300),(19,'zero',0),(44,'tail',9999)]; assert all(h==hashlib.sha256((n+str(v)).encode()).digest() for i,n,v,h in rows)
                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:11: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:11:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/encode.sh', '/app/recovered_index.sqlit...>
 args = ['/app/encode.sh', '/app/recovered_index.sqlite', '/tmp/pytest-of-root/pytest-4/test_lr01_binary_records_are_s0/rows.bin']
@@ -1307,7 +1307,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -1317,7 +1317,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -1325,12 +1325,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -1351,9 +1351,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -1371,7 +1371,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -1405,11 +1405,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -1421,7 +1421,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -1431,7 +1431,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -1473,14 +1473,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_binary_is_not_sqlite_and
 >    out=tmp_path/'rows.bin'; subprocess.run(['/app/encode.sh','/app/recovered_index.sqlite',str(out)],check=True); assert not out.read_bytes().startswith(b'SQLite format 3\0'); con=sqlite3.connect(out); failed=False
                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:13: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/encode.sh', '/app/recovered_index.sqlit...>
 args = ['/app/encode.sh', '/app/recovered_index.sqlite', '/tmp/pytest-of-root/pytest-4/test_binary_is_not_sqlite_and_0/rows.bin']
@@ -1500,7 +1500,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -1510,7 +1510,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -1518,12 +1518,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -1544,9 +1544,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -1564,7 +1564,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -1598,11 +1598,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -1614,7 +1614,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -1624,7 +1624,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -1664,12 +1664,12 @@ _____________________ test_old_dot_recover_path_is_absent ______________________
 >    source=Path('/app/encode.sh').read_text(); assert '.recover' not in source; assert 'LR01' in source
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:19: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/encode.sh'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -1704,14 +1704,14 @@ $ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/veri
 &gt;    out=tmp_path/'rows.bin'; r=subprocess.run(['/app/encode.sh','/app/recovered_index.sqlite',str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; rows=parse(out.read_bytes()); assert [(i,n,v) for i,n,v,_ in rows]==[(1,'alpha',11),(2,'bravo',-7),(7,'café',300),(19,'zero',0),(44,'tail',9999)]; assert all(h==hashlib.sha256((n+str(v)).encode()).digest() for i,n,v,h in rows)
                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:11: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:11:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/encode.sh', '/app/recovered_index.sqlit...&gt;
 args = ['/app/encode.sh', '/app/recovered_index.sqlite', '/tmp/pytest-of-root/pytest-4/test_lr01_binary_records_are_s0/rows.bin']
@@ -1731,7 +1731,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -1741,7 +1741,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -1749,12 +1749,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -1775,9 +1775,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -1795,7 +1795,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -1829,11 +1829,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -1845,7 +1845,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -1855,7 +1855,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -1894,14 +1894,14 @@ E                   FileNotFoundError: [Errno 2] No such file or directory: '/ap
 &gt;    out=tmp_path/'rows.bin'; subprocess.run(['/app/encode.sh','/app/recovered_index.sqlite',str(out)],check=True); assert not out.read_bytes().startswith(b'SQLite format 3\0'); con=sqlite3.connect(out); failed=False
                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:13: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/encode.sh', '/app/recovered_index.sqlit...&gt;
 args = ['/app/encode.sh', '/app/recovered_index.sqlite', '/tmp/pytest-of-root/pytest-4/test_binary_is_not_sqlite_and_0/rows.bin']
@@ -1921,7 +1921,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -1931,7 +1931,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -1939,12 +1939,12 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -1965,9 +1965,9 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -1985,7 +1985,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -2019,11 +2019,11 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -2035,7 +2035,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -2045,7 +2045,7 @@ uid = None, umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -2082,12 +2082,12 @@ E                   FileNotFoundError: [Errno 2] No such file or directory: '/ap
 &gt;    source=Path('/app/encode.sh').read_text(); assert '.recover' not in source; assert 'LR01' in source
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:19: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/encode.sh'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None

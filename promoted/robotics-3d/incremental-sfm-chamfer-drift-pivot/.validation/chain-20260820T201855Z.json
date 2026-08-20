@@ -1,0 +1,81 @@
+{
+  "task": "incremental-sfm-chamfer-drift-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-incremental-sfm-chamfer-drift-pivot:validate"
+    },
+    {
+      "step": "1_diagnose-and-fix-chamfer-drift",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "1_diagnose-and-fix-chamfer-drift",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_diagnose-and-fix-chamfer-drift",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_add-track-quality-report",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_add-track-quality-report",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_add-track-quality-report",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-to-ply-and-optimize-track-merge",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-to-ply-and-optimize-track-merge",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-to-ply-and-optimize-track-merge",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_diagnose-and-fix-chamfer-drift",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_add-track-quality-report",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

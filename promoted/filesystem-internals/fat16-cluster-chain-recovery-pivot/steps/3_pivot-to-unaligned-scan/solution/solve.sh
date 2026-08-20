@@ -16,4 +16,3 @@ best=max(groups.values(),key=len); open(sys.argv[2],"wb").write(b"".join(p for _
 PY
 chmod +x /app/solution/recover
 printf '%s\n' '{"scan":"byte-wise","cluster_alignment_removed":true}' > /workdir/3_pivot-to-unaligned-scan_report.json
-

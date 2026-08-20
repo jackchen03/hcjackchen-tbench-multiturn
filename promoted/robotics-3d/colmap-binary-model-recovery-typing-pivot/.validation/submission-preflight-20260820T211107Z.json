@@ -1,0 +1,18 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:d9eaaa62bf2bed2b65a3f379fee240421826402eae8fd777f276f5940bb4293a",
+  "final_audit": "promoted/robotics-3d/colmap-binary-model-recovery-typing-pivot/.validation/final-audit-20260820T202459Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/robotics-3d/colmap-binary-model-recovery-typing-pivot/.validation/chain-20260820T201452Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/robotics-3d/colmap-binary-model-recovery-typing-pivot/.validation/oracle-x3-current-20260820T210934Z.json",
+  "proposed_commit_pathspec": "promoted/robotics-3d/colmap-binary-model-recovery-typing-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/robotics-3d/colmap-binary-model-recovery-typing-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

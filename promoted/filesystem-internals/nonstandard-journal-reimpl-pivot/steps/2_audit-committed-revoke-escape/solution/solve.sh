@@ -30,4 +30,3 @@ report={'committed':sorted(committed),'revokes':revokes,'escaped':sorted(escaped
 text=json.dumps(report,separators=(',',':'))+'\n';open(sys.argv[2],'w').write(text);open('/app/journal_report.json','w').write(text)
 PY
 chmod 0755 /app/journal_audit
-

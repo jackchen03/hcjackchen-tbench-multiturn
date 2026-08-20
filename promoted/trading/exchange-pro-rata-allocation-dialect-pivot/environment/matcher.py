@@ -47,4 +47,3 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         raise SystemExit("usage: matcher.py <book.json> <out.json>")
     main(sys.argv[1], sys.argv[2])
-

@@ -18,4 +18,3 @@ def test_preserves_original_replay_behavior():
 def test_does_not_use_retained_mark_v2_yet():
     source=Path("/app/replay").read_text()
     assert "marks=marks[:found+1]" not in source
-

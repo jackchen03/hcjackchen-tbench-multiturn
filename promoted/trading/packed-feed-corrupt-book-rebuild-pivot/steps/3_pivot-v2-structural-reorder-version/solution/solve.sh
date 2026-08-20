@@ -47,4 +47,3 @@ json.dump(replay(parse(sys.argv[1])),open(sys.argv[2],"w"),sort_keys=True,separa
 PY
 chmod +x /app/replay.py
 printf '%s\n' '{"fixed":"version-gated structural reorder","versions":[1,2]}' > /app/3_pivot-v2-structural-reorder-version_report.json
-

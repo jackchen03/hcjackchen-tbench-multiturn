@@ -19,4 +19,3 @@ RUN chmod 0555 /verifier/hashload \
     && python3 /tmp/generate_fixtures.py \
     && rm /tmp/generate_fixtures.py \
     && find /app /verifier /opt/tbench-fixtures -type f -exec touch -t 202001010000.00 {} +
-

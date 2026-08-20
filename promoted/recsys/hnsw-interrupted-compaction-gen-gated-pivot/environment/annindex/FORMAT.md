@@ -1,2 +1,1 @@
 index.bin is UTF-8 JSON with keys entry_point, node_count, capacity, remap, free_list, checksum, and slots. Each slot has generation, item_id, neighbor_ids, vector, deleted, and next_free. remap maps old physical slot ids to new ids. checksum is the SHA-256 of the canonical JSON document with checksum set to the empty string.
-

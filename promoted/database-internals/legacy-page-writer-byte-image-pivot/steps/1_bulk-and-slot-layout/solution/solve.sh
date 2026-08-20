@@ -16,4 +16,3 @@ for i,(off,n) in enumerate(slots): struct.pack_into("<HH",page,8+4*i,off,n)
 open(sys.argv[2],"wb").write(page)
 PY
 chmod +x /app/writer
-

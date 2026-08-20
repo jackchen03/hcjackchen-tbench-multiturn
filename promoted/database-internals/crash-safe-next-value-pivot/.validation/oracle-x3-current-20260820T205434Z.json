@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:017df0fe58cfafb2af5fd4ffb58672a6ef20849231395724a034b90065a84950",
+  "command": "codimango bench run -p crash-safe-next-value-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "59b74735e92046bd924a4c6a3e66bf945f81545316fdb722275ae444a83db7c0",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.GNG4hD/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.GNG4hD",
+  "source_final_audit": "promoted/database-internals/crash-safe-next-value-pivot/.validation/final-audit-20260820T202752Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/crash-safe-next-value-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:54:30.482197Z",
+      "harbor_task_checksum": "59b74735e92046bd924a4c6a3e66bf945f81545316fdb722275ae444a83db7c0",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:53:54.478954Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-next-only",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_operate-audit-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-counter-scheme",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "955585a0-a7b6-4d27-8585-7e5f5f5f1790",
+      "trial_name": "crash-safe-next-value-pivot__3TZtYYb"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:54:30.256027Z",
+      "harbor_task_checksum": "59b74735e92046bd924a4c6a3e66bf945f81545316fdb722275ae444a83db7c0",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:53:54.434929Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-next-only",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_operate-audit-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-counter-scheme",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "0c858e2e-6946-43fc-9662-f7a5ea511ad8",
+      "trial_name": "crash-safe-next-value-pivot__Krtubmj"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:54:31.395005Z",
+      "harbor_task_checksum": "59b74735e92046bd924a4c6a3e66bf945f81545316fdb722275ae444a83db7c0",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:53:54.488502Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-next-only",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_operate-audit-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-counter-scheme",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "2b420bb5-f5af-4f74-b27e-84ef0cbeb7eb",
+      "trial_name": "crash-safe-next-value-pivot__ipMfcgG"
+    }
+  ],
+  "wall_time_seconds": 142,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

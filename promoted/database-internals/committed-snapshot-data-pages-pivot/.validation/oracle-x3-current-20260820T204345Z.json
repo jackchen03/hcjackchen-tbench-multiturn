@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:653903f6e96dbe20606525244673aceb0d65616ed297ee523ff0ae2873480e4d",
+  "command": "codimango bench run -p committed-snapshot-data-pages-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "c9276625ec76c3bb59453b9b6c700ff354bb4f80215dfdb5bb6619248a276ca7",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.L0XBW4/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.L0XBW4",
+  "source_final_audit": "promoted/database-internals/committed-snapshot-data-pages-pivot/.validation/final-audit-20260820T202740Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/committed-snapshot-data-pages-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:43:40.845028Z",
+      "harbor_task_checksum": "c9276625ec76c3bb59453b9b6c700ff354bb4f80215dfdb5bb6619248a276ca7",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:42:56.742816Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-dirty-rows",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_reconstruct-committed-snapshot",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_repair-pages-inplace",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "d4e83186-d50a-4356-9bb5-fffdb94560ba",
+      "trial_name": "committed-snapshot-data-pages-pi__6VrPBSr"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:43:41.937061Z",
+      "harbor_task_checksum": "c9276625ec76c3bb59453b9b6c700ff354bb4f80215dfdb5bb6619248a276ca7",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:42:56.791415Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-dirty-rows",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_reconstruct-committed-snapshot",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_repair-pages-inplace",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "5e5a6f4b-4ab1-4d6c-ab30-ec716d823d32",
+      "trial_name": "committed-snapshot-data-pages-pi__8p3rvVK"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:43:42.885127Z",
+      "harbor_task_checksum": "c9276625ec76c3bb59453b9b6c700ff354bb4f80215dfdb5bb6619248a276ca7",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:42:56.806549Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-dirty-rows",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_reconstruct-committed-snapshot",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_repair-pages-inplace",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "74445356-3920-4599-b806-87e0d2490a1b",
+      "trial_name": "committed-snapshot-data-pages-pi__SBw5fxQ"
+    }
+  ],
+  "wall_time_seconds": 127,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

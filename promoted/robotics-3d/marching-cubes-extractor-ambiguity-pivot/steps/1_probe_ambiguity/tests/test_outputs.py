@@ -9,4 +9,3 @@ def test_probe_volumes_and_report_isolate_ambiguity():
     assert "x-fastest" in report["lower_raster_owner"]
 def test_does_not_have_rescaled_decider_yet():
     assert "t ** 1.5" not in Path("/app/mymc.py").read_text()
-

@@ -1,0 +1,81 @@
+{
+  "task": "per-ranker-credit-interleaving-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-per-ranker-credit-interleaving-pivot:validate"
+    },
+    {
+      "step": "1_reproduce-served-slate",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_reproduce-served-slate",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_reproduce-served-slate",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_correct-per-ranker-click-credit",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_correct-per-ranker-click-credit",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_correct-per-ranker-click-credit",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_correct-log-and-contested-audit",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "3_correct-log-and-contested-audit",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_correct-log-and-contested-audit",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_reproduce-served-slate",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_correct-per-ranker-click-credit",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

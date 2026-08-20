@@ -41,4 +41,3 @@ for ri,row in enumerate(doc["rows"]):
 json.dump({"spills":spills},open("/app/overflow_manifest.json","w"),sort_keys=True)
 PY
 chmod +x /app/encoder
-

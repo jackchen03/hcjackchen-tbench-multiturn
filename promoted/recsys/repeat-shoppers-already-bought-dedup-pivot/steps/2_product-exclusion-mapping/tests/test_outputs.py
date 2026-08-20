@@ -28,4 +28,3 @@ def test_exclusion_and_prior_dedup_match_reference():
 def test_does_not_write_diversity_report_yet():
     assert not Path("/app/out/diversity.json").exists()
     assert "diversity.json" not in Path("/app/recommend.py").read_text()
-

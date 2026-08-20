@@ -21,4 +21,3 @@ def knn_search(graph,q,k):
     return [graph["nodes"][slot]["item_id"] for _,_,slot in sorted(popped)[:k]]
 PY
 printf '%s\n' '{"tie_key":"distance,push_ctr"}' > /app/2_fix-tie-order-per-push-counter_metrics.json
-

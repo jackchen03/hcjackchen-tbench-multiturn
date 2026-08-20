@@ -10,4 +10,3 @@ The chain first recovers sorted point coordinates, then adds typed camera poses,
 | Avocado | unmeasured | unmeasured | unmeasured | unmeasured |
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
-

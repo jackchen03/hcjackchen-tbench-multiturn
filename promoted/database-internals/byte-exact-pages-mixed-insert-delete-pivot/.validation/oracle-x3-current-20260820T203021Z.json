@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:2d20fac57d6d2bc75b5786d017d3ea993f5ecadbb8d1a6888420522f1f6b551d",
+  "command": "codimango bench run -p byte-exact-pages-mixed-insert-delete-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "e18595a8dc7efd1cfb3239b848711d9b35773a4091517ae0d2e332adca2f209e",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.4OWdCt/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.4OWdCt",
+  "source_final_audit": "promoted/database-internals/byte-exact-pages-mixed-insert-delete-pivot/.validation/final-audit-20260820T202725Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/byte-exact-pages-mixed-insert-delete-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:30:19.030835Z",
+      "harbor_task_checksum": "e18595a8dc7efd1cfb3239b848711d9b35773a4091517ae0d2e332adca2f209e",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:29:42.262826Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_single-page-ghost-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_full-split-merge-byte-fill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-compact-ghost-free",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "fc3e7197-7de3-4c34-b53e-18fa36a09fe7",
+      "trial_name": "byte-exact-pages-mixed-insert-de__GtAmRdb"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:30:17.952768Z",
+      "harbor_task_checksum": "e18595a8dc7efd1cfb3239b848711d9b35773a4091517ae0d2e332adca2f209e",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:29:42.246126Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_single-page-ghost-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_full-split-merge-byte-fill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-compact-ghost-free",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "3109b224-b0bb-4e8b-9826-892ff805256c",
+      "trial_name": "byte-exact-pages-mixed-insert-de__SWZL5sk"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:30:17.325938Z",
+      "harbor_task_checksum": "e18595a8dc7efd1cfb3239b848711d9b35773a4091517ae0d2e332adca2f209e",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:29:42.194017Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_single-page-ghost-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_full-split-merge-byte-fill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-compact-ghost-free",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "bbd49ba7-4238-493d-b40d-776f3e97c520",
+      "trial_name": "byte-exact-pages-mixed-insert-de__vEsLLz8"
+    }
+  ],
+  "wall_time_seconds": 83,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

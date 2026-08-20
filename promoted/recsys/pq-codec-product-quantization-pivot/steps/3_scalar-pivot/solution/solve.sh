@@ -34,4 +34,3 @@ def decode_store(path):
 PY
 rm -f /app/pq_index.py
 printf '%s\n' '{"magic":"ISQ1","old_product_quantization_removed":true}' > /app/2_pq-codec-product-quantization-pivot_guard_3_scalar-pivot.json
-

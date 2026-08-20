@@ -10,4 +10,3 @@ def test_preserves_visible_set_reconstruction():
     assert Path("/tmp/live.txt").read_text()=="10\n30\n"
 def test_does_not_create_wraparound_reconstructor_yet():
     assert not Path("/app/reconstruct_v2").exists()
-

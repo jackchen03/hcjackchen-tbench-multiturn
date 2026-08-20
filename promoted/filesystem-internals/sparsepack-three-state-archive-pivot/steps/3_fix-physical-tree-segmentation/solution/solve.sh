@@ -19,4 +19,3 @@ out+=struct.pack("<I",crc); sys.stdout.buffer.write(out)
 PY
 chmod +x /app/mysparsepack
 printf '%s\n' '{"segmentation":"physical-leaf","merge_across_nodes":false}' > /workdir/3_fix-physical-tree-segmentation_report.json
-

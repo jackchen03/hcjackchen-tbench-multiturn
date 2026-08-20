@@ -1,0 +1,54 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:3799376f868dae3725ba30b90bcb24d1c6d7220c56bbe9cc5f0989cb954f20d8",
+  "chain_evidence": "promoted/robotics-3d/two-regime-undistortion-asymmetric-radius-pivot/.validation/chain-20260820T200016Z.json",
+  "green_phases": [
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "1_detect-radius-seam-and-branch"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "2_radial-warm-start-asymmetric-radius"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "3_pivot-to-mixed-domain-tangential"
+    }
+  ],
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "overexec_phases": [
+    {
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "1_detect-radius-seam-and-branch"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "2_radial-warm-start-asymmetric-radius"
+    }
+  ],
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "skipped": 0,
+  "static_audit": "PASS",
+  "static_finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "WARN": 0
+  },
+  "status": "PASS",
+  "task": "promoted/robotics-3d/two-regime-undistortion-asymmetric-radius-pivot"
+}

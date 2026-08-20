@@ -20,4 +20,3 @@ RUN python3 /tmp/generate_feed.py /app/data/feed.bin /app/data/expected_sample.c
     && mkdir -p /app/out \
     && chmod +x /app/gateway.py \
     && find /app -type f -exec touch -t 202001010000.00 {} +
-

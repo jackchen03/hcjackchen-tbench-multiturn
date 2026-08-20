@@ -3,7 +3,7 @@
 $ docker build -q -t tbench-mt-order-by-order-reimpl-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/order-by-order-reimpl-pivot/environment
 Dockerfile:3
 --------------------
-   2 |     
+   2 |
    3 | >>> RUN apt-get update \
    4 | >>>     && apt-get install -y --no-install-recommends gcc=4:12.2.0-3 binutils=2.40-2 \
    5 | >>>     && rm -rf /var/lib/apt/lists/*

@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 29,
+  "bundle_fingerprint": "bundle-sha256-v1:f1b38163e29a24deee7a1611813169425266882082cbe2b6562a601b1f190690",
+  "final_audit": "promoted/database-internals/join-output-tuple-order-pivot/.validation/final-audit-20260820T202806Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/join-output-tuple-order-pivot/.validation/chain-20260820T201557Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/join-output-tuple-order-pivot/.validation/oracle-x3-current-20260820T210612Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/join-output-tuple-order-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/join-output-tuple-order-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

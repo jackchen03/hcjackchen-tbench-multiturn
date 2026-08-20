@@ -86,4 +86,3 @@ if __name__ == "__main__":
 PY
 chmod +x /app/gateway.py
 python3 /app/gateway.py
-

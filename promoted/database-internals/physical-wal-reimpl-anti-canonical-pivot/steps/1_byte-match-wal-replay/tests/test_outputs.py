@@ -11,4 +11,3 @@ def test_begin_order_and_subtransaction_visibility():
 def test_does_not_create_checkpoint_or_logical_migration_artifacts_yet():
     assert not Path("/app/verify").exists()
     assert not Path("/app/LOGICAL_FORMAT.md").exists()
-

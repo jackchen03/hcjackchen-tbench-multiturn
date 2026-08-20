@@ -25,4 +25,3 @@ json.dump({"committed_batches":sorted(commits),"aborted_batches":sorted(batches-
 PY
 chmod +x /app/triage
 /app/triage /app/data /app/report.json
-

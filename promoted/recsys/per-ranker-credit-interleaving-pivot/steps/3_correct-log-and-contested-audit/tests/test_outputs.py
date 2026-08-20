@@ -30,4 +30,3 @@ def test_preserves_per_ranker_credit_output():
     values=list(csv.reader(Path("/app/output/credit.csv").open()))
     assert values[0]==["session_id","ranker_a_clicks","ranker_b_clicks"]
     assert int(values[1][1])+int(values[1][2])==len(row["clicks"])
-

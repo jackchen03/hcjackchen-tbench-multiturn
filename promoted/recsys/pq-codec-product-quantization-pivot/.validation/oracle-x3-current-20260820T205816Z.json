@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:90e2f68787f39f4b0ad5e162e147d6a9fcf2df996b0b0df7600506c08ab473cc",
+  "command": "codimango bench run -p pq-codec-product-quantization-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "e50870b85a815445048e7c79fd1fbce3c55469c69aeb5f58c0ba6abf95a6bbc3",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.PZBs02/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.PZBs02",
+  "source_final_audit": "promoted/recsys/pq-codec-product-quantization-pivot/.validation/final-audit-20260820T203338Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/recsys/pq-codec-product-quantization-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:58:13.424570Z",
+      "harbor_task_checksum": "e50870b85a815445048e7c79fd1fbce3c55469c69aeb5f58c0ba6abf95a6bbc3",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:57:37.465923Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_codec-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_index-build",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_scalar-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "ce96aadd-b53a-4fd2-94ca-261aacab3385",
+      "trial_name": "pq-codec-product-quantization-pi__NDXT3hK"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:58:13.238335Z",
+      "harbor_task_checksum": "e50870b85a815445048e7c79fd1fbce3c55469c69aeb5f58c0ba6abf95a6bbc3",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:57:37.417800Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_codec-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_index-build",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_scalar-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "af317abc-4024-49cb-8570-3a7381cdfcb6",
+      "trial_name": "pq-codec-product-quantization-pi__kthXFqT"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:58:14.359596Z",
+      "harbor_task_checksum": "e50870b85a815445048e7c79fd1fbce3c55469c69aeb5f58c0ba6abf95a6bbc3",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:57:37.480148Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_codec-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_index-build",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_scalar-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "5ecd1086-a676-45b7-98e4-64b4432fff36",
+      "trial_name": "pq-codec-product-quantization-pi__spBMdFk"
+    }
+  ],
+  "wall_time_seconds": 124,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

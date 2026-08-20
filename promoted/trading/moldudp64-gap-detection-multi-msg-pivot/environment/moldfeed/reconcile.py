@@ -15,4 +15,3 @@ def main(capture, stream_out, gaps_out):
 
 if __name__ == "__main__":
     main(*sys.argv[1:4])
-

@@ -1,0 +1,18 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:f758b71bfd6fe9fd7fd96e38dc368642fb8d006dda8350093d3a67fbc1b5ae6b",
+  "final_audit": "promoted/robotics-3d/icp-registrar-adaptive-rejection-pivot/.validation/final-audit-20260820T202502Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/robotics-3d/icp-registrar-adaptive-rejection-pivot/.validation/chain-20260820T201616Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/robotics-3d/icp-registrar-adaptive-rejection-pivot/.validation/oracle-x3-current-20260820T210934Z.json",
+  "proposed_commit_pathspec": "promoted/robotics-3d/icp-registrar-adaptive-rejection-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/robotics-3d/icp-registrar-adaptive-rejection-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

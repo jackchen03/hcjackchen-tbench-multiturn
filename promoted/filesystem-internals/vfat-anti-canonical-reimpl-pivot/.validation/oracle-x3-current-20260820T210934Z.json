@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:3eb9a01c79378237fd976fc5125cc10a453df2cb39a3c6ad2c84689c649127b5",
+  "command": "codimango bench run -p vfat-anti-canonical-reimpl-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "d2f7fefaec6b3c2c0b5913dcde1b5acfae3b2628b9b16af25d2ca1c500bd4dcd",
+  "issues": [],
+  "source_final_audit": "promoted/filesystem-internals/vfat-anti-canonical-reimpl-pivot/.validation/final-audit-20260820T202454Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/filesystem-internals/vfat-anti-canonical-reimpl-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:50:36.704431Z",
+      "harbor_task_checksum": "d2f7fefaec6b3c2c0b5913dcde1b5acfae3b2628b9b16af25d2ca1c500bd4dcd",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:49:59.113377Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-exact-vfatdir-reimpl",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_listing-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-canonical-representation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "61bb280c-e8c6-494c-ba98-05e88a0fccd8",
+      "trial_name": "vfat-anti-canonical-reimpl-pivot__dqKsyzH"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:50:37.797106Z",
+      "harbor_task_checksum": "d2f7fefaec6b3c2c0b5913dcde1b5acfae3b2628b9b16af25d2ca1c500bd4dcd",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:49:59.138354Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-exact-vfatdir-reimpl",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_listing-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-canonical-representation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "05777e86-252d-45e6-9dd7-32c511d090a4",
+      "trial_name": "vfat-anti-canonical-reimpl-pivot__kceUonJ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:50:36.521579Z",
+      "harbor_task_checksum": "d2f7fefaec6b3c2c0b5913dcde1b5acfae3b2628b9b16af25d2ca1c500bd4dcd",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:49:59.051873Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-exact-vfatdir-reimpl",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_listing-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-canonical-representation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "6ead16cf-fd52-45a8-bdff-7550ba310d34",
+      "trial_name": "vfat-anti-canonical-reimpl-pivot__yqKWYV4"
+    }
+  ],
+  "wall_time_seconds": 126,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

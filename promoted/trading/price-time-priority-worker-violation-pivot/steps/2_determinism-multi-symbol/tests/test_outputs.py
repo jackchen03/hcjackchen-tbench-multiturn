@@ -46,4 +46,3 @@ def test_preserves_single_symbol_price_time_priority():
     assert actual==oracle(events)
 def test_does_not_create_perf_note_yet():
     assert not Path("/app/PERF_NOTE.md").exists()
-

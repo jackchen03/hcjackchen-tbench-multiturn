@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:82a0c74ccd6bd0001182ba5cd046c1399d7da97799593112e9456ec04c7fb215",
+  "command": "codimango bench run -p calibrated-ranking-monotone-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "2eb5e9adf7e7fb5dcbf3214c10d8a4fc3fb8043d3433f6dac2ba8b08b967f413",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.mp6wba/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.mp6wba",
+  "source_final_audit": "promoted/recsys/calibrated-ranking-monotone-pivot/.validation/final-audit-20260820T203315Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/recsys/calibrated-ranking-monotone-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:38:38.928713Z",
+      "harbor_task_checksum": "2eb5e9adf7e7fb5dcbf3214c10d8a4fc3fb8043d3433f6dac2ba8b08b967f413",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:38:00.597836Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_calib-loader-provenance-fix",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_bucket-boundary-alignment",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_audit-and-hot-reload-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "94b62a6b-4eb7-440a-abd2-17c0d596f6c8",
+      "trial_name": "calibrated-ranking-monotone-pivo__4oXRiKG"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:38:39.110460Z",
+      "harbor_task_checksum": "2eb5e9adf7e7fb5dcbf3214c10d8a4fc3fb8043d3433f6dac2ba8b08b967f413",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:38:00.659624Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_calib-loader-provenance-fix",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_bucket-boundary-alignment",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_audit-and-hot-reload-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "094fca0b-55a7-4959-90b0-9e077db775e7",
+      "trial_name": "calibrated-ranking-monotone-pivo__AQWthqY"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:38:38.745954Z",
+      "harbor_task_checksum": "2eb5e9adf7e7fb5dcbf3214c10d8a4fc3fb8043d3433f6dac2ba8b08b967f413",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:38:00.497394Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_calib-loader-provenance-fix",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_bucket-boundary-alignment",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_audit-and-hot-reload-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "f361bd87-afb8-46e4-9780-6c331397d641",
+      "trial_name": "calibrated-ranking-monotone-pivo__Th87PfP"
+    }
+  ],
+  "wall_time_seconds": 120,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

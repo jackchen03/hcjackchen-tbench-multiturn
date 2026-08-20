@@ -8,4 +8,3 @@ The first two steps carry one recovered visible set into range counting. The fin
 | Avocado | unmeasured | unmeasured | unmeasured | unmeasured |
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
-

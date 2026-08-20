@@ -40,4 +40,3 @@ def replay(path,base=None):
 if __name__=="__main__": write_table(replay(sys.argv[1]),sys.argv[2])
 PY
 chmod +x /app/replay
-

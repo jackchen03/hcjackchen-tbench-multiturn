@@ -22,7 +22,7 @@ ___________ test_packed_records_are_consumed_without_phantom_padding ___________
         out=run(data)
 >       assert set(out)=={"AAA"}
 E       AssertionError: assert set() == {'AAA'}
-E         
+E
 E         Extra items in the right set:
 E         'AAA'
 E         Use -v to get more diff
@@ -44,7 +44,7 @@ $ docker exec tbench-mt-packed-feed-corrupt-book-rebuild-pivot-chain cat /logs/v
         out=run(data)
 &gt;       assert set(out)=={"AAA"}
 E       AssertionError: assert set() == {'AAA'}
-E         
+E
 E         Extra items in the right set:
 E         'AAA'
 E         Use -v to get more diff
@@ -90,7 +90,7 @@ ______________ test_mixed_endian_v1_book_cancel_execute_and_vwap _______________
         data=add(1,1,10,101,0,"XYZ",1001,50)+add(1,2,11,102,1,"XYZ",1005,40)+execute(3,12,101,20)+cancel(4,13,102,10)
 >       assert run(data)=={"XYZ":{"bids":[[1001,30]],"asks":[[1005,30]],"vwap":1001}}
 E       AssertionError: assert {'XYZ': {'ask...], 'vwap': 0}} == {'XYZ': {'ask...'vwap': 1001}}
-E         
+E
 E         Differing items:
 E         {'XYZ': {'asks': [[3976396800, 40]], 'bids': [[3909287936, 50]], 'vwap': 0}} != {'XYZ': {'asks': [[1005, 30]], 'bids': [[1001, 30]], 'vwap': 1001}}
 E         Use -v to get more diff
@@ -101,7 +101,7 @@ ____________________ test_preserves_full_packed_consumption ____________________
     def test_preserves_full_packed_consumption():
 >       assert run(add(1,1,1,1,0,"Q",257,3))["Q"]["bids"]==[[257,3]]
 E       assert [[16842752, 3]] == [[257, 3]]
-E         
+E
 E         At index 0 diff: [16842752, 3] != [257, 3]
 E         Use -v to get more diff
 
@@ -122,7 +122,7 @@ $ docker exec tbench-mt-packed-feed-corrupt-book-rebuild-pivot-chain cat /logs/v
         data=add(1,1,10,101,0,"XYZ",1001,50)+add(1,2,11,102,1,"XYZ",1005,40)+execute(3,12,101,20)+cancel(4,13,102,10)
 &gt;       assert run(data)=={"XYZ":{"bids":[[1001,30]],"asks":[[1005,30]],"vwap":1001}}
 E       AssertionError: assert {'XYZ': {'ask...], 'vwap': 0}} == {'XYZ': {'ask...'vwap': 1001}}
-E         
+E
 E         Differing items:
 E         {'XYZ': {'asks': [[3976396800, 40]], 'bids': [[3909287936, 50]], 'vwap': 0}} != {'XYZ': {'asks': [[1005, 30]], 'bids': [[1001, 30]], 'vwap': 1001}}
 E         Use -v to get more diff
@@ -130,7 +130,7 @@ E         Use -v to get more diff
 /tests/test_outputs.py:19: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_preserves_full_packed_consumption" time="0.061"><failure message="assert [[16842752, 3]] == [[257, 3]]&#10;  &#10;  At index 0 diff: [16842752, 3] != [257, 3]&#10;  Use -v to get more diff">def test_preserves_full_packed_consumption():
 &gt;       assert run(add(1,1,1,1,0,"Q",257,3))["Q"]["bids"]==[[257,3]]
 E       assert [[16842752, 3]] == [[257, 3]]
-E         
+E
 E         At index 0 diff: [16842752, 3] != [257, 3]
 E         Use -v to get more diff
 
@@ -177,8 +177,8 @@ ____________ test_version_two_structural_reorder_and_v1_regression _____________
 >       assert run(data)=={"V2":{"bids":[[2501,45]],"asks":[[2510,25]],"vwap":2501}}
                ^^^^^^^^^
 
-/tests/test_outputs.py:19: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 data = b'A\x02\x01\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\xc9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\t\xc5F\x00\x00\x00\x...x00\x19\x00\x00\x00X\x01\x04\x00\x00\x00\r\x00\x00\x00\x00\x00\x00\x00\xca\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00'
 
@@ -194,7 +194,7 @@ E           File "/app/replay.py", line 14, in parse
 E             else: raise ValueError("unknown type")
 E                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E         ValueError: unknown type
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/replay.py', '/tmp/held-feed.bin', '/tmp/out.json'], returncode=1, stdout='', s...e\n    else: raise ValueError("unknown type")\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: unknown type\n').returncode
 
@@ -215,8 +215,8 @@ $ docker exec tbench-mt-packed-feed-corrupt-book-rebuild-pivot-chain cat /logs/v
 &gt;       assert run(data)=={"V2":{"bids":[[2501,45]],"asks":[[2510,25]],"vwap":2501}}
                ^^^^^^^^^
 
-/tests/test_outputs.py:19: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 data = b'A\x02\x01\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\xc9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\t\xc5F\x00\x00\x00\x...x00\x19\x00\x00\x00X\x01\x04\x00\x00\x00\r\x00\x00\x00\x00\x00\x00\x00\xca\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00'
 
@@ -232,7 +232,7 @@ E           File "/app/replay.py", line 14, in parse
 E             else: raise ValueError("unknown type")
 E                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E         ValueError: unknown type
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '/app/replay.py', '/tmp/held-feed.bin', '/tmp/out.json'], returncode=1, stdout='', s...e\n    else: raise ValueError("unknown type")\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: unknown type\n').returncode
 

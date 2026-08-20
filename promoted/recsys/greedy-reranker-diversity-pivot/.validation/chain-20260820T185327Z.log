@@ -22,8 +22,8 @@ __________________ test_no_pin_greedy_diversity_and_tie_break __________________
 >       assert load()(req)==rank(req,False)
                ^^^^^^^^^^^
 
-/tests/test_outputs.py:33: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:33:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 request = {'candidates': [{'base_rel': 1.0, 'category': 0, 'item_id': 101, 'segment': 0}, {'base_rel': 0.9, 'category': 0, 'item... 'segment': 1}, {'base_rel': 0.7, 'category': 3, 'item_id': 106, 'segment': 0}], 'k': 5, 'pins': {}, 'request_id': 900}
 
@@ -39,8 +39,8 @@ ______________ test_does_not_support_pinned_timeline_coupling_yet ______________
 >       assert load()(req) != rank(req,False)
                ^^^^^^^^^^^
 
-/tests/test_outputs.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 request = {'candidates': [{'base_rel': 1.0, 'category': 0, 'item_id': 101, 'segment': 0}, {'base_rel': 0.9, 'category': 0, 'item...t': 1}, {'base_rel': 0.7, 'category': 3, 'item_id': 106, 'segment': 0}], 'k': 5, 'pins': {'0': 101}, 'request_id': 900}
 
@@ -64,8 +64,8 @@ $ docker exec tbench-mt-greedy-reranker-diversity-pivot-chain cat /logs/verifier
 &gt;       assert load()(req)==rank(req,False)
                ^^^^^^^^^^^
 
-/tests/test_outputs.py:33: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:33:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 request = {'candidates': [{'base_rel': 1.0, 'category': 0, 'item_id': 101, 'segment': 0}, {'base_rel': 0.9, 'category': 0, 'item... 'segment': 1}, {'base_rel': 0.7, 'category': 3, 'item_id': 106, 'segment': 0}], 'k': 5, 'pins': {}, 'request_id': 900}
 
@@ -78,8 +78,8 @@ rerank.py:2: NotImplementedError</failure></testcase><testcase classname="test_o
 &gt;       assert load()(req) != rank(req,False)
                ^^^^^^^^^^^
 
-/tests/test_outputs.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 request = {'candidates': [{'base_rel': 1.0, 'category': 0, 'item_id': 101, 'segment': 0}, {'base_rel': 0.9, 'category': 0, 'item...t': 1}, {'base_rel': 0.7, 'category': 3, 'item_id': 106, 'segment': 0}], 'k': 5, 'pins': {'0': 101}, 'request_id': 900}
 
@@ -128,7 +128,7 @@ ________________ test_pins_contribute_to_legacy_evolving_prefix ________________
         req=request(True); actual=load()(req)
 >       assert actual==rank(req,False)
 E       assert [102, 105, 104, 106, 101] == [101, 105, 104, 106, 102]
-E         
+E
 E         At index 0 diff: 102 != 101
 E         Use -v to get more diff
 
@@ -149,7 +149,7 @@ $ docker exec tbench-mt-greedy-reranker-diversity-pivot-chain cat /logs/verifier
         req=request(True); actual=load()(req)
 &gt;       assert actual==rank(req,False)
 E       assert [102, 105, 104, 106, 101] == [101, 105, 104, 106, 102]
-E         
+E
 E         At index 0 diff: 102 != 101
 E         Use -v to get more diff
 
@@ -195,7 +195,7 @@ ______________ test_pin_free_diversity_ignores_pinned_categories _______________
         req=request(True); actual=load()(req)
 >       assert actual==rank(req,True)
 E       assert [101, 105, 104, 106, 102] == [101, 102, 105, 104, 106]
-E         
+E
 E         At index 1 diff: 105 != 102
 E         Use -v to get more diff
 
@@ -215,7 +215,7 @@ $ docker exec tbench-mt-greedy-reranker-diversity-pivot-chain cat /logs/verifier
         req=request(True); actual=load()(req)
 &gt;       assert actual==rank(req,True)
 E       assert [101, 105, 104, 106, 102] == [101, 102, 105, 104, 106]
-E         
+E
 E         At index 1 diff: 105 != 102
 E         Use -v to get more diff
 
@@ -344,7 +344,7 @@ ________________ test_pins_contribute_to_legacy_evolving_prefix ________________
         req=request(True); actual=load()(req)
 >       assert actual==rank(req,False)
 E       assert [101, 102, 105, 104, 106] == [101, 105, 104, 106, 102]
-E         
+E
 E         At index 1 diff: 102 != 105
 E         Use -v to get more diff
 
@@ -376,7 +376,7 @@ $ docker exec tbench-mt-greedy-reranker-diversity-pivot-oe2 cat /logs/verifier/j
         req=request(True); actual=load()(req)
 &gt;       assert actual==rank(req,False)
 E       assert [101, 102, 105, 104, 106] == [101, 105, 104, 106, 102]
-E         
+E
 E         At index 1 diff: 102 != 105
 E         Use -v to get more diff
 

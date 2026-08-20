@@ -55,4 +55,3 @@ pathlib.Path("/logs/verifier/reward.txt").write_text(str(reward))
 print(f"reward={reward} ({why})")
 sys.exit(0 if reward else 1)
 PY
-

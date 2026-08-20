@@ -23,11 +23,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_matches_clean_and_partia
         assert all(assert_matches(f'clean_{i}',tmp_path) for i in range(3))
 >       assert all(assert_matches(f'partial_{i}',tmp_path) for i in range(4))
 
-/tests/test_outputs.py:18: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:18: in <genexpr>
     assert all(assert_matches(f'partial_{i}',tmp_path) for i in range(4))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'partial_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_matches_clean_and_partial0')
@@ -56,11 +56,11 @@ $ docker exec tbench-mt-icp-registration-binary-coherence-pivot-chain cat /logs/
         assert all(assert_matches(f'clean_{i}',tmp_path) for i in range(3))
 &gt;       assert all(assert_matches(f'partial_{i}',tmp_path) for i in range(4))
 
-/tests/test_outputs.py:18: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:18: in &lt;genexpr&gt;
     assert all(assert_matches(f'partial_{i}',tmp_path) for i in range(4))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'partial_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_matches_clean_and_partial0')
@@ -113,11 +113,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_matches_outlier_contamin
     def test_matches_outlier_contaminated_poses(tmp_path):
 >       assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in <genexpr>
     assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'outlier_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_matches_outlier_contamina0')
@@ -144,11 +144,11 @@ $ docker exec tbench-mt-icp-registration-binary-coherence-pivot-chain cat /logs/
     def test_matches_outlier_contaminated_poses(tmp_path):
 &gt;       assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in &lt;genexpr&gt;
     assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'outlier_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_matches_outlier_contamina0')
@@ -288,14 +288,14 @@ ___________________ test_does_not_reference_later_inputs_yet ___________________
         source=Path('/app/icp_reimpl.py').read_text()
 >       assert '/app/samples/outlier_0.src.ply' not in source
 E       assert '/app/sample...er_0.src.ply' not in "# TBENCH-IC...__':main()\n"
-E         
+E
 E         '/app/samples/outlier_0.src.ply' is contained here:
 E           obed with /app/samples/outlier_0.src.ply.
 E           import argparse
 E           import numpy as np
-E           
+E
 E           def read_ply(path):...
-E         
+E
 E         ...Full output truncated (21 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:26: AssertionError
@@ -323,14 +323,14 @@ E       assert (5.575503985247001e-07 &gt;= 0.0001 or 1.4142117167700766e-13 &gt
         source=Path('/app/icp_reimpl.py').read_text()
 &gt;       assert '/app/samples/outlier_0.src.ply' not in source
 E       assert '/app/sample...er_0.src.ply' not in "# TBENCH-IC...__':main()\n"
-E         
+E
 E         '/app/samples/outlier_0.src.ply' is contained here:
 E           obed with /app/samples/outlier_0.src.ply.
 E           import argparse
 E           import numpy as np
-E           
+E
 E           def read_ply(path):...
-E         
+E
 E         ...Full output truncated (21 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:26: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_cli_output_is_row_major_se3" time="0.285" /></testsuite></testsuites>
@@ -378,14 +378,14 @@ __________________ test_does_not_use_indexed_dense_search_yet __________________
         assert '/app/profile_trace/README.md' not in source
 >       assert 'cKDTree' not in source
 E       assert 'cKDTree' not in "# TBENCH-IC...__':main()\n"
-E         
+E
 E         'cKDTree' is contained here:
 E           al import cKDTree
 E         ?           +++++++
-E           
+E
 E           def read_ply(path):
 E               lines=open(path).read().splitlines();end=lines.index('end_header');count=int(next(x.split()[2] for x in lines if x.startswith('element vertex ')));data=np.loadtxt(lines[end+1:end+1+count]);return data[:,:3],data[:,3:6]...
-E         
+E
 E         ...Full output truncated (20 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:24: AssertionError
@@ -408,14 +408,14 @@ $ docker exec tbench-mt-icp-registration-binary-coherence-pivot-oe2 cat /logs/ve
         assert '/app/profile_trace/README.md' not in source
 &gt;       assert 'cKDTree' not in source
 E       assert 'cKDTree' not in "# TBENCH-IC...__':main()\n"
-E         
+E
 E         'cKDTree' is contained here:
 E           al import cKDTree
 E         ?           +++++++
-E           
+E
 E           def read_ply(path):
 E               lines=open(path).read().splitlines();end=lines.index('end_header');count=int(next(x.split()[2] for x in lines if x.startswith('element vertex ')));data=np.loadtxt(lines[end+1:end+1+count]);return data[:,:3],data[:,3:6]...
-E         
+E
 E         ...Full output truncated (20 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:24: AssertionError</failure></testcase></testsuite></testsuites>

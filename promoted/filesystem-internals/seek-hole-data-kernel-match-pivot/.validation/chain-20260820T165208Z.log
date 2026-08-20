@@ -22,8 +22,8 @@ ___________________ test_plain_sparse_kernel_seek_semantics ____________________
 >    assert run(img,"/f 1 HOLE\n/f 4 DATA\n/f 10 DATA\n/f 12 HOLE\n")=="4\n8\nENXIO\nENXIO\n"
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     p=Path("/tmp/seek.img"); q=Path("/tmp/seek.q"); o=Path("/tmp/seek.o"); p.write_text(json.dumps(img)); q.write_text(queries); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True); return o.read_text()
                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -32,7 +32,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q'...>
 args = ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q', '/tmp/seek.o']
@@ -52,7 +52,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -62,7 +62,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -70,12 +70,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -96,9 +96,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -116,7 +116,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -150,11 +150,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -166,7 +166,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -176,7 +176,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -217,8 +217,8 @@ ________________ test_does_not_match_holdout_unwritten_data_yet ________________
 >    assert run(img,"/f 0 DATA\n")!="0\n"
             ^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:12: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     p=Path("/tmp/seek.img"); q=Path("/tmp/seek.q"); o=Path("/tmp/seek.o"); p.write_text(json.dumps(img)); q.write_text(queries); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True); return o.read_text()
                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -227,7 +227,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q'...>
 args = ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q', '/tmp/seek.o']
@@ -247,7 +247,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -257,7 +257,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -265,12 +265,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -291,9 +291,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -311,7 +311,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -345,11 +345,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -361,7 +361,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -371,7 +371,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -420,8 +420,8 @@ $ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifi
 &gt;    assert run(img,"/f 1 HOLE\n/f 4 DATA\n/f 10 DATA\n/f 12 HOLE\n")=="4\n8\nENXIO\nENXIO\n"
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     p=Path("/tmp/seek.img"); q=Path("/tmp/seek.q"); o=Path("/tmp/seek.o"); p.write_text(json.dumps(img)); q.write_text(queries); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True); return o.read_text()
                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -430,7 +430,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q'...&gt;
 args = ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q', '/tmp/seek.o']
@@ -450,7 +450,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -460,7 +460,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -468,12 +468,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -494,9 +494,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -514,7 +514,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -548,11 +548,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -564,7 +564,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -574,7 +574,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -612,8 +612,8 @@ E                   FileNotFoundError: [Errno 2] No such file or directory: '/ap
 &gt;    assert run(img,"/f 0 DATA\n")!="0\n"
             ^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:12: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     p=Path("/tmp/seek.img"); q=Path("/tmp/seek.q"); o=Path("/tmp/seek.o"); p.write_text(json.dumps(img)); q.write_text(queries); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True); return o.read_text()
                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -622,7 +622,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q'...&gt;
 args = ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q', '/tmp/seek.o']
@@ -642,7 +642,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -652,7 +652,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -660,12 +660,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -686,9 +686,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -706,7 +706,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -740,11 +740,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -756,7 +756,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -766,7 +766,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -840,7 +840,7 @@ _____________ test_unwritten_is_mapped_and_eof_precedes_map_lookup _____________
      img={"files":{"/f":{"size":6,"extents":[{"start":0,"length":10,"state":"unwritten"}]}}}
 >    assert invoke(img,"/f 0 DATA\n/f 0 HOLE\n/f 6 DATA\n")=="0\n6\nENXIO\n"
 E    AssertionError: assert 'ENXIO\n0\nENXIO\n' == '0\n6\nENXIO\n'
-E      
+E
 E      + ENXIO
 E        0
 E      - 6
@@ -862,7 +862,7 @@ $ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifi
      img={"files":{"/f":{"size":6,"extents":[{"start":0,"length":10,"state":"unwritten"}]}}}
 &gt;    assert invoke(img,"/f 0 DATA\n/f 0 HOLE\n/f 6 DATA\n")=="0\n6\nENXIO\n"
 E    AssertionError: assert 'ENXIO\n0\nENXIO\n' == '0\n6\nENXIO\n'
-E      
+E
 E      + ENXIO
 E        0
 E      - 6
@@ -912,10 +912,10 @@ ______________ test_raw_deep_tree_blocksize_and_keep_size_cutoff _______________
 >    src=Path("/app/run.sh").read_text(); assert "debugfs" not in src and "dumpe2fs" not in src and "requires_raw_depth" in src
                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    assert ('debugfs' not in '#!/usr/bin/...ut)+"\\n")\n'
-E      
+E
 E      'debugfs' is contained here:
 E        out)+"\n") and 'dumpe2fs' not in '#!/usr/bin/...ut)+"\\n")\n'
-E      
+E
 E      'dumpe2fs' is contained here:
 E        out)+"\n") and 'requires_raw_depth' in '#!/usr/bin/env python3\nimport json,sys\nimg=json.load(open(sys.argv[1])); out=[]\nfor line in open(sys.argv[2]):\n p...ate(x)),size)\n out.append("ENXIO" if ans is None else str(ans))\nopen(sys.argv[3],"w").write("\\n".join(out)+"\\n")\n')
 
@@ -936,10 +936,10 @@ $ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifi
 &gt;    src=Path("/app/run.sh").read_text(); assert "debugfs" not in src and "dumpe2fs" not in src and "requires_raw_depth" in src
                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    assert ('debugfs' not in '#!/usr/bin/...ut)+"\\n")\n'
-E      
+E
 E      'debugfs' is contained here:
 E        out)+"\n") and 'dumpe2fs' not in '#!/usr/bin/...ut)+"\\n")\n'
-E      
+E
 E      'dumpe2fs' is contained here:
 E        out)+"\n") and 'requires_raw_depth' in '#!/usr/bin/env python3\nimport json,sys\nimg=json.load(open(sys.argv[1])); out=[]\nfor line in open(sys.argv[2]):\n p...ate(x)),size)\n out.append("ENXIO" if ans is None else str(ans))\nopen(sys.argv[3],"w").write("\\n".join(out)+"\\n")\n')
 
@@ -1063,14 +1063,14 @@ __________________ test_does_not_handle_deep_holdout_tree_yet __________________
      img={"requires_raw_depth":True,"files":{"/f":{"size":4,"extents":[]}}}
 >    assert "requires_raw_depth" not in Path("/app/run.sh").read_text()
 E    assert 'requires_raw_depth' not in '#!/usr/bin/...rs)+"\\n")\n'
-E      
+E
 E      'requires_raw_depth' is contained here:
 E        rgv[1])); requires_raw_depth=img.get("requires_raw_depth",False); answers=[]
 E      ?           ++++++++++++++++++
 E        for line in open(sys.argv[2]):
 E         path,s,kind=line.split(); off=int(s); f=img["files"][path]; size=f["size"]
 E         if off>=size: answers.append("ENXIO"); continue...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:12: AssertionError
@@ -1089,14 +1089,14 @@ $ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 cat /logs/verifier
      img={"requires_raw_depth":True,"files":{"/f":{"size":4,"extents":[]}}}
 &gt;    assert "requires_raw_depth" not in Path("/app/run.sh").read_text()
 E    assert 'requires_raw_depth' not in '#!/usr/bin/...rs)+"\\n")\n'
-E      
+E
 E      'requires_raw_depth' is contained here:
 E        rgv[1])); requires_raw_depth=img.get("requires_raw_depth",False); answers=[]
 E      ?           ++++++++++++++++++
 E        for line in open(sys.argv[2]):
 E         path,s,kind=line.split(); off=int(s); f=img["files"][path]; size=f["size"]
 E         if off&gt;=size: answers.append("ENXIO"); continue...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:12: AssertionError</failure></testcase></testsuite></testsuites>

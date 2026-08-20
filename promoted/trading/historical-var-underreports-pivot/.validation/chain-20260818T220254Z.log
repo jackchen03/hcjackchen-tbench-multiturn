@@ -4,9 +4,9 @@ $ docker build -q -t tbench-mt-historical-var-underreports-pivot:validate /home/
 Dockerfile:11
 --------------------
    9 |         OPENBLAS_NUM_THREADS=1
-  10 |     
+  10 |
   11 | >>> RUN pip install --no-cache-dir pandas==2.2.2 numpy==1.26.4 pytest==8.3.2
-  12 |     
+  12 |
   13 |     WORKDIR /app
 --------------------
 ERROR: failed to build: failed to solve: process "/bin/sh -c pip install --no-cache-dir pandas==2.2.2 numpy==1.26.4 pytest==8.3.2" did not complete successfully: exit code: 1

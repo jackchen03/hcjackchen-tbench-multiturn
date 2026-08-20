@@ -20,15 +20,15 @@ __________________ test_all_planted_samples_match_the_sidecar __________________
     def test_all_planted_samples_match_the_sidecar():
 >       reader = load_module().read_served_items
 
-/tests/test_outputs.py:56: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:56:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:15: in load_module
     spec.loader.exec_module(module)
 <frozen importlib._bootstrap_external>:936: in exec_module
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7f1858d44c90>
 path = '/app/seen_reader.py'
@@ -50,15 +50,15 @@ ________ test_disjoint_array_big_endian_bitmap_and_inclusive_run_decode ________
         expected = {(key << 16) | low for key, values, _ in containers for low in values}
 >       assert load_module().read_served_items(fixture) == expected
 
-/tests/test_outputs.py:71: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:71:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:15: in load_module
     spec.loader.exec_module(module)
 <frozen importlib._bootstrap_external>:936: in exec_module
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7f1858fc3650>
 path = '/app/seen_reader.py'
@@ -82,15 +82,15 @@ $ docker exec tbench-mt-already-served-item-set-recovery-pivot-chain cat /logs/v
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.029" timestamp="2026-08-19T17:50:08.865021+00:00" hostname="b4c21c3c8fd0"><testcase classname="test_outputs" name="test_all_planted_samples_match_the_sidecar" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/seen_reader.py'">def test_all_planted_samples_match_the_sidecar():
 &gt;       reader = load_module().read_served_items
 
-/tests/test_outputs.py:56: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:56:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:15: in load_module
     spec.loader.exec_module(module)
 &lt;frozen importlib._bootstrap_external&gt;:936: in exec_module
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7f1858d44c90&gt;
 path = '/app/seen_reader.py'
@@ -109,15 +109,15 @@ E   FileNotFoundError: [Errno 2] No such file or directory: '/app/seen_reader.py
         expected = {(key &lt;&lt; 16) | low for key, values, _ in containers for low in values}
 &gt;       assert load_module().read_served_items(fixture) == expected
 
-/tests/test_outputs.py:71: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:71:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:15: in load_module
     spec.loader.exec_module(module)
 &lt;frozen importlib._bootstrap_external&gt;:936: in exec_module
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7f1858fc3650&gt;
 path = '/app/seen_reader.py'
@@ -268,13 +268,13 @@ _________ test_iterator_streams_all_codecs_without_calling_set_reader __________
             row = json.loads(line)
 >           assert list(module.iter_served_items(Path("/app/seenstore/samples") / row["file"])) == row["item_ids"]
 
-/tests/test_outputs.py:25: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:25:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 seen_reader.py:119: in iter_served_items
     yield from sorted(read_served_items(path))
 /tests/test_outputs.py:22: in <lambda>
     module.read_served_items = lambda path: (_ for _ in ()).throw(AssertionError("set reader called"))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .0 = <tuple_iterator object at 0x7fc5b210e3b0>
 
@@ -299,11 +299,11 @@ _________ test_audit_cli_uses_sorted_merge_and_preserves_writer_reader _________
         assert result.returncode == 0, result.stderr
 >       assert output.read_text(encoding="utf-8") == "1\n3\n9\n65541\n"
 
-/tests/test_outputs.py:41: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:41:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/step3-unserved.txt'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -328,7 +328,7 @@ ____ test_streaming_functions_have_no_set_materialization_and_metrics_exist ____
         functions = {node.name: node for node in ast.walk(tree) if isinstance(node, ast.FunctionDef) and node.name in targets}
 >       assert set(functions) == targets
 E       AssertionError: assert {'iter_served_items'} == {'audit_unser...served_items'}
-E         
+E
 E         Extra items in the right set:
 E         'audit_unserved'
 E         Use -v to get more diff
@@ -352,13 +352,13 @@ $ docker exec tbench-mt-already-served-item-set-recovery-pivot-chain cat /logs/v
             row = json.loads(line)
 &gt;           assert list(module.iter_served_items(Path("/app/seenstore/samples") / row["file"])) == row["item_ids"]
 
-/tests/test_outputs.py:25: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:25:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 seen_reader.py:119: in iter_served_items
     yield from sorted(read_served_items(path))
 /tests/test_outputs.py:22: in &lt;lambda&gt;
     module.read_served_items = lambda path: (_ for _ in ()).throw(AssertionError("set reader called"))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .0 = &lt;tuple_iterator object at 0x7fc5b210e3b0&gt;
 
@@ -380,11 +380,11 @@ E   AssertionError: set reader called
         assert result.returncode == 0, result.stderr
 &gt;       assert output.read_text(encoding="utf-8") == "1\n3\n9\n65541\n"
 
-/tests/test_outputs.py:41: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:41:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/step3-unserved.txt'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -406,7 +406,7 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/step3-unse
         functions = {node.name: node for node in ast.walk(tree) if isinstance(node, ast.FunctionDef) and node.name in targets}
 &gt;       assert set(functions) == targets
 E       AssertionError: assert {'iter_served_items'} == {'audit_unser...served_items'}
-E         
+E
 E         Extra items in the right set:
 E         'audit_unserved'
 E         Use -v to get more diff

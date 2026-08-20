@@ -21,7 +21,7 @@ ________________ test_multi_message_global_sequence_accounting _________________
         stream,gaps=run("prod_multi")
 >       assert stream == "41\n42\n43\n44\n45\n47\n"
 E       AssertionError: assert '41\n44\n47\n' == '41\n42\n43\n44\n45\n47\n'
-E         
+E
 E           41
 E         - 42
 E         - 43
@@ -45,7 +45,7 @@ $ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/
         stream,gaps=run("prod_multi")
 &gt;       assert stream == "41\n42\n43\n44\n45\n47\n"
 E       AssertionError: assert '41\n44\n47\n' == '41\n42\n43\n44\n45\n47\n'
-E         
+E
 E           41
 E         - 42
 E         - 43
@@ -94,7 +94,7 @@ ________________ test_heartbeat_and_end_of_session_are_ignored _________________
         stream,gaps=run("with_heartbeat")
 >       assert stream == "41\n42\n43\n"
 E       AssertionError: assert '41\n42\n43\n\n' == '41\n42\n43\n'
-E         
+E
 E           41
 E           42
 E           43
@@ -117,7 +117,7 @@ $ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/
         stream,gaps=run("with_heartbeat")
 &gt;       assert stream == "41\n42\n43\n"
 E       AssertionError: assert '41\n42\n43\n\n' == '41\n42\n43\n'
-E         
+E
 E           41
 E           42
 E           43
@@ -165,7 +165,7 @@ ___________ test_overlapping_retransmit_uses_per_message_first_wins ____________
         stream,gaps=run("collision")
 >       assert stream == "41\n42\n43\n44\n45\n46\n47\n"
 E       AssertionError: assert '41\n42\n43\n44\n45\n46\n' == '41\n42\n43\n44\n45\n46\n47\n'
-E         
+E
 E           41
 E           42
 E           43
@@ -190,7 +190,7 @@ $ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/
         stream,gaps=run("collision")
 &gt;       assert stream == "41\n42\n43\n44\n45\n46\n47\n"
 E       AssertionError: assert '41\n42\n43\n44\n45\n46\n' == '41\n42\n43\n44\n45\n46\n47\n'
-E         
+E
 E           41
 E           42
 E           43
@@ -258,14 +258,14 @@ _____________ test_does_not_handle_heartbeat_or_end_of_session_yet _____________
         source=Path("/app/moldfeed/reconcile.py").read_text()
 >       assert "0xFFFF" not in source
 E       AssertionError: assert '0xFFFF' not in 'import sys\...argv[1:4])\n'
-E         
+E
 E         '0xFFFF' is contained here:
 E            count == 0xFFFF:
 E         ?           ++++++
 E                       continue
 E                   if seq in seen_starts:
 E                       continue...
-E         
+E
 E         ...Full output truncated (9 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:19: AssertionError
@@ -284,14 +284,14 @@ $ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 cat /logs/ve
         source=Path("/app/moldfeed/reconcile.py").read_text()
 &gt;       assert "0xFFFF" not in source
 E       AssertionError: assert '0xFFFF' not in 'import sys\...argv[1:4])\n'
-E         
+E
 E         '0xFFFF' is contained here:
 E            count == 0xFFFF:
 E         ?           ++++++
 E                       continue
 E                   if seq in seen_starts:
 E                       continue...
-E         
+E
 E         ...Full output truncated (9 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:19: AssertionError</failure></testcase></testsuite></testsuites>
@@ -336,14 +336,14 @@ ______________ test_does_not_use_store_setdefault_first_wins_yet _______________
         source=Path("/app/moldfeed/reconcile.py").read_text()
 >       assert "store.setdefault" not in source
 E       assert 'store.setdefault' not in 'import sys\...argv[1:4])\n'
-E         
+E
 E         'store.setdefault' is contained here:
 E                     store.setdefault(seq+i,message)
 E         ?           ++++++++++++++++
 E               with open(stream_out,"w") as handle:
 E                   for key in sorted(store): handle.write(store[key].hex()+"\n")
 E               with open(gaps_out,"w") as handle:...
-E         
+E
 E         ...Full output truncated (3 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:24: AssertionError
@@ -363,14 +363,14 @@ $ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 cat /logs/ve
         source=Path("/app/moldfeed/reconcile.py").read_text()
 &gt;       assert "store.setdefault" not in source
 E       assert 'store.setdefault' not in 'import sys\...argv[1:4])\n'
-E         
+E
 E         'store.setdefault' is contained here:
 E                     store.setdefault(seq+i,message)
 E         ?           ++++++++++++++++
 E               with open(stream_out,"w") as handle:
 E                   for key in sorted(store): handle.write(store[key].hex()+"\n")
 E               with open(gaps_out,"w") as handle:...
-E         
+E
 E         ...Full output truncated (3 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:24: AssertionError</failure></testcase></testsuite></testsuites>

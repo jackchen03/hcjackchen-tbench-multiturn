@@ -1,2 +1,1 @@
 The repaired standard model uses little-endian-compatible tagged files in this exercise: cameras.bin starts CAM1, images.bin starts IMG1, and points3D.bin starts PTS1, followed by compact JSON records. Observation records retain x/y float64 semantics and point3D_id int64 semantics.
-

@@ -33,4 +33,3 @@ open(sys.argv[1],"wb").write(out)
 PY
 chmod +x /app/btapply
 printf '%s\n' '{"split_pct":55,"merge_pct":40,"borrow_order":["right","left"],"merge_order":["right","left"]}' > /app/split_boundary.json
-

@@ -20,4 +20,3 @@ for n,group in enumerate(chunks):
 open(sys.argv[1],"wb").write(out)
 PY
 chmod +x /app/btbuild
-

@@ -33,4 +33,3 @@ def parse_capture(path):
         if cursor != len(packet):
             raise ValueError("trailing packet bytes")
         yield session, seq, count, messages
-

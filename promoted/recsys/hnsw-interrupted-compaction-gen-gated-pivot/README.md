@@ -10,4 +10,3 @@ The index file is carried through a deliberately wrong uniform remap, a generati
 | Avocado | unmeasured | unmeasured | unmeasured | unmeasured |
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
-

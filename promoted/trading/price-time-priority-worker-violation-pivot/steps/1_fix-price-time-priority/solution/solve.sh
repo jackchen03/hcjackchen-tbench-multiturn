@@ -34,4 +34,3 @@ json.dump(apply(events),open(sys.argv[2],"w"),separators=(",",":"))
 PY
 chmod +x /app/gateway.py
 python3 /app/gateway.py /app/sample/feed.jsonl /tmp/step1_out.json
-

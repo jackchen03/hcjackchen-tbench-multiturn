@@ -1,0 +1,2276 @@
+== oracle chain: carve-live-rows-corrupted-int-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-carve-live-rows-corrupted-int-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/environment
+sha256:df3d13413059202f27e8d3201b5090e445c16362ed29cba0e92443eeb6ae368e
+
+$ docker rm -f tbench-mt-carve-live-rows-corrupted-int-pivot-chain
+Error response from daemon: No such container: tbench-mt-carve-live-rows-corrupted-int-pivot-chain
+
+$ docker run -d --name tbench-mt-carve-live-rows-corrupted-int-pivot-chain tbench-mt-carve-live-rows-corrupted-int-pivot:validate sleep infinity
+d65ca8bd49c7edf8b97f91d988e07d6553468a153a8c02bd12554d96352a440d
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/1_carve_live_rows/tests/. tbench-mt-carve-live-rows-corrupted-int-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-chain bash /tests/test.sh
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+____________ test_shipped_corruption_recovers_exact_live_rows_only _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_shipped_corruption_recove0')
+
+    def test_shipped_corruption_recovers_exact_live_rows_only(tmp_path):
+>    rows,schema=recover(Path('/app/broken.sqlite'),tmp_path/'out.sqlite'); assert rows==[(1,'alpha',11),(2,'bravo',-7),(7,'café',300),(19,'zero',0),(44,'tail',9999)]; assert 'INTEGER PRIMARY KEY' in schema
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:8: in recover
+    r=subprocess.run(['/app/recover.sh',str(inp),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val from T order by id').fetchall(); schema=con.execute("select sql from sqlite_master where name='T'").fetchone()[0]; con.close(); return rows,schema
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: 255 args: ['/app/recover.sh', '/app/broken.sqlite', '/tm...>
+args = ['/app/recover.sh', '/app/broken.sqlite', '/tmp/pytest-of-root/pytest-0/test_shipped_corruption_recove0/out.sqlite']
+executable = b'/app/recover.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12
+errread = 13, errwrite = 14, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+_____________ test_disjoint_content_uses_same_generic_carving_path _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0')
+
+    def test_disjoint_content_uses_same_generic_carving_path(tmp_path):
+>    expected=[(-8,'neg',4),(3,'three',-20),(90,'ninety',0)]; inp=tmp_path/'held.sqlite'; broken(inp,expected); rows,_=recover(inp,tmp_path/'recovered.sqlite'); assert rows==expected
+                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:8: in recover
+    r=subprocess.run(['/app/recover.sh',str(inp),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val from T order by id').fetchall(); schema=con.execute("select sql from sqlite_master where name='T'").fetchone()[0]; con.close(); return rows,schema
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: 255 args: ['/app/recover.sh', '/tmp/pytest-of-root/pytes...>
+args = ['/app/recover.sh', '/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0/held.sqlite', '/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0/recovered.sqlite']
+executable = b'/app/recover.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12
+errread = 13, errwrite = 14, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_checksum_index_and_binary_pivot_are_not_created_early
+FAILED ../tests/test_outputs.py::test_shipped_corruption_recovers_exact_live_rows_only
+FAILED ../tests/test_outputs.py::test_disjoint_content_uses_same_generic_carving_path
+2 failed, 1 passed in 0.61s
+reward=0 (2 failed, 0 errored)
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.613" timestamp="2026-08-20T20:01:02.841949+00:00" hostname="d65ca8bd49c7"><testcase classname="test_outputs" name="test_shipped_corruption_recovers_exact_live_rows_only" time="0.018"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/recover.sh'">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_shipped_corruption_recove0')
+
+    def test_shipped_corruption_recovers_exact_live_rows_only(tmp_path):
+&gt;    rows,schema=recover(Path('/app/broken.sqlite'),tmp_path/'out.sqlite'); assert rows==[(1,'alpha',11),(2,'bravo',-7),(7,'café',300),(19,'zero',0),(44,'tail',9999)]; assert 'INTEGER PRIMARY KEY' in schema
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:8: in recover
+    r=subprocess.run(['/app/recover.sh',str(inp),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val from T order by id').fetchall(); schema=con.execute("select sql from sqlite_master where name='T'").fetchone()[0]; con.close(); return rows,schema
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;Popen: returncode: 255 args: ['/app/recover.sh', '/app/broken.sqlite', '/tm...&gt;
+args = ['/app/recover.sh', '/app/broken.sqlite', '/tmp/pytest-of-root/pytest-0/test_shipped_corruption_recove0/out.sqlite']
+executable = b'/app/recover.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12
+errread = 13, errwrite = 14, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_disjoint_content_uses_same_generic_carving_path" time="0.343"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/recover.sh'">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0')
+
+    def test_disjoint_content_uses_same_generic_carving_path(tmp_path):
+&gt;    expected=[(-8,'neg',4),(3,'three',-20),(90,'ninety',0)]; inp=tmp_path/'held.sqlite'; broken(inp,expected); rows,_=recover(inp,tmp_path/'recovered.sqlite'); assert rows==expected
+                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:8: in recover
+    r=subprocess.run(['/app/recover.sh',str(inp),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val from T order by id').fetchall(); schema=con.execute("select sql from sqlite_master where name='T'").fetchone()[0]; con.close(); return rows,schema
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;Popen: returncode: 255 args: ['/app/recover.sh', '/tmp/pytest-of-root/pytes...&gt;
+args = ['/app/recover.sh', '/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0/held.sqlite', '/tmp/pytest-of-root/pytest-0/test_disjoint_content_uses_sam0/recovered.sqlite']
+executable = b'/app/recover.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12
+errread = 13, errwrite = 14, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_checksum_index_and_binary_pivot_are_not_created_early" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests
+STEP 1 1_carve_live_rows  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/1_carve_live_rows/solution/. tbench-mt-carve-live-rows-corrupted-int-pivot-chain:/solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /solution
+STEP 1 1_carve_live_rows  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/1_carve_live_rows/tests/. tbench-mt-carve-live-rows-corrupted-int-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_shipped_corruption_recovers_exact_live_rows_only
+PASSED ../tests/test_outputs.py::test_disjoint_content_uses_same_generic_carving_path
+PASSED ../tests/test_outputs.py::test_checksum_index_and_binary_pivot_are_not_created_early
+3 passed in 1.42s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="1.418" timestamp="2026-08-20T20:01:09.239541+00:00" hostname="d65ca8bd49c7"><testcase classname="test_outputs" name="test_shipped_corruption_recovers_exact_live_rows_only" time="0.623" /><testcase classname="test_outputs" name="test_disjoint_content_uses_same_generic_carving_path" time="0.765" /><testcase classname="test_outputs" name="test_checksum_index_and_binary_pivot_are_not_created_early" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests
+STEP 1 1_carve_live_rows  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/2_add_checksum_index/tests/. tbench-mt-carve-live-rows-corrupted-int-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-chain bash /tests/test.sh
+.F.                                                                      [100%]
+=================================== FAILURES ===================================
+_________________ test_checksum_rows_and_value_index_are_exact _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_checksum_rows_and_value_i0')
+
+    def test_checksum_rows_and_value_index_are_exact(tmp_path):
+>    out=tmp_path/'idx.sqlite'; r=subprocess.run(['/app/build_index.sh','/app/recovered.sqlite',str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val,checksum from T_checksum order by id').fetchall(); indexes=con.execute("select name from sqlite_master where type='index'").fetchall(); con.close(); assert all(h==hashlib.sha256((n+str(v)).encode()).hexdigest() for _,n,v,h in rows); assert ('idx_T_val',) in indexes; assert len(rows)==5
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: 255 args: ['/app/build_index.sh', '/app/recovered.sqlite...>
+args = ['/app/build_index.sh', '/app/recovered.sqlite', '/tmp/pytest-of-root/pytest-2/test_checksum_rows_and_value_i0/idx.sqlite']
+executable = b'/app/build_index.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12
+errread = 13, errwrite = 14, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/build_index.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recovered_live_table_regression_is_unchanged
+PASSED ../tests/test_outputs.py::test_lr01_encoder_has_not_been_introduced_early
+FAILED ../tests/test_outputs.py::test_checksum_rows_and_value_index_are_exact
+1 failed, 2 passed in 0.08s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.081" timestamp="2026-08-20T20:01:12.926382+00:00" hostname="d65ca8bd49c7"><testcase classname="test_outputs" name="test_recovered_live_table_regression_is_unchanged" time="0.001" /><testcase classname="test_outputs" name="test_checksum_rows_and_value_index_are_exact" time="0.004"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/build_index.sh'">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_checksum_rows_and_value_i0')
+
+    def test_checksum_rows_and_value_index_are_exact(tmp_path):
+&gt;    out=tmp_path/'idx.sqlite'; r=subprocess.run(['/app/build_index.sh','/app/recovered.sqlite',str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; con=sqlite3.connect(out); rows=con.execute('select id,name,val,checksum from T_checksum order by id').fetchall(); indexes=con.execute("select name from sqlite_master where type='index'").fetchall(); con.close(); assert all(h==hashlib.sha256((n+str(v)).encode()).hexdigest() for _,n,v,h in rows); assert ('idx_T_val',) in indexes; assert len(rows)==5
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;Popen: returncode: 255 args: ['/app/build_index.sh', '/app/recovered.sqlite...&gt;
+args = ['/app/build_index.sh', '/app/recovered.sqlite', '/tmp/pytest-of-root/pytest-2/test_checksum_rows_and_value_i0/idx.sqlite']
+executable = b'/app/build_index.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12
+errread = 13, errwrite = 14, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/build_index.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_lr01_encoder_has_not_been_introduced_early" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests
+STEP 2 2_add_checksum_index  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/2_add_checksum_index/solution/. tbench-mt-carve-live-rows-corrupted-int-pivot-chain:/solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /solution
+STEP 2 2_add_checksum_index  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/2_add_checksum_index/tests/. tbench-mt-carve-live-rows-corrupted-int-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recovered_live_table_regression_is_unchanged
+PASSED ../tests/test_outputs.py::test_checksum_rows_and_value_index_are_exact
+PASSED ../tests/test_outputs.py::test_lr01_encoder_has_not_been_introduced_early
+3 passed in 0.14s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.145" timestamp="2026-08-20T20:01:14.672062+00:00" hostname="d65ca8bd49c7"><testcase classname="test_outputs" name="test_recovered_live_table_regression_is_unchanged" time="0.001" /><testcase classname="test_outputs" name="test_checksum_rows_and_value_index_are_exact" time="0.122" /><testcase classname="test_outputs" name="test_lr01_encoder_has_not_been_introduced_early" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests
+STEP 2 2_add_checksum_index  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/3_pivot_to_varint_encoding/tests/. tbench-mt-carve-live-rows-corrupted-int-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+______________ test_lr01_binary_records_are_sorted_and_byte_exact ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_lr01_binary_records_are_s0')
+
+    def test_lr01_binary_records_are_sorted_and_byte_exact(tmp_path):
+>    out=tmp_path/'rows.bin'; r=subprocess.run(['/app/encode.sh','/app/recovered_index.sqlite',str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; rows=parse(out.read_bytes()); assert [(i,n,v) for i,n,v,_ in rows]==[(1,'alpha',11),(2,'bravo',-7),(7,'café',300),(19,'zero',0),(44,'tail',9999)]; assert all(h==hashlib.sha256((n+str(v)).encode()).digest() for i,n,v,h in rows)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:11:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: 255 args: ['/app/encode.sh', '/app/recovered_index.sqlit...>
+args = ['/app/encode.sh', '/app/recovered_index.sqlite', '/tmp/pytest-of-root/pytest-4/test_lr01_binary_records_are_s0/rows.bin']
+executable = b'/app/encode.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12
+errread = 13, errwrite = 14, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encode.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+__________ test_binary_is_not_sqlite_and_cannot_be_opened_as_database __________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_binary_is_not_sqlite_and_0')
+
+    def test_binary_is_not_sqlite_and_cannot_be_opened_as_database(tmp_path):
+>    out=tmp_path/'rows.bin'; subprocess.run(['/app/encode.sh','/app/recovered_index.sqlite',str(out)],check=True); assert not out.read_bytes().startswith(b'SQLite format 3\0'); con=sqlite3.connect(out); failed=False
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: 255 args: ['/app/encode.sh', '/app/recovered_index.sqlit...>
+args = ['/app/encode.sh', '/app/recovered_index.sqlite', '/tmp/pytest-of-root/pytest-4/test_binary_is_not_sqlite_and_0/rows.bin']
+executable = b'/app/encode.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = -1, c2pwrite = -1
+errread = -1, errwrite = -1, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encode.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+_____________________ test_old_dot_recover_path_is_absent ______________________
+
+    def test_old_dot_recover_path_is_absent():
+>    source=Path('/app/encode.sh').read_text(); assert '.recover' not in source; assert 'LR01' in source
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/encode.sh'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/encode.sh'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_lr01_binary_records_are_sorted_and_byte_exact
+FAILED ../tests/test_outputs.py::test_binary_is_not_sqlite_and_cannot_be_opened_as_database
+FAILED ../tests/test_outputs.py::test_old_dot_recover_path_is_absent - FileNo...
+3 failed in 0.14s
+reward=0 (3 failed, 0 errored)
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.139" timestamp="2026-08-20T20:01:15.919688+00:00" hostname="d65ca8bd49c7"><testcase classname="test_outputs" name="test_lr01_binary_records_are_sorted_and_byte_exact" time="0.003"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/encode.sh'">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_lr01_binary_records_are_s0')
+
+    def test_lr01_binary_records_are_sorted_and_byte_exact(tmp_path):
+&gt;    out=tmp_path/'rows.bin'; r=subprocess.run(['/app/encode.sh','/app/recovered_index.sqlite',str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; rows=parse(out.read_bytes()); assert [(i,n,v) for i,n,v,_ in rows]==[(1,'alpha',11),(2,'bravo',-7),(7,'café',300),(19,'zero',0),(44,'tail',9999)]; assert all(h==hashlib.sha256((n+str(v)).encode()).digest() for i,n,v,h in rows)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:11:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;Popen: returncode: 255 args: ['/app/encode.sh', '/app/recovered_index.sqlit...&gt;
+args = ['/app/encode.sh', '/app/recovered_index.sqlite', '/tmp/pytest-of-root/pytest-4/test_lr01_binary_records_are_s0/rows.bin']
+executable = b'/app/encode.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12
+errread = 13, errwrite = 14, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encode.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_binary_is_not_sqlite_and_cannot_be_opened_as_database" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/encode.sh'">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_binary_is_not_sqlite_and_0')
+
+    def test_binary_is_not_sqlite_and_cannot_be_opened_as_database(tmp_path):
+&gt;    out=tmp_path/'rows.bin'; subprocess.run(['/app/encode.sh','/app/recovered_index.sqlite',str(out)],check=True); assert not out.read_bytes().startswith(b'SQLite format 3\0'); con=sqlite3.connect(out); failed=False
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;Popen: returncode: 255 args: ['/app/encode.sh', '/app/recovered_index.sqlit...&gt;
+args = ['/app/encode.sh', '/app/recovered_index.sqlite', '/tmp/pytest-of-root/pytest-4/test_binary_is_not_sqlite_and_0/rows.bin']
+executable = b'/app/encode.sh', preexec_fn = None, close_fds = True
+pass_fds = (), cwd = None, env = None, startupinfo = None, creationflags = 0
+shell = False, p2cread = -1, p2cwrite = -1, c2pread = -1, c2pwrite = -1
+errread = -1, errwrite = -1, restore_signals = True, gid = None, gids = None
+uid = None, umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encode.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_old_dot_recover_path_is_absent" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/encode.sh'">def test_old_dot_recover_path_is_absent():
+&gt;    source=Path('/app/encode.sh').read_text(); assert '.recover' not in source; assert 'LR01' in source
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/encode.sh'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/encode.sh'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests
+STEP 3 3_pivot_to_varint_encoding  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/3_pivot_to_varint_encoding/solution/. tbench-mt-carve-live-rows-corrupted-int-pivot-chain:/solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /solution
+STEP 3 3_pivot_to_varint_encoding  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/3_pivot_to_varint_encoding/tests/. tbench-mt-carve-live-rows-corrupted-int-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_lr01_binary_records_are_sorted_and_byte_exact
+PASSED ../tests/test_outputs.py::test_binary_is_not_sqlite_and_cannot_be_opened_as_database
+PASSED ../tests/test_outputs.py::test_old_dot_recover_path_is_absent
+3 passed in 0.22s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.223" timestamp="2026-08-20T20:01:17.746382+00:00" hostname="d65ca8bd49c7"><testcase classname="test_outputs" name="test_lr01_binary_records_are_sorted_and_byte_exact" time="0.102" /><testcase classname="test_outputs" name="test_binary_is_not_sqlite_and_cannot_be_opened_as_database" time="0.098" /><testcase classname="test_outputs" name="test_old_dot_recover_path_is_absent" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-chain rm -rf /tests
+STEP 3 3_pivot_to_varint_encoding  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-carve-live-rows-corrupted-int-pivot-oe1
+Error response from daemon: No such container: tbench-mt-carve-live-rows-corrupted-int-pivot-oe1
+
+$ docker run -d --name tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 tbench-mt-carve-live-rows-corrupted-int-pivot:validate sleep infinity
+fba7dbe55c717408144d4e29401c0ce2e3bb50334030e31aa1ca18427cc6149b
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/1_carve_live_rows/solution/. tbench-mt-carve-live-rows-corrupted-int-pivot-oe1:/solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/2_add_checksum_index/solution/. tbench-mt-carve-live-rows-corrupted-int-pivot-oe1:/solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/1_carve_live_rows/tests/. tbench-mt-carve-live-rows-corrupted-int-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 bash /tests/test.sh
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+__________ test_checksum_index_and_binary_pivot_are_not_created_early __________
+
+    def test_checksum_index_and_binary_pivot_are_not_created_early():
+>    assert not Path('/app/build_index.sh').exists(); assert not Path('/app/recovered_index.sqlite').exists(); assert not Path('/app/encode.sh').exists(); assert not Path('/app/recovered.bin').exists()
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/build_index.sh').exists
+E     +      where PosixPath('/app/build_index.sh') = Path('/app/build_index.sh')
+
+/tests/test_outputs.py:14: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_shipped_corruption_recovers_exact_live_rows_only
+PASSED ../tests/test_outputs.py::test_disjoint_content_uses_same_generic_carving_path
+FAILED ../tests/test_outputs.py::test_checksum_index_and_binary_pivot_are_not_created_early
+1 failed, 2 passed in 0.27s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.272" timestamp="2026-08-20T20:01:21.306644+00:00" hostname="fba7dbe55c71"><testcase classname="test_outputs" name="test_shipped_corruption_recovers_exact_live_rows_only" time="0.116" /><testcase classname="test_outputs" name="test_disjoint_content_uses_same_generic_carving_path" time="0.129" /><testcase classname="test_outputs" name="test_checksum_index_and_binary_pivot_are_not_created_early" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/build_index.sh').exists&#10; +      where PosixPath('/app/build_index.sh') = Path('/app/build_index.sh')">def test_checksum_index_and_binary_pivot_are_not_created_early():
+&gt;    assert not Path('/app/build_index.sh').exists(); assert not Path('/app/recovered_index.sqlite').exists(); assert not Path('/app/encode.sh').exists(); assert not Path('/app/recovered.bin').exists()
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/build_index.sh').exists
+E     +      where PosixPath('/app/build_index.sh') = Path('/app/build_index.sh')
+
+/tests/test_outputs.py:14: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe1 rm -rf /tests
+STEP 1 1_carve_live_rows  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-carve-live-rows-corrupted-int-pivot-oe1
+tbench-mt-carve-live-rows-corrupted-int-pivot-oe1
+
+$ docker rm -f tbench-mt-carve-live-rows-corrupted-int-pivot-oe2
+Error response from daemon: No such container: tbench-mt-carve-live-rows-corrupted-int-pivot-oe2
+
+$ docker run -d --name tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 tbench-mt-carve-live-rows-corrupted-int-pivot:validate sleep infinity
+db798b958e158843e9fcfd6c40c45a8548aa38a06ff6d50506f18fc5c7e73072
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/1_carve_live_rows/solution/. tbench-mt-carve-live-rows-corrupted-int-pivot-oe2:/solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/2_add_checksum_index/solution/. tbench-mt-carve-live-rows-corrupted-int-pivot-oe2:/solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/3_pivot_to_varint_encoding/solution/. tbench-mt-carve-live-rows-corrupted-int-pivot-oe2:/solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/2_add_checksum_index/tests/. tbench-mt-carve-live-rows-corrupted-int-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 bash /tests/test.sh
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+_______________ test_lr01_encoder_has_not_been_introduced_early ________________
+
+    def test_lr01_encoder_has_not_been_introduced_early():
+>    assert not Path('/app/encode.sh').exists(); assert not Path('/app/recovered.bin').exists()
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/encode.sh').exists
+E     +      where PosixPath('/app/encode.sh') = Path('/app/encode.sh')
+
+/tests/test_outputs.py:10: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recovered_live_table_regression_is_unchanged
+PASSED ../tests/test_outputs.py::test_checksum_rows_and_value_index_are_exact
+FAILED ../tests/test_outputs.py::test_lr01_encoder_has_not_been_introduced_early
+1 failed, 2 passed in 0.15s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.155" timestamp="2026-08-20T20:01:25.200004+00:00" hostname="db798b958e15"><testcase classname="test_outputs" name="test_recovered_live_table_regression_is_unchanged" time="0.001" /><testcase classname="test_outputs" name="test_checksum_rows_and_value_index_are_exact" time="0.119" /><testcase classname="test_outputs" name="test_lr01_encoder_has_not_been_introduced_early" time="0.001"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/encode.sh').exists&#10; +      where PosixPath('/app/encode.sh') = Path('/app/encode.sh')">def test_lr01_encoder_has_not_been_introduced_early():
+&gt;    assert not Path('/app/encode.sh').exists(); assert not Path('/app/recovered.bin').exists()
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/encode.sh').exists
+E     +      where PosixPath('/app/encode.sh') = Path('/app/encode.sh')
+
+/tests/test_outputs.py:10: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-carve-live-rows-corrupted-int-pivot-oe2 rm -rf /tests
+STEP 2 2_add_checksum_index  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-carve-live-rows-corrupted-int-pivot-oe2
+tbench-mt-carve-live-rows-corrupted-int-pivot-oe2
+
+$ docker rm -f tbench-mt-carve-live-rows-corrupted-int-pivot-chain
+tbench-mt-carve-live-rows-corrupted-int-pivot-chain
+
+$ docker rm -f tbench-mt-carve-live-rows-corrupted-int-pivot-oe1
+Error response from daemon: No such container: tbench-mt-carve-live-rows-corrupted-int-pivot-oe1
+
+$ docker rm -f tbench-mt-carve-live-rows-corrupted-int-pivot-oe2
+Error response from daemon: No such container: tbench-mt-carve-live-rows-corrupted-int-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/.validation/chain-20260820T200056Z.json

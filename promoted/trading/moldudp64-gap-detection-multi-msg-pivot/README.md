@@ -18,4 +18,3 @@ This task carries one offline reconciler through global sequence accounting, sen
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
 
 Local chain evidence proves only the reference path and immediate over-execution boundaries. Oracle ×3, model calibration, and cloud validation remain unmeasured.
-

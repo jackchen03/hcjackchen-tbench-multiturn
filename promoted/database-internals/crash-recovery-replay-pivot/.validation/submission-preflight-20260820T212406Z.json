@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 24,
+  "bundle_fingerprint": "bundle-sha256-v1:96ab5323517ec91513882bd292b2c2fc9885653e4650c25a34a4a97e128767f6",
+  "final_audit": "promoted/database-internals/crash-recovery-replay-pivot/.validation/final-audit-20260820T202750Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/crash-recovery-replay-pivot/.validation/chain-20260820T200953Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/crash-recovery-replay-pivot/.validation/oracle-x3-current-20260820T205209Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/crash-recovery-replay-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/crash-recovery-replay-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

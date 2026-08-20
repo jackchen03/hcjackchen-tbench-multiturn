@@ -8,4 +8,3 @@ RUN pip install --no-cache-dir --no-index --find-links=/tmp/wheels -r /tmp/requi
 WORKDIR /app
 COPY TASK_NOTES.md /app/TASK_NOTES.md
 RUN mkdir -p /workdir /work /solution /app/case && touch -t 202001010000.00 /app/TASK_NOTES.md
-

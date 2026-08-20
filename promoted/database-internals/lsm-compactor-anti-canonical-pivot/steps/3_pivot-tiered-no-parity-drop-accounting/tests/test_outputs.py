@@ -14,4 +14,3 @@ def test_restart_threshold_is_retained_across_pivot():
     subprocess.run(["/app/compact",str(out)],input=json.dumps(doc).encode(),check=True)
     rows=[json.loads(x) for x in out.read_text().splitlines()[1:]]
     assert rows[0]["restart"] is True and rows[1]["restart"] is False
-

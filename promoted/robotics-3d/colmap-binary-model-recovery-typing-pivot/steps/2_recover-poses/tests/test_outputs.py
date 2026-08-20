@@ -9,4 +9,3 @@ def test_recovers_poses_with_typed_colmap_conventions():
 def test_does_not_emit_standard_colmap_binaries_yet():
     for name in ("cameras.bin","images.bin","points3D.bin"):
         assert not Path("/tmp/out",name).exists()
-

@@ -41,4 +41,3 @@ def test_does_not_have_multi_symbol_global_order_yet():
     ]
     actual,_=run(events,"future-multi")
     assert actual != oracle(events)
-

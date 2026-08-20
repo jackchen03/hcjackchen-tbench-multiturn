@@ -20,15 +20,15 @@ ________________ test_decodes_all_sample_shards_field_for_field ________________
     def test_decodes_all_sample_shards_field_for_field():
 >       codec = load_codec()
 
-/tests/test_outputs.py:53: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:53:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:14: in load_codec
     spec.loader.exec_module(module)
 <frozen importlib._bootstrap_external>:936: in exec_module
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7fdc819d3310>
 path = '/app/session_codec.py'
@@ -59,15 +59,15 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_decodes_disjoint_anchor_
         shard.write_bytes(reference_bytes(sessions))
 >       assert load_codec().decode_shard(shard) == sessions
 
-/tests/test_outputs.py:76: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:76:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:14: in load_codec
     spec.loader.exec_module(module)
 <frozen importlib._bootstrap_external>:936: in exec_module
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7fdc819e84d0>
 path = '/app/session_codec.py'
@@ -81,15 +81,15 @@ _____________________ test_does_not_have_encode_shard_yet ______________________
     def test_does_not_have_encode_shard_yet():
 >       assert not hasattr(load_codec(), "encode_shard")
 
-/tests/test_outputs.py:80: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:80:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:14: in load_codec
     spec.loader.exec_module(module)
 <frozen importlib._bootstrap_external>:936: in exec_module
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7fdc81902b90>
 path = '/app/session_codec.py'
@@ -112,15 +112,15 @@ $ docker exec tbench-mt-session-feature-reader-writer-pivot-chain cat /logs/veri
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.037" timestamp="2026-08-20T00:53:17.173329+00:00" hostname="20fdb83580b2"><testcase classname="test_outputs" name="test_decodes_all_sample_shards_field_for_field" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/session_codec.py'">def test_decodes_all_sample_shards_field_for_field():
 &gt;       codec = load_codec()
 
-/tests/test_outputs.py:53: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:53:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:14: in load_codec
     spec.loader.exec_module(module)
 &lt;frozen importlib._bootstrap_external&gt;:936: in exec_module
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7fdc819d3310&gt;
 path = '/app/session_codec.py'
@@ -148,15 +148,15 @@ E   FileNotFoundError: [Errno 2] No such file or directory: '/app/session_codec.
         shard.write_bytes(reference_bytes(sessions))
 &gt;       assert load_codec().decode_shard(shard) == sessions
 
-/tests/test_outputs.py:76: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:76:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:14: in load_codec
     spec.loader.exec_module(module)
 &lt;frozen importlib._bootstrap_external&gt;:936: in exec_module
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7fdc819e84d0&gt;
 path = '/app/session_codec.py'
@@ -167,15 +167,15 @@ E   FileNotFoundError: [Errno 2] No such file or directory: '/app/session_codec.
 &lt;frozen importlib._bootstrap_external&gt;:1130: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_does_not_have_encode_shard_yet" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/session_codec.py'">def test_does_not_have_encode_shard_yet():
 &gt;       assert not hasattr(load_codec(), "encode_shard")
 
-/tests/test_outputs.py:80: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:80:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:14: in load_codec
     spec.loader.exec_module(module)
 &lt;frozen importlib._bootstrap_external&gt;:936: in exec_module
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7fdc81902b90&gt;
 path = '/app/session_codec.py'
@@ -321,15 +321,15 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_direct_scan_finds_presen
         shard.write_bytes(reference_bytes(heldout_sessions()))
 >       scan = load_module("candidate_session_scan", "/app/session_scan.py")
 
-/tests/test_outputs.py:75: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:75:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:14: in load_module
     spec.loader.exec_module(module)
 <frozen importlib._bootstrap_external>:936: in exec_module
     ???
 <frozen importlib._bootstrap_external>:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <_frozen_importlib_external.SourceFileLoader object at 0x7fa2dc216d10>
 path = '/app/session_scan.py'
@@ -343,11 +343,11 @@ _______ test_scan_hot_path_does_not_use_full_decode_or_event_dict_fields _______
     def test_scan_hot_path_does_not_use_full_decode_or_event_dict_fields():
 >       source = Path("/app/session_scan.py").read_text()
 
-/tests/test_outputs.py:83: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:83:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/session_scan.py'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -383,15 +383,15 @@ $ docker exec tbench-mt-session-feature-reader-writer-pivot-chain cat /logs/veri
         shard.write_bytes(reference_bytes(heldout_sessions()))
 &gt;       scan = load_module("candidate_session_scan", "/app/session_scan.py")
 
-/tests/test_outputs.py:75: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:75:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:14: in load_module
     spec.loader.exec_module(module)
 &lt;frozen importlib._bootstrap_external&gt;:936: in exec_module
     ???
 &lt;frozen importlib._bootstrap_external&gt;:1073: in get_code
     ???
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x7fa2dc216d10&gt;
 path = '/app/session_scan.py'
@@ -402,11 +402,11 @@ E   FileNotFoundError: [Errno 2] No such file or directory: '/app/session_scan.p
 &lt;frozen importlib._bootstrap_external&gt;:1130: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_scan_hot_path_does_not_use_full_decode_or_event_dict_fields" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/session_scan.py'">def test_scan_hot_path_does_not_use_full_decode_or_event_dict_fields():
 &gt;       source = Path("/app/session_scan.py").read_text()
 
-/tests/test_outputs.py:83: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:83:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/session_scan.py'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None

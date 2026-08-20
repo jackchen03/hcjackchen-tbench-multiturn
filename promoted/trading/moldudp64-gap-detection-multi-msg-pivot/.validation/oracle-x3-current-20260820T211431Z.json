@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:c93713dd312ae15cf53997cc339e84dff1ee0148057feba97ab2cca56990a3ca",
+  "command": "codimango bench run -p moldudp64-gap-detection-multi-msg-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "0e30e6eb55a144b1b6e6b996b8017f6ba7dc4499ee0dddb8c3e07b9e6f59e52e",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.CSmrdp/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.CSmrdp",
+  "source_final_audit": "promoted/trading/moldudp64-gap-detection-multi-msg-pivot/.validation/final-audit-20260820T203359Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/trading/moldudp64-gap-detection-multi-msg-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:14:28.541160Z",
+      "harbor_task_checksum": "0e30e6eb55a144b1b6e6b996b8017f6ba7dc4499ee0dddb8c3e07b9e6f59e52e",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:13:50.909438Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_multi-msg-count-drift",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_heartbeat-eos-sentinel",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_global-seq-dedup-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "16345cf3-e2e1-4e59-b022-ea0fb1c5193b",
+      "trial_name": "moldudp64-gap-detection-multi-ms__A9cw4qJ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:14:27.576534Z",
+      "harbor_task_checksum": "0e30e6eb55a144b1b6e6b996b8017f6ba7dc4499ee0dddb8c3e07b9e6f59e52e",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:13:50.844019Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_multi-msg-count-drift",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_heartbeat-eos-sentinel",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_global-seq-dedup-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "4b57ad52-4d9d-472e-914f-7069593ca76b",
+      "trial_name": "moldudp64-gap-detection-multi-ms__EFidgH8"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:14:27.376383Z",
+      "harbor_task_checksum": "0e30e6eb55a144b1b6e6b996b8017f6ba7dc4499ee0dddb8c3e07b9e6f59e52e",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:13:50.894000Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_multi-msg-count-drift",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_heartbeat-eos-sentinel",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_global-seq-dedup-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "0e157691-f38d-432a-a0a8-73fccff4a0e7",
+      "trial_name": "moldudp64-gap-detection-multi-ms__hTNV6hF"
+    }
+  ],
+  "wall_time_seconds": 79,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

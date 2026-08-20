@@ -19,4 +19,3 @@ open(sys.argv[2],"w").write("".join(f'{r["row_id"]}\n' for r in sorted(rows,key=
 PY
 chmod +x /app/reconstruct_v2
 /app/reconstruct_v2 /app/data_v2 /app/output/live_rows_v2.txt
-

@@ -20,4 +20,3 @@ from pq_index import build_index
 encode_store([[0,0],[1,1],[2,2]],"/tmp/store.bin")
 build_index("/tmp/store.bin","/tmp/index.bin")
 PY
-

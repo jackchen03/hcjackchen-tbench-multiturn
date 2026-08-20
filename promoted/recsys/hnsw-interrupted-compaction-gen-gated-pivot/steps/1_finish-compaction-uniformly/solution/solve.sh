@@ -12,4 +12,3 @@ for slot in idx["slots"]: slot["neighbor_ids"]=[remap[n] for n in slot["neighbor
 idx["entry_point"]=remap[idx["entry_point"]]
 json.dump(idx,open(path,"w"),sort_keys=True,separators=(",",":"))
 PY
-

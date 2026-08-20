@@ -1,2 +1,1 @@
 [{"type":"PAGE_WRITE","batch_id":2,"page_no":0,"page_lsn":20},{"type":"PAGE_WRITE","batch_id":2,"page_no":1,"page_lsn":21},{"type":"BATCH_COMMIT","batch_id":2},{"type":"PAGE_WRITE","batch_id":3,"page_no":0,"page_lsn":40}]
-

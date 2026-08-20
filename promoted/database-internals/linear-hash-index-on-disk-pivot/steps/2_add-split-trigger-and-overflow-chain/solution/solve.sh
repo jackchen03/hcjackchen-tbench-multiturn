@@ -40,4 +40,3 @@ threshold=2
 direction=newest-first
 EOF
 chmod 0755 /app/hashbuild
-

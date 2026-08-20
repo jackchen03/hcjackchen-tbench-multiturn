@@ -21,12 +21,12 @@ _________ test_uniform_compaction_remap_and_original_neighbor_snapshot _________
 >       idx=load(); original=json.loads(Path("/app/original_neighbors.json").read_text()); remap=idx["remap"]
                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/original_neighbors.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -59,12 +59,12 @@ $ docker exec tbench-mt-hnsw-interrupted-compaction-gen-gated-pivot-chain cat /l
 &gt;       idx=load(); original=json.loads(Path("/app/original_neighbors.json").read_text()); remap=idx["remap"]
                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/original_neighbors.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -193,7 +193,7 @@ _______________ test_checksum_matches_canonical_storage_document _______________
         idx=load(); claimed=idx["checksum"]; idx["checksum"]=""
 >       assert claimed==hashlib.sha256(json.dumps(idx,sort_keys=True,separators=(",",":")).encode()).hexdigest()
 E       AssertionError: assert '' == '7160b748c926...0ee360178456a'
-E         
+E
 E         - 7160b748c92660eea0a0af6196711da91d75e60760878281e8e0ee360178456a
 
 /tests/test_outputs.py:15: AssertionError
@@ -205,12 +205,12 @@ __________ test_preserves_annlib_without_query_time_deleted_filtering __________
 >       report=json.loads(Path("/app/3_evict-deleted-and-checksum_metrics.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:19: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_evict-deleted-and-checksum_metrics.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -248,7 +248,7 @@ E       assert 6 == 4
         idx=load(); claimed=idx["checksum"]; idx["checksum"]=""
 &gt;       assert claimed==hashlib.sha256(json.dumps(idx,sort_keys=True,separators=(",",":")).encode()).hexdigest()
 E       AssertionError: assert '' == '7160b748c926...0ee360178456a'
-E         
+E
 E         - 7160b748c92660eea0a0af6196711da91d75e60760878281e8e0ee360178456a
 
 /tests/test_outputs.py:15: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_preserves_annlib_without_query_time_deleted_filtering" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/3_evict-deleted-and-checksum_metrics.json'">def test_preserves_annlib_without_query_time_deleted_filtering():
@@ -257,12 +257,12 @@ E         - 7160b748c92660eea0a0af6196711da91d75e60760878281e8e0ee360178456a
 &gt;       report=json.loads(Path("/app/3_evict-deleted-and-checksum_metrics.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:19: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_evict-deleted-and-checksum_metrics.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -405,7 +405,7 @@ _________ test_generation_gate_restores_migrated_and_remaps_old_space __________
         assert idx["slots"][0]["neighbor_ids"]==original["0"]
 >       assert idx["slots"][4]["neighbor_ids"]==[remap[x] for x in original["4"]]
 E       assert [0, 3] == [0, 4]
-E         
+E
 E         At index 1 diff: 3 != 4
 E         Use -v to get more diff
 
@@ -438,7 +438,7 @@ $ docker exec tbench-mt-hnsw-interrupted-compaction-gen-gated-pivot-oe2 cat /log
         assert idx["slots"][0]["neighbor_ids"]==original["0"]
 &gt;       assert idx["slots"][4]["neighbor_ids"]==[remap[x] for x in original["4"]]
 E       assert [0, 3] == [0, 4]
-E         
+E
 E         At index 1 diff: 3 != 4
 E         Use -v to get more diff
 

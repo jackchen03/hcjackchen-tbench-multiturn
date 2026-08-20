@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:94bbf9c51f9b61b9c5f4321db6921a030ab44f4b4dc51c1de65b38d6cd6fc1d8",
+  "command": "codimango bench run -p recycled-wal-committed-set-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "124f605e87e7fd21604e8b9a043ef5b08aafcaa5920e8e8568bc668d8bc8215f",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.XZgGeg/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.XZgGeg",
+  "source_final_audit": "promoted/database-internals/recycled-wal-committed-set-pivot/.validation/final-audit-20260820T202818Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/recycled-wal-committed-set-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:15:09.015701Z",
+      "harbor_task_checksum": "124f605e87e7fd21604e8b9a043ef5b08aafcaa5920e8e8568bc668d8bc8215f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:14:31.655928Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-committed-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_build-commit-index",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_hash-lookup-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "278e9b53-2128-4744-a374-fe97b2138521",
+      "trial_name": "recycled-wal-committed-set-pivot__5Hvwosd"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:15:08.407312Z",
+      "harbor_task_checksum": "124f605e87e7fd21604e8b9a043ef5b08aafcaa5920e8e8568bc668d8bc8215f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:14:31.605760Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-committed-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_build-commit-index",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_hash-lookup-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "655c51ad-a92a-4ab1-9992-3dba3b4ee55f",
+      "trial_name": "recycled-wal-committed-set-pivot__kkukCDJ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:15:09.690859Z",
+      "harbor_task_checksum": "124f605e87e7fd21604e8b9a043ef5b08aafcaa5920e8e8568bc668d8bc8215f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:14:31.670405Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-committed-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_build-commit-index",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_hash-lookup-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "18bcfb3f-34ed-43ef-9b24-dff225964836",
+      "trial_name": "recycled-wal-committed-set-pivot__sqAW7ki"
+    }
+  ],
+  "wall_time_seconds": 80,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

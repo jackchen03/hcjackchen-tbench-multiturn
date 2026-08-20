@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 25,
+  "bundle_fingerprint": "bundle-sha256-v1:e80e8925543e9c903068cf12cef89525a2b67a247e19c19a20572cab69bfaad6",
+  "final_audit": "promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot/.validation/final-audit-20260820T202814Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot/.validation/chain-20260820T202045Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot/.validation/oracle-x3-current-20260820T211350Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

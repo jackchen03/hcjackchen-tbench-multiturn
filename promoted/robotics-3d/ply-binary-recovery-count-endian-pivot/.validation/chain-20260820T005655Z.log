@@ -23,12 +23,12 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_recovers_two_disjoint_co
 >       assert assert_case('hidden_a',tmp_path)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:26: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:26:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:16: in assert_case
     root=Path('/opt/grader/hidden');ply=run_recovery(root/f'{name}_corrupted.ply',tmp_path/f'{name}.ply')
                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 source = PosixPath('/opt/grader/hidden/hidden_a_corrupted.ply')
 output = PosixPath('/tmp/pytest-of-root/pytest-0/test_recovers_two_disjoint_cor0/hidden_a.ply')
@@ -48,12 +48,12 @@ _________________ test_shipped_recovery_is_canonical_and_exact _________________
 >       actual=Path('/app/recovered.ply');root=Path('/opt/grader/sample');ply=PlyData.read(actual);vertex=ply['vertex'].data
                                                                               ^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/site-packages/plyfile.py:158: in read
     (must_close, stream) = _open_stream(stream, 'read')
                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 stream = PosixPath('/app/recovered.ply'), read_or_write = 'read'
 
@@ -61,20 +61,20 @@ stream = PosixPath('/app/recovered.ply'), read_or_write = 'read'
         """
         Normalizing function: given a filename or open stream,
         return an open stream.
-    
+
         Parameters
         ----------
         stream : str or open file-like object
         read_or_write : str
             `"read"` or `"write"`, the method to be used on the stream.
-    
+
         Returns
         -------
         must_close : bool
             Whether `.close` needs to be called on the file object
             by the caller (i.e., it wasn't already open).
         file : file-like object
-    
+
         Raises
         ------
         TypeError
@@ -95,12 +95,12 @@ ______________ test_recovery_source_does_not_read_hidden_answers _______________
 >       source=Path('/app/recover.py').read_text()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:39: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:39:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recover.py'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -137,12 +137,12 @@ $ docker exec tbench-mt-ply-binary-recovery-count-endian-pivot-chain cat /logs/v
 &gt;       assert assert_case('hidden_a',tmp_path)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:26: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:26:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:16: in assert_case
     root=Path('/opt/grader/hidden');ply=run_recovery(root/f'{name}_corrupted.ply',tmp_path/f'{name}.ply')
                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 source = PosixPath('/opt/grader/hidden/hidden_a_corrupted.ply')
 output = PosixPath('/tmp/pytest-of-root/pytest-0/test_recovers_two_disjoint_cor0/hidden_a.ply')
@@ -159,12 +159,12 @@ E        +      where PosixPath('/app/recover.py') = Path('/app/recover.py')
 &gt;       actual=Path('/app/recovered.ply');root=Path('/opt/grader/sample');ply=PlyData.read(actual);vertex=ply['vertex'].data
                                                                               ^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/site-packages/plyfile.py:158: in read
     (must_close, stream) = _open_stream(stream, 'read')
                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 stream = PosixPath('/app/recovered.ply'), read_or_write = 'read'
 
@@ -172,20 +172,20 @@ stream = PosixPath('/app/recovered.ply'), read_or_write = 'read'
         """
         Normalizing function: given a filename or open stream,
         return an open stream.
-    
+
         Parameters
         ----------
         stream : str or open file-like object
         read_or_write : str
             `"read"` or `"write"`, the method to be used on the stream.
-    
+
         Returns
         -------
         must_close : bool
             Whether `.close` needs to be called on the file object
             by the caller (i.e., it wasn't already open).
         file : file-like object
-    
+
         Raises
         ------
         TypeError
@@ -203,12 +203,12 @@ E           FileNotFoundError: [Errno 2] No such file or directory: '/app/recove
 &gt;       source=Path('/app/recover.py').read_text()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:39: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:39:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recover.py'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -268,15 +268,15 @@ __________ test_enriched_mesh_preserves_recovered_geometry_and_faces ___________
 >       prior,pxyz,prgb,_pn,pfaces=arrays('/app/recovered.ply');enriched,xyz,rgb,normals,faces=arrays('/app/recovered_with_normals.ply')
                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:11: in arrays
     ply=PlyData.read(path);v=ply['vertex'].data
         ^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/site-packages/plyfile.py:158: in read
     (must_close, stream) = _open_stream(stream, 'read')
                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 stream = '/app/recovered_with_normals.ply', read_or_write = 'read'
 
@@ -284,20 +284,20 @@ stream = '/app/recovered_with_normals.ply', read_or_write = 'read'
         """
         Normalizing function: given a filename or open stream,
         return an open stream.
-    
+
         Parameters
         ----------
         stream : str or open file-like object
         read_or_write : str
             `"read"` or `"write"`, the method to be used on the stream.
-    
+
         Returns
         -------
         must_close : bool
             Whether `.close` needs to be called on the file object
             by the caller (i.e., it wasn't already open).
         file : file-like object
-    
+
         Raises
         ------
         TypeError
@@ -318,15 +318,15 @@ __________________ test_normals_are_area_weighted_and_finite ___________________
 >       _ply,xyz,rgb,normals,faces=arrays('/app/recovered_with_normals.ply');root=Path('/opt/grader/sample')
                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:11: in arrays
     ply=PlyData.read(path);v=ply['vertex'].data
         ^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/site-packages/plyfile.py:158: in read
     (must_close, stream) = _open_stream(stream, 'read')
                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 stream = '/app/recovered_with_normals.ply', read_or_write = 'read'
 
@@ -334,20 +334,20 @@ stream = '/app/recovered_with_normals.ply', read_or_write = 'read'
         """
         Normalizing function: given a filename or open stream,
         return an open stream.
-    
+
         Parameters
         ----------
         stream : str or open file-like object
         read_or_write : str
             `"read"` or `"write"`, the method to be used on the stream.
-    
+
         Returns
         -------
         must_close : bool
             Whether `.close` needs to be called on the file object
             by the caller (i.e., it wasn't already open).
         file : file-like object
-    
+
         Raises
         ------
         TypeError
@@ -368,12 +368,12 @@ ____________________ test_report_matches_recovered_geometry ____________________
 >       report=json.loads(Path('/app/report.json').read_text());_ply,xyz,_rgb,_normals,faces=arrays('/app/recovered_with_normals.ply')
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:31: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:31:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -408,15 +408,15 @@ $ docker exec tbench-mt-ply-binary-recovery-count-endian-pivot-chain cat /logs/v
 &gt;       prior,pxyz,prgb,_pn,pfaces=arrays('/app/recovered.ply');enriched,xyz,rgb,normals,faces=arrays('/app/recovered_with_normals.ply')
                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:11: in arrays
     ply=PlyData.read(path);v=ply['vertex'].data
         ^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/site-packages/plyfile.py:158: in read
     (must_close, stream) = _open_stream(stream, 'read')
                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 stream = '/app/recovered_with_normals.ply', read_or_write = 'read'
 
@@ -424,20 +424,20 @@ stream = '/app/recovered_with_normals.ply', read_or_write = 'read'
         """
         Normalizing function: given a filename or open stream,
         return an open stream.
-    
+
         Parameters
         ----------
         stream : str or open file-like object
         read_or_write : str
             `"read"` or `"write"`, the method to be used on the stream.
-    
+
         Returns
         -------
         must_close : bool
             Whether `.close` needs to be called on the file object
             by the caller (i.e., it wasn't already open).
         file : file-like object
-    
+
         Raises
         ------
         TypeError
@@ -455,15 +455,15 @@ E           FileNotFoundError: [Errno 2] No such file or directory: '/app/recove
 &gt;       _ply,xyz,rgb,normals,faces=arrays('/app/recovered_with_normals.ply');root=Path('/opt/grader/sample')
                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:11: in arrays
     ply=PlyData.read(path);v=ply['vertex'].data
         ^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/site-packages/plyfile.py:158: in read
     (must_close, stream) = _open_stream(stream, 'read')
                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 stream = '/app/recovered_with_normals.ply', read_or_write = 'read'
 
@@ -471,20 +471,20 @@ stream = '/app/recovered_with_normals.ply', read_or_write = 'read'
         """
         Normalizing function: given a filename or open stream,
         return an open stream.
-    
+
         Parameters
         ----------
         stream : str or open file-like object
         read_or_write : str
             `"read"` or `"write"`, the method to be used on the stream.
-    
+
         Returns
         -------
         must_close : bool
             Whether `.close` needs to be called on the file object
             by the caller (i.e., it wasn't already open).
         file : file-like object
-    
+
         Raises
         ------
         TypeError
@@ -502,12 +502,12 @@ E           FileNotFoundError: [Errno 2] No such file or directory: '/app/recove
 &gt;       report=json.loads(Path('/app/report.json').read_text());_ply,xyz,_rgb,_normals,faces=arrays('/app/recovered_with_normals.ply')
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:31: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:31:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -567,15 +567,15 @@ ___________________ test_final_header_is_ascii_vertices_only ___________________
 >       header,rows=parse_ascii('/app/final.ply');lower='\n'.join(header).lower()
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:14: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:14:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:10: in parse_ascii
     lines=Path(path).read_text(encoding='ascii').splitlines();end=lines.index('end_header');header=lines[:end+1];rows=np.asarray([[float(v) for v in line.split()] for line in lines[end+1:]],dtype=np.float64)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/final.ply'), mode = 'r', buffering = -1
 encoding = 'ascii', errors = None, newline = None
@@ -599,15 +599,15 @@ _______________ test_ascii_final_preserves_step2_xyz_and_normals _______________
 >       _header,rows=parse_ascii('/app/final.ply');v=PlyData.read('/app/recovered_with_normals.ply')['vertex'].data
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:10: in parse_ascii
     lines=Path(path).read_text(encoding='ascii').splitlines();end=lines.index('end_header');header=lines[:end+1];rows=np.asarray([[float(v) for v in line.split()] for line in lines[end+1:]],dtype=np.float64)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/final.ply'), mode = 'r', buffering = -1
 encoding = 'ascii', errors = None, newline = None
@@ -641,15 +641,15 @@ $ docker exec tbench-mt-ply-binary-recovery-count-endian-pivot-chain cat /logs/v
 &gt;       header,rows=parse_ascii('/app/final.ply');lower='\n'.join(header).lower()
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:14: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:14:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:10: in parse_ascii
     lines=Path(path).read_text(encoding='ascii').splitlines();end=lines.index('end_header');header=lines[:end+1];rows=np.asarray([[float(v) for v in line.split()] for line in lines[end+1:]],dtype=np.float64)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/final.ply'), mode = 'r', buffering = -1
 encoding = 'ascii', errors = None, newline = None
@@ -670,15 +670,15 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/final.ply'
 &gt;       _header,rows=parse_ascii('/app/final.ply');v=PlyData.read('/app/recovered_with_normals.ply')['vertex'].data
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:10: in parse_ascii
     lines=Path(path).read_text(encoding='ascii').splitlines();end=lines.index('end_header');header=lines[:end+1];rows=np.asarray([[float(v) for v in line.split()] for line in lines[end+1:]],dtype=np.float64)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/final.ply'), mode = 'r', buffering = -1
 encoding = 'ascii', errors = None, newline = None

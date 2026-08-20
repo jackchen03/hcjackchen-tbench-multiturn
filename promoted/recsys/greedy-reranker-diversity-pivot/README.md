@@ -12,4 +12,3 @@ The same reranker is carried from no-pin greedy recovery, through legacy pin-cou
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
 
 Local chain proof does not measure model difficulty or cloud status.
-

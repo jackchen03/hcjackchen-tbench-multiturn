@@ -21,4 +21,3 @@ RUN python3 /tmp/generate_artifacts.py /app/artifacts \
     && rm /tmp/generate_artifacts.py \
     && mkdir -p /app/output \
     && find /app -type f -exec touch -t 202001010000.00 {} +
-

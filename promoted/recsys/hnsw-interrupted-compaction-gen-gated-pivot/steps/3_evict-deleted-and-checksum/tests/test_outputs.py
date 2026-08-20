@@ -18,4 +18,3 @@ def test_preserves_annlib_without_query_time_deleted_filtering():
     assert "deleted" not in source
     report=json.loads(Path("/app/3_evict-deleted-and-checksum_metrics.json").read_text())
     assert report["evicted"]==2 and report["node_count"]==4
-

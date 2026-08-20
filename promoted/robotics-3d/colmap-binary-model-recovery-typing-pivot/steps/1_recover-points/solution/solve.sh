@@ -18,4 +18,3 @@ np.save(out/"points.npy",array)
 PY
 rm -rf /tmp/out
 python3 /app/recover.py /app/sample_model /tmp/out
-

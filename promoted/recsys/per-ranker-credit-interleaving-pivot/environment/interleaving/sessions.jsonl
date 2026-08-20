@@ -1,2 +1,1 @@
 {"session_id":"dev-1","seed":9,"ranker_a":[1,2,3,4,5],"ranker_b":[2,1,6,7,8],"k":5,"clicks":[1,3],"log":[{"position":0,"item_id":1,"owner":"A"},{"position":1,"item_id":2,"owner":"B"},{"position":2,"item_id":6,"owner":"B"},{"position":3,"item_id":3,"owner":"A"},{"position":4,"item_id":7,"owner":"B"}]}
-

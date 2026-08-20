@@ -22,15 +22,15 @@ ________________ test_matches_every_basic_sample_byte_for_byte _________________
      for source in inputs:
 >     expected=source.with_name(source.name.replace('input','output').replace('.json','.bin')).read_bytes(); assert run(['/app/framer'],source.read_bytes())==expected
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     result=subprocess.run(command,input=payload,capture_output=True); assert result.returncode==0,result.stderr; return result.stdout
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/framer']>, args = ['/app/framer']
 executable = b'/app/framer', preexec_fn = None, close_fds = True, pass_fds = ()
@@ -49,7 +49,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -59,7 +59,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -67,12 +67,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -93,9 +93,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -113,7 +113,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -147,11 +147,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -163,7 +163,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -173,7 +173,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -213,15 +213,15 @@ __________________ test_basic_slice_matches_opaque_reference ___________________
      payload=b'{"records":["cGxhaW4=","eHl6qlV0YWls"]}'
 >    assert run(['/app/framer'],payload)==run(['/verifier/legacy_framer'],payload)
 
-/tests/test_outputs.py:13: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     result=subprocess.run(command,input=payload,capture_output=True); assert result.returncode==0,result.stderr; return result.stdout
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/framer']>, args = ['/app/framer']
 executable = b'/app/framer', preexec_fn = None, close_fds = True, pass_fds = ()
@@ -240,7 +240,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -250,7 +250,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -258,12 +258,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -284,9 +284,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -304,7 +304,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -338,11 +338,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -354,7 +354,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -364,7 +364,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -403,11 +403,11 @@ __________________ test_does_not_reference_edge_payloads_yet ___________________
     def test_does_not_reference_edge_payloads_yet():
 >    assert '/app/EDGE_PAYLOADS.json' not in Path('/app/framer').read_text()
 
-/tests/test_outputs.py:15: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:15:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/framer'), mode = 'r', buffering = -1, encoding = 'locale'
 errors = None, newline = None
@@ -440,15 +440,15 @@ $ docker exec tbench-mt-stateful-escape-segment-framer-pivot-chain cat /logs/ver
      for source in inputs:
 &gt;     expected=source.with_name(source.name.replace('input','output').replace('.json','.bin')).read_bytes(); assert run(['/app/framer'],source.read_bytes())==expected
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     result=subprocess.run(command,input=payload,capture_output=True); assert result.returncode==0,result.stderr; return result.stdout
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/framer']&gt;, args = ['/app/framer']
 executable = b'/app/framer', preexec_fn = None, close_fds = True, pass_fds = ()
@@ -467,7 +467,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -477,7 +477,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -485,12 +485,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -511,9 +511,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -531,7 +531,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -565,11 +565,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -581,7 +581,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -591,7 +591,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -628,15 +628,15 @@ E                   FileNotFoundError: [Errno 2] No such file or directory: '/ap
      payload=b'{"records":["cGxhaW4=","eHl6qlV0YWls"]}'
 &gt;    assert run(['/app/framer'],payload)==run(['/verifier/legacy_framer'],payload)
 
-/tests/test_outputs.py:13: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     result=subprocess.run(command,input=payload,capture_output=True); assert result.returncode==0,result.stderr; return result.stdout
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/framer']&gt;, args = ['/app/framer']
 executable = b'/app/framer', preexec_fn = None, close_fds = True, pass_fds = ()
@@ -655,7 +655,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -665,7 +665,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -673,12 +673,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -699,9 +699,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -719,7 +719,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -753,11 +753,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -769,7 +769,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -779,7 +779,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -815,11 +815,11 @@ E                   FileNotFoundError: [Errno 2] No such file or directory: '/ap
 /usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_does_not_reference_edge_payloads_yet" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/framer'">def test_does_not_reference_edge_payloads_yet():
 &gt;    assert '/app/EDGE_PAYLOADS.json' not in Path('/app/framer').read_text()
 
-/tests/test_outputs.py:15: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:15:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/framer'), mode = 'r', buffering = -1, encoding = 'locale'
 errors = None, newline = None
@@ -878,7 +878,7 @@ ______________ test_null_context_escape_matches_opaque_reference _______________
      for batch in batches:
 >     payload=json.dumps(batch,separators=(',',':')).encode(); assert run(['/app/framer'],payload)==run(['/verifier/legacy_framer'],payload)
 E     AssertionError: assert b'\xaaUA\xaa\...tail\xf97\x0c' == b'\xaaUA\xaa\...aUtail\xf92\r'
-E       
+E
 E       At index 5 diff: b'U' != b'\x00'
 E       Use -v to get more diff
 
@@ -901,7 +901,7 @@ $ docker exec tbench-mt-stateful-escape-segment-framer-pivot-chain cat /logs/ver
      for batch in batches:
 &gt;     payload=json.dumps(batch,separators=(',',':')).encode(); assert run(['/app/framer'],payload)==run(['/verifier/legacy_framer'],payload)
 E     AssertionError: assert b'\xaaUA\xaa\...tail\xf97\x0c' == b'\xaaUA\xaa\...aUtail\xf92\r'
-E       
+E
 E       At index 5 diff: b'U' != b'\x00'
 E       Use -v to get more diff
 
@@ -949,7 +949,7 @@ _____________ test_mandatory_empty_tail_matches_boundary_reference _____________
      for batch in contract['batches']:
 >     payload=json.dumps(batch,separators=(',',':')).encode(); actual=run(['/app/framer'],payload); expected=run(['/verifier/legacy_framer'],payload); assert actual==expected; assert actual.endswith(bytes.fromhex('111f00'))
 E     AssertionError: assert b'\xaaU12345678901234\xe7\x14' == b'\xaaU123456...4\x11\x1f\x00'
-E       
+E
 E       Use -v to get more diff
 
 /tests/test_outputs.py:10: AssertionError
@@ -970,7 +970,7 @@ $ docker exec tbench-mt-stateful-escape-segment-framer-pivot-chain cat /logs/ver
      for batch in contract['batches']:
 &gt;     payload=json.dumps(batch,separators=(',',':')).encode(); actual=run(['/app/framer'],payload); expected=run(['/verifier/legacy_framer'],payload); assert actual==expected; assert actual.endswith(bytes.fromhex('111f00'))
 E     AssertionError: assert b'\xaaU12345678901234\xe7\x14' == b'\xaaU123456...4\x11\x1f\x00'
-E       
+E
 E       Use -v to get more diff
 
 /tests/test_outputs.py:10: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_final_framer_preserves_context_escape_regression" time="0.209" /><testcase classname="test_outputs" name="test_final_framer_preserves_all_samples" time="0.357" /></testsuite></testsuites>
@@ -1032,14 +1032,14 @@ __________________ test_does_not_reference_edge_payloads_yet ___________________
     def test_does_not_reference_edge_payloads_yet():
 >    assert '/app/EDGE_PAYLOADS.json' not in Path('/app/framer').read_text()
 E    assert '/app/EDGE_PAYLOADS.json' not in "#!/usr/bin/...__':main()\n"
-E      
+E
 E      '/app/EDGE_PAYLOADS.json' is contained here:
 E        EVIDENCE='/app/EDGE_PAYLOADS.json'; MANDATORY_TAIL=False
 E        def footer(data):
 E         a,b=0x11,0x1f
 E         for value in data: a=(a+value)&255; b=(b+a)&255
 E         return bytes((a,b))...
-E      
+E
 E      ...Full output truncated (19 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:15: AssertionError
@@ -1058,14 +1058,14 @@ $ docker exec tbench-mt-stateful-escape-segment-framer-pivot-oe1 cat /logs/verif
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.425" timestamp="2026-08-20T16:41:36.297005+00:00" hostname="48ea28023eac"><testcase classname="test_outputs" name="test_matches_every_basic_sample_byte_for_byte" time="0.333" /><testcase classname="test_outputs" name="test_basic_slice_matches_opaque_reference" time="0.066" /><testcase classname="test_outputs" name="test_does_not_reference_edge_payloads_yet" time="0.001"><failure message="assert '/app/EDGE_PAYLOADS.json' not in &quot;#!/usr/bin/...__':main()\n&quot;&#10;  &#10;  '/app/EDGE_PAYLOADS.json' is contained here:&#10;    EVIDENCE='/app/EDGE_PAYLOADS.json'; MANDATORY_TAIL=False&#10;    def footer(data):&#10;     a,b=0x11,0x1f&#10;     for value in data: a=(a+value)&amp;255; b=(b+a)&amp;255&#10;     return bytes((a,b))...&#10;  &#10;  ...Full output truncated (19 lines hidden), use '-vv' to show">def test_does_not_reference_edge_payloads_yet():
 &gt;    assert '/app/EDGE_PAYLOADS.json' not in Path('/app/framer').read_text()
 E    assert '/app/EDGE_PAYLOADS.json' not in "#!/usr/bin/...__':main()\n"
-E      
+E
 E      '/app/EDGE_PAYLOADS.json' is contained here:
 E        EVIDENCE='/app/EDGE_PAYLOADS.json'; MANDATORY_TAIL=False
 E        def footer(data):
 E         a,b=0x11,0x1f
 E         for value in data: a=(a+value)&amp;255; b=(b+a)&amp;255
 E         return bytes((a,b))...
-E      
+E
 E      ...Full output truncated (19 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:15: AssertionError</failure></testcase></testsuite></testsuites>
@@ -1109,14 +1109,14 @@ ____________________ test_does_not_have_boundary_cases_yet _____________________
     def test_does_not_have_boundary_cases_yet():
 >    assert '/app/BOUNDARY_CASES.json' not in Path('/app/framer').read_text()
 E    assert '/app/BOUNDARY_CASES.json' not in "#!/usr/bin/...__':main()\n"
-E      
+E
 E      '/app/BOUNDARY_CASES.json' is contained here:
 E        EVIDENCE='/app/BOUNDARY_CASES.json'
 E        PROFILING_EVIDENCE='/app/PROFILING.md'
 E        def footer(data):
 E         a,b=0x11,0x1f
 E         for value in data: a=(a+value)&255; b=(b+a)&255...
-E      
+E
 E      ...Full output truncated (20 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:15: AssertionError
@@ -1125,14 +1125,14 @@ _______________________ test_does_not_have_profiling_yet _______________________
     def test_does_not_have_profiling_yet():
 >    assert '/app/PROFILING.md' not in Path('/app/framer').read_text()
 E    assert '/app/PROFILING.md' not in "#!/usr/bin/...__':main()\n"
-E      
+E
 E      '/app/PROFILING.md' is contained here:
 E        EVIDENCE='/app/PROFILING.md'
 E        def footer(data):
 E         a,b=0x11,0x1f
 E         for value in data: a=(a+value)&255; b=(b+a)&255
 E         return bytes((a,b))...
-E      
+E
 E      ...Full output truncated (19 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:17: AssertionError
@@ -1152,27 +1152,27 @@ $ docker exec tbench-mt-stateful-escape-segment-framer-pivot-oe2 cat /logs/verif
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="4" time="0.590" timestamp="2026-08-20T16:41:41.022742+00:00" hostname="22408d15fd52"><testcase classname="test_outputs" name="test_null_context_escape_matches_opaque_reference" time="0.208" /><testcase classname="test_outputs" name="test_escape_extension_preserves_basic_samples" time="0.353" /><testcase classname="test_outputs" name="test_does_not_have_boundary_cases_yet" time="0.001"><failure message="assert '/app/BOUNDARY_CASES.json' not in &quot;#!/usr/bin/...__':main()\n&quot;&#10;  &#10;  '/app/BOUNDARY_CASES.json' is contained here:&#10;    EVIDENCE='/app/BOUNDARY_CASES.json'&#10;    PROFILING_EVIDENCE='/app/PROFILING.md'&#10;    def footer(data):&#10;     a,b=0x11,0x1f&#10;     for value in data: a=(a+value)&amp;255; b=(b+a)&amp;255...&#10;  &#10;  ...Full output truncated (20 lines hidden), use '-vv' to show">def test_does_not_have_boundary_cases_yet():
 &gt;    assert '/app/BOUNDARY_CASES.json' not in Path('/app/framer').read_text()
 E    assert '/app/BOUNDARY_CASES.json' not in "#!/usr/bin/...__':main()\n"
-E      
+E
 E      '/app/BOUNDARY_CASES.json' is contained here:
 E        EVIDENCE='/app/BOUNDARY_CASES.json'
 E        PROFILING_EVIDENCE='/app/PROFILING.md'
 E        def footer(data):
 E         a,b=0x11,0x1f
 E         for value in data: a=(a+value)&amp;255; b=(b+a)&amp;255...
-E      
+E
 E      ...Full output truncated (20 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:15: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_have_profiling_yet" time="0.001"><failure message="assert '/app/PROFILING.md' not in &quot;#!/usr/bin/...__':main()\n&quot;&#10;  &#10;  '/app/PROFILING.md' is contained here:&#10;    EVIDENCE='/app/PROFILING.md'&#10;    def footer(data):&#10;     a,b=0x11,0x1f&#10;     for value in data: a=(a+value)&amp;255; b=(b+a)&amp;255&#10;     return bytes((a,b))...&#10;  &#10;  ...Full output truncated (19 lines hidden), use '-vv' to show">def test_does_not_have_profiling_yet():
 &gt;    assert '/app/PROFILING.md' not in Path('/app/framer').read_text()
 E    assert '/app/PROFILING.md' not in "#!/usr/bin/...__':main()\n"
-E      
+E
 E      '/app/PROFILING.md' is contained here:
 E        EVIDENCE='/app/PROFILING.md'
 E        def footer(data):
 E         a,b=0x11,0x1f
 E         for value in data: a=(a+value)&amp;255; b=(b+a)&amp;255
 E         return bytes((a,b))...
-E      
+E
 E      ...Full output truncated (19 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:17: AssertionError</failure></testcase></testsuite></testsuites>

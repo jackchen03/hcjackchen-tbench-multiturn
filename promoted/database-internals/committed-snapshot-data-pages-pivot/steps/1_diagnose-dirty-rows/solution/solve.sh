@@ -17,4 +17,3 @@ for off in range(0,len(pages),26):
 Path(sys.argv[2]).write_text(''.join(f'{account}\n' for account in sorted(dirty)))
 PY
 chmod 0755 /app/diagnose
-

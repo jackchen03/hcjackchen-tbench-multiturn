@@ -33,4 +33,3 @@ def main(capture,stream_out,gaps_out):
 if __name__=="__main__": main(*sys.argv[1:4])
 PY
 python3 -m moldfeed.reconcile /app/samples/prod_multi.mold /tmp/stream /tmp/gaps
-

@@ -26,7 +26,7 @@ _______________ test_single_symbol_single_price_arrival_priority _______________
         actual,_=run(events,"single")
 >       assert actual==oracle(events)
 E       AssertionError: assert [] == [{'maker': 11... 'taker': 20}]
-E         
+E
 E         Right contains 2 more items, first extra item: {'maker': 11, 'price': 500, 'qty': 4, 'taker': 20}
 E         Use -v to get more diff
 
@@ -51,7 +51,7 @@ $ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /lo
         actual,_=run(events,"single")
 &gt;       assert actual==oracle(events)
 E       AssertionError: assert [] == [{'maker': 11... 'taker': 20}]
-E         
+E
 E         Right contains 2 more items, first extra item: {'maker': 11, 'price': 500, 'qty': 4, 'taker': 20}
 E         Use -v to get more diff
 
@@ -106,7 +106,7 @@ ______ test_multi_symbol_multi_price_is_deterministic_and_arrival_ordered ______
             actual,blob=run(events,f"multi-{index}"); blobs.append(blob)
 >           assert actual==expected
 E           AssertionError: assert [{'maker': 10...'taker': 403}] == [{'maker': 20...'taker': 403}]
-E             
+E
 E             At index 0 diff: {'taker': 402, 'maker': 101, 'price': 10, 'qty': 2} != {'taker': 401, 'maker': 201, 'price': 20, 'qty': 3}
 E             Use -v to get more diff
 
@@ -137,7 +137,7 @@ $ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /lo
             actual,blob=run(events,f"multi-{index}"); blobs.append(blob)
 &gt;           assert actual==expected
 E           AssertionError: assert [{'maker': 10...'taker': 403}] == [{'maker': 20...'taker': 403}]
-E             
+E
 E             At index 0 diff: {'taker': 402, 'maker': 101, 'price': 10, 'qty': 2} != {'taker': 401, 'maker': 201, 'price': 20, 'qty': 3}
 E             Use -v to get more diff
 
@@ -184,14 +184,14 @@ _______________ test_removes_worker_and_timestamp_ordering_path ________________
         for banned in ("threading","queue","ThreadPoolExecutor","ts_ms","time.time()"):
 >           assert banned not in source
 E           assert 'queue' not in '#!/usr/bin/...(",",":"))\n'
-E             
+E
 E             'queue' is contained here:
 E               t["qty"]; queue=books.setdefault(key,[])
 E             ?           +++++
 E                           while remaining and queue:
 E                               maker=queue[0]; amount=min(remaining,maker[1])
 E                               fills.append({"taker":event["oid"],"maker":maker[0],"price":event["price"],"qty":amount})...
-E             
+E
 E             ...Full output truncated (9 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:39: AssertionError
@@ -201,12 +201,12 @@ _____________ test_perf_note_explains_ingress_sequence_replacement _____________
 >       note=Path("/app/PERF_NOTE.md").read_text()
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:41: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:41:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/PERF_NOTE.md'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -241,26 +241,26 @@ $ docker exec tbench-mt-price-time-priority-worker-violation-pivot-chain cat /lo
         for banned in ("threading","queue","ThreadPoolExecutor","ts_ms","time.time()"):
 &gt;           assert banned not in source
 E           assert 'queue' not in '#!/usr/bin/...(",",":"))\n'
-E             
+E
 E             'queue' is contained here:
 E               t["qty"]; queue=books.setdefault(key,[])
 E             ?           +++++
 E                           while remaining and queue:
 E                               maker=queue[0]; amount=min(remaining,maker[1])
 E                               fills.append({"taker":event["oid"],"maker":maker[0],"price":event["price"],"qty":amount})...
-E             
+E
 E             ...Full output truncated (9 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:39: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_perf_note_explains_ingress_sequence_replacement" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/PERF_NOTE.md'">def test_perf_note_explains_ingress_sequence_replacement():
 &gt;       note=Path("/app/PERF_NOTE.md").read_text()
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:41: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:41:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/PERF_NOTE.md'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None

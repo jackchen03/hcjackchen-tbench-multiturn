@@ -41,4 +41,3 @@ def test_perf_note_explains_ingress_sequence_replacement():
     note=Path("/app/PERF_NOTE.md").read_text()
     assert len(note)>100
     assert "worker pool" in note.lower() and "ingress sequence" in note.lower()
-

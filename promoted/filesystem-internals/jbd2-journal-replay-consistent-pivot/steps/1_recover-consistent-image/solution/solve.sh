@@ -11,4 +11,3 @@ for t in j["transactions"]:
  if t["committed"]: d["blocks"].update(t["writes"])
 json.dump(d,open("/app/recovered.img","w"),sort_keys=True)
 PY
-

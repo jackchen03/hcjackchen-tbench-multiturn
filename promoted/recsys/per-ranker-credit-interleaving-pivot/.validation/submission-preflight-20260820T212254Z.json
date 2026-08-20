@@ -1,0 +1,19 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:2b26b4483aebcb6c9c602bf774837b016ce806bce80ed4007cab9c50ebc65cf2",
+  "final_audit": "promoted/recsys/per-ranker-credit-interleaving-pivot/.validation/final-audit-20260820T203333Z.json",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/recsys/per-ranker-credit-interleaving-pivot/.validation/chain-20260820T201218Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/recsys/per-ranker-credit-interleaving-pivot/.validation/oracle-x3-current-20260820T205354Z.json",
+  "proposed_commit_pathspec": "promoted/recsys/per-ranker-credit-interleaving-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/recsys/per-ranker-credit-interleaving-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

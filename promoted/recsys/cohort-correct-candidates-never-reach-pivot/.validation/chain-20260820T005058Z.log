@@ -83,8 +83,8 @@ ______ test_metrics_recompute_carried_csv_and_show_expected_cohort_split _______
     def test_metrics_recompute_carried_csv_and_show_expected_cohort_split():
 >       metrics = run_metrics()
 
-/tests/test_outputs.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     def run_metrics():
         run = subprocess.run(["python3", "-m", "rec.run"], cwd="/app", text=True, capture_output=True)
@@ -92,7 +92,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
         metrics = subprocess.run(["python3", "-m", "rec.metrics"], cwd="/app", text=True, capture_output=True)
 >       assert metrics.returncode == 0, metrics.stderr
 E       AssertionError: /usr/local/bin/python3: No module named rec.metrics
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '-m', 'rec.metrics'], returncode=1, stdout='', stderr='/usr/local/bin/python3: No module named rec.metrics\n').returncode
 
@@ -102,8 +102,8 @@ ____ test_metrics_uses_hierarchy_for_category_cohort_and_keeps_csv_contract ____
     def test_metrics_uses_hierarchy_for_category_cohort_and_keeps_csv_contract():
 >       run_metrics()
 
-/tests/test_outputs.py:44: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:44:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     def run_metrics():
         run = subprocess.run(["python3", "-m", "rec.run"], cwd="/app", text=True, capture_output=True)
@@ -111,7 +111,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
         metrics = subprocess.run(["python3", "-m", "rec.metrics"], cwd="/app", text=True, capture_output=True)
 >       assert metrics.returncode == 0, metrics.stderr
 E       AssertionError: /usr/local/bin/python3: No module named rec.metrics
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '-m', 'rec.metrics'], returncode=1, stdout='', stderr='/usr/local/bin/python3: No module named rec.metrics\n').returncode
 
@@ -131,8 +131,8 @@ $ docker exec tbench-mt-cohort-correct-candidates-never-reach-pivot-chain cat /l
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.327" timestamp="2026-08-20T00:51:04.058927+00:00" hostname="8697978c1a63"><testcase classname="test_outputs" name="test_metrics_recompute_carried_csv_and_show_expected_cohort_split" time="0.154"><failure message="AssertionError: /usr/local/bin/python3: No module named rec.metrics&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['python3', '-m', 'rec.metrics'], returncode=1, stdout='', stderr='/usr/local/bin/python3: No module named rec.metrics\n').returncode">def test_metrics_recompute_carried_csv_and_show_expected_cohort_split():
 &gt;       metrics = run_metrics()
 
-/tests/test_outputs.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     def run_metrics():
         run = subprocess.run(["python3", "-m", "rec.run"], cwd="/app", text=True, capture_output=True)
@@ -140,15 +140,15 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
         metrics = subprocess.run(["python3", "-m", "rec.metrics"], cwd="/app", text=True, capture_output=True)
 &gt;       assert metrics.returncode == 0, metrics.stderr
 E       AssertionError: /usr/local/bin/python3: No module named rec.metrics
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '-m', 'rec.metrics'], returncode=1, stdout='', stderr='/usr/local/bin/python3: No module named rec.metrics\n').returncode
 
 /tests/test_outputs.py:17: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_metrics_uses_hierarchy_for_category_cohort_and_keeps_csv_contract" time="0.145"><failure message="AssertionError: /usr/local/bin/python3: No module named rec.metrics&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['python3', '-m', 'rec.metrics'], returncode=1, stdout='', stderr='/usr/local/bin/python3: No module named rec.metrics\n').returncode">def test_metrics_uses_hierarchy_for_category_cohort_and_keeps_csv_contract():
 &gt;       run_metrics()
 
-/tests/test_outputs.py:44: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:44:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     def run_metrics():
         run = subprocess.run(["python3", "-m", "rec.run"], cwd="/app", text=True, capture_output=True)
@@ -156,7 +156,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
         metrics = subprocess.run(["python3", "-m", "rec.metrics"], cwd="/app", text=True, capture_output=True)
 &gt;       assert metrics.returncode == 0, metrics.stderr
 E       AssertionError: /usr/local/bin/python3: No module named rec.metrics
-E         
+E
 E       assert 1 == 0
 E        +  where 1 = CompletedProcess(args=['python3', '-m', 'rec.metrics'], returncode=1, stdout='', stderr='/usr/local/bin/python3: No module named rec.metrics\n').returncode
 
@@ -219,11 +219,11 @@ __________________ test_writes_nonempty_json_two_phase_report __________________
     def test_writes_nonempty_json_two_phase_report():
 >       report = json.loads(REPORT.read_text(encoding="utf-8"))
 
-/tests/test_outputs.py:45: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:45:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_pivot-to-two-phase-ranking_metrics.json'), mode = 'r'
 buffering = -1, encoding = 'utf-8', errors = None, newline = None
@@ -266,11 +266,11 @@ E       assert 'category_hierarchy.json' in 'import json\nfrom pathlib import Pa
 /tests/test_outputs.py:38: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_writes_nonempty_json_two_phase_report" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/3_pivot-to-two-phase-ranking_metrics.json'">def test_writes_nonempty_json_two_phase_report():
 &gt;       report = json.loads(REPORT.read_text(encoding="utf-8"))
 
-/tests/test_outputs.py:45: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:45:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_pivot-to-two-phase-ranking_metrics.json'), mode = 'r'
 buffering = -1, encoding = 'utf-8', errors = None, newline = None

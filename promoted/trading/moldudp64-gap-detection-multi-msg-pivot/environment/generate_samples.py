@@ -43,4 +43,3 @@ for name,packets in sets.items():
     stream,gaps=expected(packets)
     (out/f"{name}.stream").write_text(stream)
     (out/f"{name}.gaps").write_text(gaps)
-

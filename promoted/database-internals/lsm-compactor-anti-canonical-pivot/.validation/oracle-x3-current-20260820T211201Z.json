@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:aaa5ce3bbb18ca6e82bd3f0d4a6887a2d7988279258bdd3c10fdfddda46b50ca",
+  "command": "codimango bench run -p lsm-compactor-anti-canonical-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "39b0a08065edf00be0b6f8229b73aaf69967ff5c174021e545b44a0535b3ddd2",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.TCK6Nx/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.TCK6Nx",
+  "source_final_audit": "promoted/database-internals/lsm-compactor-anti-canonical-pivot/.validation/final-audit-20260820T202812Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/lsm-compactor-anti-canonical-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:11:57.741210Z",
+      "harbor_task_checksum": "39b0a08065edf00be0b6f8229b73aaf69967ff5c174021e545b44a0535b3ddd2",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:11:21.575897Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-anti-canonical-compactor",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-level-accounting-from-sstable",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-tiered-no-parity-drop-accounting",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "41b969d0-104b-4998-abb7-be777e634290",
+      "trial_name": "lsm-compactor-anti-canonical-piv__7q5SRCr"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:11:57.945117Z",
+      "harbor_task_checksum": "39b0a08065edf00be0b6f8229b73aaf69967ff5c174021e545b44a0535b3ddd2",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:11:21.626257Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-anti-canonical-compactor",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-level-accounting-from-sstable",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-tiered-no-parity-drop-accounting",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "643b5bce-c42b-4f62-9320-f9c441f1fba5",
+      "trial_name": "lsm-compactor-anti-canonical-piv__ciU7NtX"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:11:58.906159Z",
+      "harbor_task_checksum": "39b0a08065edf00be0b6f8229b73aaf69967ff5c174021e545b44a0535b3ddd2",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:11:21.641491Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-anti-canonical-compactor",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-level-accounting-from-sstable",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-tiered-no-parity-drop-accounting",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "0b11abfd-afbc-474a-bfd5-c181c77d673e",
+      "trial_name": "lsm-compactor-anti-canonical-piv__wkU9mLW"
+    }
+  ],
+  "wall_time_seconds": 79,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

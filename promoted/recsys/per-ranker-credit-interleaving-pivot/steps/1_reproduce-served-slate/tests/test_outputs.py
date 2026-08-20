@@ -25,4 +25,3 @@ def test_replays_true_served_slate_from_seeded_stream():
     assert actual=={"session_id":"held","slate":truth(row)[0]}
 def test_does_not_create_credit_entrypoint_yet():
     assert not Path("/app/credit.py").exists()
-

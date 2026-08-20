@@ -29,4 +29,3 @@ if __name__=="__main__": main(*sys.argv[1:4])
 PY
 rm -rf /app/probe_volumes /app/probe_report.json
 printf '%s\n' '{"face_owner":"lower-raster-neighbor","warp_exponent":1.5,"probe_artifacts_removed":true}' > /app/3_raster_ownership_pivot_result.json
-

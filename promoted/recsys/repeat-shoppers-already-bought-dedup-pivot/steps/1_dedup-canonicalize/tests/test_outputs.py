@@ -22,4 +22,3 @@ def test_does_not_use_product_mapping_yet():
     assert "catalog.parquet" not in source
     assert "product_id" not in source
     assert "purchases.parquet" not in source
-

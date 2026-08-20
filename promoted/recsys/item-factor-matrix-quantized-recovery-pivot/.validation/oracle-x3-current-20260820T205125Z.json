@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:1d88f8c8b3b19c79d14e5c53884777c0973c28ca667b5e0e6d3ef05a0055d02c",
+  "command": "codimango bench run -p item-factor-matrix-quantized-recovery-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "32b5ff5d33f7a666b4678c15157abc3689bf6b3d5eb55ba4d42b8498e3c5bad6",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.icntHy/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.icntHy",
+  "source_final_audit": "promoted/recsys/item-factor-matrix-quantized-recovery-pivot/.validation/final-audit-20260820T203330Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/recsys/item-factor-matrix-quantized-recovery-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:51:21.718998Z",
+      "harbor_task_checksum": "32b5ff5d33f7a666b4678c15157abc3689bf6b3d5eb55ba4d42b8498e3c5bad6",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:50:41.102426Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-quantized-factors",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_expose-head-diagnostics",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-lazy-on-demand-decoder",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "4037951f-8209-45a4-a448-7e38256b0de2",
+      "trial_name": "item-factor-matrix-quantized-rec__FiopYCB"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:51:23.009243Z",
+      "harbor_task_checksum": "32b5ff5d33f7a666b4678c15157abc3689bf6b3d5eb55ba4d42b8498e3c5bad6",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:50:41.165562Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-quantized-factors",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_expose-head-diagnostics",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-lazy-on-demand-decoder",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "371000dd-fcea-4f42-b753-365d78ada46c",
+      "trial_name": "item-factor-matrix-quantized-rec__qGi2f9H"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:51:20.763849Z",
+      "harbor_task_checksum": "32b5ff5d33f7a666b4678c15157abc3689bf6b3d5eb55ba4d42b8498e3c5bad6",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:50:41.000760Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-quantized-factors",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_expose-head-diagnostics",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-lazy-on-demand-decoder",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "279b7e66-60ef-4f19-b6fe-9b0bcdd0eb81",
+      "trial_name": "item-factor-matrix-quantized-rec__v5dVceC"
+    }
+  ],
+  "wall_time_seconds": 125,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

@@ -12,4 +12,3 @@ for path in sorted(glob.glob(sys.argv[1]+"/*.json")):
 open(sys.argv[2],"w").write("".join(f"{k}\t{v[0]}\t{len(v[1])}\n" for k,v in sorted(agg.items())))
 PY
 chmod +x /app/recover
-

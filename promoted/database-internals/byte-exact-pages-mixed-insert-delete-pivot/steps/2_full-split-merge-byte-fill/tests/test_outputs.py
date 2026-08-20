@@ -18,4 +18,3 @@ def test_single_page_behavior_remains_sorted_and_live():
     assert b.find(b"alpha")>=0 and b.find(b"gamma")>=0 and b.find(b"beta")<0
 def test_does_not_create_migration_report_yet():
     assert not Path("/app/migration_report.json").exists()
-

@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 28,
+  "bundle_fingerprint": "bundle-sha256-v1:233f1cc6f6f37dff31bf8c244c5638840f6f7e401a6e06a39689f08a2e56d4db",
+  "final_audit": "promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/.validation/final-audit-20260820T202734Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/.validation/chain-20260820T200338Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/.validation/oracle-x3-current-20260820T203925Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

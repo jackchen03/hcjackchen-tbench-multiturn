@@ -30,4 +30,3 @@ def test_integer_squared_distance_returns_ordered_ids():
     assert all(isinstance(item,int) for item in result)
 def test_does_not_create_push_counter_metrics_yet():
     assert not Path("/app/2_fix-tie-order-per-push-counter_metrics.json").exists()
-

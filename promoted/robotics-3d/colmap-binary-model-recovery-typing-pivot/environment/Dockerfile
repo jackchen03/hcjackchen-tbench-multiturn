@@ -8,4 +8,3 @@ RUN pip install --no-cache-dir --no-index --find-links=/tmp/wheels -r /tmp/requi
 WORKDIR /app
 COPY make_model.py naive_read.py README.md /app/
 RUN python3 /app/make_model.py && find /app -type f -exec touch -t 202001010000.00 {} +
-

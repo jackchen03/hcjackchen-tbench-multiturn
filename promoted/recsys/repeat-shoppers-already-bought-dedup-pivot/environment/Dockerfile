@@ -16,4 +16,3 @@ RUN python3 /tmp/generate_data.py /app/data \
     && rm /tmp/generate_data.py \
     && mkdir -p /app/out \
     && find /app -type f -exec touch -t 202001010000.00 {} +
-

@@ -1,0 +1,54 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:017df0fe58cfafb2af5fd4ffb58672a6ef20849231395724a034b90065a84950",
+  "chain_evidence": "promoted/database-internals/crash-safe-next-value-pivot/.validation/chain-20260820T201052Z.json",
+  "green_phases": [
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "1_recover-next-only"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "2_operate-audit-recovery"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "3_pivot-counter-scheme"
+    }
+  ],
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "overexec_phases": [
+    {
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "1_recover-next-only"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "2_operate-audit-recovery"
+    }
+  ],
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "skipped": 0,
+  "static_audit": "PASS",
+  "static_finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "WARN": 0
+  },
+  "status": "PASS",
+  "task": "promoted/database-internals/crash-safe-next-value-pivot"
+}

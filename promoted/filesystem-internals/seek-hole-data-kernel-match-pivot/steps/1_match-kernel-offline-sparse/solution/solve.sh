@@ -21,4 +21,3 @@ for line in open(sys.argv[2]):
 open(sys.argv[3],"w").write("\n".join(out)+"\n")
 PY
 chmod +x /app/run.sh
-

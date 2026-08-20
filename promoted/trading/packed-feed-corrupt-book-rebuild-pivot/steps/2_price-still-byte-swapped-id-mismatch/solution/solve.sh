@@ -41,4 +41,3 @@ PY
 chmod +x /app/replay.py
 printf '%s\n' '{"fixed":"packed offsets and mixed endian","price":"big","identifiers":"little"}' > /app/2_price-still-byte-swapped-id-mismatch_report.json
 python3 /app/replay.py /app/sample/feed.bin /tmp/out.json
-

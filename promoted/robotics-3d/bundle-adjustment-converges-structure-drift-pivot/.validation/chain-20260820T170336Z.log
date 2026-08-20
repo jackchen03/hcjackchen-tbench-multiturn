@@ -23,8 +23,8 @@ ________________ test_jacobian_rows_are_whitened_by_each_sigma _________________
 >       assert np.allclose(out["weighted_rows"],[2.0,0.5])
                            ^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = NpzFile '/tmp/out.npz' with keys: points, poses, key = 'weighted_rows'
 
@@ -77,8 +77,8 @@ $ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain 
 &gt;       assert np.allclose(out["weighted_rows"],[2.0,0.5])
                            ^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = NpzFile '/tmp/out.npz' with keys: points, poses, key = 'weighted_rows'
 
@@ -155,12 +155,12 @@ ______________ test_weighted_gain_ratio_keeps_damping_meaningful _______________
 >       report=json.loads(Path("/workdir/lm_gain_fix.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/workdir/lm_gain_fix.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -195,12 +195,12 @@ $ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain 
 &gt;       report=json.loads(Path("/workdir/lm_gain_fix.json").read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:7: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:7:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/workdir/lm_gain_fix.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -260,14 +260,14 @@ ________________ test_unified_weighted_path_removes_raw_helpers ________________
         source=Path("/app/ba_refine.py").read_text()
 >       assert "def reproj_error_px" not in source and "def linear_predicted_reduction_raw" not in source
 E       assert ('def reproj_error_px' not in 'import argp...son","w"))\n'
-E         
+E
 E         'def reproj_error_px' is contained here:
 E           ual*scale
 E           def reproj_error_px(points,obs): return points[:,:2]-obs
 E         ? +++++++++++++++++++
 E           def linear_predicted_reduction_raw(g,step): return float(-g@step)
 E           def linear_predicted_reduction_weighted(g,H,step): return float(-(g@step+0.5*step@H@step))...
-E         
+E
 E         ...Full output truncated (5 lines hidden), use '-vv' to show)
 
 /tests/test_outputs.py:8: AssertionError
@@ -280,8 +280,8 @@ ________________ test_preserves_points_poses_and_datum_contract ________________
 >       assert float(out["rho"])>0.9
                      ^^^^^^^^^^
 
-/tests/test_outputs.py:15: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:15:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = NpzFile '/tmp/out.npz' with keys: points, poses, weighted_rows
 key = 'rho'
@@ -333,14 +333,14 @@ $ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain 
         source=Path("/app/ba_refine.py").read_text()
 &gt;       assert "def reproj_error_px" not in source and "def linear_predicted_reduction_raw" not in source
 E       assert ('def reproj_error_px' not in 'import argp...son","w"))\n'
-E         
+E
 E         'def reproj_error_px' is contained here:
 E           ual*scale
 E           def reproj_error_px(points,obs): return points[:,:2]-obs
 E         ? +++++++++++++++++++
 E           def linear_predicted_reduction_raw(g,step): return float(-g@step)
 E           def linear_predicted_reduction_weighted(g,H,step): return float(-(g@step+0.5*step@H@step))...
-E         
+E
 E         ...Full output truncated (5 lines hidden), use '-vv' to show)
 
 /tests/test_outputs.py:8: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_preserves_points_poses_and_datum_contract" time="0.004"><failure message="KeyError: 'rho is not a file in the archive'">def test_preserves_points_poses_and_datum_contract():
@@ -350,8 +350,8 @@ E         ...Full output truncated (5 lines hidden), use '-vv' to show)
 &gt;       assert float(out["rho"])&gt;0.9
                      ^^^^^^^^^^
 
-/tests/test_outputs.py:15: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:15:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = NpzFile '/tmp/out.npz' with keys: points, poses, weighted_rows
 key = 'rho'

@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 26,
+  "bundle_fingerprint": "bundle-sha256-v1:8fc0069b4ed88a88d82670ba3f71deb49fe0a3a3cf7cf566c152cc37eb842870",
+  "final_audit": "promoted/database-internals/committed-table-state-where-wi-pivot/.validation/final-audit-20260820T202742Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/committed-table-state-where-wi-pivot/.validation/chain-20260820T200653Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/committed-table-state-where-wi-pivot/.validation/oracle-x3-current-20260820T204549Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/committed-table-state-where-wi-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/committed-table-state-where-wi-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

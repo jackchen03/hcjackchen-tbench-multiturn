@@ -35,7 +35,7 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_terminal_amend_and_cance
             {"counterparty": "HEDGE_A", "currency": "GBP", "value_date": "2026-06-25", "net_amount": "1100"},
         ]
 E       AssertionError: assert [{'counterpar...'2026-06-24'}] == [{'counterpar...'2026-06-25'}]
-E         
+E
 E         At index 0 diff: {'counterparty': 'HEDGE_A', 'currency': 'EUR', 'value_date': '2026-06-24', 'net_amount': '1100'} != {'counterparty': 'HEDGE_A', 'currency': 'CHF', 'value_date': '2026-06-25', 'net_amount': '-1250'}
 E         Use -v to get more diff
 
@@ -59,7 +59,7 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_usd_is_a_final_gate_not_
             {"counterparty": "GATE", "currency": "JPY", "value_date": "2026-07-06", "net_amount": "-15100"},
         ]
 E       AssertionError: assert [{'counterpar...'2026-07-03'}] == [{'counterpar...'2026-07-06'}]
-E         
+E
 E         At index 2 diff: {'counterparty': 'GATE', 'currency': 'EUR', 'value_date': '2026-07-03', 'net_amount': '101'} != {'counterparty': 'GATE', 'currency': 'EUR', 'value_date': '2026-07-06', 'net_amount': '101'}
 E         Use -v to get more diff
 
@@ -94,7 +94,7 @@ $ docker exec tbench-mt-settlement-obligations-amended-trade-pivot-chain cat /lo
             {"counterparty": "HEDGE_A", "currency": "GBP", "value_date": "2026-06-25", "net_amount": "1100"},
         ]
 E       AssertionError: assert [{'counterpar...'2026-06-24'}] == [{'counterpar...'2026-06-25'}]
-E         
+E
 E         At index 0 diff: {'counterparty': 'HEDGE_A', 'currency': 'EUR', 'value_date': '2026-06-24', 'net_amount': '1100'} != {'counterparty': 'HEDGE_A', 'currency': 'CHF', 'value_date': '2026-06-25', 'net_amount': '-1250'}
 E         Use -v to get more diff
 
@@ -115,7 +115,7 @@ E         Use -v to get more diff
             {"counterparty": "GATE", "currency": "JPY", "value_date": "2026-07-06", "net_amount": "-15100"},
         ]
 E       AssertionError: assert [{'counterpar...'2026-07-03'}] == [{'counterpar...'2026-07-06'}]
-E         
+E
 E         At index 2 diff: {'counterparty': 'GATE', 'currency': 'EUR', 'value_date': '2026-07-03', 'net_amount': '101'} != {'counterparty': 'GATE', 'currency': 'EUR', 'value_date': '2026-07-06', 'net_amount': '101'}
 E         Use -v to get more diff
 
@@ -175,8 +175,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_funding_aggregates_the_c
         assert settlement_rows[0] == {"counterparty": "CP_ONE", "currency": "EUR", "value_date": "2026-07-06", "net_amount": "800"}
 >       run_command(["python3", "/app/funding_report.py", str(settlement), str(funding)])
 
-/tests/test_outputs.py:34: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:34:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 arguments = ['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/test_funding_aggregates_the_ca0/settlement.csv', '/tmp/pytest-of-root/pytest-2/test_funding_aggregates_the_ca0/funding.csv']
 
@@ -184,7 +184,7 @@ arguments = ['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/
         result = subprocess.run(arguments, text=True, capture_output=True)
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/funding_report.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/test_funding_aggregates_the_...rncode=2, stdout='', stderr="python3: can't open file '/app/funding_report.py': [Errno 2] No such file or directory\n").returncode
 
@@ -205,8 +205,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_funding_reads_supplied_c
         )
 >       run_command(["python3", "/app/funding_report.py", str(settlement), str(funding)])
 
-/tests/test_outputs.py:53: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:53:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 arguments = ['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/test_funding_reads_supplied_cs0/external-settlement.csv', '/tmp/pytest-of-root/pytest-2/test_funding_reads_supplied_cs0/funding.csv']
 
@@ -214,7 +214,7 @@ arguments = ['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/
         result = subprocess.run(arguments, text=True, capture_output=True)
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/funding_report.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/test_funding_reads_supplied_...rncode=2, stdout='', stderr="python3: can't open file '/app/funding_report.py': [Errno 2] No such file or directory\n").returncode
 
@@ -249,8 +249,8 @@ $ docker exec tbench-mt-settlement-obligations-amended-trade-pivot-chain cat /lo
         assert settlement_rows[0] == {"counterparty": "CP_ONE", "currency": "EUR", "value_date": "2026-07-06", "net_amount": "800"}
 &gt;       run_command(["python3", "/app/funding_report.py", str(settlement), str(funding)])
 
-/tests/test_outputs.py:34: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:34:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 arguments = ['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/test_funding_aggregates_the_ca0/settlement.csv', '/tmp/pytest-of-root/pytest-2/test_funding_aggregates_the_ca0/funding.csv']
 
@@ -258,7 +258,7 @@ arguments = ['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/
         result = subprocess.run(arguments, text=True, capture_output=True)
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/funding_report.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/test_funding_aggregates_the_...rncode=2, stdout='', stderr="python3: can't open file '/app/funding_report.py': [Errno 2] No such file or directory\n").returncode
 
@@ -276,8 +276,8 @@ E        +  where 2 = CompletedProcess(args=['python3', '/app/funding_report.py'
         )
 &gt;       run_command(["python3", "/app/funding_report.py", str(settlement), str(funding)])
 
-/tests/test_outputs.py:53: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:53:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 arguments = ['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/test_funding_reads_supplied_cs0/external-settlement.csv', '/tmp/pytest-of-root/pytest-2/test_funding_reads_supplied_cs0/funding.csv']
 
@@ -285,7 +285,7 @@ arguments = ['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/
         result = subprocess.run(arguments, text=True, capture_output=True)
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/funding_report.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/funding_report.py', '/tmp/pytest-of-root/pytest-2/test_funding_reads_supplied_...rncode=2, stdout='', stderr="python3: can't open file '/app/funding_report.py': [Errno 2] No such file or directory\n").returncode
 
@@ -342,8 +342,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_gross_tracks_pay_and_rec
             ],
         )
 
-/tests/test_outputs.py:25: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:25:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_gross_tracks_pay_and_rece0')
 messages = [{'bought_amount': 100, 'bought_ccy': 'EUR', 'counterparty': 'LIQUIDITY', 'msg_type': 'NEW', ...}, {'bought_amount': 1..., 'bought_ccy': 'EUR', 'counterparty': 'CANCELED', 'msg_type': 'NEW', ...}, {'msg_type': 'CANCEL', 'trade_id': 'gone'}]
@@ -359,7 +359,7 @@ messages = [{'bought_amount': 100, 'bought_ccy': 'EUR', 'counterparty': 'LIQUIDI
         )
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/gross_exposure.py', '/tmp/pytest-of-root/pytest-4/test_gross_tracks_pay_and_re...rncode=2, stdout='', stderr="python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory\n").returncode
 
@@ -376,8 +376,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_gross_retains_the_usd_co
             ],
         )
 
-/tests/test_outputs.py:46: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:46:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_gross_retains_the_usd_cou0')
 messages = [{'bought_amount': 333, 'bought_ccy': 'GBP', 'counterparty': 'COUNT', 'msg_type': 'NEW', ...}]
@@ -393,7 +393,7 @@ messages = [{'bought_amount': 333, 'bought_ccy': 'GBP', 'counterparty': 'COUNT',
         )
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/gross_exposure.py', '/tmp/pytest-of-root/pytest-4/test_gross_retains_the_usd_c...rncode=2, stdout='', stderr="python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory\n").returncode
 
@@ -410,8 +410,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_gross_does_not_create_de
             [{"msg_type": "NEW", "trade_id": "only", "counterparty": "PIPE", "trade_date": "2026-06-23", "bought_ccy": "EUR", "bought_amount": 10, "sold_ccy": "JPY", "sold_amount": 1500}],
         )
 
-/tests/test_outputs.py:61: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:61:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_gross_does_not_create_dep0')
 messages = [{'bought_amount': 10, 'bought_ccy': 'EUR', 'counterparty': 'PIPE', 'msg_type': 'NEW', ...}]
@@ -427,7 +427,7 @@ messages = [{'bought_amount': 10, 'bought_ccy': 'EUR', 'counterparty': 'PIPE', '
         )
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/gross_exposure.py', '/tmp/pytest-of-root/pytest-4/test_gross_does_not_create_d...rncode=2, stdout='', stderr="python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory\n").returncode
 
@@ -458,8 +458,8 @@ $ docker exec tbench-mt-settlement-obligations-amended-trade-pivot-chain cat /lo
             ],
         )
 
-/tests/test_outputs.py:25: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:25:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_gross_tracks_pay_and_rece0')
 messages = [{'bought_amount': 100, 'bought_ccy': 'EUR', 'counterparty': 'LIQUIDITY', 'msg_type': 'NEW', ...}, {'bought_amount': 1..., 'bought_ccy': 'EUR', 'counterparty': 'CANCELED', 'msg_type': 'NEW', ...}, {'msg_type': 'CANCEL', 'trade_id': 'gone'}]
@@ -475,7 +475,7 @@ messages = [{'bought_amount': 100, 'bought_ccy': 'EUR', 'counterparty': 'LIQUIDI
         )
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/gross_exposure.py', '/tmp/pytest-of-root/pytest-4/test_gross_tracks_pay_and_re...rncode=2, stdout='', stderr="python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory\n").returncode
 
@@ -489,8 +489,8 @@ E        +  where 2 = CompletedProcess(args=['python3', '/app/gross_exposure.py'
             ],
         )
 
-/tests/test_outputs.py:46: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:46:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_gross_retains_the_usd_cou0')
 messages = [{'bought_amount': 333, 'bought_ccy': 'GBP', 'counterparty': 'COUNT', 'msg_type': 'NEW', ...}]
@@ -506,7 +506,7 @@ messages = [{'bought_amount': 333, 'bought_ccy': 'GBP', 'counterparty': 'COUNT',
         )
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/gross_exposure.py', '/tmp/pytest-of-root/pytest-4/test_gross_retains_the_usd_c...rncode=2, stdout='', stderr="python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory\n").returncode
 
@@ -520,8 +520,8 @@ E        +  where 2 = CompletedProcess(args=['python3', '/app/gross_exposure.py'
             [{"msg_type": "NEW", "trade_id": "only", "counterparty": "PIPE", "trade_date": "2026-06-23", "bought_ccy": "EUR", "bought_amount": 10, "sold_ccy": "JPY", "sold_amount": 1500}],
         )
 
-/tests/test_outputs.py:61: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:61:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_gross_does_not_create_dep0')
 messages = [{'bought_amount': 10, 'bought_ccy': 'EUR', 'counterparty': 'PIPE', 'msg_type': 'NEW', ...}]
@@ -537,7 +537,7 @@ messages = [{'bought_amount': 10, 'bought_ccy': 'EUR', 'counterparty': 'PIPE', '
         )
 &gt;       assert result.returncode == 0, result.stderr
 E       AssertionError: python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['python3', '/app/gross_exposure.py', '/tmp/pytest-of-root/pytest-4/test_gross_does_not_create_d...rncode=2, stdout='', stderr="python3: can't open file '/app/gross_exposure.py': [Errno 2] No such file or directory\n").returncode
 

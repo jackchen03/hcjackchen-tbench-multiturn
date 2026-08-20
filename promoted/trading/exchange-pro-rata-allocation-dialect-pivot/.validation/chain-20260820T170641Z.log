@@ -27,7 +27,7 @@ __________________ test_sample_reproduces_reference_carveout ___________________
         ]
 >       assert actual == expected
 E       AssertionError: assert [{'event_id':...': 'B3'}, ...] == [{'event_id':...': 'B3'}, ...]
-E         
+E
 E         At index 0 diff: {'event_id': 'sample-1', 'filled_qty': 3, 'order_id': 'A1'} != {'event_id': 'sample-1', 'filled_qty': 5, 'order_id': 'A1'}
 E         Use -v to get more diff
 
@@ -46,7 +46,7 @@ _____________ test_disjoint_books_follow_residual_capacity_dialect _____________
         }
 >       assert run_matcher([event], "step1-heldout") == reference_v1(event)
 E       AssertionError: assert [{'event_id':...r_id': 'Z44'}] == [{'event_id':...r_id': 'Z44'}]
-E         
+E
 E         At index 0 diff: {'event_id': 'heldout-carve', 'filled_qty': 5, 'order_id': 'Z90'} != {'event_id': 'heldout-carve', 'order_id': 'Z90', 'filled_qty': 13}
 E         Use -v to get more diff
 
@@ -73,7 +73,7 @@ $ docker exec tbench-mt-exchange-pro-rata-allocation-dialect-pivot-chain cat /lo
         ]
 &gt;       assert actual == expected
 E       AssertionError: assert [{'event_id':...': 'B3'}, ...] == [{'event_id':...': 'B3'}, ...]
-E         
+E
 E         At index 0 diff: {'event_id': 'sample-1', 'filled_qty': 3, 'order_id': 'A1'} != {'event_id': 'sample-1', 'filled_qty': 5, 'order_id': 'A1'}
 E         Use -v to get more diff
 
@@ -89,7 +89,7 @@ E         Use -v to get more diff
         }
 &gt;       assert run_matcher([event], "step1-heldout") == reference_v1(event)
 E       AssertionError: assert [{'event_id':...r_id': 'Z44'}] == [{'event_id':...r_id': 'Z44'}]
-E         
+E
 E         At index 0 diff: {'event_id': 'heldout-carve', 'filled_qty': 5, 'order_id': 'Z90'} != {'event_id': 'heldout-carve', 'order_id': 'Z90', 'filled_qty': 13}
 E         Use -v to get more diff
 
@@ -136,7 +136,7 @@ ____________________ test_min_fill_is_dropped_and_repooled _____________________
         expected = reference_v1_minfill(MIN_FILL_EVENT)
 >       assert actual == expected
 E       AssertionError: assert [{'event_id':...id': 'large'}] == [{'event_id':...id': 'large'}]
-E         
+E
 E         At index 0 diff: {'event_id': 'heldout-min-fill', 'filled_qty': 9, 'order_id': 'top'} != {'event_id': 'heldout-min-fill', 'order_id': 'top', 'filled_qty': 8}
 E         Use -v to get more diff
 
@@ -146,7 +146,7 @@ ____________ test_stage_allocation_v2_after_current_contract_holds _____________
     def test_stage_allocation_v2_after_current_contract_holds():
 >       assert run_matcher([MIN_FILL_EVENT], "step2-stage") == reference_v1_minfill(MIN_FILL_EVENT)
 E       AssertionError: assert [{'event_id':...id': 'large'}] == [{'event_id':...id': 'large'}]
-E         
+E
 E         At index 0 diff: {'event_id': 'heldout-min-fill', 'filled_qty': 9, 'order_id': 'top'} != {'event_id': 'heldout-min-fill', 'order_id': 'top', 'filled_qty': 8}
 E         Use -v to get more diff
 
@@ -169,14 +169,14 @@ $ docker exec tbench-mt-exchange-pro-rata-allocation-dialect-pivot-chain cat /lo
         expected = reference_v1_minfill(MIN_FILL_EVENT)
 &gt;       assert actual == expected
 E       AssertionError: assert [{'event_id':...id': 'large'}] == [{'event_id':...id': 'large'}]
-E         
+E
 E         At index 0 diff: {'event_id': 'heldout-min-fill', 'filled_qty': 9, 'order_id': 'top'} != {'event_id': 'heldout-min-fill', 'order_id': 'top', 'filled_qty': 8}
 E         Use -v to get more diff
 
 /tests/test_outputs.py:85: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_preserves_step1_carveout_sample" time="0.061" /><testcase classname="test_outputs" name="test_does_not_write_pnl_impact_report_yet" time="0.000" /><testcase classname="test_outputs" name="test_stage_allocation_v2_after_current_contract_holds" time="0.063"><failure message="AssertionError: assert [{'event_id':...id': 'large'}] == [{'event_id':...id': 'large'}]&#10;  &#10;  At index 0 diff: {'event_id': 'heldout-min-fill', 'filled_qty': 9, 'order_id': 'top'} != {'event_id': 'heldout-min-fill', 'order_id': 'top', 'filled_qty': 8}&#10;  Use -v to get more diff">def test_stage_allocation_v2_after_current_contract_holds():
 &gt;       assert run_matcher([MIN_FILL_EVENT], "step2-stage") == reference_v1_minfill(MIN_FILL_EVENT)
 E       AssertionError: assert [{'event_id':...id': 'large'}] == [{'event_id':...id': 'large'}]
-E         
+E
 E         At index 0 diff: {'event_id': 'heldout-min-fill', 'filled_qty': 9, 'order_id': 'top'} != {'event_id': 'heldout-min-fill', 'order_id': 'top', 'filled_qty': 8}
 E         Use -v to get more diff
 
@@ -222,13 +222,13 @@ ___________ test_v2_allocation_removes_carveout_and_retains_minfill ____________
     def test_v2_allocation_removes_carveout_and_retains_minfill():
 >       actual_fills, actual_report = run_matcher(V2_EVENTS)
 
-/tests/test_outputs.py:104: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:104:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:100: in run_matcher
     return json.loads(output.read_text(encoding="utf-8")), json.loads(REPORT.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/reports/pnl_impact.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -250,13 +250,13 @@ _______________ test_report_aggregates_every_participant_exactly _______________
     def test_report_aggregates_every_participant_exactly():
 >       fills, report = run_matcher(V2_EVENTS)
 
-/tests/test_outputs.py:114: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:114:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:100: in run_matcher
     return json.loads(output.read_text(encoding="utf-8")), json.loads(REPORT.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/reports/pnl_impact.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -279,14 +279,14 @@ _______________________ test_old_carveout_path_is_absent _______________________
         source = MATCHER.read_text(encoding="utf-8")
 >       assert "carve" not in source.lower()
 E       assert 'carve' not in '#!/usr/bin/...s.argv[2])\n'
-E         
+E
 E         'carve' is contained here:
 E           :
 E                   carve = min(orders[0]["qty"], (total_fill + 1) // 2)
 E         ?         +++++
 E                   caps = [order["qty"] for order in orders]
 E                   caps[0] -= carve...
-E         
+E
 E         ...Full output truncated (22 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:133: AssertionError
@@ -304,13 +304,13 @@ $ docker exec tbench-mt-exchange-pro-rata-allocation-dialect-pivot-chain cat /lo
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.195" timestamp="2026-08-20T17:06:49.414614+00:00" hostname="43c3d0fa6ee7"><testcase classname="test_outputs" name="test_v2_allocation_removes_carveout_and_retains_minfill" time="0.061"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/reports/pnl_impact.json'">def test_v2_allocation_removes_carveout_and_retains_minfill():
 &gt;       actual_fills, actual_report = run_matcher(V2_EVENTS)
 
-/tests/test_outputs.py:104: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:104:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:100: in run_matcher
     return json.loads(output.read_text(encoding="utf-8")), json.loads(REPORT.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/reports/pnl_impact.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -329,13 +329,13 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/reports/pn
 /usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_report_aggregates_every_participant_exactly" time="0.062"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/reports/pnl_impact.json'">def test_report_aggregates_every_participant_exactly():
 &gt;       fills, report = run_matcher(V2_EVENTS)
 
-/tests/test_outputs.py:114: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:114:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:100: in run_matcher
     return json.loads(output.read_text(encoding="utf-8")), json.loads(REPORT.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/reports/pnl_impact.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -355,14 +355,14 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/reports/pn
         source = MATCHER.read_text(encoding="utf-8")
 &gt;       assert "carve" not in source.lower()
 E       assert 'carve' not in '#!/usr/bin/...s.argv[2])\n'
-E         
+E
 E         'carve' is contained here:
 E           :
 E                   carve = min(orders[0]["qty"], (total_fill + 1) // 2)
 E         ?         +++++
 E                   caps = [order["qty"] for order in orders]
 E                   caps[0] -= carve...
-E         
+E
 E         ...Full output truncated (22 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:133: AssertionError</failure></testcase></testsuite></testsuites>
@@ -433,7 +433,7 @@ _____________ test_disjoint_books_follow_residual_capacity_dialect _____________
         }
 >       assert run_matcher([event], "step1-heldout") == reference_v1(event)
 E       AssertionError: assert [{'event_id':...r_id': 'Z44'}] == [{'event_id':...r_id': 'Z44'}]
-E         
+E
 E         At index 0 diff: {'event_id': 'heldout-carve', 'filled_qty': 12, 'order_id': 'Z90'} != {'event_id': 'heldout-carve', 'order_id': 'Z90', 'filled_qty': 13}
 E         Use -v to get more diff
 
@@ -444,14 +444,14 @@ ___________________ test_does_not_apply_min_fill_repool_yet ____________________
         later_identifier = "MIN_FILL"
 >       assert later_identifier not in MATCHER.read_text(encoding="utf-8")
 E       AssertionError: assert 'MIN_FILL' not in '#!/usr/bin/...s.argv[2])\n'
-E         
+E
 E         'MIN_FILL' is contained here:
 E           port sys
-E           
+E
 E           MIN_FILL = 2
-E           
+E
 E           ...
-E         
+E
 E         ...Full output truncated (63 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:97: AssertionError
@@ -479,7 +479,7 @@ $ docker exec tbench-mt-exchange-pro-rata-allocation-dialect-pivot-oe1 cat /logs
         }
 &gt;       assert run_matcher([event], "step1-heldout") == reference_v1(event)
 E       AssertionError: assert [{'event_id':...r_id': 'Z44'}] == [{'event_id':...r_id': 'Z44'}]
-E         
+E
 E         At index 0 diff: {'event_id': 'heldout-carve', 'filled_qty': 12, 'order_id': 'Z90'} != {'event_id': 'heldout-carve', 'order_id': 'Z90', 'filled_qty': 13}
 E         Use -v to get more diff
 
@@ -487,14 +487,14 @@ E         Use -v to get more diff
         later_identifier = "MIN_FILL"
 &gt;       assert later_identifier not in MATCHER.read_text(encoding="utf-8")
 E       AssertionError: assert 'MIN_FILL' not in '#!/usr/bin/...s.argv[2])\n'
-E         
+E
 E         'MIN_FILL' is contained here:
 E           port sys
-E           
+E
 E           MIN_FILL = 2
-E           
+E
 E           ...
-E         
+E
 E         ...Full output truncated (63 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:97: AssertionError</failure></testcase></testsuite></testsuites>
@@ -541,7 +541,7 @@ _____________________ test_preserves_step1_carveout_sample _____________________
         expected = [row for event in events for row in reference_v1_minfill(event)]
 >       assert actual == expected
 E       AssertionError: assert [{'event_id':...': 'B3'}, ...] == [{'event_id':...': 'B3'}, ...]
-E         
+E
 E         At index 0 diff: {'event_id': 'sample-1', 'filled_qty': 3, 'order_id': 'A1'} != {'event_id': 'sample-1', 'order_id': 'A1', 'filled_qty': 5}
 E         Use -v to get more diff
 
@@ -574,7 +574,7 @@ $ docker exec tbench-mt-exchange-pro-rata-allocation-dialect-pivot-oe2 cat /logs
         expected = [row for event in events for row in reference_v1_minfill(event)]
 &gt;       assert actual == expected
 E       AssertionError: assert [{'event_id':...': 'B3'}, ...] == [{'event_id':...': 'B3'}, ...]
-E         
+E
 E         At index 0 diff: {'event_id': 'sample-1', 'filled_qty': 3, 'order_id': 'A1'} != {'event_id': 'sample-1', 'order_id': 'A1', 'filled_qty': 5}
 E         Use -v to get more diff
 

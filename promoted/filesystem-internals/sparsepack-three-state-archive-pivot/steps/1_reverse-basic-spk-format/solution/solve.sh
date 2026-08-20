@@ -17,4 +17,3 @@ for typ,start,count,data in rec:
 out+=struct.pack("<I",crc); sys.stdout.buffer.write(out)
 PY
 chmod +x /app/mysparsepack
-

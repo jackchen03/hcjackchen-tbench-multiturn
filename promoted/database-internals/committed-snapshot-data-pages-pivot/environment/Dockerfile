@@ -12,4 +12,3 @@ COPY generate_fixtures.py /tmp/generate_fixtures.py
 RUN python3 /tmp/generate_fixtures.py \
     && rm /tmp/generate_fixtures.py \
     && find /app /opt/tbench-fixtures -type f -exec touch -t 202001010000.00 {} +
-

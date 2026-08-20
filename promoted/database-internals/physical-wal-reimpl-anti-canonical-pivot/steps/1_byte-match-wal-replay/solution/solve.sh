@@ -23,4 +23,3 @@ with open(sys.argv[2],"w") as f:
 
 PY
 chmod +x /app/decode
-

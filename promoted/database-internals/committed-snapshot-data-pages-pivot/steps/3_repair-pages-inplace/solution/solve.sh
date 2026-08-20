@@ -33,4 +33,3 @@ for account,balance,trx in sorted(rows):out+=struct.pack('<Iq',account,balance)+
 Path(sys.argv[2]).write_bytes(out)
 PY
 chmod 0755 /app/repair_pages
-

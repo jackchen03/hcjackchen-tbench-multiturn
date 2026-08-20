@@ -38,4 +38,3 @@ for seq,tags,rev,valid in txs:
 open(sys.argv[3],'wb').write(base)
 PY
 chmod 0755 /app/myrecover
-

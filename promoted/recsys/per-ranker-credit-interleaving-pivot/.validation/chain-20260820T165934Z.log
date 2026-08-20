@@ -21,8 +21,8 @@ ______________ test_replays_true_served_slate_from_seeded_stream _______________
 >       row=session(); install(row); subprocess.run(["python","/app/replay.py"],check=True)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python', '/app/replay.py'],), kwargs = {}
@@ -32,45 +32,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output & stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -116,8 +116,8 @@ $ docker exec tbench-mt-per-ranker-credit-interleaving-pivot-chain cat /logs/ver
 &gt;       row=session(); install(row); subprocess.run(["python","/app/replay.py"],check=True)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python', '/app/replay.py'],), kwargs = {}
@@ -127,45 +127,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output &amp; stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -234,8 +234,8 @@ _______________ test_true_owner_click_credit_ignores_broken_log ________________
 >       row=session(); install(row); subprocess.run(["python","/app/credit.py"],check=True)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python', '/app/credit.py'],), kwargs = {}
@@ -245,45 +245,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output & stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -330,8 +330,8 @@ $ docker exec tbench-mt-per-ranker-credit-interleaving-pivot-chain cat /logs/ver
 &gt;       row=session(); install(row); subprocess.run(["python","/app/credit.py"],check=True)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python', '/app/credit.py'],), kwargs = {}
@@ -341,45 +341,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output &amp; stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -449,8 +449,8 @@ ____________ test_corrected_owner_log_and_repeated_contested_audit _____________
 >       row=session(); install(row); subprocess.run(["python","/app/correct_log.py"],check=True)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python', '/app/correct_log.py'],), kwargs = {}
@@ -460,45 +460,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output & stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -535,8 +535,8 @@ ___________________ test_preserves_per_ranker_credit_output ____________________
 >       row=session(); install(row); subprocess.run(["python","/app/correct_log.py"],check=True)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:29: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:29:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python', '/app/correct_log.py'],), kwargs = {}
@@ -546,45 +546,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output & stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -629,8 +629,8 @@ $ docker exec tbench-mt-per-ranker-credit-interleaving-pivot-chain cat /logs/ver
 &gt;       row=session(); install(row); subprocess.run(["python","/app/correct_log.py"],check=True)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python', '/app/correct_log.py'],), kwargs = {}
@@ -640,45 +640,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output &amp; stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
@@ -710,8 +710,8 @@ E               subprocess.CalledProcessError: Command '['python', '/app/correct
 &gt;       row=session(); install(row); subprocess.run(["python","/app/correct_log.py"],check=True)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:29: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:29:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 input = None, capture_output = False, timeout = None, check = True
 popenargs = (['python', '/app/correct_log.py'],), kwargs = {}
@@ -721,45 +721,45 @@ stdout = None, stderr = None, retcode = 2
     def run(*popenargs,
             input=None, capture_output=False, timeout=None, check=False, **kwargs):
         """Run command with arguments and return a CompletedProcess instance.
-    
+
         The returned instance will have attributes args, returncode, stdout and
         stderr. By default, stdout and stderr are not captured, and those attributes
         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
         or pass capture_output=True to capture both.
-    
+
         If check is True and the exit code was non-zero, it raises a
         CalledProcessError. The CalledProcessError object will have the return code
         in the returncode attribute, and output &amp; stderr attributes if those streams
         were captured.
-    
+
         If timeout is given, and the process takes too long, a TimeoutExpired
         exception will be raised.
-    
+
         There is an optional argument "input", allowing you to
         pass bytes or a string to the subprocess's stdin.  If you use this argument
         you may not also use the Popen constructor's "stdin" argument, as
         it will be used internally.
-    
+
         By default, all communication is in bytes, and therefore any "input" should
         be bytes, and the stdout and stderr will be bytes. If in text mode, any
         "input" should be a string, and stdout and stderr will be strings decoded
         according to locale encoding, or by "encoding" if set. Text mode is
         triggered by setting any of text, encoding, errors or universal_newlines.
-    
+
         The other arguments are the same as for the Popen constructor.
         """
         if input is not None:
             if kwargs.get('stdin') is not None:
                 raise ValueError('stdin and input arguments may not both be used.')
             kwargs['stdin'] = PIPE
-    
+
         if capture_output:
             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
                 raise ValueError('stdout and stderr arguments may not be used '
                                  'with capture_output.')
             kwargs['stdout'] = PIPE
             kwargs['stderr'] = PIPE
-    
+
         with Popen(*popenargs, **kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)

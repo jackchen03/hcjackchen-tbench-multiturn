@@ -21,7 +21,7 @@ ______________ test_fit_inputs_match_spill_completion_tuple_order ______________
 >    for d in docs(): assert run(d)==expected(d)
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '1|b1|1|p1\n1...\n2|b2|2|p2\n' == '2|b2|2|p2\n1...\n5|b5|5|p5\n'
-E      
+E
 E      - 2|b2|2|p2
 E        1|b1|1|p1
 E        1|b1x|1|p1
@@ -45,7 +45,7 @@ $ docker exec tbench-mt-join-output-tuple-order-pivot-chain cat /logs/verifier/j
 &gt;    for d in docs(): assert run(d)==expected(d)
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '1|b1|1|p1\n1...\n2|b2|2|p2\n' == '2|b2|2|p2\n1...\n5|b5|5|p5\n'
-E      
+E
 E      - 2|b2|2|p2
 E        1|b1|1|p1
 E        1|b1x|1|p1
@@ -94,12 +94,12 @@ _________________ test_step_two_report_records_byte_threshold __________________
 >    data=json.loads(Path('/app/2_byte-threshold-recursion_report.json').read_text()); assert data['build_side_byte_threshold']==80; assert data['max_recursion_level']==1
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:40: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_byte-threshold-recursion_report.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -123,8 +123,8 @@ ____________ test_two_level_child_grouping_has_not_been_done_early _____________
 >    d=two_level(); assert run(d)!=''.join(emit(d['build'],d['probe'],0,0,0,2)), '/app/3_child-grouped-emission-pivot_report.json'
        ^^^^^^^^^^^
 
-/tests/test_outputs.py:42: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:42:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     def two_level():
      buckets={}
@@ -150,12 +150,12 @@ $ docker exec tbench-mt-join-output-tuple-order-pivot-chain cat /logs/verifier/j
 &gt;    data=json.loads(Path('/app/2_byte-threshold-recursion_report.json').read_text()); assert data['build_side_byte_threshold']==80; assert data['max_recursion_level']==1
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:40: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_byte-threshold-recursion_report.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -176,8 +176,8 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/2_byte-thr
 &gt;    d=two_level(); assert run(d)!=''.join(emit(d['build'],d['probe'],0,0,0,2)), '/app/3_child-grouped-emission-pivot_report.json'
        ^^^^^^^^^^^
 
-/tests/test_outputs.py:42: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:42:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     def two_level():
      buckets={}
@@ -208,8 +208,8 @@ ____________ test_two_level_child_grouping_has_not_been_done_early _____________
 >    d=two_level(); assert run(d)!=''.join(emit(d['build'],d['probe'],0,0,0,2)), '/app/3_child-grouped-emission-pivot_report.json'
        ^^^^^^^^^^^
 
-/tests/test_outputs.py:42: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:42:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     def two_level():
      buckets={}
@@ -235,8 +235,8 @@ $ docker exec tbench-mt-join-output-tuple-order-pivot-chain cat /logs/verifier/j
 &gt;    d=two_level(); assert run(d)!=''.join(emit(d['build'],d['probe'],0,0,0,2)), '/app/3_child-grouped-emission-pivot_report.json'
        ^^^^^^^^^^^
 
-/tests/test_outputs.py:42: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:42:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     def two_level():
      buckets={}

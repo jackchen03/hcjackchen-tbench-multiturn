@@ -22,4 +22,3 @@ poses=read_corrupt(src/"images.bin")["records"]
 PY
 rm -rf /tmp/out
 python3 /app/recover.py /app/sample_model /tmp/out
-

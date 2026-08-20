@@ -76,4 +76,3 @@ def test_does_not_write_drop_report_yet():
     source = GATEWAY.read_text(encoding="utf-8")
     assert "drop_report" not in source
     assert '"dropped"' not in source
-

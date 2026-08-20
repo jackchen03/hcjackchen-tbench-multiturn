@@ -20,8 +20,8 @@ _________________ test_recovers_every_highest_step_factor_row __________________
     def test_recovers_every_highest_step_factor_row():
 >    ep,eq=expected(); p=np.load('/app/out/P.npy',allow_pickle=False); q=np.load('/app/out/Q.npy',allow_pickle=False)
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = '/app/out/P.npy', mmap_mode = None, allow_pickle = False
 fix_imports = True, encoding = 'ASCII'
@@ -31,13 +31,13 @@ fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -57,10 +57,10 @@ fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -78,13 +78,13 @@ fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -96,13 +96,13 @@ fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -113,24 +113,24 @@ fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         >>> np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         >>> np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         >>> a=np.array([[1, 2, 3], [4, 5, 6]])
         >>> b=np.array([1, 2])
         >>> np.savez('/tmp/123.npz', a=a, b=b)
@@ -141,14 +141,14 @@ fix_imports = True, encoding = 'ASCII'
         >>> data['b']
         array([1, 2])
         >>> data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         >>> X = np.load('/tmp/123.npy', mmap_mode='r')
         >>> X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -163,9 +163,9 @@ fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -180,8 +180,8 @@ __________________ test_recovered_factors_match_sample_scores __________________
     def test_recovered_factors_match_sample_scores():
 >    p=np.load('/app/out/P.npy'); q=np.load('/app/out/Q.npy'); rows=list(csv.DictReader(open('/app/sample_scores.csv'))); assert len(rows)>=100
 
-/tests/test_outputs.py:20: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:20:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = '/app/out/P.npy', mmap_mode = None, allow_pickle = False
 fix_imports = True, encoding = 'ASCII'
@@ -191,13 +191,13 @@ fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -217,10 +217,10 @@ fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -238,13 +238,13 @@ fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -256,13 +256,13 @@ fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -273,24 +273,24 @@ fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         >>> np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         >>> np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         >>> a=np.array([[1, 2, 3], [4, 5, 6]])
         >>> b=np.array([1, 2])
         >>> np.savez('/tmp/123.npz', a=a, b=b)
@@ -301,14 +301,14 @@ fix_imports = True, encoding = 'ASCII'
         >>> data['b']
         array([1, 2])
         >>> data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         >>> X = np.load('/tmp/123.npy', mmap_mode='r')
         >>> X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -323,9 +323,9 @@ fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -350,8 +350,8 @@ $ docker exec tbench-mt-restored-mf-checkpoint-heldout-pivot-chain cat /logs/ver
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.248" timestamp="2026-08-20T16:55:26.925681+00:00" hostname="bfe4add20758"><testcase classname="test_outputs" name="test_recovers_every_highest_step_factor_row" time="0.033"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/out/P.npy'">def test_recovers_every_highest_step_factor_row():
 &gt;    ep,eq=expected(); p=np.load('/app/out/P.npy',allow_pickle=False); q=np.load('/app/out/Q.npy',allow_pickle=False)
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = '/app/out/P.npy', mmap_mode = None, allow_pickle = False
 fix_imports = True, encoding = 'ASCII'
@@ -361,13 +361,13 @@ fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -387,10 +387,10 @@ fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -408,13 +408,13 @@ fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -426,13 +426,13 @@ fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -443,24 +443,24 @@ fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         &gt;&gt;&gt; np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         &gt;&gt;&gt; np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         &gt;&gt;&gt; a=np.array([[1, 2, 3], [4, 5, 6]])
         &gt;&gt;&gt; b=np.array([1, 2])
         &gt;&gt;&gt; np.savez('/tmp/123.npz', a=a, b=b)
@@ -471,14 +471,14 @@ fix_imports = True, encoding = 'ASCII'
         &gt;&gt;&gt; data['b']
         array([1, 2])
         &gt;&gt;&gt; data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         &gt;&gt;&gt; X = np.load('/tmp/123.npy', mmap_mode='r')
         &gt;&gt;&gt; X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -493,9 +493,9 @@ fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -507,8 +507,8 @@ E               FileNotFoundError: [Errno 2] No such file or directory: '/app/ou
 /usr/local/lib/python3.11/site-packages/numpy/lib/npyio.py:427: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_recovered_factors_match_sample_scores" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/out/P.npy'">def test_recovered_factors_match_sample_scores():
 &gt;    p=np.load('/app/out/P.npy'); q=np.load('/app/out/Q.npy'); rows=list(csv.DictReader(open('/app/sample_scores.csv'))); assert len(rows)&gt;=100
 
-/tests/test_outputs.py:20: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:20:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = '/app/out/P.npy', mmap_mode = None, allow_pickle = False
 fix_imports = True, encoding = 'ASCII'
@@ -518,13 +518,13 @@ fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -544,10 +544,10 @@ fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -565,13 +565,13 @@ fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -583,13 +583,13 @@ fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -600,24 +600,24 @@ fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         &gt;&gt;&gt; np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         &gt;&gt;&gt; np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         &gt;&gt;&gt; a=np.array([[1, 2, 3], [4, 5, 6]])
         &gt;&gt;&gt; b=np.array([1, 2])
         &gt;&gt;&gt; np.savez('/tmp/123.npz', a=a, b=b)
@@ -628,14 +628,14 @@ fix_imports = True, encoding = 'ASCII'
         &gt;&gt;&gt; data['b']
         array([1, 2])
         &gt;&gt;&gt; data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         &gt;&gt;&gt; X = np.load('/tmp/123.npy', mmap_mode='r')
         &gt;&gt;&gt; X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -650,9 +650,9 @@ fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -702,11 +702,11 @@ _______________ test_report_is_exact_position_vs_step_divergence _______________
     def test_report_is_exact_position_vs_step_divergence():
 >    report=json.loads(Path('/app/out/drift_report.json').read_text()); assert report==expected_report(); assert report['num_reordered_users']>100 and report['num_reordered_items']>100
 
-/tests/test_outputs.py:28: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:28:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/out/drift_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -738,11 +738,11 @@ $ docker exec tbench-mt-restored-mf-checkpoint-heldout-pivot-chain cat /logs/ver
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.214" timestamp="2026-08-20T16:55:30.351353+00:00" hostname="bfe4add20758"><testcase classname="test_outputs" name="test_report_is_exact_position_vs_step_divergence" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/out/drift_report.json'">def test_report_is_exact_position_vs_step_divergence():
 &gt;    report=json.loads(Path('/app/out/drift_report.json').read_text()); assert report==expected_report(); assert report['num_reordered_users']&gt;100 and report['num_reordered_items']&gt;100
 
-/tests/test_outputs.py:28: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:28:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/out/drift_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -799,11 +799,11 @@ _____________ test_mmap_layout_and_complete_factor_bytes_are_exact _____________
     def test_mmap_layout_and_complete_factor_bytes_are_exact():
 >    p,q,m=expected(); layout=json.loads(Path('/app/out/serving/layout.json').read_text()); assert layout=={'dim':m['dim'],'num_users':m['num_users'],'num_items':m['num_items'],'user_offset':0,'item_offset':m['num_users']*m['dim']*4,'dtype':'float32'}
 
-/tests/test_outputs.py:16: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:16:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/out/serving/layout.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -825,8 +825,8 @@ ________________ test_mmap_serving_scores_match_recovered_truth ________________
     def test_mmap_serving_scores_match_recovered_truth():
 >    p,q,m=expected(); mm=np.memmap('/app/out/serving/model.mmap',dtype='<f4',mode='r',shape=(m['num_users']+m['num_items'],m['dim']))
 
-/tests/test_outputs.py:19: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 subtype = <class 'numpy.memmap'>, filename = '/app/out/serving/model.mmap'
 dtype = '<f4', mode = 'r', offset = 0, shape = (10000, 32), order = 'C'
@@ -844,10 +844,10 @@ dtype = '<f4', mode = 'r', offset = 0, shape = (10000, 32), order = 'C'
                     "mode must be one of {!r} (got {!r})"
                     .format(valid_filemodes + list(mode_equivalents.keys()), mode)
                 ) from None
-    
+
         if mode == 'w+' and shape is None:
             raise ValueError("shape must be given if mode == 'w+'")
-    
+
         if hasattr(filename, 'read'):
             f_ctx = nullcontext(filename)
         else:
@@ -879,11 +879,11 @@ $ docker exec tbench-mt-restored-mf-checkpoint-heldout-pivot-chain cat /logs/ver
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.256" timestamp="2026-08-20T16:55:33.669724+00:00" hostname="bfe4add20758"><testcase classname="test_outputs" name="test_mmap_layout_and_complete_factor_bytes_are_exact" time="0.033"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/out/serving/layout.json'">def test_mmap_layout_and_complete_factor_bytes_are_exact():
 &gt;    p,q,m=expected(); layout=json.loads(Path('/app/out/serving/layout.json').read_text()); assert layout=={'dim':m['dim'],'num_users':m['num_users'],'num_items':m['num_items'],'user_offset':0,'item_offset':m['num_users']*m['dim']*4,'dtype':'float32'}
 
-/tests/test_outputs.py:16: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:16:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/out/serving/layout.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -902,8 +902,8 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/out/servin
 /usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_mmap_serving_scores_match_recovered_truth" time="0.024"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/out/serving/model.mmap'">def test_mmap_serving_scores_match_recovered_truth():
 &gt;    p,q,m=expected(); mm=np.memmap('/app/out/serving/model.mmap',dtype='&lt;f4',mode='r',shape=(m['num_users']+m['num_items'],m['dim']))
 
-/tests/test_outputs.py:19: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 subtype = &lt;class 'numpy.memmap'&gt;, filename = '/app/out/serving/model.mmap'
 dtype = '&lt;f4', mode = 'r', offset = 0, shape = (10000, 32), order = 'C'
@@ -921,10 +921,10 @@ dtype = '&lt;f4', mode = 'r', offset = 0, shape = (10000, 32), order = 'C'
                     "mode must be one of {!r} (got {!r})"
                     .format(valid_filemodes + list(mode_equivalents.keys()), mode)
                 ) from None
-    
+
         if mode == 'w+' and shape is None:
             raise ValueError("shape must be given if mode == 'w+'")
-    
+
         if hasattr(filename, 'read'):
             f_ctx = nullcontext(filename)
         else:
@@ -1062,8 +1062,8 @@ _________________ test_report_preserves_all_recovered_factors __________________
     def test_report_preserves_all_recovered_factors():
 >    ep,eq=expected_factors(); assert np.array_equal(np.load('/app/out/P.npy'),ep); assert np.array_equal(np.load('/app/out/Q.npy'),eq)
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = '/app/out/P.npy', mmap_mode = None, allow_pickle = False
 fix_imports = True, encoding = 'ASCII'
@@ -1073,13 +1073,13 @@ fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -1099,10 +1099,10 @@ fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -1120,13 +1120,13 @@ fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -1138,13 +1138,13 @@ fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -1155,24 +1155,24 @@ fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         >>> np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         >>> np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         >>> a=np.array([[1, 2, 3], [4, 5, 6]])
         >>> b=np.array([1, 2])
         >>> np.savez('/tmp/123.npz', a=a, b=b)
@@ -1183,14 +1183,14 @@ fix_imports = True, encoding = 'ASCII'
         >>> data['b']
         array([1, 2])
         >>> data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         >>> X = np.load('/tmp/123.npy', mmap_mode='r')
         >>> X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -1205,9 +1205,9 @@ fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -1242,8 +1242,8 @@ $ docker exec tbench-mt-restored-mf-checkpoint-heldout-pivot-oe2 cat /logs/verif
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.237" timestamp="2026-08-20T16:55:43.305777+00:00" hostname="b63d250c9547"><testcase classname="test_outputs" name="test_report_is_exact_position_vs_step_divergence" time="0.031" /><testcase classname="test_outputs" name="test_report_preserves_all_recovered_factors" time="0.022"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/out/P.npy'">def test_report_preserves_all_recovered_factors():
 &gt;    ep,eq=expected_factors(); assert np.array_equal(np.load('/app/out/P.npy'),ep); assert np.array_equal(np.load('/app/out/Q.npy'),eq)
 
-/tests/test_outputs.py:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:30:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = '/app/out/P.npy', mmap_mode = None, allow_pickle = False
 fix_imports = True, encoding = 'ASCII'
@@ -1253,13 +1253,13 @@ fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -1279,10 +1279,10 @@ fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -1300,13 +1300,13 @@ fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -1318,13 +1318,13 @@ fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -1335,24 +1335,24 @@ fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         &gt;&gt;&gt; np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         &gt;&gt;&gt; np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         &gt;&gt;&gt; a=np.array([[1, 2, 3], [4, 5, 6]])
         &gt;&gt;&gt; b=np.array([1, 2])
         &gt;&gt;&gt; np.savez('/tmp/123.npz', a=a, b=b)
@@ -1363,14 +1363,14 @@ fix_imports = True, encoding = 'ASCII'
         &gt;&gt;&gt; data['b']
         array([1, 2])
         &gt;&gt;&gt; data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         &gt;&gt;&gt; X = np.load('/tmp/123.npy', mmap_mode='r')
         &gt;&gt;&gt; X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -1385,9 +1385,9 @@ fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file

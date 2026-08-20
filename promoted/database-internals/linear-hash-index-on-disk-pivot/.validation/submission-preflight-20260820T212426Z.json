@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 26,
+  "bundle_fingerprint": "bundle-sha256-v1:0a0ef44c819afc545c927828605e9de2047acc09c8155e0bb80f33eda793d485",
+  "final_audit": "promoted/database-internals/linear-hash-index-on-disk-pivot/.validation/final-audit-20260820T202810Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/linear-hash-index-on-disk-pivot/.validation/chain-20260820T201827Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/linear-hash-index-on-disk-pivot/.validation/oracle-x3-current-20260820T211039Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/linear-hash-index-on-disk-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/linear-hash-index-on-disk-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

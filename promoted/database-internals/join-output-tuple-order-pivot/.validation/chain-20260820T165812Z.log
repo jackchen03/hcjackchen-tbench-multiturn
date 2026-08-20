@@ -21,7 +21,7 @@ ______________ test_fit_inputs_match_spill_completion_tuple_order ______________
 >    for d in docs(): assert run(d)==expected(d)
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '1|b1|1|p1\n1...\n2|b2|2|p2\n' == '5|b5|5|p5\n2...n1|b1x|1|p1\n'
-E      
+E
 E      + 1|b1|1|p1
 E      + 1|b1x|1|p1
 E        5|b5|5|p5
@@ -36,7 +36,7 @@ ______ test_multi_build_matches_preserve_probe_then_build_insertion_order ______
 >    d={'build':[[5,'a'],[1,'x'],[5,'b'],[2,'q']], 'probe':[[5,'p0'],[1,'p1'],[5,'p2']], 'build_key':0,'probe_key':0}; assert run(d)==expected(d)
                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '5|a|5|p0\n5|...2\n5|b|5|p2\n' == '1|x|1|p1\n5|...2\n5|b|5|p2\n'
-E      
+E
 E      - 1|x|1|p1
 E        5|a|5|p0
 E        5|b|5|p0
@@ -61,7 +61,7 @@ $ docker exec tbench-mt-join-output-tuple-order-pivot-chain cat /logs/verifier/j
 &gt;    for d in docs(): assert run(d)==expected(d)
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '1|b1|1|p1\n1...\n2|b2|2|p2\n' == '5|b5|5|p5\n2...n1|b1x|1|p1\n'
-E      
+E
 E      + 1|b1|1|p1
 E      + 1|b1x|1|p1
 E        5|b5|5|p5
@@ -73,7 +73,7 @@ E      - 1|b1x|1|p1
 &gt;    d={'build':[[5,'a'],[1,'x'],[5,'b'],[2,'q']], 'probe':[[5,'p0'],[1,'p1'],[5,'p2']], 'build_key':0,'probe_key':0}; assert run(d)==expected(d)
                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '5|a|5|p0\n5|...2\n5|b|5|p2\n' == '1|x|1|p1\n5|...2\n5|b|5|p2\n'
-E      
+E
 E      - 1|x|1|p1
 E        5|a|5|p0
 E        5|b|5|p0
@@ -123,14 +123,14 @@ __________________ test_fit_and_single_recursion_inputs_match __________________
 >    d=one_level(); assert run(d)==''.join(emit(d['build'],d['probe'],0,0,0,1))
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '54|wwwwwwwww...wwwwwww|5|p\n' == '47|wwwwwwwww...wwwwww|35|p\n'
-E      
+E
 E      + 54|wwwwwwwwww|54|p
 E      + 53|wwwwwwwwww|53|p
 E      + 52|wwwwwwwwww|52|p
 E        47|wwwwwwwwww|47|p
 E      + 44|wwwwwwwwww|44|p
 E      + 35|wwwwwwwwww|35|p...
-E      
+E
 E      ...Full output truncated (14 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:39: AssertionError
@@ -140,12 +140,12 @@ _________________ test_step_two_report_records_byte_threshold __________________
 >    data=json.loads(Path('/app/2_byte-threshold-recursion_report.json').read_text()); assert data['build_side_byte_threshold']==80; assert data['max_recursion_level']==1
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:41: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:41:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_byte-threshold-recursion_report.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -179,26 +179,26 @@ $ docker exec tbench-mt-join-output-tuple-order-pivot-chain cat /logs/verifier/j
 &gt;    d=one_level(); assert run(d)==''.join(emit(d['build'],d['probe'],0,0,0,1))
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '54|wwwwwwwww...wwwwwww|5|p\n' == '47|wwwwwwwww...wwwwww|35|p\n'
-E      
+E
 E      + 54|wwwwwwwwww|54|p
 E      + 53|wwwwwwwwww|53|p
 E      + 52|wwwwwwwwww|52|p
 E        47|wwwwwwwwww|47|p
 E      + 44|wwwwwwwwww|44|p
 E      + 35|wwwwwwwwww|35|p...
-E      
+E
 E      ...Full output truncated (14 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:39: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_step_two_report_records_byte_threshold" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/2_byte-threshold-recursion_report.json'">def test_step_two_report_records_byte_threshold():
 &gt;    data=json.loads(Path('/app/2_byte-threshold-recursion_report.json').read_text()); assert data['build_side_byte_threshold']==80; assert data['max_recursion_level']==1
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:41: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:41:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_byte-threshold-recursion_report.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -257,14 +257,14 @@ _______ test_fit_and_recursive_child_grouped_outputs_match_full_dialect ________
 >    for d in cases(): assert run(d)==''.join(emit(d['build'],d['probe'],d['build_key'],d['probe_key']))
                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '131|qqqqqqqq...qqqqqqq|1|p\n' == '50|qqqqqqqqq...qqqqqq|26|p\n'
-E      
+E
 E      + 131|qqqqqqqqqqqq|131|p
 E      + 122|qqqqqqqqqqqq|122|p
 E      + 102|qqqqqqqqqqqq|102|p
 E      + 66|qqqqqqqqqqqq|66|p
 E      + 60|qqqqqqqqqqqq|60|p
 E      + 56|qqqqqqqqqqqq|56|p...
-E      
+E
 E      ...Full output truncated (17 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:35: AssertionError
@@ -274,14 +274,14 @@ __________ test_multi_match_build_insertion_order_survives_recursion ___________
 >    d=cases()[1]; d['build'].insert(2,[d['build'][0][0],'second']); assert run(d)==''.join(emit(d['build'],d['probe'],0,0))
                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '131|qqqqqqqq...|second|1|p\n' == '50|qqqqqqqqq...qqqqqq|26|p\n'
-E      
+E
 E      + 131|qqqqqqqqqqqq|131|p
 E      + 122|qqqqqqqqqqqq|122|p
 E      + 102|qqqqqqqqqqqq|102|p
 E      + 66|qqqqqqqqqqqq|66|p
 E      + 60|qqqqqqqqqqqq|60|p
 E      + 56|qqqqqqqqqqqq|56|p...
-E      
+E
 E      ...Full output truncated (18 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:37: AssertionError
@@ -291,12 +291,12 @@ ______________ test_final_report_and_recursive_source_are_present ______________
 >    data=json.loads(Path('/app/3_child-grouped-emission-pivot_report.json').read_text()); source=Path('/app/hashjoin').read_text(); assert data['child_grouped_emission'] is True; assert 'emit_children' in source; assert 'level+1' in source
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:39: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:39:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_child-grouped-emission-pivot_report.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -329,40 +329,40 @@ $ docker exec tbench-mt-join-output-tuple-order-pivot-chain cat /logs/verifier/j
 &gt;    for d in cases(): assert run(d)==''.join(emit(d['build'],d['probe'],d['build_key'],d['probe_key']))
                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '131|qqqqqqqq...qqqqqqq|1|p\n' == '50|qqqqqqqqq...qqqqqq|26|p\n'
-E      
+E
 E      + 131|qqqqqqqqqqqq|131|p
 E      + 122|qqqqqqqqqqqq|122|p
 E      + 102|qqqqqqqqqqqq|102|p
 E      + 66|qqqqqqqqqqqq|66|p
 E      + 60|qqqqqqqqqqqq|60|p
 E      + 56|qqqqqqqqqqqq|56|p...
-E      
+E
 E      ...Full output truncated (17 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:35: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_multi_match_build_insertion_order_survives_recursion" time="0.067"><failure message="AssertionError: assert '131|qqqqqqqq...|second|1|p\n' == '50|qqqqqqqqq...qqqqqq|26|p\n'&#10;  &#10;  + 131|qqqqqqqqqqqq|131|p&#10;  + 122|qqqqqqqqqqqq|122|p&#10;  + 102|qqqqqqqqqqqq|102|p&#10;  + 66|qqqqqqqqqqqq|66|p&#10;  + 60|qqqqqqqqqqqq|60|p&#10;  + 56|qqqqqqqqqqqq|56|p...&#10;  &#10;  ...Full output truncated (18 lines hidden), use '-vv' to show">def test_multi_match_build_insertion_order_survives_recursion():
 &gt;    d=cases()[1]; d['build'].insert(2,[d['build'][0][0],'second']); assert run(d)==''.join(emit(d['build'],d['probe'],0,0))
                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert '131|qqqqqqqq...|second|1|p\n' == '50|qqqqqqqqq...qqqqqq|26|p\n'
-E      
+E
 E      + 131|qqqqqqqqqqqq|131|p
 E      + 122|qqqqqqqqqqqq|122|p
 E      + 102|qqqqqqqqqqqq|102|p
 E      + 66|qqqqqqqqqqqq|66|p
 E      + 60|qqqqqqqqqqqq|60|p
 E      + 56|qqqqqqqqqqqq|56|p...
-E      
+E
 E      ...Full output truncated (18 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:37: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_final_report_and_recursive_source_are_present" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/3_child-grouped-emission-pivot_report.json'">def test_final_report_and_recursive_source_are_present():
 &gt;    data=json.loads(Path('/app/3_child-grouped-emission-pivot_report.json').read_text()); source=Path('/app/hashjoin').read_text(); assert data['child_grouped_emission'] is True; assert 'emit_children' in source; assert 'level+1' in source
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:39: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:39:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_child-grouped-emission-pivot_report.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None

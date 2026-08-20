@@ -1,0 +1,18 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:8d6d91c312a1e5588ead5339b307143da3d4be8efa7b15534141aee98bdb6644",
+  "final_audit": "promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/.validation/final-audit-20260820T202514Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/.validation/chain-20260820T202202Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/.validation/oracle-x3-current-20260820T210935Z.json",
+  "proposed_commit_pathspec": "promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

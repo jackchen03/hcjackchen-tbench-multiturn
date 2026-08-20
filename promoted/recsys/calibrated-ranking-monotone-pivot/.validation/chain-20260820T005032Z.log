@@ -30,7 +30,7 @@ ______________ test_sample_rankings_match_bucket_keyed_reference _______________
         actual = run_service()
 >       assert actual == expected_rows()
 E       AssertionError: assert [{'item_id': ...: 'u01'}, ...] == [{'item_id': ...: 'u01'}, ...]
-E         
+E
 E         At index 0 diff: {'user_id': 'u01', 'item_id': 'i03', 'rank': '1'} != {'user_id': 'u01', 'item_id': 'i09', 'rank': '1'}
 E         Use -v to get more diff
 
@@ -57,7 +57,7 @@ E        +  where False = isinstance([1.5, 1.3, 0.8, 1.1, 0.6, 0.7, ...], dict)
         actual = run_service()
 &gt;       assert actual == expected_rows()
 E       AssertionError: assert [{'item_id': ...: 'u01'}, ...] == [{'item_id': ...: 'u01'}, ...]
-E         
+E
 E         At index 0 diff: {'user_id': 'u01', 'item_id': 'i03', 'rank': '1'} != {'user_id': 'u01', 'item_id': 'i09', 'rank': '1'}
 E         Use -v to get more diff
 
@@ -104,7 +104,7 @@ ______________ test_edge_heavy_rankings_use_right_open_boundaries ______________
             actual = run_service()
 >       assert actual == reference_rows(EDGE_ITEMS)
 E       AssertionError: assert [{'item_id': ...: 'u01'}, ...] == [{'item_id': ...: 'u01'}, ...]
-E         
+E
 E         At index 0 diff: {'user_id': 'u01', 'item_id': 'e12', 'rank': '1'} != {'user_id': 'u01', 'item_id': 'e06', 'rank': '1'}
 E         Use -v to get more diff
 
@@ -126,7 +126,7 @@ $ docker exec tbench-mt-calibrated-ranking-monotone-pivot-chain cat /logs/verifi
             actual = run_service()
 &gt;       assert actual == reference_rows(EDGE_ITEMS)
 E       AssertionError: assert [{'item_id': ...: 'u01'}, ...] == [{'item_id': ...: 'u01'}, ...]
-E         
+E
 E         At index 0 diff: {'user_id': 'u01', 'item_id': 'e12', 'rank': '1'} != {'user_id': 'u01', 'item_id': 'e06', 'rank': '1'}
 E         Use -v to get more diff
 
@@ -172,13 +172,13 @@ ________________ test_preserves_rankings_and_writes_exact_audit ________________
         expected_rows, expected_audit = reference_outputs()
 >       actual_rows, actual_audit = run_service()
 
-/tests/test_outputs.py:69: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:69:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:63: in run_service
     audit = json.loads((ROOT / "output/calibration_audit.json").read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/output/calibration_audit.json'), mode = 'r'
 buffering = -1, encoding = 'utf-8', errors = None, newline = None
@@ -199,14 +199,14 @@ _________________ test_json_loader_reloads_when_mtime_changes __________________
 
     def test_json_loader_reloads_when_mtime_changes():
         import rec.calib as calib
-    
+
         importlib.reload(calib)
         original_bytes = JSON_PATH.read_bytes()
         original_stat = JSON_PATH.stat()
 >       first = calib.load_calibration(JSON_PATH)
 
-/tests/test_outputs.py:88: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:88:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 path = PosixPath('/app/artifacts/calibration.json')
 
@@ -226,14 +226,14 @@ ________________ test_binary_parser_path_is_removed_and_unused _________________
         serve_source = (ROOT / "rec/serve.py").read_text(encoding="utf-8")
 >       assert "CALB" not in calib_source
 E       assert 'CALB' not in 'import stru...rn weights\n'
-E         
+E
 E         'CALB' is contained here:
 E           agic != b"CALB" or version != 1:
 E         ?           ++++
 E                       raise ValueError("unsupported calibration artifact")
 E                   for _ in range(count):
 E                       bucket_id, weight = struct.unpack("<id", handle.read(12))...
-E         
+E
 E         ...Full output truncated (4 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:110: AssertionError
@@ -252,13 +252,13 @@ $ docker exec tbench-mt-calibrated-ranking-monotone-pivot-chain cat /logs/verifi
         expected_rows, expected_audit = reference_outputs()
 &gt;       actual_rows, actual_audit = run_service()
 
-/tests/test_outputs.py:69: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:69:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:63: in run_service
     audit = json.loads((ROOT / "output/calibration_audit.json").read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/output/calibration_audit.json'), mode = 'r'
 buffering = -1, encoding = 'utf-8', errors = None, newline = None
@@ -276,14 +276,14 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/output/cal
 
 /usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_json_loader_reloads_when_mtime_changes" time="0.001"><failure message="ValueError: unsupported calibration artifact">def test_json_loader_reloads_when_mtime_changes():
         import rec.calib as calib
-    
+
         importlib.reload(calib)
         original_bytes = JSON_PATH.read_bytes()
         original_stat = JSON_PATH.stat()
 &gt;       first = calib.load_calibration(JSON_PATH)
 
-/tests/test_outputs.py:88: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:88:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 path = PosixPath('/app/artifacts/calibration.json')
 
@@ -300,14 +300,14 @@ rec/calib.py:9: ValueError</failure></testcase><testcase classname="test_outputs
         serve_source = (ROOT / "rec/serve.py").read_text(encoding="utf-8")
 &gt;       assert "CALB" not in calib_source
 E       assert 'CALB' not in 'import stru...rn weights\n'
-E         
+E
 E         'CALB' is contained here:
 E           agic != b"CALB" or version != 1:
 E         ?           ++++
 E                       raise ValueError("unsupported calibration artifact")
 E                   for _ in range(count):
 E                       bucket_id, weight = struct.unpack("&lt;id", handle.read(12))...
-E         
+E
 E         ...Full output truncated (4 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:110: AssertionError</failure></testcase></testsuite></testsuites>
@@ -439,13 +439,13 @@ _________________ test_preserves_loader_fix_on_original_sample _________________
         assert actual == reference_rows(sample_items)
 >       weights = load_calibration(ROOT / "artifacts/calibration.bin")
 
-/tests/test_outputs.py:96: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:96:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 rec/calib.py:15: in load_calibration
     records = json.loads(source.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1059: in read_text
     return f.read()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <encodings.utf_8.IncrementalDecoder object at 0x7f9818df16d0>
 input = b'CALB\x01\x00\x00\x00\x08\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\xf8?\x00\x00\x00\x00\xcd\xcc\xcc\xcc\xc...\x00\x00333333\xe3?\x01\x00\x00\x00ffffff\xe6?\x06\x00\x00\x00333333\xf3?\x03\x00\x00\x00\xcd\xcc\xcc\xcc\xcc\xcc\xec?'
@@ -482,13 +482,13 @@ $ docker exec tbench-mt-calibrated-ranking-monotone-pivot-oe2 cat /logs/verifier
         assert actual == reference_rows(sample_items)
 &gt;       weights = load_calibration(ROOT / "artifacts/calibration.bin")
 
-/tests/test_outputs.py:96: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:96:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 rec/calib.py:15: in load_calibration
     records = json.loads(source.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1059: in read_text
     return f.read()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;encodings.utf_8.IncrementalDecoder object at 0x7f9818df16d0&gt;
 input = b'CALB\x01\x00\x00\x00\x08\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\xf8?\x00\x00\x00\x00\xcd\xcc\xcc\xcc\xc...\x00\x00333333\xe3?\x01\x00\x00\x00ffffff\xe6?\x06\x00\x00\x00333333\xf3?\x03\x00\x00\x00\xcd\xcc\xcc\xcc\xcc\xcc\xec?'

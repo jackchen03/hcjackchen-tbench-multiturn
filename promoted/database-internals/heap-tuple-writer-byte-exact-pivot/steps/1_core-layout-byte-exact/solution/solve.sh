@@ -27,4 +27,3 @@ for row in doc["rows"]:
     tup=make(row,set(),{}); sys.stdout.buffer.write(struct.pack("<H",len(tup))+tup)
 PY
 chmod +x /app/encoder
-

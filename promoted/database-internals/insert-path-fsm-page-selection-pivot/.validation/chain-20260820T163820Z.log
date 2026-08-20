@@ -22,7 +22,7 @@ ________________ test_sticky_cursor_and_mixed_boundaries_match _________________
 >    for u,s,c,free,sizes in cases: assert run(state(u,s,c,free),sizes)==oracle(u,s,c,free,sizes)[0]
                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    assert [1, 4, 0, 4] == [1, 4, 4, 4]
-E      
+E
 E      At index 2 diff: 0 != 4
 E      Use -v to get more diff
 
@@ -33,7 +33,7 @@ _______________ test_false_positive_retry_continues_and_extends ________________
 >    u,s,c,free,sizes=500,50,0,[51,49,99],[100,52,260]; assert run(state(u,s,c,free),sizes)==oracle(u,s,c,free,sizes)[0]
                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    assert [3, 2, 3] == [3, 3, 3]
-E      
+E
 E      At index 1 diff: 2 != 3
 E      Use -v to get more diff
 
@@ -55,7 +55,7 @@ $ docker exec tbench-mt-insert-path-fsm-page-selection-pivot-chain cat /logs/ver
 &gt;    for u,s,c,free,sizes in cases: assert run(state(u,s,c,free),sizes)==oracle(u,s,c,free,sizes)[0]
                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    assert [1, 4, 0, 4] == [1, 4, 4, 4]
-E      
+E
 E      At index 2 diff: 0 != 4
 E      Use -v to get more diff
 
@@ -63,7 +63,7 @@ E      Use -v to get more diff
 &gt;    u,s,c,free,sizes=500,50,0,[51,49,99],[100,52,260]; assert run(state(u,s,c,free),sizes)==oracle(u,s,c,free,sizes)[0]
                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    assert [3, 2, 3] == [3, 3, 3]
-E      
+E
 E      At index 1 diff: 2 != 3
 E      Use -v to get more diff
 
@@ -109,15 +109,15 @@ _______________ test_landing_sequence_regresses_exact_fsm_logic ________________
 >    u,s,c,free,sizes=810,30,1,[42,140,89,21],[50,95,31,200]; got,_=execute(u,s,c,free,sizes); assert got==oracle(u,s,c,free,sizes)[0]
                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:27: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:27:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:25: in execute
     inp=Path(td)/'in.state'; new=Path(td)/'new.state'; inp.write_text(state(u,s,c,free)); r=subprocess.run(['/app/heapload',str(inp),str(new)],input=''.join(f'{x}\n' for x in sizes),text=True,capture_output=True); assert r.returncode==0,r.stderr; return [int(x) for x in r.stdout.split()],new.read_text()
                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/tmp4ei74h01/new.state'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -141,15 +141,15 @@ ____________ test_persisted_new_state_file_matches_actual_landings _____________
 >    u,s,c,free,sizes=777,32,2,[20,64,100,33,220],[61,90,35,230,400]; out,text=execute(u,s,c,free,sizes); exp,free2,c2=oracle(u,s,c,free,sizes); expected=state(u,s,exp[-1] if exp else c2,free2); assert out==exp; assert text==expected
                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:29: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:29:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:25: in execute
     inp=Path(td)/'in.state'; new=Path(td)/'new.state'; inp.write_text(state(u,s,c,free)); r=subprocess.run(['/app/heapload',str(inp),str(new)],input=''.join(f'{x}\n' for x in sizes),text=True,capture_output=True); assert r.returncode==0,r.stderr; return [int(x) for x in r.stdout.split()],new.read_text()
                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/tmpahzdmmbo/new.state'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -183,15 +183,15 @@ $ docker exec tbench-mt-insert-path-fsm-page-selection-pivot-chain cat /logs/ver
 &gt;    u,s,c,free,sizes=810,30,1,[42,140,89,21],[50,95,31,200]; got,_=execute(u,s,c,free,sizes); assert got==oracle(u,s,c,free,sizes)[0]
                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:27: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:27:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:25: in execute
     inp=Path(td)/'in.state'; new=Path(td)/'new.state'; inp.write_text(state(u,s,c,free)); r=subprocess.run(['/app/heapload',str(inp),str(new)],input=''.join(f'{x}\n' for x in sizes),text=True,capture_output=True); assert r.returncode==0,r.stderr; return [int(x) for x in r.stdout.split()],new.read_text()
                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/tmp4ei74h01/new.state'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -212,15 +212,15 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp4ei74h0
 &gt;    u,s,c,free,sizes=777,32,2,[20,64,100,33,220],[61,90,35,230,400]; out,text=execute(u,s,c,free,sizes); exp,free2,c2=oracle(u,s,c,free,sizes); expected=state(u,s,exp[-1] if exp else c2,free2); assert out==exp; assert text==expected
                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:29: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:29:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:25: in execute
     inp=Path(td)/'in.state'; new=Path(td)/'new.state'; inp.write_text(state(u,s,c,free)); r=subprocess.run(['/app/heapload',str(inp),str(new)],input=''.join(f'{x}\n' for x in sizes),text=True,capture_output=True); assert r.returncode==0,r.stderr; return [int(x) for x in r.stdout.split()],new.read_text()
                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/tmpahzdmmbo/new.state'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -280,7 +280,7 @@ ________________ test_append_only_uses_only_last_page_or_extend ________________
 >    for u,s,c,free,sizes in cases: assert execute(u,s,c,free,sizes)[0]==oracle(u,free,sizes)
                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    assert [1, 1, 3, 3] == [2, 3, 3, 3]
-E      
+E
 E      At index 0 diff: 1 != 2
 E      Use -v to get more diff
 
@@ -318,7 +318,7 @@ $ docker exec tbench-mt-insert-path-fsm-page-selection-pivot-chain cat /logs/ver
 &gt;    for u,s,c,free,sizes in cases: assert execute(u,s,c,free,sizes)[0]==oracle(u,free,sizes)
                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    assert [1, 1, 3, 3] == [2, 3, 3, 3]
-E      
+E
 E      At index 0 diff: 1 != 2
 E      Use -v to get more diff
 
@@ -460,15 +460,15 @@ _______________ test_landing_sequence_regresses_exact_fsm_logic ________________
 >    u,s,c,free,sizes=810,30,1,[42,140,89,21],[50,95,31,200]; got,_=execute(u,s,c,free,sizes); assert got==oracle(u,s,c,free,sizes)[0]
                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:27: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:27:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:25: in execute
     inp=Path(td)/'in.state'; new=Path(td)/'new.state'; inp.write_text(state(u,s,c,free)); r=subprocess.run(['/app/heapload',str(inp),str(new)],input=''.join(f'{x}\n' for x in sizes),text=True,capture_output=True); assert r.returncode==0,r.stderr; return [int(x) for x in r.stdout.split()],new.read_text()
                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/tmpwu30jyso/new.state'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -492,15 +492,15 @@ ____________ test_persisted_new_state_file_matches_actual_landings _____________
 >    u,s,c,free,sizes=777,32,2,[20,64,100,33,220],[61,90,35,230,400]; out,text=execute(u,s,c,free,sizes); exp,free2,c2=oracle(u,s,c,free,sizes); expected=state(u,s,exp[-1] if exp else c2,free2); assert out==exp; assert text==expected
                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:29: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:29:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:25: in execute
     inp=Path(td)/'in.state'; new=Path(td)/'new.state'; inp.write_text(state(u,s,c,free)); r=subprocess.run(['/app/heapload',str(inp),str(new)],input=''.join(f'{x}\n' for x in sizes),text=True,capture_output=True); assert r.returncode==0,r.stderr; return [int(x) for x in r.stdout.split()],new.read_text()
                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/tmphd6atknd/new.state'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -534,15 +534,15 @@ $ docker exec tbench-mt-insert-path-fsm-page-selection-pivot-oe2 cat /logs/verif
 &gt;    u,s,c,free,sizes=810,30,1,[42,140,89,21],[50,95,31,200]; got,_=execute(u,s,c,free,sizes); assert got==oracle(u,s,c,free,sizes)[0]
                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:27: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:27:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:25: in execute
     inp=Path(td)/'in.state'; new=Path(td)/'new.state'; inp.write_text(state(u,s,c,free)); r=subprocess.run(['/app/heapload',str(inp),str(new)],input=''.join(f'{x}\n' for x in sizes),text=True,capture_output=True); assert r.returncode==0,r.stderr; return [int(x) for x in r.stdout.split()],new.read_text()
                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/tmpwu30jyso/new.state'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -563,15 +563,15 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpwu30jys
 &gt;    u,s,c,free,sizes=777,32,2,[20,64,100,33,220],[61,90,35,230,400]; out,text=execute(u,s,c,free,sizes); exp,free2,c2=oracle(u,s,c,free,sizes); expected=state(u,s,exp[-1] if exp else c2,free2); assert out==exp; assert text==expected
                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:29: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:29:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:25: in execute
     inp=Path(td)/'in.state'; new=Path(td)/'new.state'; inp.write_text(state(u,s,c,free)); r=subprocess.run(['/app/heapload',str(inp),str(new)],input=''.join(f'{x}\n' for x in sizes),text=True,capture_output=True); assert r.returncode==0,r.stderr; return [int(x) for x in r.stdout.split()],new.read_text()
                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/tmp/tmphd6atknd/new.state'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None

@@ -9,7 +9,7 @@ Dockerfile:19
   21 | >>>     && rm /tmp/generate_fixtures.py \
   22 | >>>     && rm -rf /opt/grader-staging \
   23 | >>>     && find /app /opt/tbench-fixtures -type f -exec touch -t 202001010000.00 {} +
-  24 |     
+  24 |
 --------------------
 ERROR: failed to build: failed to solve: process "/bin/sh -c chmod 0555 /app/reference/bitmap_index     && python3 /tmp/generate_fixtures.py     && rm /tmp/generate_fixtures.py     && rm -rf /opt/grader-staging     && find /app /opt/tbench-fixtures -type f -exec touch -t 202001010000.00 {} +" did not complete successfully: exit code: 1
 

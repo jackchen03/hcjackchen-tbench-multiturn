@@ -11,4 +11,3 @@ def test_parity_tombstone_and_prefix_restart_dialect():
     assert rows[0]["restart"] is True and rows[1]["restart"] is True
 def test_does_not_publish_central_accounting_evidence_yet():
     assert not Path("/app/CENTRAL_ACCT.log").exists()
-

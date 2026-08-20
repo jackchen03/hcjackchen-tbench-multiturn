@@ -33,4 +33,3 @@ def test_removes_push_time_frontier_dedup_and_records_parameters():
     assert "frontier_seen" not in source
     report=json.loads(Path("/app/3_pop-visited-repush-slack-patience-pivot_metrics.json").read_text())
     assert report=={"beta":1.25,"patience":3,"visited":"pop","repush":True}
-

@@ -20,8 +20,8 @@ _____________________ test_decodes_shipped_samples_exactly _____________________
     def test_decodes_shipped_samples_exactly():
 >       actual = run_decoder("/app/index", "/tmp/decoded-step1.json")
 
-/tests/test_outputs.py:39: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:39:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index_dir = '/app/index', output_path = '/tmp/decoded-step1.json'
 
@@ -39,8 +39,8 @@ ___________ test_decodes_disjoint_index_with_exact_counts_and_order ____________
         output = Path("/tmp/decoded-heldout-step1.json")
 >       actual = run_decoder("/opt/grader/heldout_index", output)
 
-/tests/test_outputs.py:47: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:47:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index_dir = '/opt/grader/heldout_index'
 output_path = PosixPath('/tmp/decoded-heldout-step1.json')
@@ -68,8 +68,8 @@ $ docker exec tbench-mt-tag-posting-lists-decode-pivot-chain cat /logs/verifier/
 <?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.031" timestamp="2026-08-19T16:37:52.157287+00:00" hostname="e9d09f118fb0"><testcase classname="test_outputs" name="test_decodes_shipped_samples_exactly" time="0.000"><failure message="AssertionError: assert False&#10; +  where False = is_file()&#10; +    where is_file = PosixPath('/app/decode_postings.py').is_file">def test_decodes_shipped_samples_exactly():
 &gt;       actual = run_decoder("/app/index", "/tmp/decoded-step1.json")
 
-/tests/test_outputs.py:39: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:39:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index_dir = '/app/index', output_path = '/tmp/decoded-step1.json'
 
@@ -84,8 +84,8 @@ E        +    where is_file = PosixPath('/app/decode_postings.py').is_file
         output = Path("/tmp/decoded-heldout-step1.json")
 &gt;       actual = run_decoder("/opt/grader/heldout_index", output)
 
-/tests/test_outputs.py:47: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:47:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index_dir = '/opt/grader/heldout_index'
 output_path = PosixPath('/tmp/decoded-heldout-step1.json')
@@ -141,11 +141,11 @@ _______________ test_lookup_matches_disjoint_membership_queries ________________
             probes = [values[0], values[len(values) // 2], values[-1]]
 >           assert all(lookup("/opt/grader/heldout_index", tag, value) for value in probes)
 
-/tests/test_outputs.py:45: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:45:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:45: in <genexpr>
     assert all(lookup("/opt/grader/heldout_index", tag, value) for value in probes)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index_dir = '/opt/grader/heldout_index', tag = 'unseen_segment_00'
 doc_id = 2030
@@ -178,8 +178,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_lookup_jumps_over_a_dama
         postings_path.write_bytes(postings)
 >       assert lookup(copied, tag, values[140])
 
-/tests/test_outputs.py:66: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:66:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index_dir = PosixPath('/tmp/pytest-of-root/pytest-0/test_lookup_jumps_over_a_damag0/index')
 tag = 'unseen_segment_08', doc_id = 805737
@@ -211,11 +211,11 @@ $ docker exec tbench-mt-tag-posting-lists-decode-pivot-chain cat /logs/verifier/
             probes = [values[0], values[len(values) // 2], values[-1]]
 &gt;           assert all(lookup("/opt/grader/heldout_index", tag, value) for value in probes)
 
-/tests/test_outputs.py:45: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:45:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:45: in &lt;genexpr&gt;
     assert all(lookup("/opt/grader/heldout_index", tag, value) for value in probes)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index_dir = '/opt/grader/heldout_index', tag = 'unseen_segment_00'
 doc_id = 2030
@@ -245,8 +245,8 @@ E        +    where is_file = PosixPath('/app/postings_lookup.py').is_file
         postings_path.write_bytes(postings)
 &gt;       assert lookup(copied, tag, values[140])
 
-/tests/test_outputs.py:66: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:66:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 index_dir = PosixPath('/tmp/pytest-of-root/pytest-0/test_lookup_jumps_over_a_damag0/index')
 tag = 'unseen_segment_08', doc_id = 805737
@@ -302,8 +302,8 @@ _____________ test_v2_decoder_matches_shipped_and_disjoint_indexes _____________
             "/app/decode_postings_v2.py", "/app/index_v2", "/tmp/decoded-v2-shipped.json"
         )
 
-/tests/test_outputs.py:32: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:32:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 script = '/app/decode_postings_v2.py', index_dir = '/app/index_v2'
 output_path = '/tmp/decoded-v2-shipped.json'
@@ -321,11 +321,11 @@ ______________ test_v2_source_and_behavior_drop_legacy_tail_rules ______________
     def test_v2_source_and_behavior_drop_legacy_tail_rules():
 >       source = Path("/app/decode_postings_v2.py").read_text(encoding="utf-8").lower()
 
-/tests/test_outputs.py:54: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:54:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/decode_postings_v2.py'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -359,8 +359,8 @@ $ docker exec tbench-mt-tag-posting-lists-decode-pivot-chain cat /logs/verifier/
             "/app/decode_postings_v2.py", "/app/index_v2", "/tmp/decoded-v2-shipped.json"
         )
 
-/tests/test_outputs.py:32: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:32:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 script = '/app/decode_postings_v2.py', index_dir = '/app/index_v2'
 output_path = '/tmp/decoded-v2-shipped.json'
@@ -375,11 +375,11 @@ E        +      where PosixPath('/app/decode_postings_v2.py') = Path('/app/decod
 /tests/test_outputs.py:11: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_v2_source_and_behavior_drop_legacy_tail_rules" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/decode_postings_v2.py'">def test_v2_source_and_behavior_drop_legacy_tail_rules():
 &gt;       source = Path("/app/decode_postings_v2.py").read_text(encoding="utf-8").lower()
 
-/tests/test_outputs.py:54: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:54:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/decode_postings_v2.py'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None

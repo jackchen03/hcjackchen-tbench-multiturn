@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:5372e2555902ddf29884baf06b88a668000b088c6e5080e86c51dc368b6f5398",
+  "command": "codimango bench run -p restored-mf-checkpoint-heldout-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "89f8aa089ebf3905a337089e64f16dae2ae9f3d1f60b98314fccc88b7e240fb5",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.IFUnDz/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.IFUnDz",
+  "source_final_audit": "promoted/recsys/restored-mf-checkpoint-heldout-pivot/.validation/final-audit-20260820T203343Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/recsys/restored-mf-checkpoint-heldout-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:03:21.940644Z",
+      "harbor_task_checksum": "89f8aa089ebf3905a337089e64f16dae2ae9f3d1f60b98314fccc88b7e240fb5",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:02:40.712494Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-factors",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_report-reordered-drift",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-mmap-serving",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "f24c1974-79c5-48d9-a808-f2acbd5c2438",
+      "trial_name": "restored-mf-checkpoint-heldout-p__5B8prqP"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:03:23.254032Z",
+      "harbor_task_checksum": "89f8aa089ebf3905a337089e64f16dae2ae9f3d1f60b98314fccc88b7e240fb5",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:02:40.811365Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-factors",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_report-reordered-drift",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-mmap-serving",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "c0e32f48-a602-4d2e-82c7-dbb5d7cd06e9",
+      "trial_name": "restored-mf-checkpoint-heldout-p__TwLpSUX"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:03:23.442919Z",
+      "harbor_task_checksum": "89f8aa089ebf3905a337089e64f16dae2ae9f3d1f60b98314fccc88b7e240fb5",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:02:40.870603Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-factors",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_report-reordered-drift",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-mmap-serving",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "fadb81f1-af49-491d-9c5e-d8aea6101b5b",
+      "trial_name": "restored-mf-checkpoint-heldout-p__ft5iPwX"
+    }
+  ],
+  "wall_time_seconds": 137,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

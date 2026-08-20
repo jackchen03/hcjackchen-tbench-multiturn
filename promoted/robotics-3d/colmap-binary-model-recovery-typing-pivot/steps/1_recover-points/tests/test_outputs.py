@@ -9,4 +9,3 @@ def test_recovers_sorted_float64_points_only():
     assert np.array_equal(points,np.load("/app/sample_gt/points.npy"))
 def test_does_not_recover_poses_yet():
     assert not Path("/tmp/out/poses.json").exists()
-

@@ -23,11 +23,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_matches_clean_and_partia
         assert all(assert_matches(f'clean_{i}',tmp_path) for i in range(3))
 >       assert all(assert_matches(f'partial_{i}',tmp_path) for i in range(4))
 
-/tests/test_outputs.py:18: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:18: in <genexpr>
     assert all(assert_matches(f'partial_{i}',tmp_path) for i in range(4))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'partial_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_matches_clean_and_partial0')
@@ -56,11 +56,11 @@ $ docker exec tbench-mt-icp-registration-binary-coherence-pivot-chain cat /logs/
         assert all(assert_matches(f'clean_{i}',tmp_path) for i in range(3))
 &gt;       assert all(assert_matches(f'partial_{i}',tmp_path) for i in range(4))
 
-/tests/test_outputs.py:18: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:18: in &lt;genexpr&gt;
     assert all(assert_matches(f'partial_{i}',tmp_path) for i in range(4))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'partial_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_matches_clean_and_partial0')
@@ -113,11 +113,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_matches_outlier_contamin
     def test_matches_outlier_contaminated_poses(tmp_path):
 >       assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in <genexpr>
     assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'outlier_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_matches_outlier_contamina0')
@@ -144,11 +144,11 @@ $ docker exec tbench-mt-icp-registration-binary-coherence-pivot-chain cat /logs/
     def test_matches_outlier_contaminated_poses(tmp_path):
 &gt;       assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in &lt;genexpr&gt;
     assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'outlier_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_matches_outlier_contamina0')
@@ -180,11 +180,11 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-3/test_matches_outlier_contamin
     def test_matches_outlier_contaminated_poses(tmp_path):
 >       assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in <genexpr>
     assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'outlier_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-3/test_matches_outlier_contamina0')
@@ -211,11 +211,11 @@ $ docker exec tbench-mt-icp-registration-binary-coherence-pivot-chain cat /logs/
     def test_matches_outlier_contaminated_poses(tmp_path):
 &gt;       assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
 
-/tests/test_outputs.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:17: in &lt;genexpr&gt;
     assert all(pose_ok(f'outlier_{i}',tmp_path) for i in range(3))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 name = 'outlier_0'
 tmp_path = PosixPath('/tmp/pytest-of-root/pytest-3/test_matches_outlier_contamina0')

@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 28,
+  "bundle_fingerprint": "bundle-sha256-v1:94bbf9c51f9b61b9c5f4321db6921a030ab44f4b4dc51c1de65b38d6cd6fc1d8",
+  "final_audit": "promoted/database-internals/recycled-wal-committed-set-pivot/.validation/final-audit-20260820T202818Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/recycled-wal-committed-set-pivot/.validation/chain-20260820T202145Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/recycled-wal-committed-set-pivot/.validation/oracle-x3-current-20260820T211512Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/recycled-wal-committed-set-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/recycled-wal-committed-set-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

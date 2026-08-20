@@ -10,4 +10,3 @@ def block(sid,seq,payload):
 open("/app/card.img","wb").write(b"X"*32+block(77,1,b"world")+b"_"*9+block(77,0,b"hello "))
 open("/app/recovered.bin","wb").write(b"hello world")
 PY
-

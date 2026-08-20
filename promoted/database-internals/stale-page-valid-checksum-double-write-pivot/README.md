@@ -8,4 +8,3 @@ The chain separates checksum eligibility from currency, carries committed-LSN re
 | Avocado | unmeasured | unmeasured | unmeasured | unmeasured |
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
-

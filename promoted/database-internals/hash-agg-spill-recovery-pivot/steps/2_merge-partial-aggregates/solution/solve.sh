@@ -25,4 +25,3 @@ open(sys.argv[2],"w").write("".join(f"{k}\t{v[0]}\t{v[1]}\n" for k,v in sorted(o
 PY
 chmod +x /app/recover
 printf '%s\n' '{"frontier":"highest-durable-disjoint-antichain","torn_tail":"excluded"}' > /app/2_merge-partial-aggregates_report.json
-

@@ -23,7 +23,7 @@ _______________________ test_sample_matches_expected_csv _______________________
             expected = [tuple(row) for row in list(csv.reader(handle))[1:]]
 >       assert actual == expected
 E       AssertionError: assert [('AAA', '101...C', '303.75')] == [('AAA', '101...C', '303.75')]
-E         
+E
 E         At index 1 diff: ('CCC', '303.75') != ('BBB', '202.50')
 E         Right contains one more item: ('CCC', '303.75')
 E         Use -v to get more diff
@@ -36,7 +36,7 @@ ____________ test_disjoint_rawdata_payload_does_not_end_frame_early ____________
         feed = message("RDX", "444.125", (95, 96), payload) + message("RDY", "445.250")
 >       assert run_gateway(feed) == [("RDX", "444.125"), ("RDY", "445.250")]
 E       AssertionError: assert [('RDY', '445.250')] == [('RDX', '444...', '445.250')]
-E         
+E
 E         At index 0 diff: ('RDY', '445.250') != ('RDX', '444.125')
 E         Right contains one more item: ('RDY', '445.250')
 E         Use -v to get more diff
@@ -60,7 +60,7 @@ $ docker exec tbench-mt-stream-desync-embedded-soh-pivot-chain cat /logs/verifie
             expected = [tuple(row) for row in list(csv.reader(handle))[1:]]
 &gt;       assert actual == expected
 E       AssertionError: assert [('AAA', '101...C', '303.75')] == [('AAA', '101...C', '303.75')]
-E         
+E
 E         At index 1 diff: ('CCC', '303.75') != ('BBB', '202.50')
 E         Right contains one more item: ('CCC', '303.75')
 E         Use -v to get more diff
@@ -70,7 +70,7 @@ E         Use -v to get more diff
         feed = message("RDX", "444.125", (95, 96), payload) + message("RDY", "445.250")
 &gt;       assert run_gateway(feed) == [("RDX", "444.125"), ("RDY", "445.250")]
 E       AssertionError: assert [('RDY', '445.250')] == [('RDX', '444...', '445.250')]
-E         
+E
 E         At index 0 diff: ('RDY', '445.250') != ('RDX', '444.125')
 E         Right contains one more item: ('RDY', '445.250')
 E         Use -v to get more diff
@@ -129,7 +129,7 @@ _______________ test_dictionary_handles_secure_xml_and_raw_data ________________
             ("XML_OK", "603.30"),
         ]
 E       AssertionError: assert [('RAW_OK', '601.10')] == [('RAW_OK', '...K', '603.30')]
-E         
+E
 E         Right contains 3 more items, first extra item: ('SECURE_OK', '602.20')
 E         Use -v to get more diff
 
@@ -162,7 +162,7 @@ $ docker exec tbench-mt-stream-desync-embedded-soh-pivot-chain cat /logs/verifie
             ("XML_OK", "603.30"),
         ]
 E       AssertionError: assert [('RAW_OK', '601.10')] == [('RAW_OK', '...K', '603.30')]
-E         
+E
 E         Right contains 3 more items, first extra item: ('SECURE_OK', '602.20')
 E         Use -v to get more diff
 
@@ -214,13 +214,13 @@ ____________ test_checksum_drop_and_resync_keeps_following_snapshot ____________
         )
 >       rows, report = run_gateway(feed)
 
-/tests/test_outputs.py:64: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:64:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:51: in run_gateway
     report = json.loads(REPORT.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/out/drop_report.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -249,13 +249,13 @@ _________________ test_preserves_all_length_prefixed_families __________________
         )
 >       rows, report = run_gateway(feed)
 
-/tests/test_outputs.py:77: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:77:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:51: in run_gateway
     report = json.loads(REPORT.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/out/drop_report.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -301,13 +301,13 @@ $ docker exec tbench-mt-stream-desync-embedded-soh-pivot-chain cat /logs/verifie
         )
 &gt;       rows, report = run_gateway(feed)
 
-/tests/test_outputs.py:64: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:64:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:51: in run_gateway
     report = json.loads(REPORT.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/out/drop_report.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -333,13 +333,13 @@ E       FileNotFoundError: [Errno 2] No such file or directory: '/app/out/drop_r
         )
 &gt;       rows, report = run_gateway(feed)
 
-/tests/test_outputs.py:77: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:77:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:51: in run_gateway
     report = json.loads(REPORT.read_text(encoding="utf-8"))
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/out/drop_report.json'), mode = 'r', buffering = -1
 encoding = 'utf-8', errors = None, newline = None
@@ -420,14 +420,14 @@ __________________ test_does_not_handle_securedata_family_yet __________________
         later_identifier = "fix_data_fields.txt"
 >       assert later_identifier not in GATEWAY.read_text(encoding="utf-8")
 E       assert 'fix_data_fields.txt' not in '#!/usr/bin/...    main()\n'
-E         
+E
 E         'fix_data_fields.txt' is contained here:
 E           T / "data/fix_data_fields.txt")
 E               quotes = {}
 E               cursor = 0
 E               while True:
 E                   start = data.find(b"8=FIX", cursor)...
-E         
+E
 E         ...Full output truncated (19 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:71: AssertionError
@@ -447,14 +447,14 @@ $ docker exec tbench-mt-stream-desync-embedded-soh-pivot-oe1 cat /logs/verifier/
         later_identifier = "fix_data_fields.txt"
 &gt;       assert later_identifier not in GATEWAY.read_text(encoding="utf-8")
 E       assert 'fix_data_fields.txt' not in '#!/usr/bin/...    main()\n'
-E         
+E
 E         'fix_data_fields.txt' is contained here:
 E           T / "data/fix_data_fields.txt")
 E               quotes = {}
 E               cursor = 0
 E               while True:
 E                   start = data.find(b"8=FIX", cursor)...
-E         
+E
 E         ...Full output truncated (19 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:71: AssertionError</failure></testcase></testsuite></testsuites>

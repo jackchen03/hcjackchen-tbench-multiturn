@@ -29,4 +29,3 @@ json.dump(out,open(sys.argv[2],"w"),sort_keys=True)
 PY
 chmod +x /app/recover
 /app/recover /app/data /tmp/recovered-heap.json
-

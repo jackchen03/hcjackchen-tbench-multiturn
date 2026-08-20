@@ -25,4 +25,3 @@ if __name__ == "__main__":
     main()
 PY
 python3 /app/recommend.py
-

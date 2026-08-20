@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 25,
+  "bundle_fingerprint": "bundle-sha256-v1:466570ca52d03328ddc7dab5c9ecd62f7a77543e730c5060e3d3dffe98daa5c1",
+  "final_audit": "promoted/database-internals/byte-match-btree-index-space-builder-pivot/.validation/final-audit-20260820T202728Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/byte-match-btree-index-space-builder-pivot/.validation/chain-20260820T200225Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/byte-match-btree-index-space-builder-pivot/.validation/oracle-x3-current-20260820T203518Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/byte-match-btree-index-space-builder-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/byte-match-btree-index-space-builder-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

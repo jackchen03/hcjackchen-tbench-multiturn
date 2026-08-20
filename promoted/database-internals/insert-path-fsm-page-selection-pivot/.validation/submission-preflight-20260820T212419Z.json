@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 33,
+  "bundle_fingerprint": "bundle-sha256-v1:c05db88db92d3f7abe8e33543e8346fbbad03a39ede523950d6f90237df2ce41",
+  "final_audit": "promoted/database-internals/insert-path-fsm-page-selection-pivot/.validation/final-audit-20260820T202802Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/insert-path-fsm-page-selection-pivot/.validation/chain-20260820T201436Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/insert-path-fsm-page-selection-pivot/.validation/oracle-x3-current-20260820T210406Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/insert-path-fsm-page-selection-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/insert-path-fsm-page-selection-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

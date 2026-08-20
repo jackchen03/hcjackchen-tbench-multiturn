@@ -21,8 +21,8 @@ ___________ test_sample_checkpoint_all_items_match_intended_factors ____________
 >    got=mod().load_item_factors('/app/ckpt'); exp=np.load('/opt/grade/sample_gt.npy'); assert got.dtype==np.float32; assert got.shape==exp.shape; np.testing.assert_allclose(got,exp,rtol=0,atol=1e-6)
                                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = (<function assert_allclose.<locals>.compare at 0x7f9fb8f0ab60>, array([[-0.53026634, -0.5231305 ,  0.23740739, ...,  0...],
        [ 0.26030868, -0.3075569 , -0.03398246, ...,  0.7057525 ,
@@ -34,9 +34,9 @@ kwds = {'equal_nan': True, 'err_msg': '', 'header': 'Not equal to tolerance rtol
         with self._recreate_cm():
 >           return func(*args, **kwds)
                    ^^^^^^^^^^^^^^^^^^^
-E           AssertionError: 
+E           AssertionError:
 E           Not equal to tolerance rtol=0, atol=1e-06
-E           
+E
 E           Mismatched elements: 1024 / 10240 (10%)
 E           Max absolute difference: 0.36195493
 E           Max relative difference: 151.5025
@@ -74,8 +74,8 @@ $ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /l
 &gt;    got=mod().load_item_factors('/app/ckpt'); exp=np.load('/opt/grade/sample_gt.npy'); assert got.dtype==np.float32; assert got.shape==exp.shape; np.testing.assert_allclose(got,exp,rtol=0,atol=1e-6)
                                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:9: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = (&lt;function assert_allclose.&lt;locals&gt;.compare at 0x7f9fb8f0ab60&gt;, array([[-0.53026634, -0.5231305 ,  0.23740739, ...,  0...],
        [ 0.26030868, -0.3075569 , -0.03398246, ...,  0.7057525 ,
@@ -87,9 +87,9 @@ kwds = {'equal_nan': True, 'err_msg': '', 'header': 'Not equal to tolerance rtol
         with self._recreate_cm():
 &gt;           return func(*args, **kwds)
                    ^^^^^^^^^^^^^^^^^^^
-E           AssertionError: 
+E           AssertionError:
 E           Not equal to tolerance rtol=0, atol=1e-06
-E           
+E
 E           Mismatched elements: 1024 / 10240 (10%)
 E           Max absolute difference: 0.36195493
 E           Max relative difference: 151.5025
@@ -302,7 +302,7 @@ _________ test_future_diagnostics_and_lazy_api_are_not_implemented_yet _________
 >    source=Path('/app/factorstore.py').read_text(); assert 'get_head_flags' not in source; assert 'QuantizedItemStore' not in source; assert not Path('/app/ckpt/head_diagnostics.json').exists()
                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert 'get_head_flags' not in 'import json...type=bool)\n'
-E      
+E
 E      'get_head_flags' is contained here:
 E        n out
 E        def get_head_flags(ckpt_dir):
@@ -326,7 +326,7 @@ $ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 cat /log
 &gt;    source=Path('/app/factorstore.py').read_text(); assert 'get_head_flags' not in source; assert 'QuantizedItemStore' not in source; assert not Path('/app/ckpt/head_diagnostics.json').exists()
                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert 'get_head_flags' not in 'import json...type=bool)\n'
-E      
+E
 E      'get_head_flags' is contained here:
 E        n out
 E        def get_head_flags(ckpt_dir):
@@ -375,14 +375,14 @@ ______________ test_future_lazy_store_api_is_not_implemented_yet _______________
 >    source=Path('/app/factorstore.py').read_text(); assert 'QuantizedItemStore' not in source; assert 'get_item_factor' not in source; assert 'get_batch_factors' not in source
                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert 'QuantizedItemStore' not in 'import json...um_items))\n'
-E      
+E
 E      'QuantizedItemStore' is contained here:
 E         np
 E        class QuantizedItemStore:
 E         def __init__(self,ckpt_dir):
 E          self.root=Path(ckpt_dir); m=json.loads((self.root/'meta.json').read_text()); self.num_items,self.dim,self.m1,self.k1=m['num_items'],m['dim'],m['m1'],m['k1']; self.s1=self.dim//self.m1
 E          self.codebook=np.fromfile(self.root/'stage1_codebook.bin',dtype='<f4').reshape(self.m1,self.k1,self.s1); self.codes=np.fromfile(self.root/'stage1_codes.bin',dtype=np.uint8).reshape(self.num_items,self.m1)...
-E      
+E
 E      ...Full output truncated (15 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:13: AssertionError
@@ -402,14 +402,14 @@ $ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 cat /log
 &gt;    source=Path('/app/factorstore.py').read_text(); assert 'QuantizedItemStore' not in source; assert 'get_item_factor' not in source; assert 'get_batch_factors' not in source
                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E    AssertionError: assert 'QuantizedItemStore' not in 'import json...um_items))\n'
-E      
+E
 E      'QuantizedItemStore' is contained here:
 E         np
 E        class QuantizedItemStore:
 E         def __init__(self,ckpt_dir):
 E          self.root=Path(ckpt_dir); m=json.loads((self.root/'meta.json').read_text()); self.num_items,self.dim,self.m1,self.k1=m['num_items'],m['dim'],m['m1'],m['k1']; self.s1=self.dim//self.m1
 E          self.codebook=np.fromfile(self.root/'stage1_codebook.bin',dtype='&lt;f4').reshape(self.m1,self.k1,self.s1); self.codes=np.fromfile(self.root/'stage1_codes.bin',dtype=np.uint8).reshape(self.num_items,self.m1)...
-E      
+E
 E      ...Full output truncated (15 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:13: AssertionError</failure></testcase></testsuite></testsuites>

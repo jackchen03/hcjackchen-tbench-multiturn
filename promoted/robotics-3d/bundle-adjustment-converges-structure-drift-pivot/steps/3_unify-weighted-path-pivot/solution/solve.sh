@@ -16,4 +16,3 @@ np.savez(a.output,points=d["points"],poses=d["poses"],weighted_rows=np.diag(Jw),
 json.dump({"single_weighted_path":True,"removed_helpers":["reproj_error_px","linear_predicted_reduction_raw"]},open("/workdir/unified_weighted_proof.json","w"))
 PY
 python3 /app/ba_refine.py --input /app/sample_problem.npz --output /tmp/ba-output.npz
-

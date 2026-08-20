@@ -16,4 +16,3 @@ J=np.eye(len(d["sigmas"])); r=np.zeros(len(d["sigmas"])); J_white,r_white=whiten
 np.savez(a.output,points=points,poses=poses,weighted_rows=np.diag(J_white))
 PY
 python3 /app/ba_refine.py --input /app/sample_problem.npz --output /tmp/ba-output.npz
-

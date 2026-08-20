@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 36,
+  "bundle_fingerprint": "bundle-sha256-v1:c29d660a4830d5237efa79290a9a43eebb613acb2f86e2ce76aab602c6a94ccf",
+  "final_audit": "promoted/database-internals/snapshot-visible-set-truncated-wal-pivot/.validation/final-audit-20260820T202820Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/database-internals/snapshot-visible-set-truncated-wal-pivot/.validation/chain-20260820T202316Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/snapshot-visible-set-truncated-wal-pivot/.validation/oracle-x3-current-20260820T211635Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/snapshot-visible-set-truncated-wal-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/snapshot-visible-set-truncated-wal-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

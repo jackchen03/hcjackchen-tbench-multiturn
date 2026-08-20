@@ -32,4 +32,3 @@ for typ,tid,a,b,pos in recs:
 open(sys.argv[2],'w').write(''.join(f'{k} {table[k]}\n' for k in sorted(table)))
 PY
 chmod 0755 /app/replay
-

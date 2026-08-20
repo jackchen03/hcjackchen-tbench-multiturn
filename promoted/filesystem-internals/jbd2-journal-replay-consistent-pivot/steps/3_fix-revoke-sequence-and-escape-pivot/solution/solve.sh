@@ -17,4 +17,3 @@ json.dump(d,open(sys.argv[3],"w"),sort_keys=True)
 PY
 chmod +x /app/replay
 printf '%s\n' 'Revoke records are compared by transaction sequence so later re-journaled data wins; ESCAPE-tagged blocks have the journal magic restored before writeback.' > /app/fix_report.txt
-

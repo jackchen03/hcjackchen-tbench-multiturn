@@ -20,4 +20,3 @@ def test_no_later_step_artifacts_or_identifiers():
     assert not Path('/app/chain_discovery.txt').exists();assert not Path('/app/seq_reorder_proof.json').exists()
     text=BIN.read_text(errors='ignore')
     for token in ('seq_order','trigger_bucket','reorder_case'):assert token not in text
-

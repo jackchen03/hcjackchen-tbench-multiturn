@@ -18,4 +18,3 @@ open(sys.argv[2],"w").write("".join(f"{row}\n" for row in visible(sys.argv[1])))
 PY
 chmod +x /app/reconstruct
 /app/reconstruct /app/data /app/output/live_rows.txt
-

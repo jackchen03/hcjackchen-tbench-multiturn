@@ -18,4 +18,3 @@ for e in entries:
 open(sys.argv[1],"wb").write(b"SST2\n"+b"".join((json.dumps(e,sort_keys=True)+"\n").encode() for e in out))
 PY
 chmod +x /app/compact
-

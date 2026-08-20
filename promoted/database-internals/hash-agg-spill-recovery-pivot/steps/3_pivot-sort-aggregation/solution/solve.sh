@@ -20,4 +20,3 @@ while i<len(rows):
 open(sys.argv[2],"w").write("".join(result))
 PY
 chmod +x /app/recover_sorted
-

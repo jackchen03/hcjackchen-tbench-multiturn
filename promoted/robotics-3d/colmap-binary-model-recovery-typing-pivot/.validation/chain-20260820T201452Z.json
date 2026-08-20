@@ -1,0 +1,81 @@
+{
+  "task": "colmap-binary-model-recovery-typing-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-colmap-binary-model-recovery-typing-pivot:validate"
+    },
+    {
+      "step": "1_recover-points",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-points",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover-points",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_recover-poses",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_recover-poses",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_recover-poses",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-standard-binary",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-standard-binary",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-standard-binary",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-points",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_recover-poses",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 2 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

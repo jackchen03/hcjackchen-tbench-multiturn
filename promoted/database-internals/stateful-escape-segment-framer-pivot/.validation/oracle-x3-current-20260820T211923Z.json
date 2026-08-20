@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:4b2fc08dfb85435613ea47a221b3775469f5b07012c935c82438d75ff002e47c",
+  "command": "codimango bench run -p stateful-escape-segment-framer-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "fb708b5d59271e1e29f47f85343ece010073d7472a4ff4d92a8c17ddb2b1fee0",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.n3whxD/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.n3whxD",
+  "source_final_audit": "promoted/database-internals/stateful-escape-segment-framer-pivot/.validation/final-audit-20260820T202824Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/stateful-escape-segment-framer-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:19:19.906898Z",
+      "harbor_task_checksum": "fb708b5d59271e1e29f47f85343ece010073d7472a4ff4d92a8c17ddb2b1fee0",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:18:41.101122Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-exact-escape-block-framer",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_context-escape-or-null",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_mandatory-tail-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "3ba7b995-33fc-4bd9-a48b-448f544b1bb2",
+      "trial_name": "stateful-escape-segment-framer-p__ZtgJKfW"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:19:18.658080Z",
+      "harbor_task_checksum": "fb708b5d59271e1e29f47f85343ece010073d7472a4ff4d92a8c17ddb2b1fee0",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:18:41.052557Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-exact-escape-block-framer",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_context-escape-or-null",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_mandatory-tail-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "973bd523-5aa3-467d-822b-e4c2e63e76aa",
+      "trial_name": "stateful-escape-segment-framer-p__a9qQB3K"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:19:20.576659Z",
+      "harbor_task_checksum": "fb708b5d59271e1e29f47f85343ece010073d7472a4ff4d92a8c17ddb2b1fee0",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:18:41.112899Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-exact-escape-block-framer",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_context-escape-or-null",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_mandatory-tail-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "26186122-2966-438b-9a51-c841812348a9",
+      "trial_name": "stateful-escape-segment-framer-p__tFCq2Zq"
+    }
+  ],
+  "wall_time_seconds": 84,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

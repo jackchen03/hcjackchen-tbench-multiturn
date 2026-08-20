@@ -19,4 +19,3 @@ def decode_store(path):
     if offset+4!=len(data): raise ValueError("length")
     return rows
 PY
-

@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:2b26b4483aebcb6c9c602bf774837b016ce806bce80ed4007cab9c50ebc65cf2",
+  "command": "codimango bench run -p per-ranker-credit-interleaving-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "fc8daa2592cf5c7e05c06591574153131424a359b1b36decf446a4d83cdaa231",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.MToVIa/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.MToVIa",
+  "source_final_audit": "promoted/recsys/per-ranker-credit-interleaving-pivot/.validation/final-audit-20260820T203333Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/recsys/per-ranker-credit-interleaving-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:53:50.505092Z",
+      "harbor_task_checksum": "fc8daa2592cf5c7e05c06591574153131424a359b1b36decf446a4d83cdaa231",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:53:01.619634Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reproduce-served-slate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_correct-per-ranker-click-credit",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_correct-log-and-contested-audit",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "18c12faa-66ab-4231-9ddb-f5e558167044",
+      "trial_name": "per-ranker-credit-interleaving-p__Fbcaf3R"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:53:50.250347Z",
+      "harbor_task_checksum": "fc8daa2592cf5c7e05c06591574153131424a359b1b36decf446a4d83cdaa231",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:53:01.518376Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reproduce-served-slate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_correct-per-ranker-click-credit",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_correct-log-and-contested-audit",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "367b9037-eabe-487d-bca7-33c0e0bbdb57",
+      "trial_name": "per-ranker-credit-interleaving-p__T9mhyk5"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:53:51.436088Z",
+      "harbor_task_checksum": "fc8daa2592cf5c7e05c06591574153131424a359b1b36decf446a4d83cdaa231",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:53:01.683021Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reproduce-served-slate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_correct-per-ranker-click-credit",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_correct-log-and-contested-audit",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "8b8e9d85-2989-4df4-bb66-b71e7b810e8e",
+      "trial_name": "per-ranker-credit-interleaving-p__dPCNzMv"
+    }
+  ],
+  "wall_time_seconds": 145,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

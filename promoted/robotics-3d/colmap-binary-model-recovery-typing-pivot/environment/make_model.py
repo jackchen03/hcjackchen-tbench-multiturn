@@ -9,4 +9,3 @@ poses={"1":{"qvec":[1.,0.,0.,0.],"tvec":[0.,0.,0.],"camera_id":1,"name":"im1.jpg
 import numpy as np
 np.save(gt/"points.npy",np.array([p["xyz"] for p in sorted(points,key=lambda p:p["point3D_id"])],dtype=np.float64))
 (gt/"poses.json").write_text(json.dumps(poses,sort_keys=True))
-

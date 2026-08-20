@@ -23,4 +23,3 @@ def test_old_product_codec_and_index_are_removed():
 def test_scalar_pivot_report_records_removed_format():
     report=__import__("json").loads(Path("/app/2_pq-codec-product-quantization-pivot_guard_3_scalar-pivot.json").read_text())
     assert report["magic"]=="ISQ1" and report["old_product_quantization_removed"] is True
-

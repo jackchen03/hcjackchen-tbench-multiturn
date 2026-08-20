@@ -1,0 +1,81 @@
+{
+  "task": "hash-agg-spill-recovery-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-hash-agg-spill-recovery-pivot:validate"
+    },
+    {
+      "step": "1_recover-naive-aggregate",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-naive-aggregate",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover-naive-aggregate",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_merge-partial-aggregates",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_merge-partial-aggregates",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_merge-partial-aggregates",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-sort-aggregation",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-sort-aggregation",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-sort-aggregation",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-naive-aggregate",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_merge-partial-aggregates",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

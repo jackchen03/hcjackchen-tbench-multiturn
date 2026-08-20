@@ -21,12 +21,12 @@ _______________ test_probe_volumes_and_report_isolate_ambiguity ________________
 >       volumes=list(Path("/app/probe_volumes").glob("*.npy")); report=json.loads(Path("/app/probe_report.json").read_text())
                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:6: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/probe_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -59,12 +59,12 @@ $ docker exec tbench-mt-marching-cubes-extractor-ambiguity-pivot-chain cat /logs
 &gt;       volumes=list(Path("/app/probe_volumes").glob("*.npy")); report=json.loads(Path("/app/probe_report.json").read_text())
                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:6: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/probe_report.json'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -277,14 +277,14 @@ ___________________ test_does_not_have_rescaled_decider_yet ____________________
     def test_does_not_have_rescaled_decider_yet():
 >       assert "t ** 1.5" not in Path("/app/mymc.py").read_text()
 E       AssertionError: assert 't ** 1.5' not in 'import sys,...argv[1:4])\n'
-E         
+E
 E         't ** 1.5' is contained here:
 E              return t ** 1.5
 E           def decide_cell(corners,iso,face):
 E               values=np.asarray(corners,dtype=float); cmin=float(values.min()); cmax=float(values.max())
 E               g=[warped(float(values[i]),cmin,cmax) for i in face]; alpha=warped(float(iso),cmin,cmax)
 E               return (g[0]-alpha)*(g[2]-alpha)-(g[1]-alpha)*(g[3]-alpha) >= 0...
-E         
+E
 E         ...Full output truncated (4 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:11: AssertionError
@@ -302,14 +302,14 @@ $ docker exec tbench-mt-marching-cubes-extractor-ambiguity-pivot-oe1 cat /logs/v
 <?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.168" timestamp="2026-08-20T18:56:09.443659+00:00" hostname="7c7e7b8e62c6"><testcase classname="test_outputs" name="test_probe_volumes_and_report_isolate_ambiguity" time="0.001" /><testcase classname="test_outputs" name="test_does_not_have_rescaled_decider_yet" time="0.001"><failure message="AssertionError: assert 't ** 1.5' not in 'import sys,...argv[1:4])\n'&#10;  &#10;  't ** 1.5' is contained here:&#10;       return t ** 1.5&#10;    def decide_cell(corners,iso,face):&#10;        values=np.asarray(corners,dtype=float); cmin=float(values.min()); cmax=float(values.max())&#10;        g=[warped(float(values[i]),cmin,cmax) for i in face]; alpha=warped(float(iso),cmin,cmax)&#10;        return (g[0]-alpha)*(g[2]-alpha)-(g[1]-alpha)*(g[3]-alpha) &gt;= 0...&#10;  &#10;  ...Full output truncated (4 lines hidden), use '-vv' to show">def test_does_not_have_rescaled_decider_yet():
 &gt;       assert "t ** 1.5" not in Path("/app/mymc.py").read_text()
 E       AssertionError: assert 't ** 1.5' not in 'import sys,...argv[1:4])\n'
-E         
+E
 E         't ** 1.5' is contained here:
 E              return t ** 1.5
 E           def decide_cell(corners,iso,face):
 E               values=np.asarray(corners,dtype=float); cmin=float(values.min()); cmax=float(values.max())
 E               g=[warped(float(values[i]),cmin,cmax) for i in face]; alpha=warped(float(iso),cmin,cmax)
 E               return (g[0]-alpha)*(g[2]-alpha)-(g[1]-alpha)*(g[3]-alpha) &gt;= 0...
-E         
+E
 E         ...Full output truncated (4 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:11: AssertionError</failure></testcase></testsuite></testsuites>

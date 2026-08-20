@@ -25,4 +25,3 @@ open(sys.argv[2],"wb").write(page)
 PY
 chmod +x /app/writer
 printf '%s\n' '{"reuse":"best-fit","sliver_absorption_bytes":4}' > /app/2_delete-reinsert-sliver-reuse_report.json
-

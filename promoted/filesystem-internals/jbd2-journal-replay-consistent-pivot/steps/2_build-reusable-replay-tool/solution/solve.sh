@@ -16,4 +16,3 @@ for t in j["transactions"]:
 json.dump(d,open(sys.argv[3],"w"),sort_keys=True)
 PY
 chmod +x /app/replay
-

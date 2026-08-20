@@ -20,4 +20,3 @@ open(sys.argv[1],"wb").write(payload)
 
 PY
 chmod +x /app/compact
-

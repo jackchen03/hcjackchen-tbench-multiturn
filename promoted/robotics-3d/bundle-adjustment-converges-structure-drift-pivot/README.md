@@ -10,4 +10,3 @@ The refiner carries the same CLI and datum constraints through Jacobian whitenin
 | Avocado | unmeasured | unmeasured | unmeasured | unmeasured |
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
-

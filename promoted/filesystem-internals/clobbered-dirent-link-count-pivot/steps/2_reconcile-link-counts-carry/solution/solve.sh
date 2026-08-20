@@ -17,4 +17,3 @@ for i,x in d["inodes"].items(): x["links"]=refs.get(int(i),0)
 json.dump(d,open(sys.argv[2],"w"),sort_keys=True)
 PY
 chmod +x /workdir/repair.sh
-

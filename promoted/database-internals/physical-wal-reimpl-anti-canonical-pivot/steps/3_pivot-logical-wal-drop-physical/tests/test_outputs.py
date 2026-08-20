@@ -13,4 +13,3 @@ def test_physical_decoder_dialect_is_absent_after_pivot():
     for token in ["begin_seq","ASSIGN","subxid","record_seq","COMMIT","ABORT"]:
         assert token not in src
     assert Path("/app/verify").is_file()
-

@@ -18,4 +18,3 @@ def write_artifacts(records, binary_path, json_path):
         json.dumps([{"bucket_id": bucket_id, "weight": weight} for bucket_id, weight in records]),
         encoding="utf-8",
     )
-

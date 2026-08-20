@@ -22,15 +22,15 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_recovers_crash_safe_next
     def test_recovers_crash_safe_next_values_for_disjoint_fixture(tmp_path):
 >    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|4\nempty_seq|6\ninvoice_no|5\norder_id|21\n'
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     result=subprocess.run(['/app/recover',root,str(out)],text=True,capture_output=True); assert result.returncode==0,result.stderr; return out.read_text()
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/recover', '/app', '/tmp/pytest-of-root/...>
 args = ['/app/recover', '/app', '/tmp/pytest-of-root/pytest-0/test_recovers_crash_safe_next_0/main.txt']
@@ -50,7 +50,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -60,7 +60,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -68,12 +68,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -94,9 +94,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -114,7 +114,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -148,11 +148,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -164,7 +164,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -174,7 +174,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -215,15 +215,15 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_matches_sample_expected_
     def test_matches_sample_expected_next_exactly(tmp_path):
 >    assert run('/app/data/sample',tmp_path/'sample.txt')==Path('/app/data/sample/expected_next.txt').read_text()
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     result=subprocess.run(['/app/recover',root,str(out)],text=True,capture_output=True); assert result.returncode==0,result.stderr; return out.read_text()
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/app/recover', '/app/data/sample', '/tmp/pyt...>
 args = ['/app/recover', '/app/data/sample', '/tmp/pytest-of-root/pytest-0/test_matches_sample_expected_n0/sample.txt']
@@ -243,7 +243,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -253,7 +253,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -261,12 +261,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -287,9 +287,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -307,7 +307,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -341,11 +341,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -357,7 +357,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -367,7 +367,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -406,11 +406,11 @@ _____________________ test_does_not_have_expected_full_yet _____________________
     def test_does_not_have_expected_full_yet():
 >    assert '/app/data/sample/expected_full.txt' not in Path('/app/recover').read_text()
 
-/tests/test_outputs.py:12: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recover'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -443,15 +443,15 @@ $ docker exec tbench-mt-crash-safe-next-value-pivot-chain cat /logs/verifier/jun
     def test_recovers_crash_safe_next_values_for_disjoint_fixture(tmp_path):
 &gt;    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|4\nempty_seq|6\ninvoice_no|5\norder_id|21\n'
 
-/tests/test_outputs.py:8: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:8:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     result=subprocess.run(['/app/recover',root,str(out)],text=True,capture_output=True); assert result.returncode==0,result.stderr; return out.read_text()
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/recover', '/app', '/tmp/pytest-of-root/...&gt;
 args = ['/app/recover', '/app', '/tmp/pytest-of-root/pytest-0/test_recovers_crash_safe_next_0/main.txt']
@@ -471,7 +471,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -481,7 +481,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -489,12 +489,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -515,9 +515,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -535,7 +535,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -569,11 +569,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -585,7 +585,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -595,7 +595,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -633,15 +633,15 @@ E                   FileNotFoundError: [Errno 2] No such file or directory: '/ap
     def test_matches_sample_expected_next_exactly(tmp_path):
 &gt;    assert run('/app/data/sample',tmp_path/'sample.txt')==Path('/app/data/sample/expected_next.txt').read_text()
 
-/tests/test_outputs.py:10: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:10:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:6: in run
     result=subprocess.run(['/app/recover',root,str(out)],text=True,capture_output=True); assert result.returncode==0,result.stderr; return out.read_text()
 /usr/local/lib/python3.11/subprocess.py:548: in run
     with Popen(*popenargs, **kwargs) as process:
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/app/recover', '/app/data/sample', '/tmp/pyt...&gt;
 args = ['/app/recover', '/app/data/sample', '/tmp/pytest-of-root/pytest-0/test_matches_sample_expected_n0/sample.txt']
@@ -661,7 +661,7 @@ umask = -1, start_new_session = False, process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -671,7 +671,7 @@ umask = -1, start_new_session = False, process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -679,12 +679,12 @@ umask = -1, start_new_session = False, process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -705,9 +705,9 @@ umask = -1, start_new_session = False, process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -725,7 +725,7 @@ umask = -1, start_new_session = False, process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -759,11 +759,11 @@ umask = -1, start_new_session = False, process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -775,7 +775,7 @@ umask = -1, start_new_session = False, process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -785,7 +785,7 @@ umask = -1, start_new_session = False, process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -821,11 +821,11 @@ E                   FileNotFoundError: [Errno 2] No such file or directory: '/ap
 /usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_does_not_have_expected_full_yet" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'">def test_does_not_have_expected_full_yet():
 &gt;    assert '/app/data/sample/expected_full.txt' not in Path('/app/recover').read_text()
 
-/tests/test_outputs.py:12: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/recover'), mode = 'r', buffering = -1
 encoding = 'locale', errors = None, newline = None
@@ -884,14 +884,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_committed_audit_excludes
     def test_committed_audit_excludes_abort_in_progress_and_burned_tail(tmp_path):
 >    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|4|-20,-17\nempty_seq|6|\ninvoice_no|5|55,60\norder_id|21|11,17\n'
 E    AssertionError: assert 'descending|4...order_id|21\n' == 'descending|4...id|21|11,17\n'
-E      
+E
 E      - descending|4|-20,-17
 E      ?             --------
 E      + descending|4
 E      - empty_seq|6|
 E      ?            -
 E      + empty_seq|6...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:8: AssertionError
@@ -902,14 +902,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_audit_extension_preserve
     def test_audit_extension_preserves_next_and_matches_sample(tmp_path):
 >    actual=run('/app/data/sample',tmp_path/'sample.txt'); expected=Path('/app/data/sample/expected_full.txt').read_text(); assert actual==expected; next_only=Path('/app/data/sample/expected_next.txt').read_text().splitlines(); assert [line.rsplit('|',1)[0] for line in actual.splitlines()]==next_only
 E    AssertionError: assert 'descending|4...order_id|21\n' == 'descending|4...id|21|11,17\n'
-E      
+E
 E      - descending|4|-20,-17
 E      ?             --------
 E      + descending|4
 E      - invoice_no|5|55,60
 E      ?             ------
 E      + invoice_no|5...
-E      
+E
 E      ...Full output truncated (3 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:10: AssertionError
@@ -930,14 +930,14 @@ $ docker exec tbench-mt-crash-safe-next-value-pivot-chain cat /logs/verifier/jun
     def test_committed_audit_excludes_abort_in_progress_and_burned_tail(tmp_path):
 &gt;    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|4|-20,-17\nempty_seq|6|\ninvoice_no|5|55,60\norder_id|21|11,17\n'
 E    AssertionError: assert 'descending|4...order_id|21\n' == 'descending|4...id|21|11,17\n'
-E      
+E
 E      - descending|4|-20,-17
 E      ?             --------
 E      + descending|4
 E      - empty_seq|6|
 E      ?            -
 E      + empty_seq|6...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:8: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_audit_extension_preserves_next_and_matches_sample" time="0.017"><failure message="AssertionError: assert 'descending|4...order_id|21\n' == 'descending|4...id|21|11,17\n'&#10;  &#10;  - descending|4|-20,-17&#10;  ?             --------&#10;  + descending|4&#10;  - invoice_no|5|55,60&#10;  ?             ------&#10;  + invoice_no|5...&#10;  &#10;  ...Full output truncated (3 lines hidden), use '-vv' to show">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_audit_extension_preserves0')
@@ -945,14 +945,14 @@ E      ...Full output truncated (6 lines hidden), use '-vv' to show
     def test_audit_extension_preserves_next_and_matches_sample(tmp_path):
 &gt;    actual=run('/app/data/sample',tmp_path/'sample.txt'); expected=Path('/app/data/sample/expected_full.txt').read_text(); assert actual==expected; next_only=Path('/app/data/sample/expected_next.txt').read_text().splitlines(); assert [line.rsplit('|',1)[0] for line in actual.splitlines()]==next_only
 E    AssertionError: assert 'descending|4...order_id|21\n' == 'descending|4...id|21|11,17\n'
-E      
+E
 E      - descending|4|-20,-17
 E      ?             --------
 E      + descending|4
 E      - invoice_no|5|55,60
 E      ?             ------
 E      + invoice_no|5...
-E      
+E
 E      ...Full output truncated (3 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:10: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_have_expected_v2_yet" time="0.000" /></testsuite></testsuites>
@@ -998,14 +998,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_simple_counter_uses_max_
     def test_simple_counter_uses_max_committed_and_preserves_filter(tmp_path):
 >    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|-20|-20,-17\nempty_seq|0|\ninvoice_no|0|55,60\norder_id|18|11,17\n'
 E    AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|-...id|18|11,17\n'
-E      
+E
 E      - descending|-20|-20,-17
 E      ?            ^^^
 E      + descending|4|-20,-17
 E      ?            ^
 E      - empty_seq|0|
 E      ?           ^...
-E      
+E
 E      ...Full output truncated (10 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:8: AssertionError
@@ -1016,14 +1016,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_pivot_matches_v2_sample_
     def test_pivot_matches_v2_sample_exactly(tmp_path):
 >    assert run('/app/data/sample',tmp_path/'sample.txt')==Path('/app/data/sample/expected_v2.txt').read_text()
 E    AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|-...id|18|11,17\n'
-E      
+E
 E      - descending|-20|-20,-17
 E      ?            ^^^
 E      + descending|4|-20,-17
 E      ?            ^
 E      - invoice_no|0|55,60
 E      ?            ^...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:10: AssertionError
@@ -1032,14 +1032,14 @@ __________________ test_old_cached_recovery_paths_are_absent ___________________
     def test_old_cached_recovery_paths_are_absent():
 >    source=Path('/app/recover').read_text(); assert 'REFILL' not in source; assert 'ckpt.bin' not in source; assert 'ckpt_ceiling' not in source; assert 'cache_size' not in source; assert 'burned' not in source; assert 'max(used)' in source
 E    AssertionError: assert 'ckpt.bin' not in '#!/usr/bin/...s.argv[2])\n'
-E      
+E
 E      'ckpt.bin' is contained here:
 E        en(root+'/ckpt.bin','rb').read(); (count,),off=take(data,0,'<I'); result={}
 E      ?           ++++++++
 E         for _ in range(count): (sid,value),off=take(data,off,'<Iq'); result[sid]=value
 E         return result
 E        def wal(root):...
-E      
+E
 E      ...Full output truncated (27 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:12: AssertionError
@@ -1059,14 +1059,14 @@ $ docker exec tbench-mt-crash-safe-next-value-pivot-chain cat /logs/verifier/jun
     def test_simple_counter_uses_max_committed_and_preserves_filter(tmp_path):
 &gt;    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|-20|-20,-17\nempty_seq|0|\ninvoice_no|0|55,60\norder_id|18|11,17\n'
 E    AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|-...id|18|11,17\n'
-E      
+E
 E      - descending|-20|-20,-17
 E      ?            ^^^
 E      + descending|4|-20,-17
 E      ?            ^
 E      - empty_seq|0|
 E      ?           ^...
-E      
+E
 E      ...Full output truncated (10 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:8: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_pivot_matches_v2_sample_exactly" time="0.019"><failure message="AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|-...id|18|11,17\n'&#10;  &#10;  - descending|-20|-20,-17&#10;  ?            ^^^&#10;  + descending|4|-20,-17&#10;  ?            ^&#10;  - invoice_no|0|55,60&#10;  ?            ^...&#10;  &#10;  ...Full output truncated (6 lines hidden), use '-vv' to show">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_pivot_matches_v2_sample_e0')
@@ -1074,27 +1074,27 @@ E      ...Full output truncated (10 lines hidden), use '-vv' to show
     def test_pivot_matches_v2_sample_exactly(tmp_path):
 &gt;    assert run('/app/data/sample',tmp_path/'sample.txt')==Path('/app/data/sample/expected_v2.txt').read_text()
 E    AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|-...id|18|11,17\n'
-E      
+E
 E      - descending|-20|-20,-17
 E      ?            ^^^
 E      + descending|4|-20,-17
 E      ?            ^
 E      - invoice_no|0|55,60
 E      ?            ^...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:10: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_old_cached_recovery_paths_are_absent" time="0.001"><failure message="AssertionError: assert 'ckpt.bin' not in '#!/usr/bin/...s.argv[2])\n'&#10;  &#10;  'ckpt.bin' is contained here:&#10;    en(root+'/ckpt.bin','rb').read(); (count,),off=take(data,0,'&lt;I'); result={}&#10;  ?           ++++++++&#10;     for _ in range(count): (sid,value),off=take(data,off,'&lt;Iq'); result[sid]=value&#10;     return result&#10;    def wal(root):...&#10;  &#10;  ...Full output truncated (27 lines hidden), use '-vv' to show">def test_old_cached_recovery_paths_are_absent():
 &gt;    source=Path('/app/recover').read_text(); assert 'REFILL' not in source; assert 'ckpt.bin' not in source; assert 'ckpt_ceiling' not in source; assert 'cache_size' not in source; assert 'burned' not in source; assert 'max(used)' in source
 E    AssertionError: assert 'ckpt.bin' not in '#!/usr/bin/...s.argv[2])\n'
-E      
+E
 E      'ckpt.bin' is contained here:
 E        en(root+'/ckpt.bin','rb').read(); (count,),off=take(data,0,'&lt;I'); result={}
 E      ?           ++++++++
 E         for _ in range(count): (sid,value),off=take(data,off,'&lt;Iq'); result[sid]=value
 E         return result
 E        def wal(root):...
-E      
+E
 E      ...Full output truncated (27 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:12: AssertionError</failure></testcase></testsuite></testsuites>
@@ -1158,14 +1158,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_recovers_crash_safe_next
     def test_recovers_crash_safe_next_values_for_disjoint_fixture(tmp_path):
 >    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|4\nempty_seq|6\ninvoice_no|5\norder_id|21\n'
 E    AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|4...order_id|21\n'
-E      
+E
 E      - descending|4
 E      + descending|4|-20,-17
 E      ?             ++++++++
 E      - empty_seq|6
 E      + empty_seq|6|
 E      ?            +...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:8: AssertionError
@@ -1176,14 +1176,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_matches_sample_expected_
     def test_matches_sample_expected_next_exactly(tmp_path):
 >    assert run('/app/data/sample',tmp_path/'sample.txt')==Path('/app/data/sample/expected_next.txt').read_text()
 E    AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|4...order_id|21\n'
-E      
+E
 E      - descending|4
 E      + descending|4|-20,-17
 E      ?             ++++++++
 E      - invoice_no|5
 E      + invoice_no|5|55,60
 E      ?             ++++++...
-E      
+E
 E      ...Full output truncated (3 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:10: AssertionError
@@ -1192,14 +1192,14 @@ _____________________ test_does_not_have_expected_full_yet _____________________
     def test_does_not_have_expected_full_yet():
 >    assert '/app/data/sample/expected_full.txt' not in Path('/app/recover').read_text()
 E    AssertionError: assert '/app/data/s...ted_full.txt' not in '#!/usr/bin/...s.argv[2])\n'
-E      
+E
 E      '/app/data/sample/expected_full.txt' is contained here:
 E        EVIDENCE='/app/data/sample/expected_full.txt'
 E        def take(data,offset,fmt):
 E         size=struct.calcsize(fmt); return struct.unpack_from(fmt,data,offset),offset+size
 E        def catalog(root):
 E         data=open(root+'/seqcat.bin','rb').read(); (count,),off=take(data,0,'<I'); result={}...
-E      
+E
 E      ...Full output truncated (35 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:12: AssertionError
@@ -1219,14 +1219,14 @@ $ docker exec tbench-mt-crash-safe-next-value-pivot-oe1 cat /logs/verifier/junit
     def test_recovers_crash_safe_next_values_for_disjoint_fixture(tmp_path):
 &gt;    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|4\nempty_seq|6\ninvoice_no|5\norder_id|21\n'
 E    AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|4...order_id|21\n'
-E      
+E
 E      - descending|4
 E      + descending|4|-20,-17
 E      ?             ++++++++
 E      - empty_seq|6
 E      + empty_seq|6|
 E      ?            +...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:8: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_matches_sample_expected_next_exactly" time="0.016"><failure message="AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|4...order_id|21\n'&#10;  &#10;  - descending|4&#10;  + descending|4|-20,-17&#10;  ?             ++++++++&#10;  - invoice_no|5&#10;  + invoice_no|5|55,60&#10;  ?             ++++++...&#10;  &#10;  ...Full output truncated (3 lines hidden), use '-vv' to show">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_matches_sample_expected_n0')
@@ -1234,27 +1234,27 @@ E      ...Full output truncated (6 lines hidden), use '-vv' to show
     def test_matches_sample_expected_next_exactly(tmp_path):
 &gt;    assert run('/app/data/sample',tmp_path/'sample.txt')==Path('/app/data/sample/expected_next.txt').read_text()
 E    AssertionError: assert 'descending|4...id|21|11,17\n' == 'descending|4...order_id|21\n'
-E      
+E
 E      - descending|4
 E      + descending|4|-20,-17
 E      ?             ++++++++
 E      - invoice_no|5
 E      + invoice_no|5|55,60
 E      ?             ++++++...
-E      
+E
 E      ...Full output truncated (3 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:10: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_have_expected_full_yet" time="0.001"><failure message="AssertionError: assert '/app/data/s...ted_full.txt' not in '#!/usr/bin/...s.argv[2])\n'&#10;  &#10;  '/app/data/sample/expected_full.txt' is contained here:&#10;    EVIDENCE='/app/data/sample/expected_full.txt'&#10;    def take(data,offset,fmt):&#10;     size=struct.calcsize(fmt); return struct.unpack_from(fmt,data,offset),offset+size&#10;    def catalog(root):&#10;     data=open(root+'/seqcat.bin','rb').read(); (count,),off=take(data,0,'&lt;I'); result={}...&#10;  &#10;  ...Full output truncated (35 lines hidden), use '-vv' to show">def test_does_not_have_expected_full_yet():
 &gt;    assert '/app/data/sample/expected_full.txt' not in Path('/app/recover').read_text()
 E    AssertionError: assert '/app/data/s...ted_full.txt' not in '#!/usr/bin/...s.argv[2])\n'
-E      
+E
 E      '/app/data/sample/expected_full.txt' is contained here:
 E        EVIDENCE='/app/data/sample/expected_full.txt'
 E        def take(data,offset,fmt):
 E         size=struct.calcsize(fmt); return struct.unpack_from(fmt,data,offset),offset+size
 E        def catalog(root):
 E         data=open(root+'/seqcat.bin','rb').read(); (count,),off=take(data,0,'&lt;I'); result={}...
-E      
+E
 E      ...Full output truncated (35 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:12: AssertionError</failure></testcase></testsuite></testsuites>
@@ -1300,14 +1300,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_committed_audit_excludes
     def test_committed_audit_excludes_abort_in_progress_and_burned_tail(tmp_path):
 >    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|4|-20,-17\nempty_seq|6|\ninvoice_no|5|55,60\norder_id|21|11,17\n'
 E    AssertionError: assert 'descending|-...id|18|11,17\n' == 'descending|4...id|21|11,17\n'
-E      
+E
 E      - descending|4|-20,-17
 E      ?            ^
 E      + descending|-20|-20,-17
 E      ?            ^^^
 E      - empty_seq|6|
 E      ?           ^...
-E      
+E
 E      ...Full output truncated (10 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:8: AssertionError
@@ -1318,14 +1318,14 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_audit_extension_preserve
     def test_audit_extension_preserves_next_and_matches_sample(tmp_path):
 >    actual=run('/app/data/sample',tmp_path/'sample.txt'); expected=Path('/app/data/sample/expected_full.txt').read_text(); assert actual==expected; next_only=Path('/app/data/sample/expected_next.txt').read_text().splitlines(); assert [line.rsplit('|',1)[0] for line in actual.splitlines()]==next_only
 E    AssertionError: assert 'descending|-...id|18|11,17\n' == 'descending|4...id|21|11,17\n'
-E      
+E
 E      - descending|4|-20,-17
 E      ?            ^
 E      + descending|-20|-20,-17
 E      ?            ^^^
 E      - invoice_no|5|55,60
 E      ?            ^...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:10: AssertionError
@@ -1334,14 +1334,14 @@ ______________________ test_does_not_have_expected_v2_yet ______________________
     def test_does_not_have_expected_v2_yet():
 >    assert '/app/data/sample/expected_v2.txt' not in Path('/app/recover').read_text()
 E    AssertionError: assert '/app/data/s...ected_v2.txt' not in '#!/usr/bin/...s.argv[2])\n'
-E      
+E
 E      '/app/data/sample/expected_v2.txt' is contained here:
 E        EVIDENCE='/app/data/sample/expected_v2.txt'
 E        def unpack(data,offset,fmt):
 E         size=struct.calcsize(fmt); return struct.unpack_from(fmt,data,offset),offset+size
 E        def sequences(root):
 E         data=open(root+'/seqcat.bin','rb').read(); (count,),off=unpack(data,0,'<I'); result={}...
-E      
+E
 E      ...Full output truncated (27 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:12: AssertionError
@@ -1361,14 +1361,14 @@ $ docker exec tbench-mt-crash-safe-next-value-pivot-oe2 cat /logs/verifier/junit
     def test_committed_audit_excludes_abort_in_progress_and_burned_tail(tmp_path):
 &gt;    actual=run('/app',tmp_path/'main.txt'); assert actual=='descending|4|-20,-17\nempty_seq|6|\ninvoice_no|5|55,60\norder_id|21|11,17\n'
 E    AssertionError: assert 'descending|-...id|18|11,17\n' == 'descending|4...id|21|11,17\n'
-E      
+E
 E      - descending|4|-20,-17
 E      ?            ^
 E      + descending|-20|-20,-17
 E      ?            ^^^
 E      - empty_seq|6|
 E      ?           ^...
-E      
+E
 E      ...Full output truncated (10 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:8: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_audit_extension_preserves_next_and_matches_sample" time="0.015"><failure message="AssertionError: assert 'descending|-...id|18|11,17\n' == 'descending|4...id|21|11,17\n'&#10;  &#10;  - descending|4|-20,-17&#10;  ?            ^&#10;  + descending|-20|-20,-17&#10;  ?            ^^^&#10;  - invoice_no|5|55,60&#10;  ?            ^...&#10;  &#10;  ...Full output truncated (6 lines hidden), use '-vv' to show">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_audit_extension_preserves0')
@@ -1376,27 +1376,27 @@ E      ...Full output truncated (10 lines hidden), use '-vv' to show
     def test_audit_extension_preserves_next_and_matches_sample(tmp_path):
 &gt;    actual=run('/app/data/sample',tmp_path/'sample.txt'); expected=Path('/app/data/sample/expected_full.txt').read_text(); assert actual==expected; next_only=Path('/app/data/sample/expected_next.txt').read_text().splitlines(); assert [line.rsplit('|',1)[0] for line in actual.splitlines()]==next_only
 E    AssertionError: assert 'descending|-...id|18|11,17\n' == 'descending|4...id|21|11,17\n'
-E      
+E
 E      - descending|4|-20,-17
 E      ?            ^
 E      + descending|-20|-20,-17
 E      ?            ^^^
 E      - invoice_no|5|55,60
 E      ?            ^...
-E      
+E
 E      ...Full output truncated (6 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:10: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_have_expected_v2_yet" time="0.001"><failure message="AssertionError: assert '/app/data/s...ected_v2.txt' not in '#!/usr/bin/...s.argv[2])\n'&#10;  &#10;  '/app/data/sample/expected_v2.txt' is contained here:&#10;    EVIDENCE='/app/data/sample/expected_v2.txt'&#10;    def unpack(data,offset,fmt):&#10;     size=struct.calcsize(fmt); return struct.unpack_from(fmt,data,offset),offset+size&#10;    def sequences(root):&#10;     data=open(root+'/seqcat.bin','rb').read(); (count,),off=unpack(data,0,'&lt;I'); result={}...&#10;  &#10;  ...Full output truncated (27 lines hidden), use '-vv' to show">def test_does_not_have_expected_v2_yet():
 &gt;    assert '/app/data/sample/expected_v2.txt' not in Path('/app/recover').read_text()
 E    AssertionError: assert '/app/data/s...ected_v2.txt' not in '#!/usr/bin/...s.argv[2])\n'
-E      
+E
 E      '/app/data/sample/expected_v2.txt' is contained here:
 E        EVIDENCE='/app/data/sample/expected_v2.txt'
 E        def unpack(data,offset,fmt):
 E         size=struct.calcsize(fmt); return struct.unpack_from(fmt,data,offset),offset+size
 E        def sequences(root):
 E         data=open(root+'/seqcat.bin','rb').read(); (count,),off=unpack(data,0,'&lt;I'); result={}...
-E      
+E
 E      ...Full output truncated (27 lines hidden), use '-vv' to show
 
 /tests/test_outputs.py:12: AssertionError</failure></testcase></testsuite></testsuites>

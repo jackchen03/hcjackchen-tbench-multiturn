@@ -12,4 +12,3 @@ The chain first removes phantom alignment from packed records, then recovers mix
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
 
 Local chain proof is correctness evidence only. Oracle ×3, model calibration, and cloud validation remain unmeasured.
-

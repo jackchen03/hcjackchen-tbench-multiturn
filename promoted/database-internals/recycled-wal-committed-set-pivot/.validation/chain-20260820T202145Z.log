@@ -1,0 +1,1664 @@
+== oracle chain: recycled-wal-committed-set-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-recycled-wal-committed-set-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/environment
+sha256:1908fc659d09737f8762e3067ae3d43ba540f4392a838702bcf4c25937f0eb28
+
+$ docker rm -f tbench-mt-recycled-wal-committed-set-pivot-chain
+Error response from daemon: No such container: tbench-mt-recycled-wal-committed-set-pivot-chain
+
+$ docker run -d --name tbench-mt-recycled-wal-committed-set-pivot-chain tbench-mt-recycled-wal-committed-set-pivot:validate sleep infinity
+c930b41d5896213bdea7d11233cd6cdf628b25579d1a42b9e1ec292c0d738520
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/1_recover-committed-set/tests/. tbench-mt-recycled-wal-committed-set-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____________ test_sample_recycled_tail_is_trimmed_by_record_chain _____________
+
+    def test_sample_recycled_tail_is_trimmed_by_record_chain():
+>    assert run('/app/data')=='10\n30\n'
+            ^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:16:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:14: in run
+    out=Path(root).parent/'out.txt'; r=subprocess.run(['/app/recover',str(root),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; return out.read_text()
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: 255 args: ['/app/recover', '/app/data', '/app/out.txt']>
+args = ['/app/recover', '/app/data', '/app/out.txt']
+executable = b'/app/recover', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12, errread = 13
+errwrite = 14, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+___________ test_disjoint_ids_and_whole_old_block_recover_exact_set ____________
+
+    def test_disjoint_ids_and_whole_old_block_recover_exact_set():
+     with tempfile.TemporaryDirectory() as td:
+>     root=Path(td)/'data'; site(root,[101,202,303,404]); assert run(root)=='101\n303\n'
+                                                                 ^^^^^^^^^
+
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:14: in run
+    out=Path(root).parent/'out.txt'; r=subprocess.run(['/app/recover',str(root),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; return out.read_text()
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: 255 args: ['/app/recover', '/tmp/tmpppm4a9t1/data', '/tm...>
+args = ['/app/recover', '/tmp/tmpppm4a9t1/data', '/tmp/tmpppm4a9t1/out.txt']
+executable = b'/app/recover', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12, errread = 13
+errwrite = 14, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+________________ test_commit_index_sidecar_is_not_created_early ________________
+
+    def test_commit_index_sidecar_is_not_created_early():
+>    Path('/app/commit.idx').unlink(missing_ok=True); run('/app/data'); assert not Path('/app/commit.idx').exists()
+                                                      ^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:21:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:14: in run
+    out=Path(root).parent/'out.txt'; r=subprocess.run(['/app/recover',str(root),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; return out.read_text()
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: 255 args: ['/app/recover', '/app/data', '/app/out.txt']>
+args = ['/app/recover', '/app/data', '/app/out.txt']
+executable = b'/app/recover', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12, errread = 13
+errwrite = 14, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_sample_recycled_tail_is_trimmed_by_record_chain
+FAILED ../tests/test_outputs.py::test_disjoint_ids_and_whole_old_block_recover_exact_set
+FAILED ../tests/test_outputs.py::test_commit_index_sidecar_is_not_created_early
+3 failed in 0.14s
+reward=0 (3 failed, 0 errored)
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.143" timestamp="2026-08-20T20:21:46.830797+00:00" hostname="c930b41d5896"><testcase classname="test_outputs" name="test_sample_recycled_tail_is_trimmed_by_record_chain" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'">def test_sample_recycled_tail_is_trimmed_by_record_chain():
+&gt;    assert run('/app/data')=='10\n30\n'
+            ^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:16:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:14: in run
+    out=Path(root).parent/'out.txt'; r=subprocess.run(['/app/recover',str(root),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; return out.read_text()
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;Popen: returncode: 255 args: ['/app/recover', '/app/data', '/app/out.txt']&gt;
+args = ['/app/recover', '/app/data', '/app/out.txt']
+executable = b'/app/recover', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12, errread = 13
+errwrite = 14, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_disjoint_ids_and_whole_old_block_recover_exact_set" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'">def test_disjoint_ids_and_whole_old_block_recover_exact_set():
+     with tempfile.TemporaryDirectory() as td:
+&gt;     root=Path(td)/'data'; site(root,[101,202,303,404]); assert run(root)=='101\n303\n'
+                                                                 ^^^^^^^^^
+
+/tests/test_outputs.py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:14: in run
+    out=Path(root).parent/'out.txt'; r=subprocess.run(['/app/recover',str(root),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; return out.read_text()
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;Popen: returncode: 255 args: ['/app/recover', '/tmp/tmpppm4a9t1/data', '/tm...&gt;
+args = ['/app/recover', '/tmp/tmpppm4a9t1/data', '/tmp/tmpppm4a9t1/out.txt']
+executable = b'/app/recover', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12, errread = 13
+errwrite = 14, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_commit_index_sidecar_is_not_created_early" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'">def test_commit_index_sidecar_is_not_created_early():
+&gt;    Path('/app/commit.idx').unlink(missing_ok=True); run('/app/data'); assert not Path('/app/commit.idx').exists()
+                                                      ^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:21:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:14: in run
+    out=Path(root).parent/'out.txt'; r=subprocess.run(['/app/recover',str(root),str(out)],text=True,capture_output=True); assert r.returncode==0,r.stderr; return out.read_text()
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;Popen: returncode: 255 args: ['/app/recover', '/app/data', '/app/out.txt']&gt;
+args = ['/app/recover', '/app/data', '/app/out.txt']
+executable = b'/app/recover', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = 11, c2pwrite = 12, errread = 13
+errwrite = 14, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests
+STEP 1 1_recover-committed-set  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/1_recover-committed-set/solution/. tbench-mt-recycled-wal-committed-set-pivot-chain:/solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /solution
+STEP 1 1_recover-committed-set  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/1_recover-committed-set/tests/. tbench-mt-recycled-wal-committed-set-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_sample_recycled_tail_is_trimmed_by_record_chain
+PASSED ../tests/test_outputs.py::test_disjoint_ids_and_whole_old_block_recover_exact_set
+PASSED ../tests/test_outputs.py::test_commit_index_sidecar_is_not_created_early
+3 passed in 0.26s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.257" timestamp="2026-08-20T20:21:48.540112+00:00" hostname="c930b41d5896"><testcase classname="test_outputs" name="test_sample_recycled_tail_is_trimmed_by_record_chain" time="0.079" /><testcase classname="test_outputs" name="test_disjoint_ids_and_whole_old_block_recover_exact_set" time="0.081" /><testcase classname="test_outputs" name="test_commit_index_sidecar_is_not_created_early" time="0.083" /></testsuite></testsuites>
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests
+STEP 1 1_recover-committed-set  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/2_build-commit-index/tests/. tbench-mt-recycled-wal-committed-set-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-chain bash /tests/test.sh
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+_________________ test_committed_text_regression_remains_exact _________________
+
+    def test_committed_text_regression_remains_exact():
+>    text,_=run(); assert text=='10\n30\n'
+            ^^^^^
+
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:7: in run
+    r=subprocess.run(['/app/recover','/app/data',f.name],text=True,capture_output=True); assert r.returncode==0,r.stderr; return Path(f.name).read_text(),Path('/app/commit.idx').read_bytes()
+                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/commit.idx'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/commit.idx'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+________ test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact _________
+
+    def test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact():
+>    _,raw=run(); magic,ver,n,crc=struct.unpack_from('>IIII',raw,0); assert (magic,ver,n)==(0x43494458,1,2); assert crc==zlib.crc32(raw[:12])&0xffffffff; entries=[struct.unpack_from('>QQ',raw,16+i*16) for i in range(n)]; assert entries==[(10,56),(30,184)]
+           ^^^^^
+
+/tests/test_outputs.py:11:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:7: in run
+    r=subprocess.run(['/app/recover','/app/data',f.name],text=True,capture_output=True); assert r.returncode==0,r.stderr; return Path(f.name).read_text(),Path('/app/commit.idx').read_bytes()
+                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/commit.idx'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/commit.idx'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_hash_pivot_report_is_not_emitted_early
+FAILED ../tests/test_outputs.py::test_committed_text_regression_remains_exact
+FAILED ../tests/test_outputs.py::test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact
+2 failed, 1 passed in 0.22s
+reward=0 (2 failed, 0 errored)
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.218" timestamp="2026-08-20T20:21:49.845172+00:00" hostname="c930b41d5896"><testcase classname="test_outputs" name="test_committed_text_regression_remains_exact" time="0.080"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/commit.idx'">def test_committed_text_regression_remains_exact():
+&gt;    text,_=run(); assert text=='10\n30\n'
+            ^^^^^
+
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:7: in run
+    r=subprocess.run(['/app/recover','/app/data',f.name],text=True,capture_output=True); assert r.returncode==0,r.stderr; return Path(f.name).read_text(),Path('/app/commit.idx').read_bytes()
+                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/commit.idx'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/commit.idx'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact" time="0.080"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/commit.idx'">def test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact():
+&gt;    _,raw=run(); magic,ver,n,crc=struct.unpack_from('&gt;IIII',raw,0); assert (magic,ver,n)==(0x43494458,1,2); assert crc==zlib.crc32(raw[:12])&amp;0xffffffff; entries=[struct.unpack_from('&gt;QQ',raw,16+i*16) for i in range(n)]; assert entries==[(10,56),(30,184)]
+           ^^^^^
+
+/tests/test_outputs.py:11:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:7: in run
+    r=subprocess.run(['/app/recover','/app/data',f.name],text=True,capture_output=True); assert r.returncode==0,r.stderr; return Path(f.name).read_text(),Path('/app/commit.idx').read_bytes()
+                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/commit.idx'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/commit.idx'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_hash_pivot_report_is_not_emitted_early" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests
+STEP 2 2_build-commit-index  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/2_build-commit-index/solution/. tbench-mt-recycled-wal-committed-set-pivot-chain:/solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /solution
+STEP 2 2_build-commit-index  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/2_build-commit-index/tests/. tbench-mt-recycled-wal-committed-set-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_committed_text_regression_remains_exact
+PASSED ../tests/test_outputs.py::test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact
+PASSED ../tests/test_outputs.py::test_hash_pivot_report_is_not_emitted_early
+3 passed in 0.18s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.178" timestamp="2026-08-20T20:21:51.626959+00:00" hostname="c930b41d5896"><testcase classname="test_outputs" name="test_committed_text_regression_remains_exact" time="0.082" /><testcase classname="test_outputs" name="test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact" time="0.081" /><testcase classname="test_outputs" name="test_hash_pivot_report_is_not_emitted_early" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests
+STEP 2 2_build-commit-index  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/3_hash-lookup-pivot/tests/. tbench-mt-recycled-wal-committed-set-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-chain bash /tests/test.sh
+.FF                                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_cidy_buckets_chains_and_commit_lsns_support_lookup ____________
+
+    def test_cidy_buckets_chains_and_commit_lsns_support_lookup():
+>    _,raw=run(); magic,ver,nb,n,bo,eo=struct.unpack_from('>IIIIII',raw,0); assert (magic,ver,nb,n,bo,eo)==(0x43494459,2,64,2,24,280); buckets=list(struct.unpack_from('>64I',raw,24)); entries=[struct.unpack_from('>QQII',raw,280+i*24) for i in range(n)]; assert entries==[(10,56,0xffffffff,0),(30,184,0xffffffff,0)]; assert buckets[10]==0 and buckets[30]==1
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    assert (1128875096, ...758381, 0, 10) == (1128875097, ...4, 2, 24, 280)
+E
+E      At index 0 diff: 1128875096 != 1128875097
+E      Use -v to get more diff
+
+/tests/test_outputs.py:11: AssertionError
+______________ test_old_cidx_writer_is_absent_and_report_is_valid ______________
+
+    def test_old_cidx_writer_is_absent_and_report_is_valid():
+>    source=Path('/app/recover').read_text(); report=json.loads(Path('/app/3_hash-lookup-pivot_report.json').read_text()); assert '43494458' not in source; assert 'CIDX' not in source; assert report['format']=='CIDY' and report['num_buckets']==64
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/3_hash-lookup-pivot_report.json'), mode = 'r'
+buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/3_hash-lookup-pivot_report.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_committed_set_regression_survives_hash_pivot
+FAILED ../tests/test_outputs.py::test_cidy_buckets_chains_and_commit_lsns_support_lookup
+FAILED ../tests/test_outputs.py::test_old_cidx_writer_is_absent_and_report_is_valid
+2 failed, 1 passed in 0.21s
+reward=0 (2 failed, 0 errored)
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.209" timestamp="2026-08-20T20:21:52.878983+00:00" hostname="c930b41d5896"><testcase classname="test_outputs" name="test_committed_set_regression_survives_hash_pivot" time="0.081" /><testcase classname="test_outputs" name="test_cidy_buckets_chains_and_commit_lsns_support_lookup" time="0.080"><failure message="assert (1128875096, ...758381, 0, 10) == (1128875097, ...4, 2, 24, 280)&#10;  &#10;  At index 0 diff: 1128875096 != 1128875097&#10;  Use -v to get more diff">def test_cidy_buckets_chains_and_commit_lsns_support_lookup():
+&gt;    _,raw=run(); magic,ver,nb,n,bo,eo=struct.unpack_from('&gt;IIIIII',raw,0); assert (magic,ver,nb,n,bo,eo)==(0x43494459,2,64,2,24,280); buckets=list(struct.unpack_from('&gt;64I',raw,24)); entries=[struct.unpack_from('&gt;QQII',raw,280+i*24) for i in range(n)]; assert entries==[(10,56,0xffffffff,0),(30,184,0xffffffff,0)]; assert buckets[10]==0 and buckets[30]==1
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    assert (1128875096, ...758381, 0, 10) == (1128875097, ...4, 2, 24, 280)
+E
+E      At index 0 diff: 1128875096 != 1128875097
+E      Use -v to get more diff
+
+/tests/test_outputs.py:11: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_old_cidx_writer_is_absent_and_report_is_valid" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/3_hash-lookup-pivot_report.json'">def test_old_cidx_writer_is_absent_and_report_is_valid():
+&gt;    source=Path('/app/recover').read_text(); report=json.loads(Path('/app/3_hash-lookup-pivot_report.json').read_text()); assert '43494458' not in source; assert 'CIDX' not in source; assert report['format']=='CIDY' and report['num_buckets']==64
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/3_hash-lookup-pivot_report.json'), mode = 'r'
+buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/3_hash-lookup-pivot_report.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests
+STEP 3 3_hash-lookup-pivot  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/3_hash-lookup-pivot/solution/. tbench-mt-recycled-wal-committed-set-pivot-chain:/solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /solution
+STEP 3 3_hash-lookup-pivot  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/3_hash-lookup-pivot/tests/. tbench-mt-recycled-wal-committed-set-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_committed_set_regression_survives_hash_pivot
+PASSED ../tests/test_outputs.py::test_cidy_buckets_chains_and_commit_lsns_support_lookup
+PASSED ../tests/test_outputs.py::test_old_cidx_writer_is_absent_and_report_is_valid
+3 passed in 0.19s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.189" timestamp="2026-08-20T20:21:54.627821+00:00" hostname="c930b41d5896"><testcase classname="test_outputs" name="test_committed_set_regression_survives_hash_pivot" time="0.086" /><testcase classname="test_outputs" name="test_cidy_buckets_chains_and_commit_lsns_support_lookup" time="0.087" /><testcase classname="test_outputs" name="test_old_cidx_writer_is_absent_and_report_is_valid" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-chain rm -rf /tests
+STEP 3 3_hash-lookup-pivot  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-recycled-wal-committed-set-pivot-oe1
+Error response from daemon: No such container: tbench-mt-recycled-wal-committed-set-pivot-oe1
+
+$ docker run -d --name tbench-mt-recycled-wal-committed-set-pivot-oe1 tbench-mt-recycled-wal-committed-set-pivot:validate sleep infinity
+82e69669e29f2efcc2500303530f02615446f47b97f088cf77fc1055317cff7f
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/1_recover-committed-set/solution/. tbench-mt-recycled-wal-committed-set-pivot-oe1:/solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/2_build-commit-index/solution/. tbench-mt-recycled-wal-committed-set-pivot-oe1:/solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/1_recover-committed-set/tests/. tbench-mt-recycled-wal-committed-set-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-oe1 bash /tests/test.sh
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_commit_index_sidecar_is_not_created_early ________________
+
+    def test_commit_index_sidecar_is_not_created_early():
+>    Path('/app/commit.idx').unlink(missing_ok=True); run('/app/data'); assert not Path('/app/commit.idx').exists()
+                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/commit.idx').exists
+E     +      where PosixPath('/app/commit.idx') = Path('/app/commit.idx')
+
+/tests/test_outputs.py:21: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_sample_recycled_tail_is_trimmed_by_record_chain
+PASSED ../tests/test_outputs.py::test_disjoint_ids_and_whole_old_block_recover_exact_set
+FAILED ../tests/test_outputs.py::test_commit_index_sidecar_is_not_created_early
+1 failed, 2 passed in 0.26s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.266" timestamp="2026-08-20T20:21:57.273564+00:00" hostname="82e69669e29f"><testcase classname="test_outputs" name="test_sample_recycled_tail_is_trimmed_by_record_chain" time="0.080" /><testcase classname="test_outputs" name="test_disjoint_ids_and_whole_old_block_recover_exact_set" time="0.081" /><testcase classname="test_outputs" name="test_commit_index_sidecar_is_not_created_early" time="0.082"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/commit.idx').exists&#10; +      where PosixPath('/app/commit.idx') = Path('/app/commit.idx')">def test_commit_index_sidecar_is_not_created_early():
+&gt;    Path('/app/commit.idx').unlink(missing_ok=True); run('/app/data'); assert not Path('/app/commit.idx').exists()
+                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/commit.idx').exists
+E     +      where PosixPath('/app/commit.idx') = Path('/app/commit.idx')
+
+/tests/test_outputs.py:21: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe1 rm -rf /tests
+STEP 1 1_recover-committed-set  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-recycled-wal-committed-set-pivot-oe1
+tbench-mt-recycled-wal-committed-set-pivot-oe1
+
+$ docker rm -f tbench-mt-recycled-wal-committed-set-pivot-oe2
+Error response from daemon: No such container: tbench-mt-recycled-wal-committed-set-pivot-oe2
+
+$ docker run -d --name tbench-mt-recycled-wal-committed-set-pivot-oe2 tbench-mt-recycled-wal-committed-set-pivot:validate sleep infinity
+43dd36f5f2f479be79e72a8269994694e4739a708ec913995600503027a2b7f7
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/1_recover-committed-set/solution/. tbench-mt-recycled-wal-committed-set-pivot-oe2:/solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/2_build-commit-index/solution/. tbench-mt-recycled-wal-committed-set-pivot-oe2:/solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/3_hash-lookup-pivot/solution/. tbench-mt-recycled-wal-committed-set-pivot-oe2:/solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/steps/2_build-commit-index/tests/. tbench-mt-recycled-wal-committed-set-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-recycled-wal-committed-set-pivot-oe2 bash /tests/test.sh
+.FF                                                                      [100%]
+=================================== FAILURES ===================================
+________ test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact _________
+
+    def test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact():
+>    _,raw=run(); magic,ver,n,crc=struct.unpack_from('>IIII',raw,0); assert (magic,ver,n)==(0x43494458,1,2); assert crc==zlib.crc32(raw[:12])&0xffffffff; entries=[struct.unpack_from('>QQ',raw,16+i*16) for i in range(n)]; assert entries==[(10,56),(30,184)]
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    assert (1128875097, 2, 64) == (1128875096, 1, 2)
+E
+E      At index 0 diff: 1128875097 != 1128875096
+E      Use -v to get more diff
+
+/tests/test_outputs.py:11: AssertionError
+_________________ test_hash_pivot_report_is_not_emitted_early __________________
+
+    def test_hash_pivot_report_is_not_emitted_early():
+>    assert not Path('/app/3_hash-lookup-pivot_report.json').exists()
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/3_hash-lookup-pivot_report.json').exists
+E     +      where PosixPath('/app/3_hash-lookup-pivot_report.json') = Path('/app/3_hash-lookup-pivot_report.json')
+
+/tests/test_outputs.py:13: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_committed_text_regression_remains_exact
+FAILED ../tests/test_outputs.py::test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact
+FAILED ../tests/test_outputs.py::test_hash_pivot_report_is_not_emitted_early
+2 failed, 1 passed in 0.20s
+reward=0 (2 failed, 0 errored)
+
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.201" timestamp="2026-08-20T20:22:00.643254+00:00" hostname="43dd36f5f2f4"><testcase classname="test_outputs" name="test_committed_text_regression_remains_exact" time="0.087" /><testcase classname="test_outputs" name="test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact" time="0.086"><failure message="assert (1128875097, 2, 64) == (1128875096, 1, 2)&#10;  &#10;  At index 0 diff: 1128875097 != 1128875096&#10;  Use -v to get more diff">def test_sorted_cidx_header_crc_entries_and_commit_lsns_are_exact():
+&gt;    _,raw=run(); magic,ver,n,crc=struct.unpack_from('&gt;IIII',raw,0); assert (magic,ver,n)==(0x43494458,1,2); assert crc==zlib.crc32(raw[:12])&amp;0xffffffff; entries=[struct.unpack_from('&gt;QQ',raw,16+i*16) for i in range(n)]; assert entries==[(10,56),(30,184)]
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    assert (1128875097, 2, 64) == (1128875096, 1, 2)
+E
+E      At index 0 diff: 1128875097 != 1128875096
+E      Use -v to get more diff
+
+/tests/test_outputs.py:11: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_hash_pivot_report_is_not_emitted_early" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/3_hash-lookup-pivot_report.json').exists&#10; +      where PosixPath('/app/3_hash-lookup-pivot_report.json') = Path('/app/3_hash-lookup-pivot_report.json')">def test_hash_pivot_report_is_not_emitted_early():
+&gt;    assert not Path('/app/3_hash-lookup-pivot_report.json').exists()
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/3_hash-lookup-pivot_report.json').exists
+E     +      where PosixPath('/app/3_hash-lookup-pivot_report.json') = Path('/app/3_hash-lookup-pivot_report.json')
+
+/tests/test_outputs.py:13: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-recycled-wal-committed-set-pivot-oe2 rm -rf /tests
+STEP 2 2_build-commit-index  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-recycled-wal-committed-set-pivot-oe2
+tbench-mt-recycled-wal-committed-set-pivot-oe2
+
+$ docker rm -f tbench-mt-recycled-wal-committed-set-pivot-chain
+tbench-mt-recycled-wal-committed-set-pivot-chain
+
+$ docker rm -f tbench-mt-recycled-wal-committed-set-pivot-oe1
+Error response from daemon: No such container: tbench-mt-recycled-wal-committed-set-pivot-oe1
+
+$ docker rm -f tbench-mt-recycled-wal-committed-set-pivot-oe2
+Error response from daemon: No such container: tbench-mt-recycled-wal-committed-set-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/recycled-wal-committed-set-pivot/.validation/chain-20260820T202145Z.json

@@ -26,4 +26,3 @@ def write(name,rows):
     (corpus/name).write_text("".join(json.dumps(row,separators=(",",":"))+"\n" for row in rows))
 write("requests.jsonl",legacy); write("no_pin_requests.jsonl",[r for r in legacy if not r["pins"]])
 write("pinned_requests.jsonl",[r for r in legacy if r["pins"]]); write("fixed_spec_requests.jsonl",fixed)
-

@@ -1,0 +1,19 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:56cb8d478a3d832ec6426d6e253db8f917a40aacbe5fafc1b85093a27db2c3ca",
+  "final_audit": "promoted/recsys/cohort-correct-candidates-never-reach-pivot/.validation/final-audit-20260820T203318Z.json",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "promoted/recsys/cohort-correct-candidates-never-reach-pivot/.validation/chain-20260820T200634Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/recsys/cohort-correct-candidates-never-reach-pivot/.validation/oracle-x3-current-20260820T204055Z.json",
+  "proposed_commit_pathspec": "promoted/recsys/cohort-correct-candidates-never-reach-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/recsys/cohort-correct-candidates-never-reach-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

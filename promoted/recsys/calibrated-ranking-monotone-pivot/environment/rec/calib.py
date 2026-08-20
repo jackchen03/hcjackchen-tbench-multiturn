@@ -11,4 +11,3 @@ def load_calibration(path):
             _bucket_id, weight = struct.unpack("<id", handle.read(12))
             weights.append(weight)
     return weights
-

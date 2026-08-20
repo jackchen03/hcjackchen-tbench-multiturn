@@ -10,4 +10,3 @@ Step 1 establishes a self-consistent compressed vector store, step 2 carries its
 | Avocado | unmeasured | unmeasured | unmeasured | unmeasured |
 | Opus | unmeasured | unmeasured | unmeasured | unmeasured |
 | GPT | unmeasured | unmeasured | unmeasured | unmeasured |
-

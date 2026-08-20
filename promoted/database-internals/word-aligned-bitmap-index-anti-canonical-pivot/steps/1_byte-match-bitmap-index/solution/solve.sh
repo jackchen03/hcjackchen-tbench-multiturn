@@ -36,4 +36,3 @@ word aligned bitmap index anti canonical pivot
 The executable preserves the observed legacy byte dialect and stdin-to-stdout contract.
 EOF
 chmod 0755 /app/indexer
-

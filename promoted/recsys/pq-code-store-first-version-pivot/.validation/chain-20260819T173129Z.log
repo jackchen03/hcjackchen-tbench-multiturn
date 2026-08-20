@@ -23,7 +23,7 @@ ______________________ test_decodes_shipped_rows_exactly _______________________
 E       AssertionError: assert (dtype('uint8') == <class 'numpy.uint8'> and (83, 8) == (83, 8)
 E        +  where dtype('uint8') = array([[168, 141,  87, 183,  80, 159, 111, 159],\n       [ 10,   2,  62,  10,  36, 160,  52,  10],\n       [ 74,  15, 24...,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0]], dtype=uint8).dtype
 E        +  and   <class 'numpy.uint8'> = np.uint8)
-E         
+E
 E         Use -v to get more diff and False
 E        +  and   False = <function array_equal at 0x7f905d5daf70>(array([[168, 141,  87, 183,  80, 159, 111, 159],\n       [ 10,   2,  62,  10,  36, 160,  52,  10],\n       [ 74,  15, 24...,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0]], dtype=uint8), array([[168, 141,  87, 183,  80, 159, 111, 159],\n       [168, 179,  87, 183,  80, 159, 111, 159],\n       [168, 179, 24..., 179],\n       [ 63, 227, 253,  58,  59, 165, 105,   5],\n       [137, 245, 154, 174,  59, 228, 224, 130]], dtype=uint8))
 E        +    where <function array_equal at 0x7f905d5daf70> = np.array_equal
@@ -39,7 +39,7 @@ _________________ test_decodes_disjoint_partial_blocks_exactly _________________
 E           AssertionError: assert (dtype('uint8') == <class 'numpy.uint8'> and (33, 8) == (33, 8)
 E            +  where dtype('uint8') = array([[117,  20,  85, 229, 107, 255,  45,  85],\n       [ 10,   2,   9,  10,  36,  25, 226,  10],\n       [ 74, 184, 10...,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0],\n       [  6,  19, 229, 114, 166, 101,  76,  28]], dtype=uint8).dtype
 E            +  and   <class 'numpy.uint8'> = np.uint8)
-E             
+E
 E             Use -v to get more diff and False
 E            +  and   False = <function array_equal at 0x7f905d5daf70>(array([[117,  20,  85, 229, 107, 255,  45,  85],\n       [ 10,   2,   9,  10,  36,  25, 226,  10],\n       [ 74, 184, 10...,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0],\n       [  6,  19, 229, 114, 166, 101,  76,  28]], dtype=uint8), array([[117,  20,  85, 229, 107, 255,  45,  85],\n       [117,  29,  85, 229, 107, 255,  45,  85],\n       [117,  29,  7...,   1],\n       [ 24, 110, 252,  51, 164,  14, 220, 200],\n       [  6,  19, 229, 114, 166, 101,  76,  28]], dtype=uint8))
 E            +    where <function array_equal at 0x7f905d5daf70> = np.array_equal
@@ -76,7 +76,7 @@ $ docker exec tbench-mt-pq-code-store-first-version-pivot-chain cat /logs/verifi
 E       AssertionError: assert (dtype('uint8') == &lt;class 'numpy.uint8'&gt; and (83, 8) == (83, 8)
 E        +  where dtype('uint8') = array([[168, 141,  87, 183,  80, 159, 111, 159],\n       [ 10,   2,  62,  10,  36, 160,  52,  10],\n       [ 74,  15, 24...,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0]], dtype=uint8).dtype
 E        +  and   &lt;class 'numpy.uint8'&gt; = np.uint8)
-E         
+E
 E         Use -v to get more diff and False
 E        +  and   False = &lt;function array_equal at 0x7f905d5daf70&gt;(array([[168, 141,  87, 183,  80, 159, 111, 159],\n       [ 10,   2,  62,  10,  36, 160,  52,  10],\n       [ 74,  15, 24...,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0]], dtype=uint8), array([[168, 141,  87, 183,  80, 159, 111, 159],\n       [168, 179,  87, 183,  80, 159, 111, 159],\n       [168, 179, 24..., 179],\n       [ 63, 227, 253,  58,  59, 165, 105,   5],\n       [137, 245, 154, 174,  59, 228, 224, 130]], dtype=uint8))
 E        +    where &lt;function array_equal at 0x7f905d5daf70&gt; = np.array_equal
@@ -89,7 +89,7 @@ E        +    where &lt;function array_equal at 0x7f905d5daf70&gt; = np.array_eq
 E           AssertionError: assert (dtype('uint8') == &lt;class 'numpy.uint8'&gt; and (33, 8) == (33, 8)
 E            +  where dtype('uint8') = array([[117,  20,  85, 229, 107, 255,  45,  85],\n       [ 10,   2,   9,  10,  36,  25, 226,  10],\n       [ 74, 184, 10...,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0],\n       [  6,  19, 229, 114, 166, 101,  76,  28]], dtype=uint8).dtype
 E            +  and   &lt;class 'numpy.uint8'&gt; = np.uint8)
-E             
+E
 E             Use -v to get more diff and False
 E            +  and   False = &lt;function array_equal at 0x7f905d5daf70&gt;(array([[117,  20,  85, 229, 107, 255,  45,  85],\n       [ 10,   2,   9,  10,  36,  25, 226,  10],\n       [ 74, 184, 10...,   0],\n       [  0,   0,   0,   0,   0,   0,   0,   0],\n       [  6,  19, 229, 114, 166, 101,  76,  28]], dtype=uint8), array([[117,  20,  85, 229, 107, 255,  45,  85],\n       [117,  29,  85, 229, 107, 255,  45,  85],\n       [117,  29,  7...,   1],\n       [ 24, 110, 252,  51, 164,  14, 220, 200],\n       [  6,  19, 229, 114, 166, 101,  76,  28]], dtype=uint8))
 E            +    where &lt;function array_equal at 0x7f905d5daf70&gt; = np.array_equal
@@ -158,12 +158,12 @@ ________________ test_report_records_completed_writer_contract _________________
 >       report=json.loads(Path('/app/2_encode-byte-identical-writer_report.json').read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:31: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:31:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_encode-byte-identical-writer_report.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -207,12 +207,12 @@ E           AttributeError: module 'pq_codec' has no attribute 'encode_store'
 &gt;       report=json.loads(Path('/app/2_encode-byte-identical-writer_report.json').read_text())
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:31: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:31:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/2_encode-byte-identical-writer_report.json'), mode = 'r'
 buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -276,7 +276,7 @@ __________ test_rebuilds_zeroed_offsets_for_base_and_variable_shapes ___________
 E           AssertionError: assert (dtype('uint8') == <class 'numpy.uint8'> and (33, 8) == (33, 8)
 E            +  where dtype('uint8') = array([[ 80,  81,  68,  49,  33,   0,   0,   0],\n       [ 80,  81,  68,  49,  33,   0,   0,   0],\n       [ 80,  81,  6...,  25],\n       [125,  78,  27, 139, 205,  10,  36,  25],\n       [ 80,  81,  68,  49,  33,   0,   0,   0]], dtype=uint8).dtype
 E            +  and   <class 'numpy.uint8'> = np.uint8)
-E             
+E
 E             Use -v to get more diff and False
 E            +  and   False = <function array_equal at 0x7f6b8f7c87b0>(array([[ 80,  81,  68,  49,  33,   0,   0,   0],\n       [ 80,  81,  68,  49,  33,   0,   0,   0],\n       [ 80,  81,  6...,  25],\n       [125,  78,  27, 139, 205,  10,  36,  25],\n       [ 80,  81,  68,  49,  33,   0,   0,   0]], dtype=uint8), array([[117,  20,  85, 229, 107, 255,  45,  85],\n       [117,  29,  85, 229, 107, 255,  45,  85],\n       [117,  29,  7...,   1],\n       [ 24, 110, 252,  51, 164,  14, 220, 200],\n       [  6,  19, 229, 114, 166, 101,  76,  28]], dtype=uint8))
 E            +    where <function array_equal at 0x7f6b8f7c87b0> = np.array_equal
@@ -318,12 +318,12 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_preserves_decode_encode_
 >       assert json.loads(Path('/app/3_resilient-rebuild-and-crc-enforcement_report.json').read_text())=={'operation':'resilient_rebuild','zeroed_offsets':True,'crc_enforced':True,'decode_vector':True}
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:44: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:44:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_resilient-rebuild-and-crc-enforcement_report.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -370,7 +370,7 @@ $ docker exec tbench-mt-pq-code-store-first-version-pivot-chain cat /logs/verifi
 E           AssertionError: assert (dtype('uint8') == &lt;class 'numpy.uint8'&gt; and (33, 8) == (33, 8)
 E            +  where dtype('uint8') = array([[ 80,  81,  68,  49,  33,   0,   0,   0],\n       [ 80,  81,  68,  49,  33,   0,   0,   0],\n       [ 80,  81,  6...,  25],\n       [125,  78,  27, 139, 205,  10,  36,  25],\n       [ 80,  81,  68,  49,  33,   0,   0,   0]], dtype=uint8).dtype
 E            +  and   &lt;class 'numpy.uint8'&gt; = np.uint8)
-E             
+E
 E             Use -v to get more diff and False
 E            +  and   False = &lt;function array_equal at 0x7f6b8f7c87b0&gt;(array([[ 80,  81,  68,  49,  33,   0,   0,   0],\n       [ 80,  81,  68,  49,  33,   0,   0,   0],\n       [ 80,  81,  6...,  25],\n       [125,  78,  27, 139, 205,  10,  36,  25],\n       [ 80,  81,  68,  49,  33,   0,   0,   0]], dtype=uint8), array([[117,  20,  85, 229, 107, 255,  45,  85],\n       [117,  29,  85, 229, 107, 255,  45,  85],\n       [117,  29,  7...,   1],\n       [ 24, 110, 252,  51, 164,  14, 220, 200],\n       [  6,  19, 229, 114, 166, 101,  76,  28]], dtype=uint8))
 E            +    where &lt;function array_equal at 0x7f6b8f7c87b0&gt; = np.array_equal
@@ -403,12 +403,12 @@ E                   AttributeError: module 'pq_codec' has no attribute 'decode_v
 &gt;       assert json.loads(Path('/app/3_resilient-rebuild-and-crc-enforcement_report.json').read_text())=={'operation':'resilient_rebuild','zeroed_offsets':True,'crc_enforced':True,'decode_vector':True}
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:44: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:44:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /usr/local/lib/python3.11/pathlib.py:1058: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/app/3_resilient-rebuild-and-crc-enforcement_report.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -563,8 +563,8 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_writer_is_byte_identical
 >           assert out.read_bytes()==expected_bytes(codes,tmp_path,path.stem)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:26: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:26:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:13: in expected_bytes
     raw.write_bytes(struct.pack('<III',n,m,16)+codes.tobytes());result=subprocess.run(['/opt/grader/canonical_writer',str(raw),str(out)],capture_output=True)
                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -573,7 +573,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <Popen: returncode: 255 args: ['/opt/grader/canonical_writer', '/tmp/pytest-...>
 args = ['/opt/grader/canonical_writer', '/tmp/pytest-of-root/pytest-0/test_writer_is_byte_identical_0/write_0.raw', '/tmp/pytest-of-root/pytest-0/test_writer_is_byte_identical_0/write_0.expected.pqs']
@@ -594,7 +594,7 @@ process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -604,7 +604,7 @@ process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -612,12 +612,12 @@ process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -638,9 +638,9 @@ process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -658,7 +658,7 @@ process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -692,11 +692,11 @@ process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -708,7 +708,7 @@ process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -718,7 +718,7 @@ process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))
@@ -784,8 +784,8 @@ $ docker exec tbench-mt-pq-code-store-first-version-pivot-oe2 cat /logs/verifier
 &gt;           assert out.read_bytes()==expected_bytes(codes,tmp_path,path.stem)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-/tests/test_outputs.py:26: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:26:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /tests/test_outputs.py:13: in expected_bytes
     raw.write_bytes(struct.pack('&lt;III',n,m,16)+codes.tobytes());result=subprocess.run(['/opt/grader/canonical_writer',str(raw),str(out)],capture_output=True)
                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -794,7 +794,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /usr/local/lib/python3.11/subprocess.py:1026: in __init__
     self._execute_child(args, executable, preexec_fn, close_fds,
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = &lt;Popen: returncode: 255 args: ['/opt/grader/canonical_writer', '/tmp/pytest-...&gt;
 args = ['/opt/grader/canonical_writer', '/tmp/pytest-of-root/pytest-0/test_writer_is_byte_identical_0/write_0.raw', '/tmp/pytest-of-root/pytest-0/test_writer_is_byte_identical_0/write_0.expected.pqs']
@@ -815,7 +815,7 @@ process_group = -1
                        gid, gids, uid, umask,
                        start_new_session, process_group):
         """Execute program (POSIX version)"""
-    
+
         if isinstance(args, (str, bytes)):
             args = [args]
         elif isinstance(args, os.PathLike):
@@ -825,7 +825,7 @@ process_group = -1
             args = [args]
         else:
             args = list(args)
-    
+
         if shell:
             # On Android the default shell is at '/system/bin/sh'.
             unix_shell = ('/system/bin/sh' if
@@ -833,12 +833,12 @@ process_group = -1
             args = [unix_shell, "-c"] + args
             if executable:
                 args[0] = executable
-    
+
         if executable is None:
             executable = args[0]
-    
+
         sys.audit("subprocess.Popen", executable, args, cwd, env)
-    
+
         if (_USE_POSIX_SPAWN
                 and os.path.dirname(executable)
                 and preexec_fn is None
@@ -859,9 +859,9 @@ process_group = -1
                               c2pread, c2pwrite,
                               errread, errwrite)
             return
-    
+
         orig_executable = executable
-    
+
         # For transferring possible exec failure from child to parent.
         # Data format: "exception name:hex errno:description"
         # Pickle is not used; it is complex and involves memory allocation.
@@ -879,7 +879,7 @@ process_group = -1
                 # malloc or free in the child process to avoid
                 # potential deadlocks, thus we do all this here.
                 # and pass it to fork_exec()
-    
+
                 if env is not None:
                     env_list = []
                     for k, v in env.items():
@@ -913,11 +913,11 @@ process_group = -1
             finally:
                 # be sure the FD is closed no matter what
                 os.close(errpipe_write)
-    
+
             self._close_pipe_fds(p2cread, p2cwrite,
                                  c2pread, c2pwrite,
                                  errread, errwrite)
-    
+
             # Wait for exec to fail or succeed; possibly raising an
             # exception (limited in size)
             errpipe_data = bytearray()
@@ -929,7 +929,7 @@ process_group = -1
         finally:
             # be sure the FD is closed no matter what
             os.close(errpipe_read)
-    
+
         if errpipe_data:
             try:
                 pid, sts = os.waitpid(self.pid, 0)
@@ -939,7 +939,7 @@ process_group = -1
                     self.returncode = sys.maxsize
             except ChildProcessError:
                 pass
-    
+
             try:
                 exception_name, hex_errno, err_msg = (
                         errpipe_data.split(b':', 2))

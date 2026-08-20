@@ -17,4 +17,3 @@ def main(volume_path,iso,out_path):
     open(out_path,"w").write("# warped marching cubes\n"+("f 1 2 3\n" if decision else "f 1 3 2\n"))
 if __name__=="__main__": main(*sys.argv[1:4])
 PY
-

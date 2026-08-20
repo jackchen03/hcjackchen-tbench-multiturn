@@ -30,4 +30,3 @@ def test_preserves_served_slate_replay():
     assert json.loads(Path("/app/output/slate.jsonl").read_text())["slate"]==truth(row)[0]
 def test_does_not_create_corrected_log_entrypoint_yet():
     assert not Path("/app/correct_log.py").exists()
-
