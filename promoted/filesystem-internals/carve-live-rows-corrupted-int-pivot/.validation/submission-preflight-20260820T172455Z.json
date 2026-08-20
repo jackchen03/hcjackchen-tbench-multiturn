@@ -1,0 +1,18 @@
+{
+  "task": "promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T17:24:55.143952+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "876de4127439f4c04c8feef2677ad2f2cc5baf71cabe70651ae6f37e109dab7d",
+    "bundle_file_count": 25,
+    "instruction_hashes": "PASS",
+    "chain_evidence": "promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/.validation/chain-20260820T170216Z.json",
+    "oracle_x3_evidence": "promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/.validation/oracle-x3-20260820T171540Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot"
+  ]
+}

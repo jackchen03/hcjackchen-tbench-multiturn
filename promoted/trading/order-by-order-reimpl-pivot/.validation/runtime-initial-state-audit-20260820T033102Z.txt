@@ -1,0 +1,19 @@
+Task: promoted/trading/order-by-order-reimpl-pivot
+Image: tbench-mt-order-by-order-reimpl-pivot:validate
+Chain evidence: promoted/trading/order-by-order-reimpl-pivot/.validation/chain-20260820T010029Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=builder /build/refbook /opt/refbook/refbook
+COPY --from=builder /generated/sample /app/sample
+Runtime explicit builder-copy destinations:
+PATH /opt/refbook/refbook
+-rwxr-xr-x 1 root root 14376 Jan  1  2020 /opt/refbook/refbook
+FIRST4 7f454c46
+PATH /app/sample
+drwxr-xr-x 1 root root 100 Aug 19 16:38 /app/sample
+644 /app/sample/basic.expected
+644 /app/sample/basic.feed
+644 /app/sample/levels.expected
+644 /app/sample/levels.feed
+Potential readable source under reference/grader roots:
+Future-staging paths:

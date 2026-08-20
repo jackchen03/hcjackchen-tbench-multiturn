@@ -1,0 +1,81 @@
+{
+  "task": "recycled-wal-committed-set-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-recycled-wal-committed-set-pivot:validate"
+    },
+    {
+      "step": "1_recover-committed-set",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-committed-set",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover-committed-set",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_build-commit-index",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_build-commit-index",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_build-commit-index",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_hash-lookup-pivot",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "3_hash-lookup-pivot",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_hash-lookup-pivot",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-committed-set",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_build-commit-index",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

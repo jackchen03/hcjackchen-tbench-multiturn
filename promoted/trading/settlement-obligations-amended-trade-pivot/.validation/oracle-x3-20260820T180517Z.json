@@ -1,0 +1,92 @@
+{
+  "task": "promoted/trading/settlement-obligations-amended-trade-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p settlement-obligations-amended-trade-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.AeYESo",
+  "job_dir": "/tmp/tbench-oracle-x3.AeYESo/jobs/2026-08-20__11-04-37__d84115",
+  "run_log": "/tmp/tbench-oracle-x3.AeYESo/run.log",
+  "recorded_at": "2026-08-20T18:05:17.821612+00:00",
+  "wall_time_sec": 78,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "f028c40b3333494a6df3a1c16a08267be1ac2cf98aa21e68cc8bd28f1eb49626",
+  "bundle_file_count": 32,
+  "chain_evidence": "promoted/trading/settlement-obligations-amended-trade-pivot/.validation/chain-20260820T171441Z.json",
+  "trials": [
+    {
+      "trial_id": "9be9b1d4-f384-4a14-a83f-eeace2a1ad57",
+      "trial_name": "settlement-obligations-amended-t__67s4wUg",
+      "task_checksum": "dec2788ee505e1fb2a64b598c9d526053b73995698075677452d63c561073e1d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fix-settlement-netting",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-funding-ledger",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-gross-exposure",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.AeYESo/jobs/2026-08-20__11-04-37__d84115/settlement-obligations-amended-t__67s4wUg/result.json"
+    },
+    {
+      "trial_id": "6b07ba7b-53c3-49c5-83d5-783b6f9ded39",
+      "trial_name": "settlement-obligations-amended-t__NAowd7n",
+      "task_checksum": "dec2788ee505e1fb2a64b598c9d526053b73995698075677452d63c561073e1d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fix-settlement-netting",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-funding-ledger",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-gross-exposure",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.AeYESo/jobs/2026-08-20__11-04-37__d84115/settlement-obligations-amended-t__NAowd7n/result.json"
+    },
+    {
+      "trial_id": "48fd47a5-d736-4d52-b86c-98e91a9476aa",
+      "trial_name": "settlement-obligations-amended-t__yoaKsnF",
+      "task_checksum": "dec2788ee505e1fb2a64b598c9d526053b73995698075677452d63c561073e1d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fix-settlement-netting",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-funding-ledger",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-gross-exposure",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.AeYESo/jobs/2026-08-20__11-04-37__d84115/settlement-obligations-amended-t__yoaKsnF/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

@@ -1,0 +1,81 @@
+{
+  "task": "calibrated-ranking-monotone-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-calibrated-ranking-monotone-pivot:validate"
+    },
+    {
+      "step": "1_calib-loader-provenance-fix",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "1_calib-loader-provenance-fix",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_calib-loader-provenance-fix",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_bucket-boundary-alignment",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_bucket-boundary-alignment",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_bucket-boundary-alignment",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_audit-and-hot-reload-pivot",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "3_audit-and-hot-reload-pivot",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_audit-and-hot-reload-pivot",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_calib-loader-provenance-fix",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_bucket-boundary-alignment",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

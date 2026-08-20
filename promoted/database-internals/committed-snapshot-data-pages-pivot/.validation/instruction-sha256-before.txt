@@ -1,0 +1,3 @@
+32c432438b65c47084361ff39f5e8bd47cf44b26df38fe681bddf29f7f8878a6  steps/1_diagnose-dirty-rows/instruction.md
+0e5061da543432b3b67332b2e87ff59931576be41b368207bed139778bdf8f26  steps/2_reconstruct-committed-snapshot/instruction.md
+27956f931c805f12386890346e6cb0ba4b0098cc64cd321d9bcdf4cb97622523  steps/3_repair-pages-inplace/instruction.md

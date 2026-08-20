@@ -1,0 +1,9 @@
+== oracle chain: historical-var-underreports-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-historical-var-underreports-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/historical-var-underreports-pivot/environment
+ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
+
+BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/historical-var-underreports-pivot/.validation/chain-20260818T215838Z.log
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/historical-var-underreports-pivot/.validation/chain-20260818T215838Z.json   full log: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/trading/historical-var-underreports-pivot/.validation/chain-20260818T215838Z.log

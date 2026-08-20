@@ -1,0 +1,92 @@
+{
+  "task": "promoted/recsys/tag-posting-lists-decode-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p tag-posting-lists-decode-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.zwfkUI",
+  "job_dir": "/tmp/tbench-oracle-x3.zwfkUI/jobs/2026-08-20__10-50-32__e1f8b8",
+  "run_log": "/tmp/tbench-oracle-x3.zwfkUI/run.log",
+  "recorded_at": "2026-08-20T17:51:19.080545+00:00",
+  "wall_time_sec": 84,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "d561b29e8d876539dd192a702eb193eb7fa9a7ef2618242225821ef66978fdd6",
+  "bundle_file_count": 25,
+  "chain_evidence": "promoted/recsys/tag-posting-lists-decode-pivot/.validation/chain-20260820T165727Z.json",
+  "trials": [
+    {
+      "trial_id": "c35483fe-829e-499b-b22a-bacf41090d7c",
+      "trial_name": "tag-posting-lists-decode-pivot__4DAkKcz",
+      "task_checksum": "349e578c0fef203c32cffe17549b4bb1edd72400defffa9879e5de440d7c556b",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_decode_postings",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_point_lookup",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_unified_absolute_pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.zwfkUI/jobs/2026-08-20__10-50-32__e1f8b8/tag-posting-lists-decode-pivot__4DAkKcz/result.json"
+    },
+    {
+      "trial_id": "e6cbd9c2-8319-47fd-b6f7-601fb84047a2",
+      "trial_name": "tag-posting-lists-decode-pivot__NcokcUZ",
+      "task_checksum": "349e578c0fef203c32cffe17549b4bb1edd72400defffa9879e5de440d7c556b",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_decode_postings",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_point_lookup",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_unified_absolute_pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.zwfkUI/jobs/2026-08-20__10-50-32__e1f8b8/tag-posting-lists-decode-pivot__NcokcUZ/result.json"
+    },
+    {
+      "trial_id": "c2d802d6-03b5-464e-8ce5-f3d2829c49b6",
+      "trial_name": "tag-posting-lists-decode-pivot__ysDF4mX",
+      "task_checksum": "349e578c0fef203c32cffe17549b4bb1edd72400defffa9879e5de440d7c556b",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_decode_postings",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_point_lookup",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_unified_absolute_pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.zwfkUI/jobs/2026-08-20__10-50-32__e1f8b8/tag-posting-lists-decode-pivot__ysDF4mX/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

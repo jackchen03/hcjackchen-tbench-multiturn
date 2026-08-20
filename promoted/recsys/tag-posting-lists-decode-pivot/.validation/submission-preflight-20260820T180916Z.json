@@ -1,0 +1,17 @@
+{
+  "task": "promoted/recsys/tag-posting-lists-decode-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:16.012706+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "d561b29e8d876539dd192a702eb193eb7fa9a7ef2618242225821ef66978fdd6",
+    "bundle_file_count": 25,
+    "chain_evidence": "promoted/recsys/tag-posting-lists-decode-pivot/.validation/chain-20260820T165727Z.json",
+    "oracle_x3_evidence": "promoted/recsys/tag-posting-lists-decode-pivot/.validation/oracle-x3-20260820T175119Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/recsys/tag-posting-lists-decode-pivot"
+  ]
+}

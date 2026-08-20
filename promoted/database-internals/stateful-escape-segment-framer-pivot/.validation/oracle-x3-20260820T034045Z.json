@@ -1,0 +1,92 @@
+{
+  "task": "promoted/database-internals/stateful-escape-segment-framer-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p stateful-escape-segment-framer-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.6dGIYc",
+  "job_dir": "/tmp/tbench-oracle-x3.6dGIYc/jobs/2026-08-19__20-40-03__de017d",
+  "run_log": "/tmp/tbench-oracle-x3.6dGIYc/run.log",
+  "recorded_at": "2026-08-20T03:40:45.543881+00:00",
+  "wall_time_sec": 60,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "b7a2d78a7bffd085cc9b2c1f033deb23ae694b1a252da79eed30178466f4046b",
+  "bundle_file_count": 26,
+  "chain_evidence": "promoted/database-internals/stateful-escape-segment-framer-pivot/.validation/chain-20260820T004555Z.json",
+  "trials": [
+    {
+      "trial_id": "2cc13a37-3644-4a84-b92e-12b63b72e399",
+      "trial_name": "stateful-escape-segment-framer-p__A5Sh5NZ",
+      "task_checksum": "705ca91a1744827c4d5ef8f5369ef8d77a7470ba1954d035a9ef991c6db294f9",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_byte-exact-escape-block-framer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_context-escape-or-null",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_mandatory-tail-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.6dGIYc/jobs/2026-08-19__20-40-03__de017d/stateful-escape-segment-framer-p__A5Sh5NZ/result.json"
+    },
+    {
+      "trial_id": "2e458840-d580-418d-b14c-09ed9f45bb45",
+      "trial_name": "stateful-escape-segment-framer-p__aTRXC9q",
+      "task_checksum": "705ca91a1744827c4d5ef8f5369ef8d77a7470ba1954d035a9ef991c6db294f9",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_byte-exact-escape-block-framer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_context-escape-or-null",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_mandatory-tail-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.6dGIYc/jobs/2026-08-19__20-40-03__de017d/stateful-escape-segment-framer-p__aTRXC9q/result.json"
+    },
+    {
+      "trial_id": "0f06d87d-2df2-4b82-91c3-3be360704ba8",
+      "trial_name": "stateful-escape-segment-framer-p__cLqKuJk",
+      "task_checksum": "705ca91a1744827c4d5ef8f5369ef8d77a7470ba1954d035a9ef991c6db294f9",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_byte-exact-escape-block-framer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_context-escape-or-null",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_mandatory-tail-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.6dGIYc/jobs/2026-08-19__20-40-03__de017d/stateful-escape-segment-framer-p__cLqKuJk/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

@@ -1,0 +1,18 @@
+{
+  "task": "promoted/database-internals/insert-path-fsm-page-selection-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T17:24:47.976139+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "2224ae39d2ba542cd547ebe503143cc2696422486fda7267e820998566d3e93c",
+    "bundle_file_count": 33,
+    "instruction_hashes": "PASS",
+    "chain_evidence": "promoted/database-internals/insert-path-fsm-page-selection-pivot/.validation/chain-20260820T165711Z.json",
+    "oracle_x3_evidence": "promoted/database-internals/insert-path-fsm-page-selection-pivot/.validation/oracle-x3-20260820T170739Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/database-internals/insert-path-fsm-page-selection-pivot"
+  ]
+}

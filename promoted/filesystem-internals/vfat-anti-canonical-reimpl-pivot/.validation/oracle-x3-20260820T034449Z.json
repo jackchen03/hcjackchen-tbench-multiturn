@@ -1,0 +1,92 @@
+{
+  "task": "promoted/filesystem-internals/vfat-anti-canonical-reimpl-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p vfat-anti-canonical-reimpl-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.BcarA5",
+  "job_dir": "/tmp/tbench-oracle-x3.BcarA5/jobs/2026-08-19__20-44-08__de6148",
+  "run_log": "/tmp/tbench-oracle-x3.BcarA5/run.log",
+  "recorded_at": "2026-08-20T03:44:49.768341+00:00",
+  "wall_time_sec": 59,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "c8c34be3c00baf67887d9233336c5ae7f14c3ab95b8ff0f2de73644e1528d44b",
+  "bundle_file_count": 33,
+  "chain_evidence": "promoted/filesystem-internals/vfat-anti-canonical-reimpl-pivot/.validation/chain-20260820T004939Z.json",
+  "trials": [
+    {
+      "trial_id": "3812fba5-9b8c-4332-833e-760d3e343fe5",
+      "trial_name": "vfat-anti-canonical-reimpl-pivot__G9WqU7U",
+      "task_checksum": "391862b658cd873e8a0a9dbd585b444faca50cdb55d83b174b7f1020f7fc1ff3",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_byte-exact-vfatdir-reimpl",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_listing-recovery",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-canonical-representation",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.BcarA5/jobs/2026-08-19__20-44-08__de6148/vfat-anti-canonical-reimpl-pivot__G9WqU7U/result.json"
+    },
+    {
+      "trial_id": "51200f67-6a47-471c-b742-0c7331eac820",
+      "trial_name": "vfat-anti-canonical-reimpl-pivot__ajpMJqw",
+      "task_checksum": "391862b658cd873e8a0a9dbd585b444faca50cdb55d83b174b7f1020f7fc1ff3",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_byte-exact-vfatdir-reimpl",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_listing-recovery",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-canonical-representation",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.BcarA5/jobs/2026-08-19__20-44-08__de6148/vfat-anti-canonical-reimpl-pivot__ajpMJqw/result.json"
+    },
+    {
+      "trial_id": "46bafbc9-45c2-470b-ad6e-861aa91d9936",
+      "trial_name": "vfat-anti-canonical-reimpl-pivot__boWbJs3",
+      "task_checksum": "391862b658cd873e8a0a9dbd585b444faca50cdb55d83b174b7f1020f7fc1ff3",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_byte-exact-vfatdir-reimpl",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_listing-recovery",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-canonical-representation",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.BcarA5/jobs/2026-08-19__20-44-08__de6148/vfat-anti-canonical-reimpl-pivot__boWbJs3/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

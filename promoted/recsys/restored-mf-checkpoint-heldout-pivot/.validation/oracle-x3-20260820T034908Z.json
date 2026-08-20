@@ -1,0 +1,92 @@
+{
+  "task": "promoted/recsys/restored-mf-checkpoint-heldout-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p restored-mf-checkpoint-heldout-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.6hl7pR",
+  "job_dir": "/tmp/tbench-oracle-x3.6hl7pR/jobs/2026-08-19__20-48-21__0515b5",
+  "run_log": "/tmp/tbench-oracle-x3.6hl7pR/run.log",
+  "recorded_at": "2026-08-20T03:49:08.309017+00:00",
+  "wall_time_sec": 47,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "ef59e92423d844734a67059b1a490cdd916e976eeadb64c8d196f4d26b2e515e",
+  "bundle_file_count": 25,
+  "chain_evidence": "promoted/recsys/restored-mf-checkpoint-heldout-pivot/.validation/chain-20260820T005247Z.json",
+  "trials": [
+    {
+      "trial_id": "71edf72b-948a-43ad-8d46-52796238916b",
+      "trial_name": "restored-mf-checkpoint-heldout-p__87jCXTW",
+      "task_checksum": "b686ac99d3a570ab17798ba21daa05570c695a2a3a1178fcfc92cfd63b243d0d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-factors",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_report-reordered-drift",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-mmap-serving",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.6hl7pR/jobs/2026-08-19__20-48-21__0515b5/restored-mf-checkpoint-heldout-p__87jCXTW/result.json"
+    },
+    {
+      "trial_id": "9380bba6-9f41-4b11-b036-122d737a7983",
+      "trial_name": "restored-mf-checkpoint-heldout-p__89YimcF",
+      "task_checksum": "b686ac99d3a570ab17798ba21daa05570c695a2a3a1178fcfc92cfd63b243d0d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-factors",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_report-reordered-drift",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-mmap-serving",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.6hl7pR/jobs/2026-08-19__20-48-21__0515b5/restored-mf-checkpoint-heldout-p__89YimcF/result.json"
+    },
+    {
+      "trial_id": "3eaac466-9484-464e-af8c-71aa693bfdcb",
+      "trial_name": "restored-mf-checkpoint-heldout-p__yqyGDoY",
+      "task_checksum": "b686ac99d3a570ab17798ba21daa05570c695a2a3a1178fcfc92cfd63b243d0d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-factors",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_report-reordered-drift",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-mmap-serving",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.6hl7pR/jobs/2026-08-19__20-48-21__0515b5/restored-mf-checkpoint-heldout-p__yqyGDoY/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

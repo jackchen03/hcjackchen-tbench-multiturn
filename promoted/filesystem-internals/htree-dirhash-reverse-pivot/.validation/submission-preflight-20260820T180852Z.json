@@ -1,0 +1,17 @@
+{
+  "task": "promoted/filesystem-internals/htree-dirhash-reverse-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:08:52.162848+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "8f25c28fa65478c3ab14682be49ddc53fa4e25cd6801aa33f10bbf1e05d0e83c",
+    "bundle_file_count": 27,
+    "chain_evidence": "promoted/filesystem-internals/htree-dirhash-reverse-pivot/.validation/chain-20260820T164443Z.json",
+    "oracle_x3_evidence": "promoted/filesystem-internals/htree-dirhash-reverse-pivot/.validation/oracle-x3-20260820T173835Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/filesystem-internals/htree-dirhash-reverse-pivot"
+  ]
+}

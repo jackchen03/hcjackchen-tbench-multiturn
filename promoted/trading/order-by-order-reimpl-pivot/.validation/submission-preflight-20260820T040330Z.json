@@ -1,0 +1,19 @@
+{
+  "task": "promoted/trading/order-by-order-reimpl-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:03:30.801600+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "18850b28e38d493470d8bd19fe2e04c910cb8401dbb0f653b81f726017788fbe",
+    "bundle_file_count": 27,
+    "chain_evidence": "promoted/trading/order-by-order-reimpl-pivot/.validation/chain-20260820T010029Z.json",
+    "oracle_x3_evidence": "promoted/trading/order-by-order-reimpl-pivot/.validation/oracle-x3-20260820T035931Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/trading/order-by-order-reimpl-pivot"
+  ]
+}

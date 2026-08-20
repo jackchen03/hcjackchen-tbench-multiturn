@@ -1,0 +1,1777 @@
+== oracle chain: byte-match-non-greedy-rle-bitpack-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-byte-match-non-greedy-rle-bitpack-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/environment
+sha256:532e6c8f637fa77d465e7e8db68e4fb6d95d3269fa8d34bdd6dd6d80322c2742
+
+$ docker rm -f tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain
+Error response from daemon: No such container: tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain
+
+$ docker run -d --name tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain tbench-mt-byte-match-non-greedy-rle-bitpack-pivot:validate sleep infinity
+bf4cf43fc1ebf0384cbdf030601f628933041849722053378e9dfae331a9e236
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/1_codec-greedy-decode-ok-byte-mismatch/tests/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain bash /tests/test.sh
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+____________________ test_encoder_exists_and_is_executable _____________________
+
+    def test_encoder_exists_and_is_executable():
+>       assert ENC.is_file() and os.access(ENC,os.X_OK)
+E       AssertionError: assert (False)
+E        +  where False = is_file()
+E        +    where is_file = PosixPath('/app/encoder').is_file
+
+/tests/test_outputs.py:36: AssertionError
+_________________________ test_header_and_decode_cases _________________________
+
+    def test_header_and_decode_cases():
+        cases=[[3]*11,list(range(19)),[1,2,3]+[9]*6+[4,5,6,7],[0,7,2,5,1,6,3,4,7],[1,4,2,9,3,11,5,13,6,15,7]]
+        for values in cases:
+>           data=run(values)
+                 ^^^^^^^^^^^
+
+/tests/test_outputs.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9: in run
+    return subprocess.check_output([str(ENC)],input=json.dumps({'values':values}).encode())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:466: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/app/encoder']>, args = ['/app/encoder']
+executable = b'/app/encoder', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = 11, p2cwrite = 12, c2pread = 13, c2pwrite = 14, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+___________________ test_uniform_case_contains_a_run_segment ___________________
+
+    def test_uniform_case_contains_a_run_segment():
+>       data=run([12]*10); control,_=rv(data,4)
+             ^^^^^^^^^^^^
+
+/tests/test_outputs.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9: in run
+    return subprocess.check_output([str(ENC)],input=json.dumps({'values':values}).encode())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:466: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/app/encoder']>, args = ['/app/encoder']
+executable = b'/app/encoder', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = 11, p2cwrite = 12, c2pread = 13, c2pwrite = 14, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+__________________ test_boundary_step1_is_not_byte_exact_yet ___________________
+
+    def test_boundary_step1_is_not_byte_exact_yet():
+        cases=[[1,2,3]+[9]*6+[4,5,6,7],[0,1,7,3,5,6,2,4,7],[1,2,3,4,5,6,7,9,3,11,5]]
+>       assert any(run(values)!=oracle(values) for values in cases)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:52: in <genexpr>
+    assert any(run(values)!=oracle(values) for values in cases)
+               ^^^^^^^^^^^
+/tests/test_outputs.py:9: in run
+    return subprocess.check_output([str(ENC)],input=json.dumps({'values':values}).encode())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:466: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/app/encoder']>, args = ['/app/encoder']
+executable = b'/app/encoder', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = 11, p2cwrite = 12, c2pread = 13, c2pwrite = 14, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+_________________ test_no_runtime_or_future_oracle_dependency __________________
+
+    def test_no_runtime_or_future_oracle_dependency():
+>       text=ENC.read_text(errors='ignore')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/encoder'), mode = 'r', buffering = -1
+encoding = 'locale', errors = 'ignore', newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_encoder_exists_and_is_executable - Asse...
+FAILED ../tests/test_outputs.py::test_header_and_decode_cases - FileNotFoundE...
+FAILED ../tests/test_outputs.py::test_uniform_case_contains_a_run_segment - F...
+FAILED ../tests/test_outputs.py::test_boundary_step1_is_not_byte_exact_yet - ...
+FAILED ../tests/test_outputs.py::test_no_runtime_or_future_oracle_dependency
+5 failed in 0.19s
+reward=0 (5 failed, 0 errored)
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="5" time="0.191" timestamp="2026-08-20T17:07:42.464122+00:00" hostname="bf4cf43fc1eb"><testcase classname="test_outputs" name="test_encoder_exists_and_is_executable" time="0.000"><failure message="AssertionError: assert (False)&#10; +  where False = is_file()&#10; +    where is_file = PosixPath('/app/encoder').is_file">def test_encoder_exists_and_is_executable():
+&gt;       assert ENC.is_file() and os.access(ENC,os.X_OK)
+E       AssertionError: assert (False)
+E        +  where False = is_file()
+E        +    where is_file = PosixPath('/app/encoder').is_file
+
+/tests/test_outputs.py:36: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_header_and_decode_cases" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'">def test_header_and_decode_cases():
+        cases=[[3]*11,list(range(19)),[1,2,3]+[9]*6+[4,5,6,7],[0,7,2,5,1,6,3,4,7],[1,4,2,9,3,11,5,13,6,15,7]]
+        for values in cases:
+&gt;           data=run(values)
+                 ^^^^^^^^^^^
+
+/tests/test_outputs.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9: in run
+    return subprocess.check_output([str(ENC)],input=json.dumps({'values':values}).encode())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:466: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;Popen: returncode: 255 args: ['/app/encoder']&gt;, args = ['/app/encoder']
+executable = b'/app/encoder', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = 11, p2cwrite = 12, c2pread = 13, c2pwrite = 14, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_uniform_case_contains_a_run_segment" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'">def test_uniform_case_contains_a_run_segment():
+&gt;       data=run([12]*10); control,_=rv(data,4)
+             ^^^^^^^^^^^^
+
+/tests/test_outputs.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:9: in run
+    return subprocess.check_output([str(ENC)],input=json.dumps({'values':values}).encode())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:466: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;Popen: returncode: 255 args: ['/app/encoder']&gt;, args = ['/app/encoder']
+executable = b'/app/encoder', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = 11, p2cwrite = 12, c2pread = 13, c2pwrite = 14, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_boundary_step1_is_not_byte_exact_yet" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'">def test_boundary_step1_is_not_byte_exact_yet():
+        cases=[[1,2,3]+[9]*6+[4,5,6,7],[0,1,7,3,5,6,2,4,7],[1,2,3,4,5,6,7,9,3,11,5]]
+&gt;       assert any(run(values)!=oracle(values) for values in cases)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:52: in &lt;genexpr&gt;
+    assert any(run(values)!=oracle(values) for values in cases)
+               ^^^^^^^^^^^
+/tests/test_outputs.py:9: in run
+    return subprocess.check_output([str(ENC)],input=json.dumps({'values':values}).encode())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:466: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;Popen: returncode: 255 args: ['/app/encoder']&gt;, args = ['/app/encoder']
+executable = b'/app/encoder', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = 11, p2cwrite = 12, c2pread = 13, c2pwrite = 14, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_no_runtime_or_future_oracle_dependency" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'">def test_no_runtime_or_future_oracle_dependency():
+&gt;       text=ENC.read_text(errors='ignore')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/encoder'), mode = 'r', buffering = -1
+encoding = 'locale', errors = 'ignore', newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/encoder'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests
+STEP 1 1_codec-greedy-decode-ok-byte-mismatch  DO-NOTHING  OK    red before the work (5 executed, 0 skipped, 5 failed, 0 errored)
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/1_codec-greedy-decode-ok-byte-mismatch/solution/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain:/solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /solution
+STEP 1 1_codec-greedy-decode-ok-byte-mismatch  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/1_codec-greedy-decode-ok-byte-mismatch/tests/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain bash /tests/test.sh
+.....                                                                    [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_encoder_exists_and_is_executable
+PASSED ../tests/test_outputs.py::test_header_and_decode_cases
+PASSED ../tests/test_outputs.py::test_uniform_case_contains_a_run_segment
+PASSED ../tests/test_outputs.py::test_boundary_step1_is_not_byte_exact_yet
+PASSED ../tests/test_outputs.py::test_no_runtime_or_future_oracle_dependency
+5 passed in 0.52s
+reward=1 (5 passed, 0 skipped)
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="5" time="0.519" timestamp="2026-08-20T17:07:44.175335+00:00" hostname="bf4cf43fc1eb"><testcase classname="test_outputs" name="test_encoder_exists_and_is_executable" time="0.000" /><testcase classname="test_outputs" name="test_header_and_decode_cases" time="0.313" /><testcase classname="test_outputs" name="test_uniform_case_contains_a_run_segment" time="0.061" /><testcase classname="test_outputs" name="test_boundary_step1_is_not_byte_exact_yet" time="0.126" /><testcase classname="test_outputs" name="test_no_runtime_or_future_oracle_dependency" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests
+STEP 1 1_codec-greedy-decode-ok-byte-mismatch  GREEN       OK    5 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/2_large-value-branch-even-width-tailpad/tests/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain bash /tests/test.sh
+F.....                                                                   [100%]
+=================================== FAILURES ===================================
+_____________ test_encoder_is_executable_and_all_cases_byte_match ______________
+
+    def test_encoder_is_executable_and_all_cases_byte_match():
+        assert ENC.is_file() and os.access(ENC,os.X_OK)
+        for values in CASES:
+            actual=run(values); reference=expected(values)
+>           assert actual==reference
+E           AssertionError: assert b'C0\x17\x00....cf\x84e:V\xc0' == b'C0\x17\x00 ...x14\x93QU\x96'
+E             
+E             At index 4 diff: b'.' != b' '
+E             Use -v to get more diff
+
+/tests/test_outputs.py:35: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_large_values_use_bounded_even_width
+PASSED ../tests/test_outputs.py::test_legacy_path_still_emits_run_for_uniform_input
+PASSED ../tests/test_outputs.py::test_does_not_create_dict_manifest_yet
+PASSED ../tests/test_outputs.py::test_dictionary_pivot_code_is_not_present_yet
+PASSED ../tests/test_outputs.py::test_zz_stage_dictionary_reference_for_next_step
+FAILED ../tests/test_outputs.py::test_encoder_is_executable_and_all_cases_byte_match
+1 failed, 5 passed in 0.43s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="6" time="0.431" timestamp="2026-08-20T17:07:45.874220+00:00" hostname="bf4cf43fc1eb"><testcase classname="test_outputs" name="test_encoder_is_executable_and_all_cases_byte_match" time="0.269"><failure message="AssertionError: assert b'C0\x17\x00....cf\x84e:V\xc0' == b'C0\x17\x00 ...x14\x93QU\x96'&#10;  &#10;  At index 4 diff: b'.' != b' '&#10;  Use -v to get more diff">def test_encoder_is_executable_and_all_cases_byte_match():
+        assert ENC.is_file() and os.access(ENC,os.X_OK)
+        for values in CASES:
+            actual=run(values); reference=expected(values)
+&gt;           assert actual==reference
+E           AssertionError: assert b'C0\x17\x00....cf\x84e:V\xc0' == b'C0\x17\x00 ...x14\x93QU\x96'
+E             
+E             At index 4 diff: b'.' != b' '
+E             Use -v to get more diff
+
+/tests/test_outputs.py:35: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_large_values_use_bounded_even_width" time="0.062" /><testcase classname="test_outputs" name="test_legacy_path_still_emits_run_for_uniform_input" time="0.071" /><testcase classname="test_outputs" name="test_does_not_create_dict_manifest_yet" time="0.000" /><testcase classname="test_outputs" name="test_dictionary_pivot_code_is_not_present_yet" time="0.000" /><testcase classname="test_outputs" name="test_zz_stage_dictionary_reference_for_next_step" time="0.002" /></testsuite></testsuites>
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests
+STEP 2 2_large-value-branch-even-width-tailpad  DO-NOTHING  OK    red before the work (6 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/2_large-value-branch-even-width-tailpad/solution/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain:/solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /solution
+STEP 2 2_large-value-branch-even-width-tailpad  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/2_large-value-branch-even-width-tailpad/tests/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain bash /tests/test.sh
+......                                                                   [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_encoder_is_executable_and_all_cases_byte_match
+PASSED ../tests/test_outputs.py::test_large_values_use_bounded_even_width
+PASSED ../tests/test_outputs.py::test_legacy_path_still_emits_run_for_uniform_input
+PASSED ../tests/test_outputs.py::test_does_not_create_dict_manifest_yet
+PASSED ../tests/test_outputs.py::test_dictionary_pivot_code_is_not_present_yet
+PASSED ../tests/test_outputs.py::test_zz_stage_dictionary_reference_for_next_step
+6 passed in 1.28s
+reward=1 (6 passed, 0 skipped)
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="6" time="1.284" timestamp="2026-08-20T17:07:47.821165+00:00" hostname="bf4cf43fc1eb"><testcase classname="test_outputs" name="test_encoder_is_executable_and_all_cases_byte_match" time="1.138" /><testcase classname="test_outputs" name="test_large_values_use_bounded_even_width" time="0.062" /><testcase classname="test_outputs" name="test_legacy_path_still_emits_run_for_uniform_input" time="0.065" /><testcase classname="test_outputs" name="test_does_not_create_dict_manifest_yet" time="0.000" /><testcase classname="test_outputs" name="test_dictionary_pivot_code_is_not_present_yet" time="0.000" /><testcase classname="test_outputs" name="test_zz_stage_dictionary_reference_for_next_step" time="0.001" /></testsuite></testsuites>
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests
+STEP 2 2_large-value-branch-even-width-tailpad  GREEN       OK    6 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/3_pivot-dict-bitpack-drop-rle/tests/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain bash /tests/test.sh
+FFF.F                                                                    [100%]
+=================================== FAILURES ===================================
+__________________ test_dictionary_pages_byte_match_reference __________________
+
+    def test_dictionary_pages_byte_match_reference():
+        assert ENC.is_file() and os.access(ENC,os.X_OK)
+        assert Path('/verifier/dict_encoder').is_file()
+        for values in CASES:
+            actual=run(values)
+>           assert actual==expected(values)
+E           AssertionError: assert b'C0\x0e\x00\x1d\x07' == b'C0\x0e\x00\...0\x00\x00\x00'
+E             
+E             At index 4 diff: b'\x1d' != b'\x01'
+E             Use -v to get more diff
+
+/tests/test_outputs.py:42: AssertionError
+______________ test_production_traces_match_dictionary_reference _______________
+
+    def test_production_traces_match_dictionary_reference():
+        traces=sorted(Path('/app/production_traces').glob('*.json'))
+        assert traces
+        for path in traces:
+            values=json.loads(path.read_text())['values']
+>           assert run(values)==expected(values)
+E           assert b"C0_\x00\xbe...T^Y\xe7\r\xc3" == b'C0_\x00_\x0...TUVWXYZ[\\]^^'
+E             
+E             At index 4 diff: b'\xbe' != b'_'
+E             Use -v to get more diff
+
+/tests/test_outputs.py:52: AssertionError
+_________________ test_manifest_and_dictionary_helper_present __________________
+
+    def test_manifest_and_dictionary_helper_present():
+>       manifest=json.loads(Path('/app/dict_manifest.json').read_text())
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/dict_manifest.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/dict_manifest.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+____________________ test_header_and_tail_width_regression _____________________
+
+    def test_header_and_tail_width_regression():
+        data=run([9,4,9,2,7,4,8,2,1,8,6])
+>       n,entries,w=parse_dict(data)
+                    ^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:31: in parse_dict
+    value,pos=rv(data,pos);entries.append(value)
+              ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = b'C0\x0b\x00\x16\x04\x94\x92t\x82\x18fff', pos = 14
+
+    def rv(data,pos):
+        value=shift=0
+        while True:
+>           b=data[pos];pos+=1;value|=(b&127)<<shift
+              ^^^^^^^^^
+E           IndexError: index out of range
+
+/tests/test_outputs.py:23: IndexError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_old_run_emission_path_removed
+FAILED ../tests/test_outputs.py::test_dictionary_pages_byte_match_reference
+FAILED ../tests/test_outputs.py::test_production_traces_match_dictionary_reference
+FAILED ../tests/test_outputs.py::test_manifest_and_dictionary_helper_present
+FAILED ../tests/test_outputs.py::test_header_and_tail_width_regression - Inde...
+4 failed, 1 passed in 0.42s
+reward=0 (4 failed, 0 errored)
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="5" time="0.423" timestamp="2026-08-20T17:07:50.178655+00:00" hostname="bf4cf43fc1eb"><testcase classname="test_outputs" name="test_dictionary_pages_byte_match_reference" time="0.131"><failure message="AssertionError: assert b'C0\x0e\x00\x1d\x07' == b'C0\x0e\x00\...0\x00\x00\x00'&#10;  &#10;  At index 4 diff: b'\x1d' != b'\x01'&#10;  Use -v to get more diff">def test_dictionary_pages_byte_match_reference():
+        assert ENC.is_file() and os.access(ENC,os.X_OK)
+        assert Path('/verifier/dict_encoder').is_file()
+        for values in CASES:
+            actual=run(values)
+&gt;           assert actual==expected(values)
+E           AssertionError: assert b'C0\x0e\x00\x1d\x07' == b'C0\x0e\x00\...0\x00\x00\x00'
+E             
+E             At index 4 diff: b'\x1d' != b'\x01'
+E             Use -v to get more diff
+
+/tests/test_outputs.py:42: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_production_traces_match_dictionary_reference" time="0.167"><failure message="assert b&quot;C0_\x00\xbe...T^Y\xe7\r\xc3&quot; == b'C0_\x00_\x0...TUVWXYZ[\\]^^'&#10;  &#10;  At index 4 diff: b'\xbe' != b'_'&#10;  Use -v to get more diff">def test_production_traces_match_dictionary_reference():
+        traces=sorted(Path('/app/production_traces').glob('*.json'))
+        assert traces
+        for path in traces:
+            values=json.loads(path.read_text())['values']
+&gt;           assert run(values)==expected(values)
+E           assert b"C0_\x00\xbe...T^Y\xe7\r\xc3" == b'C0_\x00_\x0...TUVWXYZ[\\]^^'
+E             
+E             At index 4 diff: b'\xbe' != b'_'
+E             Use -v to get more diff
+
+/tests/test_outputs.py:52: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_manifest_and_dictionary_helper_present" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/dict_manifest.json'">def test_manifest_and_dictionary_helper_present():
+&gt;       manifest=json.loads(Path('/app/dict_manifest.json').read_text())
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/dict_manifest.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/dict_manifest.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_old_run_emission_path_removed" time="0.000" /><testcase classname="test_outputs" name="test_header_and_tail_width_regression" time="0.066"><failure message="IndexError: index out of range">def test_header_and_tail_width_regression():
+        data=run([9,4,9,2,7,4,8,2,1,8,6])
+&gt;       n,entries,w=parse_dict(data)
+                    ^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:31: in parse_dict
+    value,pos=rv(data,pos);entries.append(value)
+              ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = b'C0\x0b\x00\x16\x04\x94\x92t\x82\x18fff', pos = 14
+
+    def rv(data,pos):
+        value=shift=0
+        while True:
+&gt;           b=data[pos];pos+=1;value|=(b&amp;127)&lt;&lt;shift
+              ^^^^^^^^^
+E           IndexError: index out of range
+
+/tests/test_outputs.py:23: IndexError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests
+STEP 3 3_pivot-dict-bitpack-drop-rle  DO-NOTHING  OK    red before the work (5 executed, 0 skipped, 4 failed, 0 errored)
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/3_pivot-dict-bitpack-drop-rle/solution/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain:/solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /solution
+STEP 3 3_pivot-dict-bitpack-drop-rle  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/3_pivot-dict-bitpack-drop-rle/tests/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain bash /tests/test.sh
+.....                                                                    [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_dictionary_pages_byte_match_reference
+PASSED ../tests/test_outputs.py::test_production_traces_match_dictionary_reference
+PASSED ../tests/test_outputs.py::test_manifest_and_dictionary_helper_present
+PASSED ../tests/test_outputs.py::test_old_run_emission_path_removed
+PASSED ../tests/test_outputs.py::test_header_and_tail_width_regression
+5 passed in 1.09s
+reward=1 (5 passed, 0 skipped)
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="5" time="1.088" timestamp="2026-08-20T17:07:52.249683+00:00" hostname="bf4cf43fc1eb"><testcase classname="test_outputs" name="test_dictionary_pages_byte_match_reference" time="0.753" /><testcase classname="test_outputs" name="test_production_traces_match_dictionary_reference" time="0.250" /><testcase classname="test_outputs" name="test_manifest_and_dictionary_helper_present" time="0.000" /><testcase classname="test_outputs" name="test_old_run_emission_path_removed" time="0.000" /><testcase classname="test_outputs" name="test_header_and_tail_width_regression" time="0.062" /></testsuite></testsuites>
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain rm -rf /tests
+STEP 3 3_pivot-dict-bitpack-drop-rle  GREEN       OK    5 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1
+Error response from daemon: No such container: tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1
+
+$ docker run -d --name tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 tbench-mt-byte-match-non-greedy-rle-bitpack-pivot:validate sleep infinity
+3ca44e32eedc90d4e042d7b6277a749fefb26f5a3c57059ef718686128fadb25
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/1_codec-greedy-decode-ok-byte-mismatch/solution/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1:/solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/2_large-value-branch-even-width-tailpad/solution/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1:/solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/1_codec-greedy-decode-ok-byte-mismatch/tests/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 bash /tests/test.sh
+...F.                                                                    [100%]
+=================================== FAILURES ===================================
+__________________ test_boundary_step1_is_not_byte_exact_yet ___________________
+
+    def test_boundary_step1_is_not_byte_exact_yet():
+        cases=[[1,2,3]+[9]*6+[4,5,6,7],[0,1,7,3,5,6,2,4,7],[1,2,3,4,5,6,7,9,3,11,5]]
+>       assert any(run(values)!=oracle(values) for values in cases)
+E       assert False
+E        +  where False = any(<generator object test_boundary_step1_is_not_byte_exact_yet.<locals>.<genexpr> at 0x7f90da694040>)
+
+/tests/test_outputs.py:52: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_encoder_exists_and_is_executable
+PASSED ../tests/test_outputs.py::test_header_and_decode_cases
+PASSED ../tests/test_outputs.py::test_uniform_case_contains_a_run_segment
+PASSED ../tests/test_outputs.py::test_no_runtime_or_future_oracle_dependency
+FAILED ../tests/test_outputs.py::test_boundary_step1_is_not_byte_exact_yet - ...
+1 failed, 4 passed in 0.84s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="5" time="0.843" timestamp="2026-08-20T17:07:56.092200+00:00" hostname="3ca44e32eedc"><testcase classname="test_outputs" name="test_encoder_exists_and_is_executable" time="0.000" /><testcase classname="test_outputs" name="test_header_and_decode_cases" time="0.344" /><testcase classname="test_outputs" name="test_uniform_case_contains_a_run_segment" time="0.074" /><testcase classname="test_outputs" name="test_boundary_step1_is_not_byte_exact_yet" time="0.396"><failure message="assert False&#10; +  where False = any(&lt;generator object test_boundary_step1_is_not_byte_exact_yet.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f90da694040&gt;)">def test_boundary_step1_is_not_byte_exact_yet():
+        cases=[[1,2,3]+[9]*6+[4,5,6,7],[0,1,7,3,5,6,2,4,7],[1,2,3,4,5,6,7,9,3,11,5]]
+&gt;       assert any(run(values)!=oracle(values) for values in cases)
+E       assert False
+E        +  where False = any(&lt;generator object test_boundary_step1_is_not_byte_exact_yet.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f90da694040&gt;)
+
+/tests/test_outputs.py:52: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_no_runtime_or_future_oracle_dependency" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1 rm -rf /tests
+STEP 1 1_codec-greedy-decode-ok-byte-mismatch  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1
+tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1
+
+$ docker rm -f tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2
+Error response from daemon: No such container: tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2
+
+$ docker run -d --name tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 tbench-mt-byte-match-non-greedy-rle-bitpack-pivot:validate sleep infinity
+e1491be542608589b44057f12cf29bffb066dfc77c5902293a49d3972620b8d8
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/1_codec-greedy-decode-ok-byte-mismatch/solution/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2:/solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/2_large-value-branch-even-width-tailpad/solution/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2:/solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/3_pivot-dict-bitpack-drop-rle/solution/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2:/solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/steps/2_large-value-branch-even-width-tailpad/tests/. tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 bash /tests/test.sh
+F..FF.                                                                   [100%]
+=================================== FAILURES ===================================
+_____________ test_encoder_is_executable_and_all_cases_byte_match ______________
+
+    def test_encoder_is_executable_and_all_cases_byte_match():
+        assert ENC.is_file() and os.access(ENC,os.X_OK)
+        for values in CASES:
+            actual=run(values); reference=expected(values)
+>           assert actual==reference
+E           AssertionError: assert b'C0\x0e\x00\...0\x00\x00\x00' == b'C0\x0e\x00\x1d\x07'
+E             
+E             At index 4 diff: b'\x01' != b'\x1d'
+E             Use -v to get more diff
+
+/tests/test_outputs.py:35: AssertionError
+____________________ test_does_not_create_dict_manifest_yet ____________________
+
+    def test_does_not_create_dict_manifest_yet():
+>       assert not Path('/app/dict_manifest.json').exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/dict_manifest.json').exists
+E        +      where PosixPath('/app/dict_manifest.json') = Path('/app/dict_manifest.json')
+
+/tests/test_outputs.py:48: AssertionError
+________________ test_dictionary_pivot_code_is_not_present_yet _________________
+
+    def test_dictionary_pivot_code_is_not_present_yet():
+        text=ENC.read_text(errors='ignore')
+>       assert 'build_dictionary' not in text and 'dict_encoder' not in text
+E       AssertionError: assert ('build_dictionary' not in '#!/usr/bin/...es))+body)\n'
+E         
+E         'build_dictionary' is contained here:
+E           out)
+E           
+E           def build_dictionary(values):
+E               entries=[]; positions={}; indices=[]
+E               for value in values:...
+E         
+E         ...Full output truncated (20 lines hidden), use '-vv' to show)
+
+/tests/test_outputs.py:52: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_large_values_use_bounded_even_width
+PASSED ../tests/test_outputs.py::test_legacy_path_still_emits_run_for_uniform_input
+PASSED ../tests/test_outputs.py::test_zz_stage_dictionary_reference_for_next_step
+FAILED ../tests/test_outputs.py::test_encoder_is_executable_and_all_cases_byte_match
+FAILED ../tests/test_outputs.py::test_does_not_create_dict_manifest_yet - Ass...
+FAILED ../tests/test_outputs.py::test_dictionary_pivot_code_is_not_present_yet
+3 failed, 3 passed in 0.29s
+reward=0 (3 failed, 0 errored)
+
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="6" time="0.291" timestamp="2026-08-20T17:08:00.693834+00:00" hostname="e1491be54260"><testcase classname="test_outputs" name="test_encoder_is_executable_and_all_cases_byte_match" time="0.127"><failure message="AssertionError: assert b'C0\x0e\x00\...0\x00\x00\x00' == b'C0\x0e\x00\x1d\x07'&#10;  &#10;  At index 4 diff: b'\x01' != b'\x1d'&#10;  Use -v to get more diff">def test_encoder_is_executable_and_all_cases_byte_match():
+        assert ENC.is_file() and os.access(ENC,os.X_OK)
+        for values in CASES:
+            actual=run(values); reference=expected(values)
+&gt;           assert actual==reference
+E           AssertionError: assert b'C0\x0e\x00\...0\x00\x00\x00' == b'C0\x0e\x00\x1d\x07'
+E             
+E             At index 4 diff: b'\x01' != b'\x1d'
+E             Use -v to get more diff
+
+/tests/test_outputs.py:35: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_large_values_use_bounded_even_width" time="0.062" /><testcase classname="test_outputs" name="test_legacy_path_still_emits_run_for_uniform_input" time="0.063" /><testcase classname="test_outputs" name="test_does_not_create_dict_manifest_yet" time="0.001"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/dict_manifest.json').exists&#10; +      where PosixPath('/app/dict_manifest.json') = Path('/app/dict_manifest.json')">def test_does_not_create_dict_manifest_yet():
+&gt;       assert not Path('/app/dict_manifest.json').exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/dict_manifest.json').exists
+E        +      where PosixPath('/app/dict_manifest.json') = Path('/app/dict_manifest.json')
+
+/tests/test_outputs.py:48: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_dictionary_pivot_code_is_not_present_yet" time="0.001"><failure message="AssertionError: assert ('build_dictionary' not in '#!/usr/bin/...es))+body)\n'&#10;  &#10;  'build_dictionary' is contained here:&#10;    out)&#10;    &#10;    def build_dictionary(values):&#10;        entries=[]; positions={}; indices=[]&#10;        for value in values:...&#10;  &#10;  ...Full output truncated (20 lines hidden), use '-vv' to show)">def test_dictionary_pivot_code_is_not_present_yet():
+        text=ENC.read_text(errors='ignore')
+&gt;       assert 'build_dictionary' not in text and 'dict_encoder' not in text
+E       AssertionError: assert ('build_dictionary' not in '#!/usr/bin/...es))+body)\n'
+E         
+E         'build_dictionary' is contained here:
+E           out)
+E           
+E           def build_dictionary(values):
+E               entries=[]; positions={}; indices=[]
+E               for value in values:...
+E         
+E         ...Full output truncated (20 lines hidden), use '-vv' to show)
+
+/tests/test_outputs.py:52: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_zz_stage_dictionary_reference_for_next_step" time="0.004" /></testsuite></testsuites>
+$ docker exec tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2 rm -rf /tests
+STEP 2 2_large-value-branch-even-width-tailpad  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2
+tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2
+
+$ docker rm -f tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain
+tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-chain
+
+$ docker rm -f tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1
+Error response from daemon: No such container: tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe1
+
+$ docker rm -f tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2
+Error response from daemon: No such container: tbench-mt-byte-match-non-greedy-rle-bitpack-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/byte-match-non-greedy-rle-bitpack-pivot/.validation/chain-20260820T170740Z.json

@@ -1,0 +1,17 @@
+{
+  "task": "promoted/database-internals/committed-snapshot-data-pages-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:08:34.474490+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "3d7684fff2d07818eb93fc49c8da1b5dc7c5308eafa9bd62735d008345857632",
+    "bundle_file_count": 25,
+    "chain_evidence": "promoted/database-internals/committed-snapshot-data-pages-pivot/.validation/chain-20260820T163511Z.json",
+    "oracle_x3_evidence": "promoted/database-internals/committed-snapshot-data-pages-pivot/.validation/oracle-x3-20260820T172539Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/database-internals/committed-snapshot-data-pages-pivot"
+  ]
+}

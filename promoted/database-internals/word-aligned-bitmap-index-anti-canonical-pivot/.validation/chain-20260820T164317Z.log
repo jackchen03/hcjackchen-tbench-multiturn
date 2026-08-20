@@ -1,0 +1,19 @@
+== oracle chain: word-aligned-bitmap-index-anti-canonical-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-word-aligned-bitmap-index-anti-canonical-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot/environment
+Dockerfile:19
+--------------------
+  18 |     COPY generate_fixtures.py /tmp/generate_fixtures.py
+  19 | >>> RUN chmod 0555 /app/reference/bitmap_index \
+  20 | >>>     && python3 /tmp/generate_fixtures.py \
+  21 | >>>     && rm /tmp/generate_fixtures.py \
+  22 | >>>     && rm -rf /opt/grader-staging \
+  23 | >>>     && find /app /opt/tbench-fixtures -type f -exec touch -t 202001010000.00 {} +
+  24 |     
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c chmod 0555 /app/reference/bitmap_index     && python3 /tmp/generate_fixtures.py     && rm /tmp/generate_fixtures.py     && rm -rf /opt/grader-staging     && find /app /opt/tbench-fixtures -type f -exec touch -t 202001010000.00 {} +" did not complete successfully: exit code: 1
+
+BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot/.validation/chain-20260820T164317Z.log
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot/.validation/chain-20260820T164317Z.json   full log: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot/.validation/chain-20260820T164317Z.log

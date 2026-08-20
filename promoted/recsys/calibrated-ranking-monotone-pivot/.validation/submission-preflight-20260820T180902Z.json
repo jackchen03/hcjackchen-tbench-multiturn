@@ -1,0 +1,17 @@
+{
+  "task": "promoted/recsys/calibrated-ranking-monotone-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:02.561117+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "272ef663c899706f4dfd468c590c4c9f8fbf757b24307117a984c1e40ae6a347",
+    "bundle_file_count": 36,
+    "chain_evidence": "promoted/recsys/calibrated-ranking-monotone-pivot/.validation/chain-20260820T165048Z.json",
+    "oracle_x3_evidence": "promoted/recsys/calibrated-ranking-monotone-pivot/.validation/oracle-x3-20260820T174356Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/recsys/calibrated-ranking-monotone-pivot"
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "task": "promoted/recsys/session-feature-reader-writer-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p session-feature-reader-writer-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.f3UHJE",
+  "job_dir": "/tmp/tbench-oracle-x3.f3UHJE/jobs/2026-08-20__10-49-13__a18ffb",
+  "run_log": "/tmp/tbench-oracle-x3.f3UHJE/run.log",
+  "recorded_at": "2026-08-20T17:49:52.918465+00:00",
+  "wall_time_sec": 77,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "a2901819fa36282a6ad46d39a02257ef1111b616e45ff04c1ed3ce520917bc7a",
+  "bundle_file_count": 27,
+  "chain_evidence": "promoted/recsys/session-feature-reader-writer-pivot/.validation/chain-20260820T165639Z.json",
+  "trials": [
+    {
+      "trial_id": "908cefca-fd5a-4148-a0da-7ec405e917ef",
+      "trial_name": "session-feature-reader-writer-pi__hh8faak",
+      "task_checksum": "f3d3fcba52998b068731c1b4022cd4178ff3619baa6ba1129cb24bb610413b12",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_decode-reader",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_byte-exact-writer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_scan-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.f3UHJE/jobs/2026-08-20__10-49-13__a18ffb/session-feature-reader-writer-pi__hh8faak/result.json"
+    },
+    {
+      "trial_id": "9e0207bd-5e1c-4842-b80e-963a70fe77d2",
+      "trial_name": "session-feature-reader-writer-pi__q7xz4hZ",
+      "task_checksum": "f3d3fcba52998b068731c1b4022cd4178ff3619baa6ba1129cb24bb610413b12",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_decode-reader",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_byte-exact-writer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_scan-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.f3UHJE/jobs/2026-08-20__10-49-13__a18ffb/session-feature-reader-writer-pi__q7xz4hZ/result.json"
+    },
+    {
+      "trial_id": "e237ed9b-57b5-4075-b744-100de32a2eb7",
+      "trial_name": "session-feature-reader-writer-pi__sQmgafn",
+      "task_checksum": "f3d3fcba52998b068731c1b4022cd4178ff3619baa6ba1129cb24bb610413b12",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_decode-reader",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_byte-exact-writer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_scan-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.f3UHJE/jobs/2026-08-20__10-49-13__a18ffb/session-feature-reader-writer-pi__sQmgafn/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

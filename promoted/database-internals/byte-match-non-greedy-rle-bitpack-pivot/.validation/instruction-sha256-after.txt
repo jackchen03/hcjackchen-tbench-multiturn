@@ -1,0 +1,3 @@
+96e896117898858cd069a0fe1e8a068354621fd3ecf141f7d47833e6ba83c167  steps/1_codec-greedy-decode-ok-byte-mismatch/instruction.md
+9858780b017c402ccf9c4282c849d209073f813a46393afdc4662c1cdc7404a3  steps/2_large-value-branch-even-width-tailpad/instruction.md
+75ad557d88d44a118d7e96dc4932251aee7d77c770bf6be8db45ee2c26a9dda5  steps/3_pivot-dict-bitpack-drop-rle/instruction.md

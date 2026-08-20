@@ -1,0 +1,82 @@
+[
+  {
+    "when": "2026-08-19T18:14:56Z",
+    "static": "FAIL(10)",
+    "chain": "-",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "L5,L7,V8a,V8b",
+    "fp": "cb66fd96f5",
+    "cycle": 1
+  },
+  {
+    "when": "2026-08-19T18:15:38Z",
+    "static": "PASS",
+    "chain": "FAIL(1)",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "BUILD",
+    "fp": "623895dec2",
+    "cycle": 2
+  },
+  {
+    "when": "2026-08-19T18:15:58Z",
+    "static": "PASS",
+    "chain": "FAIL(1)",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "BUILD",
+    "fp": "623895dec2",
+    "cycle": 3
+  },
+  {
+    "when": "2026-08-19T18:16:18Z",
+    "static": "PASS",
+    "chain": "FAIL(1)",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "GREEN",
+    "fp": "accd066f28",
+    "cycle": 4
+  },
+  {
+    "when": "2026-08-19T18:16:55Z",
+    "static": "PASS",
+    "chain": "FAIL(1)",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "ORACLE",
+    "fp": "0eb075859f",
+    "cycle": 5
+  },
+  {
+    "when": "2026-08-19T18:17:56Z",
+    "static": "PASS",
+    "chain": "FAIL(1)",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "OVER-EXEC",
+    "fp": "df0fc9f0ed",
+    "cycle": 6
+  },
+  {
+    "when": "2026-08-19T18:18:59Z",
+    "static": "PASS",
+    "chain": "PASS",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "",
+    "fp": "clean",
+    "cycle": 7
+  },
+  {
+    "when": "2026-08-19T18:20:44Z",
+    "static": "PASS",
+    "chain": "PASS",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "",
+    "fp": "clean",
+    "cycle": 8
+  }
+]

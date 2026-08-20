@@ -1,0 +1,438 @@
+== oracle chain: pose-graph-optimizer-open-loop-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-pose-graph-optimizer-open-loop-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/environment
+sha256:a6d2213899b0fecc234a05fc1f3032fe94773c3c7c0a782dac854649d0f7327f
+
+$ docker rm -f tbench-mt-pose-graph-optimizer-open-loop-pivot-chain
+Error response from daemon: No such container: tbench-mt-pose-graph-optimizer-open-loop-pivot-chain
+
+$ docker run -d --name tbench-mt-pose-graph-optimizer-open-loop-pivot-chain tbench-mt-pose-graph-optimizer-open-loop-pivot:validate sleep infinity
+0c0093b1bfd909e083b96318007ee9585970b9c016964f35e512ca558d8f9ec1
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/1_diagnose-loop-direction/tests/. tbench-mt-pose-graph-optimizer-open-loop-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-chain bash /tests/test.sh
+F...                                                                     [100%]
+=================================== FAILURES ===================================
+_____________ test_loop_direction_fix_matches_isotropic_reference ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_loop_direction_fix_matche0')
+
+    def test_loop_direction_fix_matches_isotropic_reference(tmp_path):
+>    out=tmp_path/'sample.traj'; run('/app/graphs/sample.pgraph',out); assert rms(load(out),load('/app/refs/sample.traj'))<1e-6
+E    AssertionError: assert 4.501988944143159 < 1e-06
+E     +  where 4.501988944143159 = rms(array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.86313766,  0.30439421,  1.2785673...    [ 6.        , -4.59484352,  4.34197184, -0.96108442],\n       [ 7.        , -6.36472888,  3.28223168, -0.31984101]]), array([[0.        , 0.        , 0.        , 0.        ],\n       [1.        , 1.09736101, 0.11606411, 0.42855929],\n    ...53],\n       [6.        , 6.62695637, 4.27068185, 2.57234928],\n       [7.        , 7.74117578, 5.82226274, 3.00298691]]))
+E     +    where array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.86313766,  0.30439421,  1.2785673...    [ 6.        , -4.59484352,  4.34197184, -0.96108442],\n       [ 7.        , -6.36472888,  3.28223168, -0.31984101]]) = load(PosixPath('/tmp/pytest-of-root/pytest-0/test_loop_direction_fix_matche0/sample.traj'))
+E     +    and   array([[0.        , 0.        , 0.        , 0.        ],\n       [1.        , 1.09736101, 0.11606411, 0.42855929],\n    ...53],\n       [6.        , 6.62695637, 4.27068185, 2.57234928],\n       [7.        , 7.74117578, 5.82226274, 3.00298691]]) = load('/app/refs/sample.traj')
+
+/tests/test_outputs.py:13: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_batch_contract_remains_sorted_wrapped_and_anchored
+PASSED ../tests/test_outputs.py::test_does_not_use_full_covariance_inverse_yet
+PASSED ../tests/test_outputs.py::test_does_not_have_loop_report_yet
+FAILED ../tests/test_outputs.py::test_loop_direction_fix_matches_isotropic_reference
+1 failed, 3 passed in 1.04s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="1.042" timestamp="2026-08-20T17:04:58.607580+00:00" hostname="0c0093b1bfd9"><testcase classname="test_outputs" name="test_loop_direction_fix_matches_isotropic_reference" time="0.319"><failure message="AssertionError: assert 4.501988944143159 &lt; 1e-06&#10; +  where 4.501988944143159 = rms(array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.86313766,  0.30439421,  1.2785673...    [ 6.        , -4.59484352,  4.34197184, -0.96108442],\n       [ 7.        , -6.36472888,  3.28223168, -0.31984101]]), array([[0.        , 0.        , 0.        , 0.        ],\n       [1.        , 1.09736101, 0.11606411, 0.42855929],\n    ...53],\n       [6.        , 6.62695637, 4.27068185, 2.57234928],\n       [7.        , 7.74117578, 5.82226274, 3.00298691]]))&#10; +    where array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.86313766,  0.30439421,  1.2785673...    [ 6.        , -4.59484352,  4.34197184, -0.96108442],\n       [ 7.        , -6.36472888,  3.28223168, -0.31984101]]) = load(PosixPath('/tmp/pytest-of-root/pytest-0/test_loop_direction_fix_matche0/sample.traj'))&#10; +    and   array([[0.        , 0.        , 0.        , 0.        ],\n       [1.        , 1.09736101, 0.11606411, 0.42855929],\n    ...53],\n       [6.        , 6.62695637, 4.27068185, 2.57234928],\n       [7.        , 7.74117578, 5.82226274, 3.00298691]]) = load('/app/refs/sample.traj')">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_loop_direction_fix_matche0')
+
+    def test_loop_direction_fix_matches_isotropic_reference(tmp_path):
+&gt;    out=tmp_path/'sample.traj'; run('/app/graphs/sample.pgraph',out); assert rms(load(out),load('/app/refs/sample.traj'))&lt;1e-6
+E    AssertionError: assert 4.501988944143159 &lt; 1e-06
+E     +  where 4.501988944143159 = rms(array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.86313766,  0.30439421,  1.2785673...    [ 6.        , -4.59484352,  4.34197184, -0.96108442],\n       [ 7.        , -6.36472888,  3.28223168, -0.31984101]]), array([[0.        , 0.        , 0.        , 0.        ],\n       [1.        , 1.09736101, 0.11606411, 0.42855929],\n    ...53],\n       [6.        , 6.62695637, 4.27068185, 2.57234928],\n       [7.        , 7.74117578, 5.82226274, 3.00298691]]))
+E     +    where array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.86313766,  0.30439421,  1.2785673...    [ 6.        , -4.59484352,  4.34197184, -0.96108442],\n       [ 7.        , -6.36472888,  3.28223168, -0.31984101]]) = load(PosixPath('/tmp/pytest-of-root/pytest-0/test_loop_direction_fix_matche0/sample.traj'))
+E     +    and   array([[0.        , 0.        , 0.        , 0.        ],\n       [1.        , 1.09736101, 0.11606411, 0.42855929],\n    ...53],\n       [6.        , 6.62695637, 4.27068185, 2.57234928],\n       [7.        , 7.74117578, 5.82226274, 3.00298691]]) = load('/app/refs/sample.traj')
+
+/tests/test_outputs.py:13: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_batch_contract_remains_sorted_wrapped_and_anchored" time="0.290" /><testcase classname="test_outputs" name="test_does_not_use_full_covariance_inverse_yet" time="0.284" /><testcase classname="test_outputs" name="test_does_not_have_loop_report_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests
+STEP 1 1_diagnose-loop-direction  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/1_diagnose-loop-direction/solution/. tbench-mt-pose-graph-optimizer-open-loop-pivot-chain:/solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /solution
+STEP 1 1_diagnose-loop-direction  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/1_diagnose-loop-direction/tests/. tbench-mt-pose-graph-optimizer-open-loop-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-chain bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_loop_direction_fix_matches_isotropic_reference
+PASSED ../tests/test_outputs.py::test_batch_contract_remains_sorted_wrapped_and_anchored
+PASSED ../tests/test_outputs.py::test_does_not_use_full_covariance_inverse_yet
+PASSED ../tests/test_outputs.py::test_does_not_have_loop_report_yet
+4 passed in 0.86s
+reward=1 (4 passed, 0 skipped)
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.871" timestamp="2026-08-20T17:05:01.474184+00:00" hostname="0c0093b1bfd9"><testcase classname="test_outputs" name="test_loop_direction_fix_matches_isotropic_reference" time="0.265" /><testcase classname="test_outputs" name="test_batch_contract_remains_sorted_wrapped_and_anchored" time="0.254" /><testcase classname="test_outputs" name="test_does_not_use_full_covariance_inverse_yet" time="0.252" /><testcase classname="test_outputs" name="test_does_not_have_loop_report_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests
+STEP 1 1_diagnose-loop-direction  GREEN       OK    4 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/2_fix-covariance-weighting/tests/. tbench-mt-pose-graph-optimizer-open-loop-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-chain bash /tests/test.sh
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+_________________ test_full_covariance_reaches_anisotropic_mle _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_full_covariance_reaches_a0')
+
+    def test_full_covariance_reaches_anisotropic_mle(tmp_path):
+>    out=tmp_path/'aniso.traj'; run('/app/graphs/aniso.pgraph',out); assert rms(load(out),load('/app/refs/aniso.traj'))<1e-6
+E    AssertionError: assert 0.024596834715208377 < 1e-06
+E     +  where 0.024596834715208377 = rms(array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.8779501 ,  0.17354708,  0.4198060...    [ 7.        ,  6.00030328,  8.94741963,  2.56519923],\n       [ 8.        ,  6.7627371 , 11.69514671,  2.92620089]]), array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]))
+E     +    where array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.8779501 ,  0.17354708,  0.4198060...    [ 7.        ,  6.00030328,  8.94741963,  2.56519923],\n       [ 8.        ,  6.7627371 , 11.69514671,  2.92620089]]) = load(PosixPath('/tmp/pytest-of-root/pytest-2/test_full_covariance_reaches_a0/aniso.traj'))
+E     +    and   array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]) = load('/app/refs/aniso.traj')
+
+/tests/test_outputs.py:12: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_covariance_fix_preserves_direction_regression
+PASSED ../tests/test_outputs.py::test_does_not_have_loop_report_yet
+FAILED ../tests/test_outputs.py::test_full_covariance_reaches_anisotropic_mle
+1 failed, 2 passed in 0.60s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.607" timestamp="2026-08-20T17:05:03.641203+00:00" hostname="0c0093b1bfd9"><testcase classname="test_outputs" name="test_full_covariance_reaches_anisotropic_mle" time="0.258"><failure message="AssertionError: assert 0.024596834715208377 &lt; 1e-06&#10; +  where 0.024596834715208377 = rms(array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.8779501 ,  0.17354708,  0.4198060...    [ 7.        ,  6.00030328,  8.94741963,  2.56519923],\n       [ 8.        ,  6.7627371 , 11.69514671,  2.92620089]]), array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]))&#10; +    where array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.8779501 ,  0.17354708,  0.4198060...    [ 7.        ,  6.00030328,  8.94741963,  2.56519923],\n       [ 8.        ,  6.7627371 , 11.69514671,  2.92620089]]) = load(PosixPath('/tmp/pytest-of-root/pytest-2/test_full_covariance_reaches_a0/aniso.traj'))&#10; +    and   array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]) = load('/app/refs/aniso.traj')">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_full_covariance_reaches_a0')
+
+    def test_full_covariance_reaches_anisotropic_mle(tmp_path):
+&gt;    out=tmp_path/'aniso.traj'; run('/app/graphs/aniso.pgraph',out); assert rms(load(out),load('/app/refs/aniso.traj'))&lt;1e-6
+E    AssertionError: assert 0.024596834715208377 &lt; 1e-06
+E     +  where 0.024596834715208377 = rms(array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.8779501 ,  0.17354708,  0.4198060...    [ 7.        ,  6.00030328,  8.94741963,  2.56519923],\n       [ 8.        ,  6.7627371 , 11.69514671,  2.92620089]]), array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]))
+E     +    where array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.8779501 ,  0.17354708,  0.4198060...    [ 7.        ,  6.00030328,  8.94741963,  2.56519923],\n       [ 8.        ,  6.7627371 , 11.69514671,  2.92620089]]) = load(PosixPath('/tmp/pytest-of-root/pytest-2/test_full_covariance_reaches_a0/aniso.traj'))
+E     +    and   array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]) = load('/app/refs/aniso.traj')
+
+/tests/test_outputs.py:12: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_covariance_fix_preserves_direction_regression" time="0.251" /><testcase classname="test_outputs" name="test_does_not_have_loop_report_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests
+STEP 2 2_fix-covariance-weighting  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/2_fix-covariance-weighting/solution/. tbench-mt-pose-graph-optimizer-open-loop-pivot-chain:/solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /solution
+STEP 2 2_fix-covariance-weighting  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/2_fix-covariance-weighting/tests/. tbench-mt-pose-graph-optimizer-open-loop-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_full_covariance_reaches_anisotropic_mle
+PASSED ../tests/test_outputs.py::test_covariance_fix_preserves_direction_regression
+PASSED ../tests/test_outputs.py::test_does_not_have_loop_report_yet
+3 passed in 0.59s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.592" timestamp="2026-08-20T17:05:06.111441+00:00" hostname="0c0093b1bfd9"><testcase classname="test_outputs" name="test_full_covariance_reaches_anisotropic_mle" time="0.257" /><testcase classname="test_outputs" name="test_covariance_fix_preserves_direction_regression" time="0.249" /><testcase classname="test_outputs" name="test_does_not_have_loop_report_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests
+STEP 2 2_fix-covariance-weighting  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/3_pivot-output-format/tests/. tbench-mt-pose-graph-optimizer-open-loop-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+________ test_pivot_uses_input_order_continuous_angles_and_correct_mle _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_pivot_uses_input_order_co0')
+
+    def test_pivot_uses_input_order_continuous_angles_and_correct_mle(tmp_path):
+>    out=tmp_path/'pivot.traj'; run(out); actual=load(out); expected=load('/app/refs/pivot_continuous.traj'); assert list(actual[:,0].astype(int))==input_order(); assert list(actual[:,0].astype(int))!=sorted(input_order()); assert np.any(np.abs(actual[:,3])>np.pi); assert np.max(np.abs(np.diff(actual[:,3])))<np.pi; assert np.allclose(actual,expected,atol=1e-6)
+E    assert [10, 20, 30, 40, 50, 70, ...] == [30, 10, 50, 20, 70, 40, ...]
+E      
+E      At index 0 diff: 10 != 30
+E      Use -v to get more diff
+
+/tests/test_outputs.py:11: AssertionError
+______________ test_loop_report_lists_every_direction_correction _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_loop_report_lists_every_d0')
+
+    def test_loop_report_lists_every_direction_correction(tmp_path):
+>    out=tmp_path/'pivot.traj'; run(out); assert json.loads(Path('/app/loop_report.json').read_text())==json.loads(Path('/app/refs/pivot_report.json').read_text())
+
+/tests/test_outputs.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/loop_report.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/loop_report.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+_________________ test_pivot_retains_full_covariance_solution __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_pivot_retains_full_covari0')
+
+    def test_pivot_retains_full_covariance_solution(tmp_path):
+>    out=tmp_path/'pivot.traj'; run(out); actual=load(out); expected=load('/app/refs/pivot_continuous.traj'); assert float(np.sqrt(np.mean((actual[:,1:]-expected[:,1:])**2)))<1e-6
+E    AssertionError: assert 2.7111371960545108 < 1e-06
+E     +  where 2.7111371960545108 = float(2.7111371960545108)
+E     +    where 2.7111371960545108 = <ufunc 'sqrt'>(7.350264895830314)
+E     +      where <ufunc 'sqrt'> = np.sqrt
+E     +      and   7.350264895830314 = <function mean at 0x7f9d2759e5f0>(((array([[ 0.69962774,  0.12162151,  1.1377854 ],\n       [ 2.11311714,  1.02798161, -2.91791126],\n       [ 0.        ,  ...6485908,  2.23466835],\n       [ 2.80936866,  1.82069217, -1.79367709],\n       [ 4.20614716,  4.03223751,  0.44143036]]) - array([[0.        , 0.        , 0.        ],\n       [0.69962774, 0.12162151, 1.1377854 ],\n       [1.40856146, 0.464859...66, 1.82069217, 4.48950822],\n       [3.50024116, 2.825003  , 5.60531938],\n       [4.20614716, 4.03223751, 6.72461567]])) ** 2))
+E     +        where <function mean at 0x7f9d2759e5f0> = np.mean
+
+/tests/test_outputs.py:15: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_pivot_uses_input_order_continuous_angles_and_correct_mle
+FAILED ../tests/test_outputs.py::test_loop_report_lists_every_direction_correction
+FAILED ../tests/test_outputs.py::test_pivot_retains_full_covariance_solution
+3 failed in 0.87s
+reward=0 (3 failed, 0 errored)
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.874" timestamp="2026-08-20T17:05:07.759750+00:00" hostname="0c0093b1bfd9"><testcase classname="test_outputs" name="test_pivot_uses_input_order_continuous_angles_and_correct_mle" time="0.253"><failure message="assert [10, 20, 30, 40, 50, 70, ...] == [30, 10, 50, 20, 70, 40, ...]&#10;  &#10;  At index 0 diff: 10 != 30&#10;  Use -v to get more diff">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_pivot_uses_input_order_co0')
+
+    def test_pivot_uses_input_order_continuous_angles_and_correct_mle(tmp_path):
+&gt;    out=tmp_path/'pivot.traj'; run(out); actual=load(out); expected=load('/app/refs/pivot_continuous.traj'); assert list(actual[:,0].astype(int))==input_order(); assert list(actual[:,0].astype(int))!=sorted(input_order()); assert np.any(np.abs(actual[:,3])&gt;np.pi); assert np.max(np.abs(np.diff(actual[:,3])))&lt;np.pi; assert np.allclose(actual,expected,atol=1e-6)
+E    assert [10, 20, 30, 40, 50, 70, ...] == [30, 10, 50, 20, 70, 40, ...]
+E      
+E      At index 0 diff: 10 != 30
+E      Use -v to get more diff
+
+/tests/test_outputs.py:11: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_loop_report_lists_every_direction_correction" time="0.250"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/loop_report.json'">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_loop_report_lists_every_d0')
+
+    def test_loop_report_lists_every_direction_correction(tmp_path):
+&gt;    out=tmp_path/'pivot.traj'; run(out); assert json.loads(Path('/app/loop_report.json').read_text())==json.loads(Path('/app/refs/pivot_report.json').read_text())
+
+/tests/test_outputs.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/loop_report.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/loop_report.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_pivot_retains_full_covariance_solution" time="0.253"><failure message="AssertionError: assert 2.7111371960545108 &lt; 1e-06&#10; +  where 2.7111371960545108 = float(2.7111371960545108)&#10; +    where 2.7111371960545108 = &lt;ufunc 'sqrt'&gt;(7.350264895830314)&#10; +      where &lt;ufunc 'sqrt'&gt; = np.sqrt&#10; +      and   7.350264895830314 = &lt;function mean at 0x7f9d2759e5f0&gt;(((array([[ 0.69962774,  0.12162151,  1.1377854 ],\n       [ 2.11311714,  1.02798161, -2.91791126],\n       [ 0.        ,  ...6485908,  2.23466835],\n       [ 2.80936866,  1.82069217, -1.79367709],\n       [ 4.20614716,  4.03223751,  0.44143036]]) - array([[0.        , 0.        , 0.        ],\n       [0.69962774, 0.12162151, 1.1377854 ],\n       [1.40856146, 0.464859...66, 1.82069217, 4.48950822],\n       [3.50024116, 2.825003  , 5.60531938],\n       [4.20614716, 4.03223751, 6.72461567]])) ** 2))&#10; +        where &lt;function mean at 0x7f9d2759e5f0&gt; = np.mean">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-4/test_pivot_retains_full_covari0')
+
+    def test_pivot_retains_full_covariance_solution(tmp_path):
+&gt;    out=tmp_path/'pivot.traj'; run(out); actual=load(out); expected=load('/app/refs/pivot_continuous.traj'); assert float(np.sqrt(np.mean((actual[:,1:]-expected[:,1:])**2)))&lt;1e-6
+E    AssertionError: assert 2.7111371960545108 &lt; 1e-06
+E     +  where 2.7111371960545108 = float(2.7111371960545108)
+E     +    where 2.7111371960545108 = &lt;ufunc 'sqrt'&gt;(7.350264895830314)
+E     +      where &lt;ufunc 'sqrt'&gt; = np.sqrt
+E     +      and   7.350264895830314 = &lt;function mean at 0x7f9d2759e5f0&gt;(((array([[ 0.69962774,  0.12162151,  1.1377854 ],\n       [ 2.11311714,  1.02798161, -2.91791126],\n       [ 0.        ,  ...6485908,  2.23466835],\n       [ 2.80936866,  1.82069217, -1.79367709],\n       [ 4.20614716,  4.03223751,  0.44143036]]) - array([[0.        , 0.        , 0.        ],\n       [0.69962774, 0.12162151, 1.1377854 ],\n       [1.40856146, 0.464859...66, 1.82069217, 4.48950822],\n       [3.50024116, 2.825003  , 5.60531938],\n       [4.20614716, 4.03223751, 6.72461567]])) ** 2))
+E     +        where &lt;function mean at 0x7f9d2759e5f0&gt; = np.mean
+
+/tests/test_outputs.py:15: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests
+STEP 3 3_pivot-output-format  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/3_pivot-output-format/solution/. tbench-mt-pose-graph-optimizer-open-loop-pivot-chain:/solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /solution
+STEP 3 3_pivot-output-format  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/3_pivot-output-format/tests/. tbench-mt-pose-graph-optimizer-open-loop-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_pivot_uses_input_order_continuous_angles_and_correct_mle
+PASSED ../tests/test_outputs.py::test_loop_report_lists_every_direction_correction
+PASSED ../tests/test_outputs.py::test_pivot_retains_full_covariance_solution
+3 passed in 0.84s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.845" timestamp="2026-08-20T17:05:10.524781+00:00" hostname="0c0093b1bfd9"><testcase classname="test_outputs" name="test_pivot_uses_input_order_continuous_angles_and_correct_mle" time="0.254" /><testcase classname="test_outputs" name="test_loop_report_lists_every_direction_correction" time="0.245" /><testcase classname="test_outputs" name="test_pivot_retains_full_covariance_solution" time="0.256" /></testsuite></testsuites>
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-chain rm -rf /tests
+STEP 3 3_pivot-output-format  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1
+Error response from daemon: No such container: tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1
+
+$ docker run -d --name tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 tbench-mt-pose-graph-optimizer-open-loop-pivot:validate sleep infinity
+05fb4ba059a03b5d02cf844d41cfb8ea1fd2da07ef89ee33af67a4df62c985ad
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/1_diagnose-loop-direction/solution/. tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1:/solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/2_fix-covariance-weighting/solution/. tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1:/solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/1_diagnose-loop-direction/tests/. tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 bash /tests/test.sh
+..F.                                                                     [100%]
+=================================== FAILURES ===================================
+________________ test_does_not_use_full_covariance_inverse_yet _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_does_not_use_full_covaria0')
+
+    def test_does_not_use_full_covariance_inverse_yet(tmp_path):
+>    out=tmp_path/'aniso.traj'; run('/app/graphs/aniso.pgraph',out); assert rms(load(out),load('/app/refs/aniso.traj'))>1e-3
+E    AssertionError: assert 0.0 > 0.001
+E     +  where 0.0 = rms(array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]), array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]))
+E     +    where array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]) = load(PosixPath('/tmp/pytest-of-root/pytest-0/test_does_not_use_full_covaria0/aniso.traj'))
+E     +    and   array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]) = load('/app/refs/aniso.traj')
+
+/tests/test_outputs.py:17: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_loop_direction_fix_matches_isotropic_reference
+PASSED ../tests/test_outputs.py::test_batch_contract_remains_sorted_wrapped_and_anchored
+PASSED ../tests/test_outputs.py::test_does_not_have_loop_report_yet
+FAILED ../tests/test_outputs.py::test_does_not_use_full_covariance_inverse_yet
+1 failed, 3 passed in 0.84s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="0.848" timestamp="2026-08-20T17:05:14.900244+00:00" hostname="05fb4ba059a0"><testcase classname="test_outputs" name="test_loop_direction_fix_matches_isotropic_reference" time="0.251" /><testcase classname="test_outputs" name="test_batch_contract_remains_sorted_wrapped_and_anchored" time="0.246" /><testcase classname="test_outputs" name="test_does_not_use_full_covariance_inverse_yet" time="0.251"><failure message="AssertionError: assert 0.0 &gt; 0.001&#10; +  where 0.0 = rms(array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]), array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]))&#10; +    where array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]) = load(PosixPath('/tmp/pytest-of-root/pytest-0/test_does_not_use_full_covaria0/aniso.traj'))&#10; +    and   array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]) = load('/app/refs/aniso.traj')">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_does_not_use_full_covaria0')
+
+    def test_does_not_use_full_covariance_inverse_yet(tmp_path):
+&gt;    out=tmp_path/'aniso.traj'; run('/app/graphs/aniso.pgraph',out); assert rms(load(out),load('/app/refs/aniso.traj'))&gt;1e-3
+E    AssertionError: assert 0.0 &gt; 0.001
+E     +  where 0.0 = rms(array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]), array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]))
+E     +    where array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]) = load(PosixPath('/tmp/pytest-of-root/pytest-0/test_does_not_use_full_covaria0/aniso.traj'))
+E     +    and   array([[ 0.        ,  0.        ,  0.        ,  0.        ],\n       [ 1.        ,  0.87861561,  0.17448722,  0.4139548...    [ 7.        ,  6.04147451,  8.90256295,  2.55869336],\n       [ 8.        ,  6.82316926, 11.64748281,  2.91763999]]) = load('/app/refs/aniso.traj')
+
+/tests/test_outputs.py:17: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_have_loop_report_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1 rm -rf /tests
+STEP 1 1_diagnose-loop-direction  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1
+tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1
+
+$ docker rm -f tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2
+Error response from daemon: No such container: tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2
+
+$ docker run -d --name tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 tbench-mt-pose-graph-optimizer-open-loop-pivot:validate sleep infinity
+5e606042c15708d4e4a209968a5f9ea9bd02127e8a775c86516c2181c9089750
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/1_diagnose-loop-direction/solution/. tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2:/solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/2_fix-covariance-weighting/solution/. tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2:/solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/3_pivot-output-format/solution/. tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2:/solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/steps/2_fix-covariance-weighting/tests/. tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 bash /tests/test.sh
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+______________________ test_does_not_have_loop_report_yet ______________________
+
+    def test_does_not_have_loop_report_yet():
+>    assert not Path('/app/loop_report.json').exists()
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/loop_report.json').exists
+E     +      where PosixPath('/app/loop_report.json') = Path('/app/loop_report.json')
+
+/tests/test_outputs.py:16: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_full_covariance_reaches_anisotropic_mle
+PASSED ../tests/test_outputs.py::test_covariance_fix_preserves_direction_regression
+FAILED ../tests/test_outputs.py::test_does_not_have_loop_report_yet - Asserti...
+1 failed, 2 passed in 0.60s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.609" timestamp="2026-08-20T17:05:19.687561+00:00" hostname="5e606042c157"><testcase classname="test_outputs" name="test_full_covariance_reaches_anisotropic_mle" time="0.260" /><testcase classname="test_outputs" name="test_covariance_fix_preserves_direction_regression" time="0.249" /><testcase classname="test_outputs" name="test_does_not_have_loop_report_yet" time="0.001"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/loop_report.json').exists&#10; +      where PosixPath('/app/loop_report.json') = Path('/app/loop_report.json')">def test_does_not_have_loop_report_yet():
+&gt;    assert not Path('/app/loop_report.json').exists()
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/loop_report.json').exists
+E     +      where PosixPath('/app/loop_report.json') = Path('/app/loop_report.json')
+
+/tests/test_outputs.py:16: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2 rm -rf /tests
+STEP 2 2_fix-covariance-weighting  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2
+tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2
+
+$ docker rm -f tbench-mt-pose-graph-optimizer-open-loop-pivot-chain
+tbench-mt-pose-graph-optimizer-open-loop-pivot-chain
+
+$ docker rm -f tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1
+Error response from daemon: No such container: tbench-mt-pose-graph-optimizer-open-loop-pivot-oe1
+
+$ docker rm -f tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2
+Error response from daemon: No such container: tbench-mt-pose-graph-optimizer-open-loop-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/.validation/chain-20260820T170456Z.json

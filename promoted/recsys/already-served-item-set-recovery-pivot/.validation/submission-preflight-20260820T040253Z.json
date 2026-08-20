@@ -1,0 +1,19 @@
+{
+  "task": "promoted/recsys/already-served-item-set-recovery-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:02:53.470629+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "59c179e93371ec099c5ea8097423e1a86a3fc068ea7a2bafdcb918b99acbc089",
+    "bundle_file_count": 26,
+    "chain_evidence": "promoted/recsys/already-served-item-set-recovery-pivot/.validation/chain-20260820T005004Z.json",
+    "oracle_x3_evidence": "promoted/recsys/already-served-item-set-recovery-pivot/.validation/oracle-x3-20260820T034549Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/recsys/already-served-item-set-recovery-pivot"
+  ]
+}

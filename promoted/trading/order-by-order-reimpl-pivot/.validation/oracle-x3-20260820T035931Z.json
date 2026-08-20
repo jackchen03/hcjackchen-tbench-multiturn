@@ -1,0 +1,92 @@
+{
+  "task": "promoted/trading/order-by-order-reimpl-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p order-by-order-reimpl-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.rIUXm5",
+  "job_dir": "/tmp/tbench-oracle-x3.rIUXm5/jobs/2026-08-19__20-58-51__896641",
+  "run_log": "/tmp/tbench-oracle-x3.rIUXm5/run.log",
+  "recorded_at": "2026-08-20T03:59:31.864489+00:00",
+  "wall_time_sec": 57,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "18850b28e38d493470d8bd19fe2e04c910cb8401dbb0f653b81f726017788fbe",
+  "bundle_file_count": 27,
+  "chain_evidence": "promoted/trading/order-by-order-reimpl-pivot/.validation/chain-20260820T010029Z.json",
+  "trials": [
+    {
+      "trial_id": "877d3259-5efc-42b9-a2dd-2e48e3610815",
+      "trial_name": "order-by-order-reimpl-pivot__BpBxuiA",
+      "task_checksum": "e45dc2fb4d4735e853fca7e74a72cbf078bff0a39da2089340d741e4cc49acf7",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_reimplement_book",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_instrument_quirks",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot_to_canonical",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.rIUXm5/jobs/2026-08-19__20-58-51__896641/order-by-order-reimpl-pivot__BpBxuiA/result.json"
+    },
+    {
+      "trial_id": "046e099b-0528-48db-8fa4-4c05a822b9eb",
+      "trial_name": "order-by-order-reimpl-pivot__Fscfjnq",
+      "task_checksum": "e45dc2fb4d4735e853fca7e74a72cbf078bff0a39da2089340d741e4cc49acf7",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_reimplement_book",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_instrument_quirks",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot_to_canonical",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.rIUXm5/jobs/2026-08-19__20-58-51__896641/order-by-order-reimpl-pivot__Fscfjnq/result.json"
+    },
+    {
+      "trial_id": "b2451bcb-414e-42ca-9c5b-c032a1ca9b2e",
+      "trial_name": "order-by-order-reimpl-pivot__VATUmvx",
+      "task_checksum": "e45dc2fb4d4735e853fca7e74a72cbf078bff0a39da2089340d741e4cc49acf7",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_reimplement_book",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_instrument_quirks",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot_to_canonical",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.rIUXm5/jobs/2026-08-19__20-58-51__896641/order-by-order-reimpl-pivot__VATUmvx/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

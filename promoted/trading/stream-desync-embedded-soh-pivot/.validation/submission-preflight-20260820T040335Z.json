@@ -1,0 +1,19 @@
+{
+  "task": "promoted/trading/stream-desync-embedded-soh-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:03:35.608795+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "cd7d2c1360031b1fcac1e56acd61b6f2fcf0cdc9ce86304a21a06efe803cce75",
+    "bundle_file_count": 26,
+    "chain_evidence": "promoted/trading/stream-desync-embedded-soh-pivot/.validation/chain-20260820T010211Z.json",
+    "oracle_x3_evidence": "promoted/trading/stream-desync-embedded-soh-pivot/.validation/oracle-x3-20260820T040135Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/trading/stream-desync-embedded-soh-pivot"
+  ]
+}

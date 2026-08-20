@@ -1,0 +1,9 @@
+Image: tbench-mt-already-served-item-set-recovery-pivot:validate
+Chain evidence: chain-20260819T174956Z.json
+Sample files: four CRC-valid RBX1 fixtures
+Sidecar: present with four decoded rows
+Initial /app/seen_reader.py: absent
+Initial /app/2_roundtrip_writer_metrics.json: absent
+Initial /app/3_streaming_audit_pivot_metrics.json: absent
+numpy import: functional
+Result: initial runtime exposes only current-step fixtures and does not pre-stage the reader or successor metrics.

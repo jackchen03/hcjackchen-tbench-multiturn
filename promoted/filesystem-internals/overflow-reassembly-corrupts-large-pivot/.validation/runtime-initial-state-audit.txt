@@ -1,0 +1,9 @@
+Image: tbench-mt-overflow-reassembly-corrupts-large-pivot:validate
+Chain evidence: chain-20260819T181833Z.json
+Initial /app/broken.sqlite: present with SQLite header, 4096-byte page size, falsified reserved byte 0
+sqlite3 access: reports malformed
+Initial inventory/page_info: absent
+Initial recover.sh/recovered: absent
+Initial store/manifest: absent
+Held-out geometry: 8192-byte pages with distinct reserve and row IDs
+Result: initial runtime exposes only the corrupted current-step fixture and no successor artifacts.

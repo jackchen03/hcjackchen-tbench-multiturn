@@ -1,0 +1,29 @@
+Task: promoted/database-internals/index-scan-physical-read-pivot
+Image: tbench-mt-index-scan-physical-read-pivot:validate
+Chain evidence: promoted/database-internals/index-scan-physical-read-pivot/.validation/chain-20260820T004505Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=builder /generated/app/ /app/
+COPY --from=builder /generated/grader/ /opt/grader/
+COPY --from=builder /build/scan /app/reference_scan
+COPY --from=builder /build/scan /verifier/scan
+Runtime explicit builder-copy destinations:
+PATH /app/
+drwxr-xr-x 1 root root 104 Aug 19 18:47 /app/
+644 /app/FORMAT.md
+644 /app/fixture
+644 /app/profile.txt
+755 /app/reference_scan
+PATH /opt/grader/
+dr-xr-xr-x 1 root root 82 Aug 19 18:47 /opt/grader/
+444 /opt/grader/fixture_alt
+444 /opt/grader/fixture_main
+444 /opt/grader/manifest.json
+PATH /app/reference_scan
+-rwxr-xr-x 1 root root 18464 Jan  1  2020 /app/reference_scan
+FIRST4 7f454c46
+PATH /verifier/scan
+-rwxr-xr-x 1 root root 18464 Jan  1  2020 /verifier/scan
+FIRST4 7f454c46
+Potential readable source under reference/grader roots:
+Future-staging paths:

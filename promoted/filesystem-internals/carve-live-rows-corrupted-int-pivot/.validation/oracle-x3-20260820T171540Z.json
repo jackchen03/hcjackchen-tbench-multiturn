@@ -1,0 +1,92 @@
+{
+  "task": "promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p carve-live-rows-corrupted-int-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.pis3CM",
+  "job_dir": "/tmp/tbench-oracle-x3.pis3CM/jobs/2026-08-20__10-14-59__1295de",
+  "run_log": "/tmp/tbench-oracle-x3.pis3CM/run.log",
+  "recorded_at": "2026-08-20T17:15:40.791590+00:00",
+  "wall_time_sec": 181,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "876de4127439f4c04c8feef2677ad2f2cc5baf71cabe70651ae6f37e109dab7d",
+  "bundle_file_count": 25,
+  "chain_evidence": "promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/.validation/chain-20260820T170216Z.json",
+  "trials": [
+    {
+      "trial_id": "b452a5a0-3d70-48ca-bdfb-3a8f93ceab28",
+      "trial_name": "carve-live-rows-corrupted-int-pi__4BFhSbX",
+      "task_checksum": "cacd5eab7ac8505bc33827a48ad35a8a0ec432c975fe98db352d3b22dc2b23dc",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_carve_live_rows",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add_checksum_index",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot_to_varint_encoding",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.pis3CM/jobs/2026-08-20__10-14-59__1295de/carve-live-rows-corrupted-int-pi__4BFhSbX/result.json"
+    },
+    {
+      "trial_id": "5e00693e-4f28-4f09-b5d2-2de9db8bedd3",
+      "trial_name": "carve-live-rows-corrupted-int-pi__A3GbgyJ",
+      "task_checksum": "cacd5eab7ac8505bc33827a48ad35a8a0ec432c975fe98db352d3b22dc2b23dc",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_carve_live_rows",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add_checksum_index",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot_to_varint_encoding",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.pis3CM/jobs/2026-08-20__10-14-59__1295de/carve-live-rows-corrupted-int-pi__A3GbgyJ/result.json"
+    },
+    {
+      "trial_id": "51fbb0b5-3f6c-4a96-a6a9-442acc65e0ec",
+      "trial_name": "carve-live-rows-corrupted-int-pi__mEHCKjD",
+      "task_checksum": "cacd5eab7ac8505bc33827a48ad35a8a0ec432c975fe98db352d3b22dc2b23dc",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_carve_live_rows",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add_checksum_index",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot_to_varint_encoding",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.pis3CM/jobs/2026-08-20__10-14-59__1295de/carve-live-rows-corrupted-int-pi__mEHCKjD/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

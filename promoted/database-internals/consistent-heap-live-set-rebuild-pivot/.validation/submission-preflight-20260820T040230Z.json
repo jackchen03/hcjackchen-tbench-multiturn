@@ -1,0 +1,19 @@
+{
+  "task": "promoted/database-internals/consistent-heap-live-set-rebuild-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:02:30.368151+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "2bbd32b00ae1bbe4d53a819214c999b8d52f7058c5173c128adb4bcf20a9f646",
+    "bundle_file_count": 24,
+    "chain_evidence": "promoted/database-internals/consistent-heap-live-set-rebuild-pivot/.validation/chain-20260820T004347Z.json",
+    "oracle_x3_evidence": "promoted/database-internals/consistent-heap-live-set-rebuild-pivot/.validation/oracle-x3-20260820T033607Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/database-internals/consistent-heap-live-set-rebuild-pivot"
+  ]
+}

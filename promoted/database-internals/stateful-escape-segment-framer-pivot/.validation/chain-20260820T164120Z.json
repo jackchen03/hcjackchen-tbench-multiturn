@@ -1,0 +1,81 @@
+{
+  "task": "stateful-escape-segment-framer-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-stateful-escape-segment-framer-pivot:validate"
+    },
+    {
+      "step": "1_byte-exact-escape-block-framer",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "1_byte-exact-escape-block-framer",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_byte-exact-escape-block-framer",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_context-escape-or-null",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_context-escape-or-null",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_context-escape-or-null",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_mandatory-tail-pivot",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "3_mandatory-tail-pivot",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_mandatory-tail-pivot",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_byte-exact-escape-block-framer",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_context-escape-or-null",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 2 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

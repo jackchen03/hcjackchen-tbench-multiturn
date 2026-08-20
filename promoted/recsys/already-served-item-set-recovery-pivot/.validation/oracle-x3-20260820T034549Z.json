@@ -1,0 +1,92 @@
+{
+  "task": "promoted/recsys/already-served-item-set-recovery-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p already-served-item-set-recovery-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.2678eI",
+  "job_dir": "/tmp/tbench-oracle-x3.2678eI/jobs/2026-08-19__20-45-10__86666b",
+  "run_log": "/tmp/tbench-oracle-x3.2678eI/run.log",
+  "recorded_at": "2026-08-20T03:45:49.906911+00:00",
+  "wall_time_sec": 58,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "59c179e93371ec099c5ea8097423e1a86a3fc068ea7a2bafdcb918b99acbc089",
+  "bundle_file_count": 26,
+  "chain_evidence": "promoted/recsys/already-served-item-set-recovery-pivot/.validation/chain-20260820T005004Z.json",
+  "trials": [
+    {
+      "trial_id": "39a8ff8f-9f1b-4d71-bec5-759e48a67598",
+      "trial_name": "already-served-item-set-recovery__8z3tZeF",
+      "task_checksum": "d115c5a0cfa25507262f2c42cdb40148276abb88767fbda0df75fd78e4433303",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover_reader",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_roundtrip_writer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_streaming_audit_pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.2678eI/jobs/2026-08-19__20-45-10__86666b/already-served-item-set-recovery__8z3tZeF/result.json"
+    },
+    {
+      "trial_id": "f2783902-ba7f-4e76-8bc9-35f3d8417515",
+      "trial_name": "already-served-item-set-recovery__JnhYR6g",
+      "task_checksum": "d115c5a0cfa25507262f2c42cdb40148276abb88767fbda0df75fd78e4433303",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover_reader",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_roundtrip_writer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_streaming_audit_pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.2678eI/jobs/2026-08-19__20-45-10__86666b/already-served-item-set-recovery__JnhYR6g/result.json"
+    },
+    {
+      "trial_id": "d479f34c-7639-476a-98ad-c4bd545428a2",
+      "trial_name": "already-served-item-set-recovery__QKcJphR",
+      "task_checksum": "d115c5a0cfa25507262f2c42cdb40148276abb88767fbda0df75fd78e4433303",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover_reader",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_roundtrip_writer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_streaming_audit_pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.2678eI/jobs/2026-08-19__20-45-10__86666b/already-served-item-set-recovery__QKcJphR/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

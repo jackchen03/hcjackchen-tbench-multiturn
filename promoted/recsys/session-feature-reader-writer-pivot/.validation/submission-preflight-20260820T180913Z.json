@@ -1,0 +1,17 @@
+{
+  "task": "promoted/recsys/session-feature-reader-writer-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:13.402159+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "a2901819fa36282a6ad46d39a02257ef1111b616e45ff04c1ed3ce520917bc7a",
+    "bundle_file_count": 27,
+    "chain_evidence": "promoted/recsys/session-feature-reader-writer-pivot/.validation/chain-20260820T165639Z.json",
+    "oracle_x3_evidence": "promoted/recsys/session-feature-reader-writer-pivot/.validation/oracle-x3-20260820T174952Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/recsys/session-feature-reader-writer-pivot"
+  ]
+}

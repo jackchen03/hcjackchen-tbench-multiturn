@@ -1,0 +1,432 @@
+== oracle chain: item-factor-matrix-quantized-recovery-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-item-factor-matrix-quantized-recovery-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/environment
+sha256:210e0a6cb6a770630eb736f52f43a1ee364c760af4f2139fe171ec25c9a38688
+
+$ docker rm -f tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain
+Error response from daemon: No such container: tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain
+
+$ docker run -d --name tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain tbench-mt-item-factor-matrix-quantized-recovery-pivot:validate sleep infinity
+dbf5d76049eee98b06ec02a592b0f56bb8e1dc0c459e5d7ff3a0916a2b0ebed5
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/1_recover-quantized-factors/tests/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain bash /tests/test.sh
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_sample_checkpoint_all_items_match_intended_factors ____________
+
+    def test_sample_checkpoint_all_items_match_intended_factors():
+>    got=mod().load_item_factors('/app/ckpt'); exp=np.load('/opt/grade/sample_gt.npy'); assert got.dtype==np.float32; assert got.shape==exp.shape; np.testing.assert_allclose(got,exp,rtol=0,atol=1e-6)
+                                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (<function assert_allclose.<locals>.compare at 0x7fedb1106b60>, array([[-0.53026634, -0.5231305 ,  0.23740739, ...,  0...],
+       [ 0.26030868, -0.3075569 , -0.03398246, ...,  0.7057525 ,
+         0.21124992,  0.09076139]], dtype=float32))
+kwds = {'equal_nan': True, 'err_msg': '', 'header': 'Not equal to tolerance rtol=0, atol=1e-06', 'verbose': True}
+
+    @wraps(func)
+    def inner(*args, **kwds):
+        with self._recreate_cm():
+>           return func(*args, **kwds)
+                   ^^^^^^^^^^^^^^^^^^^
+E           AssertionError: 
+E           Not equal to tolerance rtol=0, atol=1e-06
+E           
+E           Mismatched elements: 1024 / 10240 (10%)
+E           Max absolute difference: 0.36195493
+E           Max relative difference: 151.5025
+E            x: array([[-0.530266, -0.52313 ,  0.237407, ...,  0.890634,  0.158238,
+E                    0.189873],
+E                  [-0.51243 , -2.026448, -1.300997, ..., -0.128642,  0.416458,...
+E            y: array([[-0.530266, -0.52313 ,  0.237407, ...,  0.890634,  0.158238,
+E                    0.189873],
+E                  [-0.51243 , -2.026448, -1.300997, ..., -0.128642,  0.416458,...
+
+/usr/local/lib/python3.11/contextlib.py:81: AssertionError
+_______ test_unseen_checkpoint_with_different_codes_and_head_set_matches _______
+
+    def test_unseen_checkpoint_with_different_codes_and_head_set_matches():
+>    got=mod().load_item_factors('/opt/grade/heldout_ckpt'); exp=np.load('/opt/grade/heldout_gt.npy'); flags=np.load('/opt/grade/heldout_flags.npy'); assert np.allclose(got[flags],exp[flags],rtol=0,atol=1e-6); assert np.allclose(got[~flags],exp[~flags],rtol=0,atol=1e-6)
+                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    assert False
+E     +  where False = <function allclose at 0x7fedb3bf6230>(array([[-0.29656208,  0.5020793 , -0.31727424, ..., -0.45635262,\n        -0.2006908 , -0.43621722],\n       [-0.3356005... ],\n       [-1.0320451 , -1.0175527 , -0.7138843 , ...,  0.1718387 ,\n         0.7351011 ,  0.3086955 ]], dtype=float32), array([[-0.36437818,  0.57429767, -0.21536681, ..., -0.43156856,\n        -0.01215571, -0.5008894 ],\n       [-0.1328466... ],\n       [-0.99638927, -1.1487384 , -0.6862488 , ...,  0.27020797,\n         0.6183204 ,  0.24063736]], dtype=float32), rtol=0, atol=1e-06)
+E     +    where <function allclose at 0x7fedb3bf6230> = np.allclose
+
+/tests/test_outputs.py:11: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_future_diagnostics_and_lazy_api_are_not_implemented_yet
+FAILED ../tests/test_outputs.py::test_sample_checkpoint_all_items_match_intended_factors
+FAILED ../tests/test_outputs.py::test_unseen_checkpoint_with_different_codes_and_head_set_matches
+2 failed, 1 passed in 0.21s
+reward=0 (2 failed, 0 errored)
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.212" timestamp="2026-08-19T18:08:20.700377+00:00" hostname="dbf5d76049ee"><testcase classname="test_outputs" name="test_sample_checkpoint_all_items_match_intended_factors" time="0.044"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=1e-06&#10;&#10;Mismatched elements: 1024 / 10240 (10%)&#10;Max absolute difference: 0.36195493&#10;Max relative difference: 151.5025&#10; x: array([[-0.530266, -0.52313 ,  0.237407, ...,  0.890634,  0.158238,&#10;         0.189873],&#10;       [-0.51243 , -2.026448, -1.300997, ..., -0.128642,  0.416458,...&#10; y: array([[-0.530266, -0.52313 ,  0.237407, ...,  0.890634,  0.158238,&#10;         0.189873],&#10;       [-0.51243 , -2.026448, -1.300997, ..., -0.128642,  0.416458,...">def test_sample_checkpoint_all_items_match_intended_factors():
+&gt;    got=mod().load_item_factors('/app/ckpt'); exp=np.load('/opt/grade/sample_gt.npy'); assert got.dtype==np.float32; assert got.shape==exp.shape; np.testing.assert_allclose(got,exp,rtol=0,atol=1e-6)
+                                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (&lt;function assert_allclose.&lt;locals&gt;.compare at 0x7fedb1106b60&gt;, array([[-0.53026634, -0.5231305 ,  0.23740739, ...,  0...],
+       [ 0.26030868, -0.3075569 , -0.03398246, ...,  0.7057525 ,
+         0.21124992,  0.09076139]], dtype=float32))
+kwds = {'equal_nan': True, 'err_msg': '', 'header': 'Not equal to tolerance rtol=0, atol=1e-06', 'verbose': True}
+
+    @wraps(func)
+    def inner(*args, **kwds):
+        with self._recreate_cm():
+&gt;           return func(*args, **kwds)
+                   ^^^^^^^^^^^^^^^^^^^
+E           AssertionError: 
+E           Not equal to tolerance rtol=0, atol=1e-06
+E           
+E           Mismatched elements: 1024 / 10240 (10%)
+E           Max absolute difference: 0.36195493
+E           Max relative difference: 151.5025
+E            x: array([[-0.530266, -0.52313 ,  0.237407, ...,  0.890634,  0.158238,
+E                    0.189873],
+E                  [-0.51243 , -2.026448, -1.300997, ..., -0.128642,  0.416458,...
+E            y: array([[-0.530266, -0.52313 ,  0.237407, ...,  0.890634,  0.158238,
+E                    0.189873],
+E                  [-0.51243 , -2.026448, -1.300997, ..., -0.128642,  0.416458,...
+
+/usr/local/lib/python3.11/contextlib.py:81: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_unseen_checkpoint_with_different_codes_and_head_set_matches" time="0.002"><failure message="assert False&#10; +  where False = &lt;function allclose at 0x7fedb3bf6230&gt;(array([[-0.29656208,  0.5020793 , -0.31727424, ..., -0.45635262,\n        -0.2006908 , -0.43621722],\n       [-0.3356005... ],\n       [-1.0320451 , -1.0175527 , -0.7138843 , ...,  0.1718387 ,\n         0.7351011 ,  0.3086955 ]], dtype=float32), array([[-0.36437818,  0.57429767, -0.21536681, ..., -0.43156856,\n        -0.01215571, -0.5008894 ],\n       [-0.1328466... ],\n       [-0.99638927, -1.1487384 , -0.6862488 , ...,  0.27020797,\n         0.6183204 ,  0.24063736]], dtype=float32), rtol=0, atol=1e-06)&#10; +    where &lt;function allclose at 0x7fedb3bf6230&gt; = np.allclose">def test_unseen_checkpoint_with_different_codes_and_head_set_matches():
+&gt;    got=mod().load_item_factors('/opt/grade/heldout_ckpt'); exp=np.load('/opt/grade/heldout_gt.npy'); flags=np.load('/opt/grade/heldout_flags.npy'); assert np.allclose(got[flags],exp[flags],rtol=0,atol=1e-6); assert np.allclose(got[~flags],exp[~flags],rtol=0,atol=1e-6)
+                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    assert False
+E     +  where False = &lt;function allclose at 0x7fedb3bf6230&gt;(array([[-0.29656208,  0.5020793 , -0.31727424, ..., -0.45635262,\n        -0.2006908 , -0.43621722],\n       [-0.3356005... ],\n       [-1.0320451 , -1.0175527 , -0.7138843 , ...,  0.1718387 ,\n         0.7351011 ,  0.3086955 ]], dtype=float32), array([[-0.36437818,  0.57429767, -0.21536681, ..., -0.43156856,\n        -0.01215571, -0.5008894 ],\n       [-0.1328466... ],\n       [-0.99638927, -1.1487384 , -0.6862488 , ...,  0.27020797,\n         0.6183204 ,  0.24063736]], dtype=float32), rtol=0, atol=1e-06)
+E     +    where &lt;function allclose at 0x7fedb3bf6230&gt; = np.allclose
+
+/tests/test_outputs.py:11: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_future_diagnostics_and_lazy_api_are_not_implemented_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests
+STEP 1 1_recover-quantized-factors  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/1_recover-quantized-factors/solution/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain:/solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /solution
+STEP 1 1_recover-quantized-factors  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/1_recover-quantized-factors/tests/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_sample_checkpoint_all_items_match_intended_factors
+PASSED ../tests/test_outputs.py::test_unseen_checkpoint_with_different_codes_and_head_set_matches
+PASSED ../tests/test_outputs.py::test_future_diagnostics_and_lazy_api_are_not_implemented_yet
+3 passed in 0.18s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.179" timestamp="2026-08-19T18:08:22.451596+00:00" hostname="dbf5d76049ee"><testcase classname="test_outputs" name="test_sample_checkpoint_all_items_match_intended_factors" time="0.037" /><testcase classname="test_outputs" name="test_unseen_checkpoint_with_different_codes_and_head_set_matches" time="0.002" /><testcase classname="test_outputs" name="test_future_diagnostics_and_lazy_api_are_not_implemented_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests
+STEP 1 1_recover-quantized-factors  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/2_expose-head-diagnostics/tests/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain bash /tests/test.sh
+.F.                                                                      [100%]
+=================================== FAILURES ===================================
+______________ test_head_flags_and_diagnostic_artifact_are_exact _______________
+
+    def test_head_flags_and_diagnostic_artifact_are_exact():
+>    m=mod(); sample=np.load('/opt/grade/sample_flags.npy'); held=np.load('/opt/grade/heldout_flags.npy'); assert np.array_equal(m.get_head_flags('/app/ckpt'),sample); assert np.array_equal(m.get_head_flags('/opt/grade/heldout_ckpt'),held); data=json.loads(Path('/app/ckpt/head_diagnostics.json').read_text()); ids=[int(x) for x in np.flatnonzero(sample)]; assert data=={'head_count':len(ids),'head_ids':ids}
+                                                                                                                                 ^^^^^^^^^^^^^^^^
+E    AttributeError: module 'factorstore' has no attribute 'get_head_flags'
+
+/tests/test_outputs.py:11: AttributeError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_factor_reconstruction_regression_on_both_checkpoints
+PASSED ../tests/test_outputs.py::test_future_lazy_store_api_is_not_implemented_yet
+FAILED ../tests/test_outputs.py::test_head_flags_and_diagnostic_artifact_are_exact
+1 failed, 2 passed in 0.15s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.156" timestamp="2026-08-19T18:08:23.723681+00:00" hostname="dbf5d76049ee"><testcase classname="test_outputs" name="test_factor_reconstruction_regression_on_both_checkpoints" time="0.003" /><testcase classname="test_outputs" name="test_head_flags_and_diagnostic_artifact_are_exact" time="0.001"><failure message="AttributeError: module 'factorstore' has no attribute 'get_head_flags'">def test_head_flags_and_diagnostic_artifact_are_exact():
+&gt;    m=mod(); sample=np.load('/opt/grade/sample_flags.npy'); held=np.load('/opt/grade/heldout_flags.npy'); assert np.array_equal(m.get_head_flags('/app/ckpt'),sample); assert np.array_equal(m.get_head_flags('/opt/grade/heldout_ckpt'),held); data=json.loads(Path('/app/ckpt/head_diagnostics.json').read_text()); ids=[int(x) for x in np.flatnonzero(sample)]; assert data=={'head_count':len(ids),'head_ids':ids}
+                                                                                                                                 ^^^^^^^^^^^^^^^^
+E    AttributeError: module 'factorstore' has no attribute 'get_head_flags'
+
+/tests/test_outputs.py:11: AttributeError</failure></testcase><testcase classname="test_outputs" name="test_future_lazy_store_api_is_not_implemented_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests
+STEP 2 2_expose-head-diagnostics  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/2_expose-head-diagnostics/solution/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain:/solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /solution
+STEP 2 2_expose-head-diagnostics  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/2_expose-head-diagnostics/tests/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_factor_reconstruction_regression_on_both_checkpoints
+PASSED ../tests/test_outputs.py::test_head_flags_and_diagnostic_artifact_are_exact
+PASSED ../tests/test_outputs.py::test_future_lazy_store_api_is_not_implemented_yet
+3 passed in 0.14s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.146" timestamp="2026-08-19T18:08:25.645135+00:00" hostname="dbf5d76049ee"><testcase classname="test_outputs" name="test_factor_reconstruction_regression_on_both_checkpoints" time="0.003" /><testcase classname="test_outputs" name="test_head_flags_and_diagnostic_artifact_are_exact" time="0.001" /><testcase classname="test_outputs" name="test_future_lazy_store_api_is_not_implemented_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests
+STEP 2 2_expose-head-diagnostics  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/3_pivot-lazy-on-demand-decoder/tests/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain bash /tests/test.sh
+F.F                                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_lazy_single_and_batch_decode_head_and_tail_exactly ____________
+
+    def test_lazy_single_and_batch_decode_head_and_tail_exactly():
+>    m=mod(); gt=np.load('/opt/grade/heldout_gt.npy'); flags=np.load('/opt/grade/heldout_flags.npy'); store=m.QuantizedItemStore('/opt/grade/heldout_ckpt'); ids=[0,1,int(np.flatnonzero(flags)[0]),int(np.flatnonzero(~flags)[-1]),703]
+                                                                                                            ^^^^^^^^^^^^^^^^^^^^
+E    AttributeError: module 'factorstore' has no attribute 'QuantizedItemStore'
+
+/tests/test_outputs.py:9: AttributeError
+_____________ test_constructor_is_lazy_and_wrapper_uses_batch_path _____________
+
+    def test_constructor_is_lazy_and_wrapper_uses_batch_path():
+>    m=mod(); store=m.QuantizedItemStore('/opt/grade/heldout_ckpt'); assert not any(isinstance(v,np.ndarray) and v.shape==(store.num_items,store.dim) for v in store.__dict__.values()); source=Path('/app/factorstore.py').read_text(); wrapper=inspect.getsource(m.load_item_factors); assert 'QuantizedItemStore' in wrapper; assert 'get_batch_factors' in wrapper; assert 'get_item_factor' in source
+                    ^^^^^^^^^^^^^^^^^^^^
+E    AttributeError: module 'factorstore' has no attribute 'QuantizedItemStore'
+
+/tests/test_outputs.py:15: AttributeError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_wrapper_flags_and_prior_diagnostic_contracts_remain_correct
+FAILED ../tests/test_outputs.py::test_lazy_single_and_batch_decode_head_and_tail_exactly
+FAILED ../tests/test_outputs.py::test_constructor_is_lazy_and_wrapper_uses_batch_path
+2 failed, 1 passed in 0.20s
+reward=0 (2 failed, 0 errored)
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.198" timestamp="2026-08-19T18:08:26.868657+00:00" hostname="dbf5d76049ee"><testcase classname="test_outputs" name="test_lazy_single_and_batch_decode_head_and_tail_exactly" time="0.002"><failure message="AttributeError: module 'factorstore' has no attribute 'QuantizedItemStore'">def test_lazy_single_and_batch_decode_head_and_tail_exactly():
+&gt;    m=mod(); gt=np.load('/opt/grade/heldout_gt.npy'); flags=np.load('/opt/grade/heldout_flags.npy'); store=m.QuantizedItemStore('/opt/grade/heldout_ckpt'); ids=[0,1,int(np.flatnonzero(flags)[0]),int(np.flatnonzero(~flags)[-1]),703]
+                                                                                                            ^^^^^^^^^^^^^^^^^^^^
+E    AttributeError: module 'factorstore' has no attribute 'QuantizedItemStore'
+
+/tests/test_outputs.py:9: AttributeError</failure></testcase><testcase classname="test_outputs" name="test_wrapper_flags_and_prior_diagnostic_contracts_remain_correct" time="0.037" /><testcase classname="test_outputs" name="test_constructor_is_lazy_and_wrapper_uses_batch_path" time="0.001"><failure message="AttributeError: module 'factorstore' has no attribute 'QuantizedItemStore'">def test_constructor_is_lazy_and_wrapper_uses_batch_path():
+&gt;    m=mod(); store=m.QuantizedItemStore('/opt/grade/heldout_ckpt'); assert not any(isinstance(v,np.ndarray) and v.shape==(store.num_items,store.dim) for v in store.__dict__.values()); source=Path('/app/factorstore.py').read_text(); wrapper=inspect.getsource(m.load_item_factors); assert 'QuantizedItemStore' in wrapper; assert 'get_batch_factors' in wrapper; assert 'get_item_factor' in source
+                    ^^^^^^^^^^^^^^^^^^^^
+E    AttributeError: module 'factorstore' has no attribute 'QuantizedItemStore'
+
+/tests/test_outputs.py:15: AttributeError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests
+STEP 3 3_pivot-lazy-on-demand-decoder  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/3_pivot-lazy-on-demand-decoder/solution/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain:/solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /solution
+STEP 3 3_pivot-lazy-on-demand-decoder  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/3_pivot-lazy-on-demand-decoder/tests/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_lazy_single_and_batch_decode_head_and_tail_exactly
+PASSED ../tests/test_outputs.py::test_wrapper_flags_and_prior_diagnostic_contracts_remain_correct
+PASSED ../tests/test_outputs.py::test_constructor_is_lazy_and_wrapper_uses_batch_path
+3 passed in 0.18s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.186" timestamp="2026-08-19T18:08:28.607629+00:00" hostname="dbf5d76049ee"><testcase classname="test_outputs" name="test_lazy_single_and_batch_decode_head_and_tail_exactly" time="0.002" /><testcase classname="test_outputs" name="test_wrapper_flags_and_prior_diagnostic_contracts_remain_correct" time="0.039" /><testcase classname="test_outputs" name="test_constructor_is_lazy_and_wrapper_uses_batch_path" time="0.003" /></testsuite></testsuites>
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain rm -rf /tests
+STEP 3 3_pivot-lazy-on-demand-decoder  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1
+Error response from daemon: No such container: tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1
+
+$ docker run -d --name tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 tbench-mt-item-factor-matrix-quantized-recovery-pivot:validate sleep infinity
+5af6ff8de5297293d6f3788e4774b3978c07fe86ffc9ed26f32c1f141a729b86
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/1_recover-quantized-factors/solution/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1:/solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/2_expose-head-diagnostics/solution/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1:/solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/1_recover-quantized-factors/tests/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 bash /tests/test.sh
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+_________ test_future_diagnostics_and_lazy_api_are_not_implemented_yet _________
+
+    def test_future_diagnostics_and_lazy_api_are_not_implemented_yet():
+>    source=Path('/app/factorstore.py').read_text(); assert 'get_head_flags' not in source; assert 'QuantizedItemStore' not in source; assert not Path('/app/ckpt/head_diagnostics.json').exists()
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert 'get_head_flags' not in 'import json...type=bool)\n'
+E      
+E      'get_head_flags' is contained here:
+E        n out
+E        def get_head_flags(ckpt_dir):
+E         root=Path(ckpt_dir); meta=json.loads((root/'meta.json').read_text()); n=meta['num_items']; raw=(root/'aux.bin').read_bytes()
+E         return np.array([bool(raw[i//8]&(1<<(i%8))) for i in range(n)],dtype=bool)
+
+/tests/test_outputs.py:13: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_sample_checkpoint_all_items_match_intended_factors
+PASSED ../tests/test_outputs.py::test_unseen_checkpoint_with_different_codes_and_head_set_matches
+FAILED ../tests/test_outputs.py::test_future_diagnostics_and_lazy_api_are_not_implemented_yet
+1 failed, 2 passed in 0.20s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.203" timestamp="2026-08-19T18:08:31.521179+00:00" hostname="5af6ff8de529"><testcase classname="test_outputs" name="test_sample_checkpoint_all_items_match_intended_factors" time="0.045" /><testcase classname="test_outputs" name="test_unseen_checkpoint_with_different_codes_and_head_set_matches" time="0.002" /><testcase classname="test_outputs" name="test_future_diagnostics_and_lazy_api_are_not_implemented_yet" time="0.001"><failure message="AssertionError: assert 'get_head_flags' not in 'import json...type=bool)\n'&#10;  &#10;  'get_head_flags' is contained here:&#10;    n out&#10;    def get_head_flags(ckpt_dir):&#10;     root=Path(ckpt_dir); meta=json.loads((root/'meta.json').read_text()); n=meta['num_items']; raw=(root/'aux.bin').read_bytes()&#10;     return np.array([bool(raw[i//8]&amp;(1&lt;&lt;(i%8))) for i in range(n)],dtype=bool)">def test_future_diagnostics_and_lazy_api_are_not_implemented_yet():
+&gt;    source=Path('/app/factorstore.py').read_text(); assert 'get_head_flags' not in source; assert 'QuantizedItemStore' not in source; assert not Path('/app/ckpt/head_diagnostics.json').exists()
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert 'get_head_flags' not in 'import json...type=bool)\n'
+E      
+E      'get_head_flags' is contained here:
+E        n out
+E        def get_head_flags(ckpt_dir):
+E         root=Path(ckpt_dir); meta=json.loads((root/'meta.json').read_text()); n=meta['num_items']; raw=(root/'aux.bin').read_bytes()
+E         return np.array([bool(raw[i//8]&amp;(1&lt;&lt;(i%8))) for i in range(n)],dtype=bool)
+
+/tests/test_outputs.py:13: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1 rm -rf /tests
+STEP 1 1_recover-quantized-factors  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1
+tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1
+
+$ docker rm -f tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2
+Error response from daemon: No such container: tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2
+
+$ docker run -d --name tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 tbench-mt-item-factor-matrix-quantized-recovery-pivot:validate sleep infinity
+21c686c372c15ffdd0b109bbcf081423c63b6c823ad9c446bb7d3684b2dc8d76
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/1_recover-quantized-factors/solution/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2:/solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/2_expose-head-diagnostics/solution/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2:/solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/3_pivot-lazy-on-demand-decoder/solution/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2:/solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/steps/2_expose-head-diagnostics/tests/. tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 bash /tests/test.sh
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+______________ test_future_lazy_store_api_is_not_implemented_yet _______________
+
+    def test_future_lazy_store_api_is_not_implemented_yet():
+>    source=Path('/app/factorstore.py').read_text(); assert 'QuantizedItemStore' not in source; assert 'get_item_factor' not in source; assert 'get_batch_factors' not in source
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert 'QuantizedItemStore' not in 'import json...um_items))\n'
+E      
+E      'QuantizedItemStore' is contained here:
+E         np
+E        class QuantizedItemStore:
+E         def __init__(self,ckpt_dir):
+E          self.root=Path(ckpt_dir); m=json.loads((self.root/'meta.json').read_text()); self.num_items,self.dim,self.m1,self.k1=m['num_items'],m['dim'],m['m1'],m['k1']; self.s1=self.dim//self.m1
+E          self.codebook=np.fromfile(self.root/'stage1_codebook.bin',dtype='<f4').reshape(self.m1,self.k1,self.s1); self.codes=np.fromfile(self.root/'stage1_codes.bin',dtype=np.uint8).reshape(self.num_items,self.m1)...
+E      
+E      ...Full output truncated (15 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:13: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_factor_reconstruction_regression_on_both_checkpoints
+PASSED ../tests/test_outputs.py::test_head_flags_and_diagnostic_artifact_are_exact
+FAILED ../tests/test_outputs.py::test_future_lazy_store_api_is_not_implemented_yet
+1 failed, 2 passed in 0.16s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.164" timestamp="2026-08-19T18:08:35.152157+00:00" hostname="21c686c372c1"><testcase classname="test_outputs" name="test_factor_reconstruction_regression_on_both_checkpoints" time="0.008" /><testcase classname="test_outputs" name="test_head_flags_and_diagnostic_artifact_are_exact" time="0.002" /><testcase classname="test_outputs" name="test_future_lazy_store_api_is_not_implemented_yet" time="0.001"><failure message="AssertionError: assert 'QuantizedItemStore' not in 'import json...um_items))\n'&#10;  &#10;  'QuantizedItemStore' is contained here:&#10;     np&#10;    class QuantizedItemStore:&#10;     def __init__(self,ckpt_dir):&#10;      self.root=Path(ckpt_dir); m=json.loads((self.root/'meta.json').read_text()); self.num_items,self.dim,self.m1,self.k1=m['num_items'],m['dim'],m['m1'],m['k1']; self.s1=self.dim//self.m1&#10;      self.codebook=np.fromfile(self.root/'stage1_codebook.bin',dtype='&lt;f4').reshape(self.m1,self.k1,self.s1); self.codes=np.fromfile(self.root/'stage1_codes.bin',dtype=np.uint8).reshape(self.num_items,self.m1)...&#10;  &#10;  ...Full output truncated (15 lines hidden), use '-vv' to show">def test_future_lazy_store_api_is_not_implemented_yet():
+&gt;    source=Path('/app/factorstore.py').read_text(); assert 'QuantizedItemStore' not in source; assert 'get_item_factor' not in source; assert 'get_batch_factors' not in source
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    AssertionError: assert 'QuantizedItemStore' not in 'import json...um_items))\n'
+E      
+E      'QuantizedItemStore' is contained here:
+E         np
+E        class QuantizedItemStore:
+E         def __init__(self,ckpt_dir):
+E          self.root=Path(ckpt_dir); m=json.loads((self.root/'meta.json').read_text()); self.num_items,self.dim,self.m1,self.k1=m['num_items'],m['dim'],m['m1'],m['k1']; self.s1=self.dim//self.m1
+E          self.codebook=np.fromfile(self.root/'stage1_codebook.bin',dtype='&lt;f4').reshape(self.m1,self.k1,self.s1); self.codes=np.fromfile(self.root/'stage1_codes.bin',dtype=np.uint8).reshape(self.num_items,self.m1)...
+E      
+E      ...Full output truncated (15 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:13: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2 rm -rf /tests
+STEP 2 2_expose-head-diagnostics  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2
+tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2
+
+$ docker rm -f tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain
+tbench-mt-item-factor-matrix-quantized-recovery-pivot-chain
+
+$ docker rm -f tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1
+Error response from daemon: No such container: tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe1
+
+$ docker rm -f tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2
+Error response from daemon: No such container: tbench-mt-item-factor-matrix-quantized-recovery-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/recsys/item-factor-matrix-quantized-recovery-pivot/.validation/chain-20260819T180809Z.json

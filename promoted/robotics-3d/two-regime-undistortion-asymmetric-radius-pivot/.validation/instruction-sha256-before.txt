@@ -1,0 +1,3 @@
+84fcaae34c65ae99e89eb560c1007100a15dc46caabe2144b797fb0ec5921cb5  promoted/robotics-3d/two-regime-undistortion-asymmetric-radius-pivot/steps/1_detect-radius-seam-and-branch/instruction.md
+04a79e88e2e0f4917539ba56e6d1b32038cffb668a8970ec54f24afbcad4c948  promoted/robotics-3d/two-regime-undistortion-asymmetric-radius-pivot/steps/2_radial-warm-start-asymmetric-radius/instruction.md
+9c228f9080f288e478bb76b3020b09079844d40919002ad1d4d29500944ebfc8  promoted/robotics-3d/two-regime-undistortion-asymmetric-radius-pivot/steps/3_pivot-to-mixed-domain-tangential/instruction.md

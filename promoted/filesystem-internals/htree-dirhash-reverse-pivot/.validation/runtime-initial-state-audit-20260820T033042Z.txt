@@ -1,0 +1,28 @@
+Task: promoted/filesystem-internals/htree-dirhash-reverse-pivot
+Image: tbench-mt-htree-dirhash-reverse-pivot:validate
+Chain evidence: promoted/filesystem-internals/htree-dirhash-reverse-pivot/.validation/chain-20260820T004812Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=builder /build/dirhash-oracle /usr/local/bin/dirhash-oracle
+COPY --from=builder /generated/app/ /app/
+COPY --from=builder /generated/grader/ /opt/grader/
+COPY --from=builder /generated/work/ /work/
+Runtime explicit builder-copy destinations:
+PATH /usr/local/bin/dirhash-oracle
+-rwxr-xr-x 1 root root 14368 Aug 19 18:54 /usr/local/bin/dirhash-oracle
+FIRST4 7f454c46
+PATH /app/
+drwxr-xr-x 1 root root 36 Aug 19 18:54 /app/
+644 /app/probe_samples.json
+PATH /opt/grader/
+dr-xr-xr-x 1 root root 134 Aug 19 18:54 /opt/grader/
+444 /opt/grader/bulk_expected.json
+444 /opt/grader/bulk_names.bin
+444 /opt/grader/bulk_seed.txt
+444 /opt/grader/canary.txt
+444 /opt/grader/holdout.json
+PATH /work/
+dr-xr-xr-x 1 root root 26 Aug 19 18:54 /work/
+444 /work/appliance.img
+Potential readable source under reference/grader roots:
+Future-staging paths:

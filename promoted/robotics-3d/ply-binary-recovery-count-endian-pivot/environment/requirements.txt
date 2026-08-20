@@ -1,0 +1,7 @@
+numpy==1.26.4
+plyfile==1.0.3
+pytest==8.4.1
+iniconfig==2.3.0
+packaging==26.3
+pluggy==1.6.0
+Pygments==2.19.2

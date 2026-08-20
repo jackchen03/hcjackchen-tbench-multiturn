@@ -1,0 +1,92 @@
+{
+  "task": "promoted/database-internals/insert-path-fsm-page-selection-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p insert-path-fsm-page-selection-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.bv5BhG",
+  "job_dir": "/tmp/tbench-oracle-x3.bv5BhG/jobs/2026-08-20__10-06-59__8a4b01",
+  "run_log": "/tmp/tbench-oracle-x3.bv5BhG/run.log",
+  "recorded_at": "2026-08-20T17:07:39.962844+00:00",
+  "wall_time_sec": 69,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "2224ae39d2ba542cd547ebe503143cc2696422486fda7267e820998566d3e93c",
+  "bundle_file_count": 33,
+  "chain_evidence": "promoted/database-internals/insert-path-fsm-page-selection-pivot/.validation/chain-20260820T165711Z.json",
+  "trials": [
+    {
+      "trial_id": "c15a3c5c-98d9-4e55-9500-c0e9b4f08aba",
+      "trial_name": "insert-path-fsm-page-selection-p__GZsaQ2t",
+      "task_checksum": "cb6c28b3e65be1d2055d79fe710b1f2bb0b986c8bfe2cc33df6423e51bf714f6",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fsm-byte-match-heapload",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_persist-state-after-insert",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-append-only-drop-fsm",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.bv5BhG/jobs/2026-08-20__10-06-59__8a4b01/insert-path-fsm-page-selection-p__GZsaQ2t/result.json"
+    },
+    {
+      "trial_id": "47bbee0c-8287-4259-9f75-8b9e42ebdeeb",
+      "trial_name": "insert-path-fsm-page-selection-p__R5nf2cG",
+      "task_checksum": "cb6c28b3e65be1d2055d79fe710b1f2bb0b986c8bfe2cc33df6423e51bf714f6",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fsm-byte-match-heapload",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_persist-state-after-insert",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-append-only-drop-fsm",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.bv5BhG/jobs/2026-08-20__10-06-59__8a4b01/insert-path-fsm-page-selection-p__R5nf2cG/result.json"
+    },
+    {
+      "trial_id": "5d17aea2-622c-4538-a745-eb11c378dcb0",
+      "trial_name": "insert-path-fsm-page-selection-p__uwp6VVT",
+      "task_checksum": "cb6c28b3e65be1d2055d79fe710b1f2bb0b986c8bfe2cc33df6423e51bf714f6",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fsm-byte-match-heapload",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_persist-state-after-insert",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-append-only-drop-fsm",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.bv5BhG/jobs/2026-08-20__10-06-59__8a4b01/insert-path-fsm-page-selection-p__uwp6VVT/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

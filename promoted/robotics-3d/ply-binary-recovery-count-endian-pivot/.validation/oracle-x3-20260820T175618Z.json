@@ -1,0 +1,92 @@
+{
+  "task": "promoted/robotics-3d/ply-binary-recovery-count-endian-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p ply-binary-recovery-count-endian-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.VGFHet",
+  "job_dir": "/tmp/tbench-oracle-x3.VGFHet/jobs/2026-08-20__10-55-30__71cf48",
+  "run_log": "/tmp/tbench-oracle-x3.VGFHet/run.log",
+  "recorded_at": "2026-08-20T17:56:18.312333+00:00",
+  "wall_time_sec": 99,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "0a136d00fdc308ec7f26a89a0edd32bcd5936b64d5f8c1c723fc6f35d9646c12",
+  "bundle_file_count": 29,
+  "chain_evidence": "promoted/robotics-3d/ply-binary-recovery-count-endian-pivot/.validation/chain-20260820T170315Z.json",
+  "trials": [
+    {
+      "trial_id": "f27c344e-2594-4c99-8464-19b991547682",
+      "trial_name": "ply-binary-recovery-count-endian__89YHxVX",
+      "task_checksum": "5f64cbe6cc8cf5613503f6c4c5259e5b4ff88faaa576b8974406b4cf6055534d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-corrupted-geometry",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_enrich-with-normals-report",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-ascii-pointcloud",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.VGFHet/jobs/2026-08-20__10-55-30__71cf48/ply-binary-recovery-count-endian__89YHxVX/result.json"
+    },
+    {
+      "trial_id": "1fefa24c-bcae-4cc9-a857-cdd477a32e2c",
+      "trial_name": "ply-binary-recovery-count-endian__Hv6JsMb",
+      "task_checksum": "5f64cbe6cc8cf5613503f6c4c5259e5b4ff88faaa576b8974406b4cf6055534d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-corrupted-geometry",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_enrich-with-normals-report",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-ascii-pointcloud",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.VGFHet/jobs/2026-08-20__10-55-30__71cf48/ply-binary-recovery-count-endian__Hv6JsMb/result.json"
+    },
+    {
+      "trial_id": "ab2bda30-998f-452d-91c0-a9c2054049ac",
+      "trial_name": "ply-binary-recovery-count-endian__nfGaizd",
+      "task_checksum": "5f64cbe6cc8cf5613503f6c4c5259e5b4ff88faaa576b8974406b4cf6055534d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-corrupted-geometry",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_enrich-with-normals-report",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-ascii-pointcloud",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.VGFHet/jobs/2026-08-20__10-55-30__71cf48/ply-binary-recovery-count-endian__nfGaizd/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

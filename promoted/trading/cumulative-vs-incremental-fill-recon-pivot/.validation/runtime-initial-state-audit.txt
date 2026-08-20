@@ -1,0 +1,8 @@
+Image: tbench-mt-cumulative-vs-incremental-fill-recon-pivot:validate
+Chain evidence: chain-20260819T173929Z.json
+Initial /app/reconcile.py: present and runnable
+Initial sample symptom: reproduced; buggy output differs from expected.json
+Initial output type: JSON object
+Initial /app/ledger.py: absent
+Initial /app/3_pivot-to-gross-exposure-hash-index_audit.json: absent
+Result: initial runtime exposes only the current-step artifact and does not pre-stage either successor artifact.

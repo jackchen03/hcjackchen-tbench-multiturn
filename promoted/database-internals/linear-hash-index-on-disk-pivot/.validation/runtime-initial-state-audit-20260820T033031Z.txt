@@ -1,0 +1,12 @@
+Task: promoted/database-internals/linear-hash-index-on-disk-pivot
+Image: tbench-mt-linear-hash-index-on-disk-pivot:validate
+Chain evidence: promoted/database-internals/linear-hash-index-on-disk-pivot/.validation/chain-20260820T004528Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=opaque-builder /build/hashload /verifier/hashload
+Runtime explicit builder-copy destinations:
+PATH /verifier/hashload
+-r-xr-xr-x 1 root root 14448 Jan  1  2020 /verifier/hashload
+FIRST4 7f454c46
+Potential readable source under reference/grader roots:
+Future-staging paths:

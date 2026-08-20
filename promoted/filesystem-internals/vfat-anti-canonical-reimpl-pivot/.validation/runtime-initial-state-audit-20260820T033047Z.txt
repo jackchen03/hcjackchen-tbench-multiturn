@@ -1,0 +1,24 @@
+Task: promoted/filesystem-internals/vfat-anti-canonical-reimpl-pivot
+Image: tbench-mt-vfat-anti-canonical-reimpl-pivot:validate
+Chain evidence: promoted/filesystem-internals/vfat-anti-canonical-reimpl-pivot/.validation/chain-20260820T004939Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=builder /build/vfatdir /app/reference/vfatdir
+COPY --from=builder /generated/samples /app/samples
+Runtime explicit builder-copy destinations:
+PATH /app/reference/vfatdir
+-rwxr-xr-x 1 root root 14328 Jan  1  1970 /app/reference/vfatdir
+FIRST4 7f454c46
+PATH /app/samples
+drwxr-xr-x 1 root root 190 Jan  1  1970 /app/samples
+644 /app/samples/FORMAT_NOTES.md
+644 /app/samples/dir-1.bin
+644 /app/samples/dir-2.bin
+644 /app/samples/dir-3.bin
+644 /app/samples/dir-4.bin
+644 /app/samples/names-1.txt
+644 /app/samples/names-2.txt
+644 /app/samples/names-3.txt
+644 /app/samples/names-4.txt
+Potential readable source under reference/grader roots:
+Future-staging paths:

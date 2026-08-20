@@ -1,0 +1,92 @@
+{
+  "task": "promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p pose-graph-optimizer-open-loop-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.3juQj7",
+  "job_dir": "/tmp/tbench-oracle-x3.3juQj7/jobs/2026-08-20__10-56-57__c309ac",
+  "run_log": "/tmp/tbench-oracle-x3.3juQj7/run.log",
+  "recorded_at": "2026-08-20T17:57:43.211829+00:00",
+  "wall_time_sec": 82,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "13024f61390150f24697a04eb4cebf7e10d747809b1930537b00923883e39fd5",
+  "bundle_file_count": 27,
+  "chain_evidence": "promoted/robotics-3d/pose-graph-optimizer-open-loop-pivot/.validation/chain-20260820T170456Z.json",
+  "trials": [
+    {
+      "trial_id": "0cd3b173-e3fa-4152-a17e-ec55e010d290",
+      "trial_name": "pose-graph-optimizer-open-loop-p__jx28q6F",
+      "task_checksum": "aebb2085ac0b9e2f760d02f0e35e8f9de758247ffb50f073b6a5606a37c771af",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-loop-direction",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_fix-covariance-weighting",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-output-format",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.3juQj7/jobs/2026-08-20__10-56-57__c309ac/pose-graph-optimizer-open-loop-p__jx28q6F/result.json"
+    },
+    {
+      "trial_id": "c4bab93f-b82f-482b-b8aa-47deb289860f",
+      "trial_name": "pose-graph-optimizer-open-loop-p__ke8c7US",
+      "task_checksum": "aebb2085ac0b9e2f760d02f0e35e8f9de758247ffb50f073b6a5606a37c771af",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-loop-direction",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_fix-covariance-weighting",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-output-format",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.3juQj7/jobs/2026-08-20__10-56-57__c309ac/pose-graph-optimizer-open-loop-p__ke8c7US/result.json"
+    },
+    {
+      "trial_id": "069e693b-9133-45fa-8580-2db3a0f9d0b1",
+      "trial_name": "pose-graph-optimizer-open-loop-p__rYuL2Wy",
+      "task_checksum": "aebb2085ac0b9e2f760d02f0e35e8f9de758247ffb50f073b6a5606a37c771af",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-loop-direction",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_fix-covariance-weighting",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-output-format",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.3juQj7/jobs/2026-08-20__10-56-57__c309ac/pose-graph-optimizer-open-loop-p__rYuL2Wy/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

@@ -1,0 +1,19 @@
+{
+  "task": "promoted/filesystem-internals/formatter-clusters-metadata-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:02:44.264109+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "617eaa9f94b8a46096d57d39e1ac9922ef36fe61eedcc8bd252f3133b391cbf3",
+    "bundle_file_count": 42,
+    "chain_evidence": "promoted/filesystem-internals/formatter-clusters-metadata-pivot/.validation/chain-20260820T004709Z.json",
+    "oracle_x3_evidence": "promoted/filesystem-internals/formatter-clusters-metadata-pivot/.validation/oracle-x3-20260820T034146Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/filesystem-internals/formatter-clusters-metadata-pivot"
+  ]
+}

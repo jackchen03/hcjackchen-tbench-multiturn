@@ -1,0 +1,33 @@
+{
+  "task": "committed-snapshot-data-pages-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-committed-snapshot-data-pages-pivot:validate"
+    },
+    {
+      "step": "1_diagnose-dirty-rows",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "no readable junit report [no parseable pytest summary]"
+    },
+    {
+      "step": "1_diagnose-dirty-rows",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_diagnose-dirty-rows",
+      "phase": "GREEN",
+      "status": "FAIL",
+      "detail": "no readable junit report [no parseable pytest summary]"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "0/2 probed",
+  "unproven": true
+}

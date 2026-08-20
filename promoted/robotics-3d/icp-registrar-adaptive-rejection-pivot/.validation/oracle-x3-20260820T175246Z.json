@@ -1,0 +1,92 @@
+{
+  "task": "promoted/robotics-3d/icp-registrar-adaptive-rejection-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p icp-registrar-adaptive-rejection-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.MTFzUB",
+  "job_dir": "/tmp/tbench-oracle-x3.MTFzUB/jobs/2026-08-20__10-51-59__03f9e6",
+  "run_log": "/tmp/tbench-oracle-x3.MTFzUB/run.log",
+  "recorded_at": "2026-08-20T17:52:46.762468+00:00",
+  "wall_time_sec": 85,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "1716fbc7f738e084d43e0bce9f4b8356a697cc9c7199337df7b7412095cf65fd",
+  "bundle_file_count": 28,
+  "chain_evidence": "promoted/robotics-3d/icp-registrar-adaptive-rejection-pivot/.validation/chain-20260820T165905Z.json",
+  "trials": [
+    {
+      "trial_id": "8acdc6ca-2a87-4607-a622-7cfea1743509",
+      "trial_name": "icp-registrar-adaptive-rejection__Lhb9Qtu",
+      "task_checksum": "3d3f6fbd96333eceba1d9ccf665a989072e6413331f19cd3571849ea991163fe",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_match_opaque_registrar",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_overlap_report_extension",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot_to_unbiased_geometric",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.MTFzUB/jobs/2026-08-20__10-51-59__03f9e6/icp-registrar-adaptive-rejection__Lhb9Qtu/result.json"
+    },
+    {
+      "trial_id": "bd75f9d4-9151-4dc7-9d9a-61ed88443cfa",
+      "trial_name": "icp-registrar-adaptive-rejection__Pu4Hvg3",
+      "task_checksum": "3d3f6fbd96333eceba1d9ccf665a989072e6413331f19cd3571849ea991163fe",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_match_opaque_registrar",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_overlap_report_extension",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot_to_unbiased_geometric",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.MTFzUB/jobs/2026-08-20__10-51-59__03f9e6/icp-registrar-adaptive-rejection__Pu4Hvg3/result.json"
+    },
+    {
+      "trial_id": "d695c473-ba84-452d-903a-0be7a5d08895",
+      "trial_name": "icp-registrar-adaptive-rejection__xaRdfTY",
+      "task_checksum": "3d3f6fbd96333eceba1d9ccf665a989072e6413331f19cd3571849ea991163fe",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_match_opaque_registrar",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_overlap_report_extension",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot_to_unbiased_geometric",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.MTFzUB/jobs/2026-08-20__10-51-59__03f9e6/icp-registrar-adaptive-rejection__xaRdfTY/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

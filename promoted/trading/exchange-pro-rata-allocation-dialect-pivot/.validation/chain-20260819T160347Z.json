@@ -1,0 +1,81 @@
+{
+  "task": "exchange-pro-rata-allocation-dialect-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-exchange-pro-rata-allocation-dialect-pivot:validate"
+    },
+    {
+      "step": "1_reproduce-carveout",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "1_reproduce-carveout",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_reproduce-carveout",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_handle-min-fill-repool",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_handle-min-fill-repool",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_handle-min-fill-repool",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-remove-carveout-report-pnl",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-remove-carveout-report-pnl",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-remove-carveout-report-pnl",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_reproduce-carveout",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_handle-min-fill-repool",
+      "phase": "OVER-EXEC",
+      "status": "SKIP",
+      "detail": "next-step oracle failed in probe"
+    }
+  ],
+  "failures": 0,
+  "skipped": 1,
+  "overexec": "1/2 probed",
+  "unproven": true
+}

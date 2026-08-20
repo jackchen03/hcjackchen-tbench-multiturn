@@ -1,0 +1,17 @@
+{
+  "task": "promoted/filesystem-internals/overflow-reassembly-corrupts-large-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:08:54.254230+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "80c34c2147896263a130b670f0b1a4d5ec95558c42c3901bb18a3f73ab302e41",
+    "bundle_file_count": 27,
+    "chain_evidence": "promoted/filesystem-internals/overflow-reassembly-corrupts-large-pivot/.validation/chain-20260820T164522Z.json",
+    "oracle_x3_evidence": "promoted/filesystem-internals/overflow-reassembly-corrupts-large-pivot/.validation/oracle-x3-20260820T173954Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/filesystem-internals/overflow-reassembly-corrupts-large-pivot"
+  ]
+}

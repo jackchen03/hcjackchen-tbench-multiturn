@@ -1,0 +1,92 @@
+{
+  "task": "promoted/database-internals/consistent-heap-live-set-rebuild-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p consistent-heap-live-set-rebuild-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.EGtkAF",
+  "job_dir": "/tmp/tbench-oracle-x3.EGtkAF/jobs/2026-08-20__10-26-37__59ea3d",
+  "run_log": "/tmp/tbench-oracle-x3.EGtkAF/run.log",
+  "recorded_at": "2026-08-20T17:27:17.794450+00:00",
+  "wall_time_sec": 95,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "40c6c304a55a564190e6dbaad780dcfdc7bd8d25465523c85c17dadcf1d47eb7",
+  "bundle_file_count": 24,
+  "chain_evidence": "promoted/database-internals/consistent-heap-live-set-rebuild-pivot/.validation/chain-20260820T163600Z.json",
+  "trials": [
+    {
+      "trial_id": "859d95b0-1645-45a3-b4ff-060618cd5aa6",
+      "trial_name": "consistent-heap-live-set-rebuild__3YiuRPG",
+      "task_checksum": "9bed161cf1902d4ba61c02f5b53dc31aa9c731efdb84f1c29c13a345213ec3e3",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_reconstruct-live-set",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_rebuild-fsm-from-live-set",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_fsm-residual-override-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.EGtkAF/jobs/2026-08-20__10-26-37__59ea3d/consistent-heap-live-set-rebuild__3YiuRPG/result.json"
+    },
+    {
+      "trial_id": "9caaec8c-543b-4d65-85ec-00c9960b9275",
+      "trial_name": "consistent-heap-live-set-rebuild__5hkkVin",
+      "task_checksum": "9bed161cf1902d4ba61c02f5b53dc31aa9c731efdb84f1c29c13a345213ec3e3",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_reconstruct-live-set",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_rebuild-fsm-from-live-set",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_fsm-residual-override-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.EGtkAF/jobs/2026-08-20__10-26-37__59ea3d/consistent-heap-live-set-rebuild__5hkkVin/result.json"
+    },
+    {
+      "trial_id": "b2146295-cfad-4c2a-9545-a35e7da98412",
+      "trial_name": "consistent-heap-live-set-rebuild__FbTTZNE",
+      "task_checksum": "9bed161cf1902d4ba61c02f5b53dc31aa9c731efdb84f1c29c13a345213ec3e3",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_reconstruct-live-set",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_rebuild-fsm-from-live-set",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_fsm-residual-override-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.EGtkAF/jobs/2026-08-20__10-26-37__59ea3d/consistent-heap-live-set-rebuild__FbTTZNE/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

@@ -1,0 +1,91 @@
+{
+  "task": "promoted/recsys/pq-code-store-first-version-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p pq-code-store-first-version-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3-final.MS5B3A",
+  "job_dir": "/tmp/tbench-oracle-x3-final.MS5B3A/jobs/2026-08-20__10-18-59__a32c4b",
+  "recorded_at": "2026-08-20T17:22:51.354218+00:00",
+  "wall_time_sec": 165,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "a42e9231b7c94ec6b3cc871d39334c2a25f7344f2c17104a887e99510e8845d3",
+  "bundle_file_count": 30,
+  "chain_evidence": "promoted/recsys/pq-code-store-first-version-pivot/.validation/chain-20260820T171839Z.json",
+  "trials": [
+    {
+      "trial_id": "27290e55-00f4-4c69-a805-c47f9eab36e8",
+      "trial_name": "pq-code-store-first-version-pivo__Ldn4XZi",
+      "task_checksum": "64b988d1dc07d1264ed5e85f701e5780214dee29993d458ce9e5604b5ad29b93",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_decode-keyframe-delta-chain",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_encode-byte-identical-writer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_resilient-rebuild-and-crc-enforcement",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-final.MS5B3A/jobs/2026-08-20__10-18-59__a32c4b/pq-code-store-first-version-pivo__Ldn4XZi/result.json"
+    },
+    {
+      "trial_id": "56ed6204-f3ff-44bc-ba0a-73f1fd83f572",
+      "trial_name": "pq-code-store-first-version-pivo__c3d6QHX",
+      "task_checksum": "64b988d1dc07d1264ed5e85f701e5780214dee29993d458ce9e5604b5ad29b93",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_decode-keyframe-delta-chain",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_encode-byte-identical-writer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_resilient-rebuild-and-crc-enforcement",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-final.MS5B3A/jobs/2026-08-20__10-18-59__a32c4b/pq-code-store-first-version-pivo__c3d6QHX/result.json"
+    },
+    {
+      "trial_id": "4d28e412-af97-47d6-89de-56df89344b25",
+      "trial_name": "pq-code-store-first-version-pivo__wJDRsnw",
+      "task_checksum": "64b988d1dc07d1264ed5e85f701e5780214dee29993d458ce9e5604b5ad29b93",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_decode-keyframe-delta-chain",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_encode-byte-identical-writer",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_resilient-rebuild-and-crc-enforcement",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-final.MS5B3A/jobs/2026-08-20__10-18-59__a32c4b/pq-code-store-first-version-pivo__wJDRsnw/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

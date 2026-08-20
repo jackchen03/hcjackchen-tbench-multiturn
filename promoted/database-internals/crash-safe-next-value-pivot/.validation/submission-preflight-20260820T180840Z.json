@@ -1,0 +1,17 @@
+{
+  "task": "promoted/database-internals/crash-safe-next-value-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:08:40.741822+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "23d092b8bc89b22d1041bf9aad7f1a92fe07b4ba6c25b3ea8c73c58aa36483f2",
+    "bundle_file_count": 24,
+    "chain_evidence": "promoted/database-internals/crash-safe-next-value-pivot/.validation/chain-20260820T163838Z.json",
+    "oracle_x3_evidence": "promoted/database-internals/crash-safe-next-value-pivot/.validation/oracle-x3-20260820T173040Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/database-internals/crash-safe-next-value-pivot"
+  ]
+}

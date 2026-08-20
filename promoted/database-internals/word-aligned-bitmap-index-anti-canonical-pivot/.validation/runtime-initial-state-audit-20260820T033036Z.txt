@@ -1,0 +1,18 @@
+Task: promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot
+Image: tbench-mt-word-aligned-bitmap-index-anti-canonical-pivot:validate
+Chain evidence: promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot/.validation/chain-20260820T004619Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=opaque-builder /build/bitmap_index /app/reference/bitmap_index
+COPY --from=opaque-builder /build/bitmap_index_v2 /opt/grader-staging/bitmap_index_v2
+Runtime explicit builder-copy destinations:
+PATH /app/reference/bitmap_index
+-r-xr-xr-x 1 root root 14456 Jan  1  2020 /app/reference/bitmap_index
+FIRST4 7f454c46
+PATH /opt/grader-staging/bitmap_index_v2
+-r--r--r-- 1 root root 14456 Jan  1  2020 /opt/grader-staging/bitmap_index_v2
+FIRST4 7f454c46
+Potential readable source under reference/grader roots:
+Future-staging paths:
+444 /opt/grader-staging/bitmap_index_v2
+444 /opt/grader-staging/migration.log

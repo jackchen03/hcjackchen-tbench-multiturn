@@ -1,0 +1,42 @@
+[
+  {
+    "when": "2026-08-19T18:35:19Z",
+    "static": "FAIL(1)",
+    "chain": "-",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "V8b",
+    "fp": "e96a47d802",
+    "cycle": 1
+  },
+  {
+    "when": "2026-08-19T18:35:36Z",
+    "static": "PASS",
+    "chain": "FAIL(1)",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "GREEN",
+    "fp": "144e289b67",
+    "cycle": 2
+  },
+  {
+    "when": "2026-08-19T18:36:58Z",
+    "static": "PASS",
+    "chain": "PASS",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "",
+    "fp": "clean",
+    "cycle": 3
+  },
+  {
+    "when": "2026-08-19T18:38:41Z",
+    "static": "PASS",
+    "chain": "PASS",
+    "oracle3": "-",
+    "cloud": "-",
+    "codes": "",
+    "fp": "clean",
+    "cycle": 4
+  }
+]

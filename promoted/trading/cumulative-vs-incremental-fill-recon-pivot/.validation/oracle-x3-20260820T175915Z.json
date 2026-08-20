@@ -1,0 +1,92 @@
+{
+  "task": "promoted/trading/cumulative-vs-incremental-fill-recon-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p cumulative-vs-incremental-fill-recon-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.FuyeKn",
+  "job_dir": "/tmp/tbench-oracle-x3.FuyeKn/jobs/2026-08-20__10-58-35__d4ad9d",
+  "run_log": "/tmp/tbench-oracle-x3.FuyeKn/run.log",
+  "recorded_at": "2026-08-20T17:59:15.183853+00:00",
+  "wall_time_sec": 90,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "978817763de27c3097646768b2efe742ec4ffa8678df5273b62da802a2ebd80c",
+  "bundle_file_count": 29,
+  "chain_evidence": "promoted/trading/cumulative-vs-incremental-fill-recon-pivot/.validation/chain-20260820T170559Z.json",
+  "trials": [
+    {
+      "trial_id": "4f5adc32-ca27-4bae-ae83-7b077349b8c7",
+      "trial_name": "cumulative-vs-incremental-fill-r__67WRzaG",
+      "task_checksum": "fb6e912443588ff6881f1f0b489ed1c34cf3c71c8c2ec70fe9238b4772124f81",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fix-cumulative-reconciliation",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-incremental-ledger-audit",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-gross-exposure-hash-index",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.FuyeKn/jobs/2026-08-20__10-58-35__d4ad9d/cumulative-vs-incremental-fill-r__67WRzaG/result.json"
+    },
+    {
+      "trial_id": "b122a5e4-e78a-486d-908f-e2d846f63937",
+      "trial_name": "cumulative-vs-incremental-fill-r__RPErahR",
+      "task_checksum": "fb6e912443588ff6881f1f0b489ed1c34cf3c71c8c2ec70fe9238b4772124f81",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fix-cumulative-reconciliation",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-incremental-ledger-audit",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-gross-exposure-hash-index",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.FuyeKn/jobs/2026-08-20__10-58-35__d4ad9d/cumulative-vs-incremental-fill-r__RPErahR/result.json"
+    },
+    {
+      "trial_id": "de9ec981-7319-4e37-b54d-a2eebe65b549",
+      "trial_name": "cumulative-vs-incremental-fill-r__VAXoQK8",
+      "task_checksum": "fb6e912443588ff6881f1f0b489ed1c34cf3c71c8c2ec70fe9238b4772124f81",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fix-cumulative-reconciliation",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-incremental-ledger-audit",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-gross-exposure-hash-index",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.FuyeKn/jobs/2026-08-20__10-58-35__d4ad9d/cumulative-vs-incremental-fill-r__VAXoQK8/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

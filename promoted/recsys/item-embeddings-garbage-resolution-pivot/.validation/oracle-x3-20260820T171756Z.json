@@ -1,0 +1,92 @@
+{
+  "task": "promoted/recsys/item-embeddings-garbage-resolution-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p item-embeddings-garbage-resolution-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.Q1LBsH",
+  "job_dir": "/tmp/tbench-oracle-x3.Q1LBsH/jobs/2026-08-20__10-17-10__6f2c97",
+  "run_log": "/tmp/tbench-oracle-x3.Q1LBsH/run.log",
+  "recorded_at": "2026-08-20T17:17:56.504567+00:00",
+  "wall_time_sec": 133,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "3e05854383eee956680f7b3442817a671b7a5e802232d9dea9cbce2289e0e6c9",
+  "bundle_file_count": 28,
+  "chain_evidence": "promoted/recsys/item-embeddings-garbage-resolution-pivot/.validation/chain-20260820T170358Z.json",
+  "trials": [
+    {
+      "trial_id": "e6ff3aa3-7c82-4b31-8e0a-29b2937258c3",
+      "trial_name": "item-embeddings-garbage-resoluti__3Nkpuw2",
+      "task_checksum": "37a896b49efc957562c0df62115c7ab695539936191c68182d1d232136cfe5a7",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-shard-truncation",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_recenter-and-validate",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-flat-layout-drop-sharded",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.Q1LBsH/jobs/2026-08-20__10-17-10__6f2c97/item-embeddings-garbage-resoluti__3Nkpuw2/result.json"
+    },
+    {
+      "trial_id": "e4863792-11a1-4de5-ad84-0ac0b8075361",
+      "trial_name": "item-embeddings-garbage-resoluti__3vL8Faz",
+      "task_checksum": "37a896b49efc957562c0df62115c7ab695539936191c68182d1d232136cfe5a7",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-shard-truncation",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_recenter-and-validate",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-flat-layout-drop-sharded",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.Q1LBsH/jobs/2026-08-20__10-17-10__6f2c97/item-embeddings-garbage-resoluti__3vL8Faz/result.json"
+    },
+    {
+      "trial_id": "f510adc0-3f82-4756-9082-8e8dd82075ba",
+      "trial_name": "item-embeddings-garbage-resoluti__8SWFmiG",
+      "task_checksum": "37a896b49efc957562c0df62115c7ab695539936191c68182d1d232136cfe5a7",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-shard-truncation",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_recenter-and-validate",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-flat-layout-drop-sharded",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.Q1LBsH/jobs/2026-08-20__10-17-10__6f2c97/item-embeddings-garbage-resoluti__8SWFmiG/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

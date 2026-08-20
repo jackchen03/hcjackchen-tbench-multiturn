@@ -1,0 +1,9 @@
+== oracle chain: word-aligned-bitmap-index-anti-canonical-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-word-aligned-bitmap-index-anti-canonical-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot/environment
+ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
+
+BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot/.validation/chain-20260819T181538Z.log
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot/.validation/chain-20260819T181538Z.json   full log: /home/hcjackchen/hcjackchen-tbench-multiturn/promoted/database-internals/word-aligned-bitmap-index-anti-canonical-pivot/.validation/chain-20260819T181538Z.log

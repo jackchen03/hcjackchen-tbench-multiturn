@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+import sys,struct
+from pathlib import Path
+B=8192; commits=set()
+for path in sorted(Path(sys.argv[1]).glob('*')):
+ data=path.read_bytes()
+ for base in range(0,len(data),B):
+  off=base+24
+  while off+32<=min(base+B,len(data)):
+   total=struct.unpack_from('>I',data,off)[0]
+   if total<32 or off+total>base+B: break
+   xid=struct.unpack_from('>Q',data,off+4)[0]; typ=data[off+20]
+   if typ==2: commits.add(xid)
+   off+=total
+Path(sys.argv[2]).write_text(''.join(f'{x}\n' for x in sorted(commits)))

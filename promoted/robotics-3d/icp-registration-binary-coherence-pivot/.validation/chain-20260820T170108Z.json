@@ -1,0 +1,81 @@
+{
+  "task": "icp-registration-binary-coherence-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-icp-registration-binary-coherence-pivot:validate"
+    },
+    {
+      "step": "1_diagnose-trim-policy",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_diagnose-trim-policy",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_diagnose-trim-policy",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_extend-gated-metric",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_extend-gated-metric",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_extend-gated-metric",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-to-indexed-search",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-to-indexed-search",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-to-indexed-search",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_diagnose-trim-policy",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_extend-gated-metric",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

@@ -1,0 +1,92 @@
+{
+  "task": "promoted/robotics-3d/icp-registration-binary-coherence-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p icp-registration-binary-coherence-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.2tPRbI",
+  "job_dir": "/tmp/tbench-oracle-x3.2tPRbI/jobs/2026-08-19__20-51-51__06d310",
+  "run_log": "/tmp/tbench-oracle-x3.2tPRbI/run.log",
+  "recorded_at": "2026-08-20T03:52:59.522756+00:00",
+  "wall_time_sec": 85,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "652acf24a1e68f4b79a55eea4860ce14fdafdc87f9e528ca8606f46bd3f6aef0",
+  "bundle_file_count": 29,
+  "chain_evidence": "promoted/robotics-3d/icp-registration-binary-coherence-pivot/.validation/chain-20260820T005545Z.json",
+  "trials": [
+    {
+      "trial_id": "77b98e6d-c237-4076-85b4-ae7490e65626",
+      "trial_name": "icp-registration-binary-coherenc__NnXya7G",
+      "task_checksum": "c7cbfff6ae6637bfe33bfe7212a31b4f705615032d7c16ee8cc0bbc3d83cfac8",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-trim-policy",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_extend-gated-metric",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-indexed-search",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.2tPRbI/jobs/2026-08-19__20-51-51__06d310/icp-registration-binary-coherenc__NnXya7G/result.json"
+    },
+    {
+      "trial_id": "94f3ef43-5fb4-4476-b718-b8bcdee77431",
+      "trial_name": "icp-registration-binary-coherenc__iW9Xa9M",
+      "task_checksum": "c7cbfff6ae6637bfe33bfe7212a31b4f705615032d7c16ee8cc0bbc3d83cfac8",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-trim-policy",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_extend-gated-metric",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-indexed-search",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.2tPRbI/jobs/2026-08-19__20-51-51__06d310/icp-registration-binary-coherenc__iW9Xa9M/result.json"
+    },
+    {
+      "trial_id": "7b965066-0199-407d-8303-0c44e02828c0",
+      "trial_name": "icp-registration-binary-coherenc__ksFtAPe",
+      "task_checksum": "c7cbfff6ae6637bfe33bfe7212a31b4f705615032d7c16ee8cc0bbc3d83cfac8",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-trim-policy",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_extend-gated-metric",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-indexed-search",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.2tPRbI/jobs/2026-08-19__20-51-51__06d310/icp-registration-binary-coherenc__ksFtAPe/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

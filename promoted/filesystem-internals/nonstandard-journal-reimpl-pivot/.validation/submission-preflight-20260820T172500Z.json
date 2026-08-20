@@ -1,0 +1,21 @@
+{
+  "task": "promoted/filesystem-internals/nonstandard-journal-reimpl-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T17:25:00+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "b9418c6c548e256985ee9ec2ad52347048632f7a3f3ceb17a9bc13f73d7a4bdb",
+    "bundle_file_count": 26,
+    "chain_evidence": "promoted/filesystem-internals/nonstandard-journal-reimpl-pivot/.validation/chain-20260820T171541Z.json",
+    "oracle_x3_evidence": "promoted/filesystem-internals/nonstandard-journal-reimpl-pivot/.validation/oracle-x3-20260820T172400Z.json",
+    "instruction_hashes": "MATCH",
+    "metadata_layout": "PASS",
+    "readme": "Oracle 3/3 from current x3; model rows unmeasured",
+    "hygiene": "PASS"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "promoted/filesystem-internals/nonstandard-journal-reimpl-pivot"
+  ]
+}
