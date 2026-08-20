@@ -1,0 +1,47 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:39db17f58fa483381873a63227742078a701f0c2857ce880dc2dc7cf06a1de07",
+  "chain_evidence": "promoted/filesystem-internals/jbd2-journal-replay-consistent-pivot/.validation/chain-20260820T185153Z.json",
+  "green_phases": [
+    {
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "1_recover-consistent-image"
+    },
+    {
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "2_build-reusable-replay-tool"
+    },
+    {
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "3_fix-revoke-sequence-and-escape-pivot"
+    }
+  ],
+  "instruction_hashes": "MATCH",
+  "overexec_phases": [
+    {
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "1_recover-consistent-image"
+    },
+    {
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "2_build-reusable-replay-tool"
+    }
+  ],
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "skipped": 0,
+  "static_audit": "PASS",
+  "status": "PASS",
+  "task": "promoted/filesystem-internals/jbd2-journal-replay-consistent-pivot"
+}

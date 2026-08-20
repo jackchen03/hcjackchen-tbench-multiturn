@@ -1,0 +1,405 @@
+== oracle chain: rowid-substitution-nonfirst-pk-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-rowid-substitution-nonfirst-pk-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/environment
+sha256:02f453c98fd9afa31e4212242cde96a19f8daf134609e26766403ee3dd0cea03
+
+$ docker rm -f tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain
+Error response from daemon: No such container: tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain
+
+$ docker run -d --name tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain tbench-mt-rowid-substitution-nonfirst-pk-pivot:validate sleep infinity
+56d30d2c2f09a09b3c417bf23e1ed488d7ce9c96acbf65444927fed94a9d3738
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/1_decode-leaf-page/tests/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+________ test_nonfirst_integer_primary_key_substitutes_rowid_and_sorts _________
+
+    def test_nonfirst_integer_primary_key_substitutes_rowid_and_sorts():
+>       assert Path("/app/rows.txt").read_text()=="bob|1|9|x|0\nalice|2|7||1\n"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:5: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/rows.txt'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/rows.txt'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_does_not_create_case2_merge_or_database_yet
+FAILED ../tests/test_outputs.py::test_nonfirst_integer_primary_key_substitutes_rowid_and_sorts
+1 failed, 1 passed in 0.04s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.040" timestamp="2026-08-20T18:52:33.430693+00:00" hostname="56d30d2c2f09"><testcase classname="test_outputs" name="test_nonfirst_integer_primary_key_substitutes_rowid_and_sorts" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/rows.txt'">def test_nonfirst_integer_primary_key_substitutes_rowid_and_sorts():
+&gt;       assert Path("/app/rows.txt").read_text()=="bob|1|9|x|0\nalice|2|7||1\n"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:5: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/rows.txt'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/rows.txt'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_does_not_create_case2_merge_or_database_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests
+STEP 1 1_decode-leaf-page  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/1_decode-leaf-page/solution/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain:/solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /solution
+STEP 1 1_decode-leaf-page  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/1_decode-leaf-page/tests/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_nonfirst_integer_primary_key_substitutes_rowid_and_sorts
+PASSED ../tests/test_outputs.py::test_does_not_create_case2_merge_or_database_yet
+2 passed in 0.01s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.014" timestamp="2026-08-20T18:52:35.084458+00:00" hostname="56d30d2c2f09"><testcase classname="test_outputs" name="test_nonfirst_integer_primary_key_substitutes_rowid_and_sorts" time="0.000" /><testcase classname="test_outputs" name="test_does_not_create_case2_merge_or_database_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests
+STEP 1 1_decode-leaf-page  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/2_merge-second-evidence/tests/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_second_page_last_wins_and_null_pads_to_six_columns ____________
+
+    def test_second_page_last_wins_and_null_pads_to_six_columns():
+>       lines=Path("/app/merged.txt").read_text().splitlines()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:5: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/merged.txt'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/merged.txt'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_does_not_build_recovered_database_yet
+FAILED ../tests/test_outputs.py::test_second_page_last_wins_and_null_pads_to_six_columns
+1 failed, 1 passed in 0.04s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.041" timestamp="2026-08-20T18:52:36.193021+00:00" hostname="56d30d2c2f09"><testcase classname="test_outputs" name="test_second_page_last_wins_and_null_pads_to_six_columns" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/merged.txt'">def test_second_page_last_wins_and_null_pads_to_six_columns():
+&gt;       lines=Path("/app/merged.txt").read_text().splitlines()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:5: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/app/merged.txt'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/merged.txt'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_does_not_build_recovered_database_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests
+STEP 2 2_merge-second-evidence  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/2_merge-second-evidence/solution/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain:/solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /solution
+STEP 2 2_merge-second-evidence  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/2_merge-second-evidence/tests/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_second_page_last_wins_and_null_pads_to_six_columns
+PASSED ../tests/test_outputs.py::test_does_not_build_recovered_database_yet
+2 passed in 0.01s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.014" timestamp="2026-08-20T18:52:37.884165+00:00" hostname="56d30d2c2f09"><testcase classname="test_outputs" name="test_second_page_last_wins_and_null_pads_to_six_columns" time="0.000" /><testcase classname="test_outputs" name="test_does_not_build_recovered_database_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests
+STEP 2 2_merge-second-evidence  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/3_rebuild-queryable-db/tests/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain bash /tests/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_queryable_database_integrity_and_explicit_primary_keys __________
+
+    def test_queryable_database_integrity_and_explicit_primary_keys():
+        con=sqlite3.connect("/app/recovered.db"); assert con.execute("PRAGMA integrity_check").fetchone()[0]=="ok"
+>       rows=con.execute("SELECT * FROM recovered ORDER BY id").fetchall(); con.close()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: no such table: recovered
+
+/tests/test_outputs.py:7: OperationalError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_queryable_database_integrity_and_explicit_primary_keys
+1 failed in 0.02s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.026" timestamp="2026-08-20T18:52:38.976130+00:00" hostname="56d30d2c2f09"><testcase classname="test_outputs" name="test_queryable_database_integrity_and_explicit_primary_keys" time="0.001"><failure message="sqlite3.OperationalError: no such table: recovered">def test_queryable_database_integrity_and_explicit_primary_keys():
+        con=sqlite3.connect("/app/recovered.db"); assert con.execute("PRAGMA integrity_check").fetchone()[0]=="ok"
+&gt;       rows=con.execute("SELECT * FROM recovered ORDER BY id").fetchall(); con.close()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: no such table: recovered
+
+/tests/test_outputs.py:7: OperationalError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests
+STEP 3 3_rebuild-queryable-db  DO-NOTHING  OK    red before the work (1 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/3_rebuild-queryable-db/solution/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain:/solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /solution
+STEP 3 3_rebuild-queryable-db  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/3_rebuild-queryable-db/tests/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain bash /tests/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_queryable_database_integrity_and_explicit_primary_keys
+1 passed in 0.01s
+reward=1 (1 passed, 0 skipped)
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.015" timestamp="2026-08-20T18:52:40.726958+00:00" hostname="56d30d2c2f09"><testcase classname="test_outputs" name="test_queryable_database_integrity_and_explicit_primary_keys" time="0.001" /></testsuite></testsuites>
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain rm -rf /tests
+STEP 3 3_rebuild-queryable-db  GREEN       OK    1 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1
+Error response from daemon: No such container: tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1
+
+$ docker run -d --name tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 tbench-mt-rowid-substitution-nonfirst-pk-pivot:validate sleep infinity
+e9e760b6b970c699458a3a561014b1c4eee9d6850666e86fe35a9e89de52fbf6
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/1_decode-leaf-page/solution/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1:/solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/2_merge-second-evidence/solution/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1:/solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/1_decode-leaf-page/tests/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 bash /tests/test.sh
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_______________ test_does_not_create_case2_merge_or_database_yet _______________
+
+    def test_does_not_create_case2_merge_or_database_yet():
+>       assert not Path("/app/case2").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/case2').exists
+E        +      where PosixPath('/app/case2') = Path('/app/case2')
+
+/tests/test_outputs.py:8: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_nonfirst_integer_primary_key_substitutes_rowid_and_sorts
+FAILED ../tests/test_outputs.py::test_does_not_create_case2_merge_or_database_yet
+1 failed, 1 passed in 0.02s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.021" timestamp="2026-08-20T18:52:43.255415+00:00" hostname="e9e760b6b970"><testcase classname="test_outputs" name="test_nonfirst_integer_primary_key_substitutes_rowid_and_sorts" time="0.000" /><testcase classname="test_outputs" name="test_does_not_create_case2_merge_or_database_yet" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/case2').exists&#10; +      where PosixPath('/app/case2') = Path('/app/case2')">def test_does_not_create_case2_merge_or_database_yet():
+&gt;       assert not Path("/app/case2").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/case2').exists
+E        +      where PosixPath('/app/case2') = Path('/app/case2')
+
+/tests/test_outputs.py:8: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1 rm -rf /tests
+STEP 1 1_decode-leaf-page  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1
+tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1
+
+$ docker rm -f tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2
+Error response from daemon: No such container: tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2
+
+$ docker run -d --name tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 tbench-mt-rowid-substitution-nonfirst-pk-pivot:validate sleep infinity
+4e9c4da61446d236150358497a7d900bf65c82f0d4abfee6c2a4a9fad9cb34bd
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/1_decode-leaf-page/solution/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2:/solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/2_merge-second-evidence/solution/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2:/solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/3_rebuild-queryable-db/solution/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2:/solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/steps/2_merge-second-evidence/tests/. tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 bash /tests/test.sh
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+__________________ test_does_not_build_recovered_database_yet __________________
+
+    def test_does_not_build_recovered_database_yet():
+>       assert not Path("/app/recovered.db").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/recovered.db').exists
+E        +      where PosixPath('/app/recovered.db') = Path('/app/recovered.db')
+
+/tests/test_outputs.py:9: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_second_page_last_wins_and_null_pads_to_six_columns
+FAILED ../tests/test_outputs.py::test_does_not_build_recovered_database_yet
+1 failed, 1 passed in 0.02s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.021" timestamp="2026-08-20T18:52:46.618228+00:00" hostname="4e9c4da61446"><testcase classname="test_outputs" name="test_second_page_last_wins_and_null_pads_to_six_columns" time="0.000" /><testcase classname="test_outputs" name="test_does_not_build_recovered_database_yet" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/recovered.db').exists&#10; +      where PosixPath('/app/recovered.db') = Path('/app/recovered.db')">def test_does_not_build_recovered_database_yet():
+&gt;       assert not Path("/app/recovered.db").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/recovered.db').exists
+E        +      where PosixPath('/app/recovered.db') = Path('/app/recovered.db')
+
+/tests/test_outputs.py:9: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2 rm -rf /tests
+STEP 2 2_merge-second-evidence  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2
+tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2
+
+$ docker rm -f tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain
+tbench-mt-rowid-substitution-nonfirst-pk-pivot-chain
+
+$ docker rm -f tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1
+Error response from daemon: No such container: tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe1
+
+$ docker rm -f tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2
+Error response from daemon: No such container: tbench-mt-rowid-substitution-nonfirst-pk-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/.validation/chain-20260820T185231Z.json

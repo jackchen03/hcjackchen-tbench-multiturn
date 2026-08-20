@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "promoted/filesystem-internals/noncanonical-ext4-decode-pivot",
+  "task_checksum": "c32e6743156ebd73dd357b6d748c5ef1aa59501b60a1233492e9b9cc44f35168",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:44:32.939327Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:43:57.385503Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_forensic_match_reference",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_extent_audit_report",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_streaming_optimize_pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "c32e6743156ebd73dd357b6d748c5ef1aa59501b60a1233492e9b9cc44f35168",
+      "trial_id": "cca26f82-732c-4e63-874c-491b3f8e86e9",
+      "trial_name": "noncanonical-ext4-decode-pivot__YQM6ki8"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:44:34.409142Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:43:57.447794Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_forensic_match_reference",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_extent_audit_report",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_streaming_optimize_pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "c32e6743156ebd73dd357b6d748c5ef1aa59501b60a1233492e9b9cc44f35168",
+      "trial_id": "9c089214-4fb3-4d65-832b-7edcae38d23b",
+      "trial_name": "noncanonical-ext4-decode-pivot__jqKTChf"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:44:33.160814Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:43:57.433993Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_forensic_match_reference",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_extent_audit_report",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_streaming_optimize_pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "c32e6743156ebd73dd357b6d748c5ef1aa59501b60a1233492e9b9cc44f35168",
+      "trial_id": "c2826a54-34e3-4cae-a3c9-ad4d03ea4ef7",
+      "trial_name": "noncanonical-ext4-decode-pivot__smKbAaM"
+    }
+  ]
+}

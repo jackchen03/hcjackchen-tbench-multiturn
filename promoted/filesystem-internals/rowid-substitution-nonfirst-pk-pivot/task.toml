@@ -1,32 +1,49 @@
 schema_version = "1.1"
-
-slug = "rowid-substitution-nonfirst-pk-pivot"
-title = "Rowid substitution at non-first PK column with zero-body types and genuine NULL decoy"
+[task]
+name = "codimango/rowid-substitution-nonfirst-pk-pivot"
+description = "Decode a leaf page, merge a second evidence source, then rebuild a queryable database."
+authors = [{ name = "Jack Chen", email = "hcjackchen@meta.com" }]
+keywords = ["filesystem-internals", "forensics", "multi-turn", "state-transition"]
+[metadata]
+author_name = "Jack Chen"
+author_email = "hcjackchen@meta.com"
 difficulty = "hard"
-
-tags = ["multi-turn", "context-following", "context-overriding", "filesystem-internals", "sqlite-forensics", "binary-parsing"]
-
+category = "filesystem-internals"
+reward_type = "binary"
+tags = ["multi-turn", "context-following", "context-overriding"]
 [environment]
-type = "docker"
-dockerfile = "environment/Dockerfile"
-
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+allow_internet = false
+mcp_servers = []
+[environment.env]
+[solution.env]
 [[steps]]
-name = "decode-leaf-page"
+name = "1_decode-leaf-page"
 dependencies = []
-inherit_prior_session = false
 min_reward = 1.0
-timeout_sec = 1800
-
+[steps.verifier]
+timeout_sec = 1800.0
+[steps.agent]
+timeout_sec = 1800.0
 [[steps]]
-name = "merge-second-evidence"
-dependencies = ["decode-leaf-page"]
+name = "2_merge-second-evidence"
+dependencies = ["1_decode-leaf-page"]
 inherit_prior_session = true
 min_reward = 1.0
-timeout_sec = 1800
-
+[steps.verifier]
+timeout_sec = 1800.0
+[steps.agent]
+timeout_sec = 1800.0
 [[steps]]
-name = "rebuild-queryable-db"
-dependencies = ["merge-second-evidence"]
+name = "3_rebuild-queryable-db"
+dependencies = ["2_merge-second-evidence"]
 inherit_prior_session = true
 min_reward = 1.0
-timeout_sec = 1800
+[steps.verifier]
+timeout_sec = 1800.0
+[steps.agent]
+timeout_sec = 1800.0

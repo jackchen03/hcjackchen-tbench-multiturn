@@ -1,0 +1,81 @@
+{
+  "task": "clobbered-dirent-link-count-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-clobbered-dirent-link-count-pivot:validate"
+    },
+    {
+      "step": "1_fix-dirent-inode-mismatch",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_fix-dirent-inode-mismatch",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_fix-dirent-inode-mismatch",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_reconcile-link-counts-carry",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_reconcile-link-counts-carry",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_reconcile-link-counts-carry",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-restore-only-drop-rewrite",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-restore-only-drop-rewrite",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-restore-only-drop-rewrite",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_fix-dirent-inode-mismatch",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_reconcile-link-counts-carry",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

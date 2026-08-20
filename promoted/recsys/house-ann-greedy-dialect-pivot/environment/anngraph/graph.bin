@@ -1,0 +1,2 @@
+{"entry_point":0,"nodes":[{"item_id":100,"vec":[0,0],"neighbors":[1,2,3,4]},{"item_id":101,"vec":[1,0],"neighbors":[0,2,5]},{"item_id":102,"vec":[0,1],"neighbors":[0,1,5]},{"item_id":103,"vec":[1,1],"neighbors":[0,4,5]},{"item_id":104,"vec":[2,0],"neighbors":[0,3,5]},{"item_id":105,"vec":[2,1],"neighbors":[1,2,3,4]}]}
+

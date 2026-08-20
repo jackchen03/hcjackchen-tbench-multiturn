@@ -1,0 +1,3 @@
+ea28efd622a25acd5327411d43e909038137d0d714167564a34b5fccfd9320a1  promoted/database-internals/hash-agg-spill-recovery-pivot/steps/1_recover-naive-aggregate/instruction.md
+b837d402950851cfc7ec888ce88b443438040b896abd094257172af959707f45  promoted/database-internals/hash-agg-spill-recovery-pivot/steps/2_merge-partial-aggregates/instruction.md
+20a9879a5e3195a9f5affc1571a16fe5704631b52270a78e7bbbabde675fe555  promoted/database-internals/hash-agg-spill-recovery-pivot/steps/3_pivot-sort-aggregation/instruction.md

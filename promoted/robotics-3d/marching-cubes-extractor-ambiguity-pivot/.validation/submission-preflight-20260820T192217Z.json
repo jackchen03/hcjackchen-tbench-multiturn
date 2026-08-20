@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:1b8d9ca668d2e68a5fdb6922de8fd6e03552aeeff4c1aa9ba91ff1c4bfe9eb64",
+  "final_audit": "promoted/robotics-3d/marching-cubes-extractor-ambiguity-pivot/.validation/final-audit-20260820T185614Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "promoted/robotics-3d/marching-cubes-extractor-ambiguity-pivot/.validation/chain-20260820T185556Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/robotics-3d/marching-cubes-extractor-ambiguity-pivot/.validation/oracle-x3-current-20260820T191836Z.json",
+  "proposed_commit_pathspec": "promoted/robotics-3d/marching-cubes-extractor-ambiguity-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/robotics-3d/marching-cubes-extractor-ambiguity-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "promoted/filesystem-internals/jbd2-journal-replay-consistent-pivot",
+  "task_checksum": "d788a78608b0a9f933696d637757708b7fde53384fa4aaba7a463dc80fda4559",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:43:13.048473Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:42:36.394823Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-consistent-image",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_build-reusable-replay-tool",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-revoke-sequence-and-escape-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "d788a78608b0a9f933696d637757708b7fde53384fa4aaba7a463dc80fda4559",
+      "trial_id": "24901dd5-f1dd-47ce-bb5e-5a9dcd5febb0",
+      "trial_name": "jbd2-journal-replay-consistent-p__6MQBGyB"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:43:11.408858Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:42:36.333367Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-consistent-image",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_build-reusable-replay-tool",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-revoke-sequence-and-escape-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "d788a78608b0a9f933696d637757708b7fde53384fa4aaba7a463dc80fda4559",
+      "trial_id": "26660123-c3cf-475c-b5f3-8970cf5e3a8b",
+      "trial_name": "jbd2-journal-replay-consistent-p__c9Peibt"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:43:12.848127Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:42:36.381336Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-consistent-image",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_build-reusable-replay-tool",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-revoke-sequence-and-escape-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "d788a78608b0a9f933696d637757708b7fde53384fa4aaba7a463dc80fda4559",
+      "trial_id": "40ba7577-af5e-4fb7-8960-c7bb2a312f87",
+      "trial_name": "jbd2-journal-replay-consistent-p__x33bfui"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "task": "fat16-cluster-chain-recovery-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-fat16-cluster-chain-recovery-pivot:validate"
+    },
+    {
+      "step": "1_recover-this-card",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-this-card",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover-this-card",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_generalize-recover-binary",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_generalize-recover-binary",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_generalize-recover-binary",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-to-unaligned-scan",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "3_pivot-to-unaligned-scan",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_pivot-to-unaligned-scan",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-this-card",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_generalize-recover-binary",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

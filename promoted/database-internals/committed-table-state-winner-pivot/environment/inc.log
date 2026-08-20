@@ -1,0 +1,4 @@
+{"op":"BEGIN","tx":2}
+{"op":"PUT","key":4,"value":40}
+{"op":"END_OK"}
+

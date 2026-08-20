@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:6c3bc94042ee6c17086d6a1cf150779caaf22fe6bcb18c31fd4378963490896d",
+  "command": "codimango bench run -p hash-agg-spill-recovery-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "371e04ec856400de46c00050256ab1e8ffbeff515a52415b9594e803742786c6",
+  "source_final_audit": "promoted/database-internals/hash-agg-spill-recovery-pivot/.validation/final-audit-20260820T184835Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/hash-agg-spill-recovery-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:01:14.385209Z",
+      "harbor_task_checksum": "371e04ec856400de46c00050256ab1e8ffbeff515a52415b9594e803742786c6",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:00:38.668147Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-naive-aggregate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-partial-aggregates",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-sort-aggregation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "4f0634b1-6cb3-428e-8cab-e039087886a7",
+      "trial_name": "hash-agg-spill-recovery-pivot__aNoXYkZ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:01:15.529902Z",
+      "harbor_task_checksum": "371e04ec856400de46c00050256ab1e8ffbeff515a52415b9594e803742786c6",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:00:38.730630Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-naive-aggregate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-partial-aggregates",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-sort-aggregation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "d2ae4b44-aca7-4786-bcce-329a7bc9b806",
+      "trial_name": "hash-agg-spill-recovery-pivot__aaGoHVs"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:01:14.922419Z",
+      "harbor_task_checksum": "371e04ec856400de46c00050256ab1e8ffbeff515a52415b9594e803742786c6",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:00:38.716749Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-naive-aggregate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-partial-aggregates",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-sort-aggregation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "262e0350-34f7-468b-b78d-646b3f68aa68",
+      "trial_name": "hash-agg-spill-recovery-pivot__c7TFmbE"
+    }
+  ],
+  "wall_time_seconds": 40,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

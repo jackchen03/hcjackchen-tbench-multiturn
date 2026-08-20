@@ -1,0 +1,3 @@
+69821d16d1a24194fadf0a5818b4be5edd51f3c30c686d03373fae099642f9aa  promoted/filesystem-internals/carved-ext4-extent-tree-unwritten-pivot/steps/1_recover-file-contiguous-extent/instruction.md
+a959a14c5832f415344b219687a14298e41cf28d2f1611d8f8ad091c8f375d74  promoted/filesystem-internals/carved-ext4-extent-tree-unwritten-pivot/steps/2_handle-unwritten-and-decoy-bound/instruction.md
+a9fe4e658df33bec8967842c98537283f5f742616ec50c5a68f1e4374eb53d8c  promoted/filesystem-internals/carved-ext4-extent-tree-unwritten-pivot/steps/3_truncate-eof-and-fix-unwritten-length/instruction.md

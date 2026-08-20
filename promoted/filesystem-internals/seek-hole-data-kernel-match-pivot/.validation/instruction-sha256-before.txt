@@ -1,0 +1,3 @@
+f683cfe0b85411af5b7b9995e6fc0b174c66216fbc25ea10b4b8c6285c0ccf38  promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/1_match-kernel-offline-sparse/instruction.md
+5313c2bd628d5a8df2ca01232c18365f43fc50c8a198e1dd57c4dcfd719099c8  promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/2_handle-unwritten-and-eof-cutoff/instruction.md
+86f33074c1a3f9903770781220d5fcc1fa242730c5d446e20b18ce83b57a6aae  promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/3_raw-parser-no-debugfs-and-straddle/instruction.md

@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:93fa7827c144cfcbc4d9e6f58b8f94f678f5006b8501a6cef192dbe42f782e50",
+  "final_audit": "promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/.validation/final-audit-20260820T185247Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/.validation/chain-20260820T185231Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot/.validation/oracle-x3-current-20260820T191034Z.json",
+  "proposed_commit_pathspec": "promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/filesystem-internals/rowid-substitution-nonfirst-pk-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

@@ -1,0 +1,8 @@
+{"op":"BEGIN","tx":1}
+{"op":"PUT","key":1,"value":10}
+{"op":"MARK","label":"a"}
+{"op":"PUT","key":2,"value":20}
+{"op":"UNWIND","label":"a"}
+{"op":"PUT","key":3,"value":30}
+{"op":"END_OK"}
+

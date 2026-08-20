@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot",
+  "task_checksum": "dd0ec1bd9fc8440fcf605615e80d1e5e9a90c9ef1223214f9946490086da0f7c",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:33:35.533567Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:33:00.146873Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-wal-replay",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_checkpoint-recovery-verification",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-logical-wal-drop-physical",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "dd0ec1bd9fc8440fcf605615e80d1e5e9a90c9ef1223214f9946490086da0f7c",
+      "trial_id": "67502c9b-73ab-4f54-90c1-8bfed7ddae9b",
+      "trial_name": "physical-wal-reimpl-anti-canonic__dYsDzUR"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:33:36.020475Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:33:00.195105Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-wal-replay",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_checkpoint-recovery-verification",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-logical-wal-drop-physical",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "dd0ec1bd9fc8440fcf605615e80d1e5e9a90c9ef1223214f9946490086da0f7c",
+      "trial_id": "228b1a2a-4a4a-4952-a40a-ab519fe04ebb",
+      "trial_name": "physical-wal-reimpl-anti-canonic__eLGsqQr"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:33:36.904755Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:33:00.208714Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-wal-replay",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_checkpoint-recovery-verification",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-logical-wal-drop-physical",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "dd0ec1bd9fc8440fcf605615e80d1e5e9a90c9ef1223214f9946490086da0f7c",
+      "trial_id": "6c0dc5e5-ebb4-441e-91d6-e691b62a4dfc",
+      "trial_name": "physical-wal-reimpl-anti-canonic__zmjWHgP"
+    }
+  ]
+}

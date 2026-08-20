@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:9abd69bc67bf6cb0afb62ce3736b9a02d5c785ea948fc1563dd4fd1a3153e5fa",
+  "command": "codimango bench run -p pq-codec-product-quantization-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "61dd1c38898e07378a8128576be52cc5cc6c8399096fe3c13cec39d8f0313203",
+  "source_final_audit": "promoted/recsys/pq-codec-product-quantization-pivot/.validation/final-audit-20260820T185505Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/recsys/pq-codec-product-quantization-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:16:00.808575Z",
+      "harbor_task_checksum": "61dd1c38898e07378a8128576be52cc5cc6c8399096fe3c13cec39d8f0313203",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:15:24.447878Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_codec-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_index-build",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_scalar-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "c1a1324b-48c6-4e1c-8567-0bc8d3d83f87",
+      "trial_name": "pq-codec-product-quantization-pi__A7tEFVD"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:16:01.393107Z",
+      "harbor_task_checksum": "61dd1c38898e07378a8128576be52cc5cc6c8399096fe3c13cec39d8f0313203",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:15:24.511116Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_codec-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_index-build",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_scalar-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "8ea78621-add8-48cd-84ff-b8a3d8c3f60c",
+      "trial_name": "pq-codec-product-quantization-pi__jgX5XFk"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:16:01.114258Z",
+      "harbor_task_checksum": "61dd1c38898e07378a8128576be52cc5cc6c8399096fe3c13cec39d8f0313203",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:15:24.496480Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_codec-recovery",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_index-build",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_scalar-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "3a2cc76c-77e7-4d10-88e5-fea02a90620d",
+      "trial_name": "pq-codec-product-quantization-pi__x8RZ5tY"
+    }
+  ],
+  "wall_time_seconds": 41,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:1759500e6b080d7d8949cd8504bdb3ef753904119e19d570eea2a287b3d7a65a",
+  "command": "codimango bench run -p fat16-cluster-chain-recovery-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "c7d8ccbd3780ebd7312e40a6fa246aea1da07193e41e0f3c6011abba870d9d46",
+  "source_final_audit": "promoted/filesystem-internals/fat16-cluster-chain-recovery-pivot/.validation/final-audit-20260820T185150Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/filesystem-internals/fat16-cluster-chain-recovery-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:08:23.662658Z",
+      "harbor_task_checksum": "c7d8ccbd3780ebd7312e40a6fa246aea1da07193e41e0f3c6011abba870d9d46",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:07:47.812799Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-this-card",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_generalize-recover-binary",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-unaligned-scan",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "410ce8f0-e829-448e-970c-da0374b444e9",
+      "trial_name": "fat16-cluster-chain-recovery-piv__HXUQXLL"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:08:23.127624Z",
+      "harbor_task_checksum": "c7d8ccbd3780ebd7312e40a6fa246aea1da07193e41e0f3c6011abba870d9d46",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:07:47.764439Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-this-card",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_generalize-recover-binary",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-unaligned-scan",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "0d722175-2d85-4b4b-beaf-371c0b27a94a",
+      "trial_name": "fat16-cluster-chain-recovery-piv__KeKScMB"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:08:24.530668Z",
+      "harbor_task_checksum": "c7d8ccbd3780ebd7312e40a6fa246aea1da07193e41e0f3c6011abba870d9d46",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:07:47.827236Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-this-card",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_generalize-recover-binary",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-unaligned-scan",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "70f779f8-2e58-4d25-83f3-42dc1042c075",
+      "trial_name": "fat16-cluster-chain-recovery-piv__pm7nbq4"
+    }
+  ],
+  "wall_time_seconds": 40,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

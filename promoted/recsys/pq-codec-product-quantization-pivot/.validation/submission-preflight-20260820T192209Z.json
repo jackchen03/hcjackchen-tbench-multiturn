@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:9abd69bc67bf6cb0afb62ce3736b9a02d5c785ea948fc1563dd4fd1a3153e5fa",
+  "final_audit": "promoted/recsys/pq-codec-product-quantization-pivot/.validation/final-audit-20260820T185505Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "promoted/recsys/pq-codec-product-quantization-pivot/.validation/chain-20260820T185449Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/recsys/pq-codec-product-quantization-pivot/.validation/oracle-x3-current-20260820T191604Z.json",
+  "proposed_commit_pathspec": "promoted/recsys/pq-codec-product-quantization-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/recsys/pq-codec-product-quantization-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

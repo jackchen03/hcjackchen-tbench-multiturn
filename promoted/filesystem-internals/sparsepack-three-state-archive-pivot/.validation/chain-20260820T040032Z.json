@@ -1,0 +1,81 @@
+{
+  "task": "sparsepack-three-state-archive-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-sparsepack-three-state-archive-pivot:validate"
+    },
+    {
+      "step": "1_reverse-basic-spk-format",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_reverse-basic-spk-format",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_reverse-basic-spk-format",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_handle-unwritten-and-written-zeros",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_handle-unwritten-and-written-zeros",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_handle-unwritten-and-written-zeros",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_fix-physical-tree-segmentation",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "3_fix-physical-tree-segmentation",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_fix-physical-tree-segmentation",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_reverse-basic-spk-format",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_handle-unwritten-and-written-zeros",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

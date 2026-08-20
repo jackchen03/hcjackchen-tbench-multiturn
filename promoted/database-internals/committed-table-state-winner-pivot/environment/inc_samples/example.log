@@ -1,0 +1,4 @@
+{"op":"BEGIN","tx":3}
+{"op":"DEL","key":1}
+{"op":"END_OK"}
+

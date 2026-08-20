@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:67d2b1d90ad3a067690ad82c750d7691b9a2955cbe0e092dcfca4e9d20caaa8b",
+  "final_audit": "promoted/database-internals/chained-lobs-demasked-pivot/.validation/final-audit-20260820T184757Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "promoted/database-internals/chained-lobs-demasked-pivot/.validation/chain-20260820T184741Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/chained-lobs-demasked-pivot/.validation/oracle-x3-current-20260820T185952Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/chained-lobs-demasked-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/chained-lobs-demasked-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

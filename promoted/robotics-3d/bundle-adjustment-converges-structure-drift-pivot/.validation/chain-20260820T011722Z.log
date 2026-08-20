@@ -1,0 +1,553 @@
+== oracle chain: bundle-adjustment-converges-structure-drift-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-bundle-adjustment-converges-structure-drift-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/environment
+sha256:88e047672a9c2b4a06cec2650e9ae8012117c8eab250f4bc7a9bd2372927abcc
+
+$ docker rm -f tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain
+Error response from daemon: No such container: tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain
+
+$ docker run -d --name tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain tbench-mt-bundle-adjustment-converges-structure-drift-pivot:validate sleep infinity
+76fabd0dbe4d258762f9c74dd4524fa7d310439b3e38f0940fe3384b52d062e2
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/1_whiten-jacobian-weighting/tests/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+________________ test_jacobian_rows_are_whitened_by_each_sigma _________________
+
+    def test_jacobian_rows_are_whitened_by_each_sigma():
+        subprocess.run(["python3","/app/ba_refine.py","--input","/app/sample_problem.npz","--output","/tmp/out.npz"],check=True)
+        out=np.load("/tmp/out.npz")
+>       assert np.allclose(out["weighted_rows"],[2.0,0.5])
+                           ^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:8: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = NpzFile '/tmp/out.npz' with keys: points, poses, key = 'weighted_rows'
+
+    def __getitem__(self, key):
+        # FIXME: This seems like it will copy strings around
+        #   more than is strictly necessary.  The zipfile
+        #   will read the string and then
+        #   the format.read_array will copy the string
+        #   to another place in memory.
+        #   It would be better if the zipfile could read
+        #   (or at least uncompress) the data
+        #   directly into the array memory.
+        member = False
+        if key in self._files:
+            member = True
+        elif key in self.files:
+            member = True
+            key += '.npy'
+        if member:
+            bytes = self.zip.open(key)
+            magic = bytes.read(len(format.MAGIC_PREFIX))
+            bytes.close()
+            if magic == format.MAGIC_PREFIX:
+                bytes = self.zip.open(key)
+                return format.read_array(bytes,
+                                         allow_pickle=self.allow_pickle,
+                                         pickle_kwargs=self.pickle_kwargs,
+                                         max_header_size=self.max_header_size)
+            else:
+                return self.zip.read(key)
+        else:
+>           raise KeyError(f"{key} is not a file in the archive")
+E           KeyError: 'weighted_rows is not a file in the archive'
+
+/usr/local/lib/python3.11/site-packages/numpy/lib/npyio.py:263: KeyError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_does_not_create_lm_gain_fix_trace_yet
+FAILED ../tests/test_outputs.py::test_jacobian_rows_are_whitened_by_each_sigma
+1 failed, 1 passed in 0.47s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.469" timestamp="2026-08-20T01:17:24.496654+00:00" hostname="76fabd0dbe4d"><testcase classname="test_outputs" name="test_jacobian_rows_are_whitened_by_each_sigma" time="0.308"><failure message="KeyError: 'weighted_rows is not a file in the archive'">def test_jacobian_rows_are_whitened_by_each_sigma():
+        subprocess.run(["python3","/app/ba_refine.py","--input","/app/sample_problem.npz","--output","/tmp/out.npz"],check=True)
+        out=np.load("/tmp/out.npz")
+&gt;       assert np.allclose(out["weighted_rows"],[2.0,0.5])
+                           ^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:8: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = NpzFile '/tmp/out.npz' with keys: points, poses, key = 'weighted_rows'
+
+    def __getitem__(self, key):
+        # FIXME: This seems like it will copy strings around
+        #   more than is strictly necessary.  The zipfile
+        #   will read the string and then
+        #   the format.read_array will copy the string
+        #   to another place in memory.
+        #   It would be better if the zipfile could read
+        #   (or at least uncompress) the data
+        #   directly into the array memory.
+        member = False
+        if key in self._files:
+            member = True
+        elif key in self.files:
+            member = True
+            key += '.npy'
+        if member:
+            bytes = self.zip.open(key)
+            magic = bytes.read(len(format.MAGIC_PREFIX))
+            bytes.close()
+            if magic == format.MAGIC_PREFIX:
+                bytes = self.zip.open(key)
+                return format.read_array(bytes,
+                                         allow_pickle=self.allow_pickle,
+                                         pickle_kwargs=self.pickle_kwargs,
+                                         max_header_size=self.max_header_size)
+            else:
+                return self.zip.read(key)
+        else:
+&gt;           raise KeyError(f"{key} is not a file in the archive")
+E           KeyError: 'weighted_rows is not a file in the archive'
+
+/usr/local/lib/python3.11/site-packages/numpy/lib/npyio.py:263: KeyError</failure></testcase><testcase classname="test_outputs" name="test_does_not_create_lm_gain_fix_trace_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests
+STEP 1 1_whiten-jacobian-weighting  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/1_whiten-jacobian-weighting/solution/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain:/solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /solution
+STEP 1 1_whiten-jacobian-weighting  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/1_whiten-jacobian-weighting/tests/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_jacobian_rows_are_whitened_by_each_sigma
+PASSED ../tests/test_outputs.py::test_does_not_create_lm_gain_fix_trace_yet
+2 passed in 0.45s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.453" timestamp="2026-08-20T01:17:27.046101+00:00" hostname="76fabd0dbe4d"><testcase classname="test_outputs" name="test_jacobian_rows_are_whitened_by_each_sigma" time="0.313" /><testcase classname="test_outputs" name="test_does_not_create_lm_gain_fix_trace_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests
+STEP 1 1_whiten-jacobian-weighting  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/2_fix-gain-ratio-lm-damping/tests/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain bash /tests/test.sh
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+______________ test_weighted_gain_ratio_keeps_damping_meaningful _______________
+
+    def test_weighted_gain_ratio_keeps_damping_meaningful():
+        subprocess.run(["python3","/app/ba_refine.py","--input","/app/sample_problem.npz","--output","/tmp/out.npz"],check=True)
+>       report=json.loads(Path("/workdir/lm_gain_fix.json").read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:7: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/workdir/lm_gain_fix.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/workdir/lm_gain_fix.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_preserves_sigma_whitened_jacobian_rows
+PASSED ../tests/test_outputs.py::test_does_not_create_unified_weighted_proof_yet
+FAILED ../tests/test_outputs.py::test_weighted_gain_ratio_keeps_damping_meaningful
+1 failed, 2 passed in 0.53s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.531" timestamp="2026-08-20T01:17:28.603480+00:00" hostname="76fabd0dbe4d"><testcase classname="test_outputs" name="test_weighted_gain_ratio_keeps_damping_meaningful" time="0.355"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/workdir/lm_gain_fix.json'">def test_weighted_gain_ratio_keeps_damping_meaningful():
+        subprocess.run(["python3","/app/ba_refine.py","--input","/app/sample_problem.npz","--output","/tmp/out.npz"],check=True)
+&gt;       report=json.loads(Path("/workdir/lm_gain_fix.json").read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:7: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/workdir/lm_gain_fix.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/workdir/lm_gain_fix.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_preserves_sigma_whitened_jacobian_rows" time="0.003" /><testcase classname="test_outputs" name="test_does_not_create_unified_weighted_proof_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests
+STEP 2 2_fix-gain-ratio-lm-damping  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/2_fix-gain-ratio-lm-damping/solution/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain:/solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /solution
+STEP 2 2_fix-gain-ratio-lm-damping  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/2_fix-gain-ratio-lm-damping/tests/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_weighted_gain_ratio_keeps_damping_meaningful
+PASSED ../tests/test_outputs.py::test_preserves_sigma_whitened_jacobian_rows
+PASSED ../tests/test_outputs.py::test_does_not_create_unified_weighted_proof_yet
+3 passed in 0.45s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.454" timestamp="2026-08-20T01:17:30.979370+00:00" hostname="76fabd0dbe4d"><testcase classname="test_outputs" name="test_weighted_gain_ratio_keeps_damping_meaningful" time="0.305" /><testcase classname="test_outputs" name="test_preserves_sigma_whitened_jacobian_rows" time="0.003" /><testcase classname="test_outputs" name="test_does_not_create_unified_weighted_proof_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests
+STEP 2 2_fix-gain-ratio-lm-damping  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/3_unify-weighted-path-pivot/tests/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain bash /tests/test.sh
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+________________ test_unified_weighted_path_removes_raw_helpers ________________
+
+    def test_unified_weighted_path_removes_raw_helpers():
+        subprocess.run(["python3","/app/ba_refine.py","--input","/app/sample_problem.npz","--output","/tmp/out.npz"],check=True)
+        source=Path("/app/ba_refine.py").read_text()
+>       assert "def reproj_error_px" not in source and "def linear_predicted_reduction_raw" not in source
+E       assert ('def reproj_error_px' not in 'import argp...son","w"))\n'
+E         
+E         'def reproj_error_px' is contained here:
+E           ual*scale
+E           def reproj_error_px(points,obs): return points[:,:2]-obs
+E         ? +++++++++++++++++++
+E           def linear_predicted_reduction_raw(g,step): return float(-g@step)
+E           def linear_predicted_reduction_weighted(g,H,step): return float(-(g@step+0.5*step@H@step))...
+E         
+E         ...Full output truncated (5 lines hidden), use '-vv' to show)
+
+/tests/test_outputs.py:8: AssertionError
+________________ test_preserves_points_poses_and_datum_contract ________________
+
+    def test_preserves_points_poses_and_datum_contract():
+        out=np.load("/tmp/out.npz"); inp=np.load("/app/sample_problem.npz")
+        assert np.array_equal(out["points"],inp["points"])
+        assert np.array_equal(out["poses"][0],inp["poses"][0])
+>       assert float(out["rho"])>0.9
+                     ^^^^^^^^^^
+
+/tests/test_outputs.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = NpzFile '/tmp/out.npz' with keys: points, poses, weighted_rows
+key = 'rho'
+
+    def __getitem__(self, key):
+        # FIXME: This seems like it will copy strings around
+        #   more than is strictly necessary.  The zipfile
+        #   will read the string and then
+        #   the format.read_array will copy the string
+        #   to another place in memory.
+        #   It would be better if the zipfile could read
+        #   (or at least uncompress) the data
+        #   directly into the array memory.
+        member = False
+        if key in self._files:
+            member = True
+        elif key in self.files:
+            member = True
+            key += '.npy'
+        if member:
+            bytes = self.zip.open(key)
+            magic = bytes.read(len(format.MAGIC_PREFIX))
+            bytes.close()
+            if magic == format.MAGIC_PREFIX:
+                bytes = self.zip.open(key)
+                return format.read_array(bytes,
+                                         allow_pickle=self.allow_pickle,
+                                         pickle_kwargs=self.pickle_kwargs,
+                                         max_header_size=self.max_header_size)
+            else:
+                return self.zip.read(key)
+        else:
+>           raise KeyError(f"{key} is not a file in the archive")
+E           KeyError: 'rho is not a file in the archive'
+
+/usr/local/lib/python3.11/site-packages/numpy/lib/npyio.py:263: KeyError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_unified_weighted_path_removes_raw_helpers
+FAILED ../tests/test_outputs.py::test_preserves_points_poses_and_datum_contract
+2 failed in 0.52s
+reward=0 (2 failed, 0 errored)
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="0.525" timestamp="2026-08-20T01:17:32.533498+00:00" hostname="76fabd0dbe4d"><testcase classname="test_outputs" name="test_unified_weighted_path_removes_raw_helpers" time="0.360"><failure message="assert ('def reproj_error_px' not in 'import argp...son&quot;,&quot;w&quot;))\n'&#10;  &#10;  'def reproj_error_px' is contained here:&#10;    ual*scale&#10;    def reproj_error_px(points,obs): return points[:,:2]-obs&#10;  ? +++++++++++++++++++&#10;    def linear_predicted_reduction_raw(g,step): return float(-g@step)&#10;    def linear_predicted_reduction_weighted(g,H,step): return float(-(g@step+0.5*step@H@step))...&#10;  &#10;  ...Full output truncated (5 lines hidden), use '-vv' to show)">def test_unified_weighted_path_removes_raw_helpers():
+        subprocess.run(["python3","/app/ba_refine.py","--input","/app/sample_problem.npz","--output","/tmp/out.npz"],check=True)
+        source=Path("/app/ba_refine.py").read_text()
+&gt;       assert "def reproj_error_px" not in source and "def linear_predicted_reduction_raw" not in source
+E       assert ('def reproj_error_px' not in 'import argp...son","w"))\n'
+E         
+E         'def reproj_error_px' is contained here:
+E           ual*scale
+E           def reproj_error_px(points,obs): return points[:,:2]-obs
+E         ? +++++++++++++++++++
+E           def linear_predicted_reduction_raw(g,step): return float(-g@step)
+E           def linear_predicted_reduction_weighted(g,H,step): return float(-(g@step+0.5*step@H@step))...
+E         
+E         ...Full output truncated (5 lines hidden), use '-vv' to show)
+
+/tests/test_outputs.py:8: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_preserves_points_poses_and_datum_contract" time="0.003"><failure message="KeyError: 'rho is not a file in the archive'">def test_preserves_points_poses_and_datum_contract():
+        out=np.load("/tmp/out.npz"); inp=np.load("/app/sample_problem.npz")
+        assert np.array_equal(out["points"],inp["points"])
+        assert np.array_equal(out["poses"][0],inp["poses"][0])
+&gt;       assert float(out["rho"])&gt;0.9
+                     ^^^^^^^^^^
+
+/tests/test_outputs.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = NpzFile '/tmp/out.npz' with keys: points, poses, weighted_rows
+key = 'rho'
+
+    def __getitem__(self, key):
+        # FIXME: This seems like it will copy strings around
+        #   more than is strictly necessary.  The zipfile
+        #   will read the string and then
+        #   the format.read_array will copy the string
+        #   to another place in memory.
+        #   It would be better if the zipfile could read
+        #   (or at least uncompress) the data
+        #   directly into the array memory.
+        member = False
+        if key in self._files:
+            member = True
+        elif key in self.files:
+            member = True
+            key += '.npy'
+        if member:
+            bytes = self.zip.open(key)
+            magic = bytes.read(len(format.MAGIC_PREFIX))
+            bytes.close()
+            if magic == format.MAGIC_PREFIX:
+                bytes = self.zip.open(key)
+                return format.read_array(bytes,
+                                         allow_pickle=self.allow_pickle,
+                                         pickle_kwargs=self.pickle_kwargs,
+                                         max_header_size=self.max_header_size)
+            else:
+                return self.zip.read(key)
+        else:
+&gt;           raise KeyError(f"{key} is not a file in the archive")
+E           KeyError: 'rho is not a file in the archive'
+
+/usr/local/lib/python3.11/site-packages/numpy/lib/npyio.py:263: KeyError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests
+STEP 3 3_unify-weighted-path-pivot  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/3_unify-weighted-path-pivot/solution/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain:/solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /solution
+STEP 3 3_unify-weighted-path-pivot  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/3_unify-weighted-path-pivot/tests/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_unified_weighted_path_removes_raw_helpers
+PASSED ../tests/test_outputs.py::test_preserves_points_poses_and_datum_contract
+2 passed in 0.49s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.496" timestamp="2026-08-20T01:17:34.877325+00:00" hostname="76fabd0dbe4d"><testcase classname="test_outputs" name="test_unified_weighted_path_removes_raw_helpers" time="0.357" /><testcase classname="test_outputs" name="test_preserves_points_poses_and_datum_contract" time="0.003" /></testsuite></testsuites>
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain rm -rf /tests
+STEP 3 3_unify-weighted-path-pivot  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1
+Error response from daemon: No such container: tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1
+
+$ docker run -d --name tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 tbench-mt-bundle-adjustment-converges-structure-drift-pivot:validate sleep infinity
+5948883bd89ec2bd69bab9bbc61675ebb935d144fb04c51b278bf6402d14ccd1
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/1_whiten-jacobian-weighting/solution/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1:/solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/2_fix-gain-ratio-lm-damping/solution/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1:/solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/1_whiten-jacobian-weighting/tests/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 bash /tests/test.sh
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+__________________ test_does_not_create_lm_gain_fix_trace_yet __________________
+
+    def test_does_not_create_lm_gain_fix_trace_yet():
+>       assert not Path("/workdir/lm_gain_fix.json").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/workdir/lm_gain_fix.json').exists
+E        +      where PosixPath('/workdir/lm_gain_fix.json') = Path('/workdir/lm_gain_fix.json')
+
+/tests/test_outputs.py:10: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_jacobian_rows_are_whitened_by_each_sigma
+FAILED ../tests/test_outputs.py::test_does_not_create_lm_gain_fix_trace_yet
+1 failed, 1 passed in 0.51s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.511" timestamp="2026-08-20T01:17:38.472869+00:00" hostname="5948883bd89e"><testcase classname="test_outputs" name="test_jacobian_rows_are_whitened_by_each_sigma" time="0.355" /><testcase classname="test_outputs" name="test_does_not_create_lm_gain_fix_trace_yet" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/workdir/lm_gain_fix.json').exists&#10; +      where PosixPath('/workdir/lm_gain_fix.json') = Path('/workdir/lm_gain_fix.json')">def test_does_not_create_lm_gain_fix_trace_yet():
+&gt;       assert not Path("/workdir/lm_gain_fix.json").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/workdir/lm_gain_fix.json').exists
+E        +      where PosixPath('/workdir/lm_gain_fix.json') = Path('/workdir/lm_gain_fix.json')
+
+/tests/test_outputs.py:10: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1 rm -rf /tests
+STEP 1 1_whiten-jacobian-weighting  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1
+tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1
+
+$ docker rm -f tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2
+Error response from daemon: No such container: tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2
+
+$ docker run -d --name tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 tbench-mt-bundle-adjustment-converges-structure-drift-pivot:validate sleep infinity
+39f2e2fc6260598b88b664020feebee9de6e5980db209ea4c1aaf20bee9640c0
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/1_whiten-jacobian-weighting/solution/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2:/solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/2_fix-gain-ratio-lm-damping/solution/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2:/solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/3_unify-weighted-path-pivot/solution/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2:/solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/steps/2_fix-gain-ratio-lm-damping/tests/. tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 bash /tests/test.sh
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+_______________ test_does_not_create_unified_weighted_proof_yet ________________
+
+    def test_does_not_create_unified_weighted_proof_yet():
+>       assert not Path("/workdir/unified_weighted_proof.json").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/workdir/unified_weighted_proof.json').exists
+E        +      where PosixPath('/workdir/unified_weighted_proof.json') = Path('/workdir/unified_weighted_proof.json')
+
+/tests/test_outputs.py:13: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_weighted_gain_ratio_keeps_damping_meaningful
+PASSED ../tests/test_outputs.py::test_preserves_sigma_whitened_jacobian_rows
+FAILED ../tests/test_outputs.py::test_does_not_create_unified_weighted_proof_yet
+1 failed, 2 passed in 0.50s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.499" timestamp="2026-08-20T01:17:42.972284+00:00" hostname="39f2e2fc6260"><testcase classname="test_outputs" name="test_weighted_gain_ratio_keeps_damping_meaningful" time="0.346" /><testcase classname="test_outputs" name="test_preserves_sigma_whitened_jacobian_rows" time="0.003" /><testcase classname="test_outputs" name="test_does_not_create_unified_weighted_proof_yet" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/workdir/unified_weighted_proof.json').exists&#10; +      where PosixPath('/workdir/unified_weighted_proof.json') = Path('/workdir/unified_weighted_proof.json')">def test_does_not_create_unified_weighted_proof_yet():
+&gt;       assert not Path("/workdir/unified_weighted_proof.json").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/workdir/unified_weighted_proof.json').exists
+E        +      where PosixPath('/workdir/unified_weighted_proof.json') = Path('/workdir/unified_weighted_proof.json')
+
+/tests/test_outputs.py:13: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2 rm -rf /tests
+STEP 2 2_fix-gain-ratio-lm-damping  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2
+tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2
+
+$ docker rm -f tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain
+tbench-mt-bundle-adjustment-converges-structure-drift-pivot-chain
+
+$ docker rm -f tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1
+Error response from daemon: No such container: tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe1
+
+$ docker rm -f tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2
+Error response from daemon: No such container: tbench-mt-bundle-adjustment-converges-structure-drift-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/robotics-3d/bundle-adjustment-converges-structure-drift-pivot/.validation/chain-20260820T011722Z.json

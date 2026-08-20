@@ -1,0 +1,2 @@
+heap.bin, dwb.bin, and wal.bin are JSON in this deterministic crash fixture. Heap pages have page_no, lsn, crc_ok, and content. DWB slots add slot_seq and batch_id. WAL records are PAGE_WRITE or BATCH_COMMIT.
+

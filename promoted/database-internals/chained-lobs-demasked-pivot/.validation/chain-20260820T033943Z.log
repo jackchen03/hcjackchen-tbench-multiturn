@@ -1,0 +1,716 @@
+== oracle chain: chained-lobs-demasked-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-chained-lobs-demasked-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/environment
+sha256:92fc3bd2a4b7820b23ceec52bc0b9b6277141959cc687113bc8586178fe256d4
+
+$ docker rm -f tbench-mt-chained-lobs-demasked-pivot-chain
+Error response from daemon: No such container: tbench-mt-chained-lobs-demasked-pivot-chain
+
+$ docker run -d --name tbench-mt-chained-lobs-demasked-pivot-chain tbench-mt-chained-lobs-demasked-pivot:validate sleep infinity
+eedd90c8d4d4ba34fe4180715eed43dee458abfe4a88f7d1081f9f0e6236b8e6
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/1_chain-walk/tests/. tbench-mt-chained-lobs-demasked-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+__________________ test_unique_chain_walk_uses_physical_order __________________
+
+    def test_unique_chain_walk_uses_physical_order():
+>       setup(); r=subprocess.run(["/app/recover","1003"],capture_output=True); assert r.returncode==0 and r.stdout==b"abcdef"
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/app/recover', '1003']>
+args = ['/app/recover', '1003'], executable = b'/app/recover', preexec_fn = None
+close_fds = True, pass_fds = (), cwd = None, env = None, startupinfo = None
+creationflags = 0, shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11
+c2pwrite = 12, errread = 13, errwrite = 14, restore_signals = True, gid = None
+gids = None, uid = None, umask = -1, start_new_session = False
+process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_does_not_publish_recycled_or_demasked_reports_yet
+FAILED ../tests/test_outputs.py::test_unique_chain_walk_uses_physical_order
+1 failed, 1 passed in 0.06s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.059" timestamp="2026-08-20T03:39:49.120826+00:00" hostname="eedd90c8d4d4"><testcase classname="test_outputs" name="test_unique_chain_walk_uses_physical_order" time="0.002"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'">def test_unique_chain_walk_uses_physical_order():
+&gt;       setup(); r=subprocess.run(["/app/recover","1003"],capture_output=True); assert r.returncode==0 and r.stdout==b"abcdef"
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;Popen: returncode: 255 args: ['/app/recover', '1003']&gt;
+args = ['/app/recover', '1003'], executable = b'/app/recover', preexec_fn = None
+close_fds = True, pass_fds = (), cwd = None, env = None, startupinfo = None
+creationflags = 0, shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11
+c2pwrite = 12, errread = 13, errwrite = 14, restore_signals = True, gid = None
+gids = None, uid = None, umask = -1, start_new_session = False
+process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/recover'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_does_not_publish_recycled_or_demasked_reports_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests
+STEP 1 1_chain-walk  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/1_chain-walk/solution/. tbench-mt-chained-lobs-demasked-pivot-chain:/solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /solution
+STEP 1 1_chain-walk  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/1_chain-walk/tests/. tbench-mt-chained-lobs-demasked-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_unique_chain_walk_uses_physical_order
+PASSED ../tests/test_outputs.py::test_does_not_publish_recycled_or_demasked_reports_yet
+2 passed in 0.08s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.077" timestamp="2026-08-20T03:39:50.653410+00:00" hostname="eedd90c8d4d4"><testcase classname="test_outputs" name="test_unique_chain_walk_uses_physical_order" time="0.064" /><testcase classname="test_outputs" name="test_does_not_publish_recycled_or_demasked_reports_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests
+STEP 1 1_chain-walk  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/2_recycled-run-detection/tests/. tbench-mt-chained-lobs-demasked-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+________________ test_recycled_id_selects_run_by_extent_length _________________
+
+    def test_recycled_id_selects_run_by_extent_length():
+        Path("/app/heap.bin").write_text(json.dumps([{"row_id":9,"chunk_id":7,"len_word":5,"rawsize":5}]))
+        chunks=[(0,0,b"old"),(1,1,b"!"),(2,0,b"new"),(3,1,b"!!")]
+        Path("/app/toast.bin").write_text(json.dumps([{"chunk_id":7,"seq":seq,"physical":pos,"data":base64.b64encode(data).decode()} for pos,seq,data in chunks]))
+>       r=subprocess.run(["/app/recover","9"],capture_output=True); assert r.stdout==b"new!!"
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert b'old!new!!' == b'new!!'
+E         
+E         At index 0 diff: b'o' != b'n'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:9: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_does_not_create_demasked_report_yet
+FAILED ../tests/test_outputs.py::test_recycled_id_selects_run_by_extent_length
+1 failed, 1 passed in 0.08s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.085" timestamp="2026-08-20T03:39:51.814511+00:00" hostname="eedd90c8d4d4"><testcase classname="test_outputs" name="test_recycled_id_selects_run_by_extent_length" time="0.065"><failure message="AssertionError: assert b'old!new!!' == b'new!!'&#10;  &#10;  At index 0 diff: b'o' != b'n'&#10;  Use -v to get more diff">def test_recycled_id_selects_run_by_extent_length():
+        Path("/app/heap.bin").write_text(json.dumps([{"row_id":9,"chunk_id":7,"len_word":5,"rawsize":5}]))
+        chunks=[(0,0,b"old"),(1,1,b"!"),(2,0,b"new"),(3,1,b"!!")]
+        Path("/app/toast.bin").write_text(json.dumps([{"chunk_id":7,"seq":seq,"physical":pos,"data":base64.b64encode(data).decode()} for pos,seq,data in chunks]))
+&gt;       r=subprocess.run(["/app/recover","9"],capture_output=True); assert r.stdout==b"new!!"
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert b'old!new!!' == b'new!!'
+E         
+E         At index 0 diff: b'o' != b'n'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:9: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_create_demasked_report_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests
+STEP 2 2_recycled-run-detection  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/2_recycled-run-detection/solution/. tbench-mt-chained-lobs-demasked-pivot-chain:/solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /solution
+STEP 2 2_recycled-run-detection  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/2_recycled-run-detection/tests/. tbench-mt-chained-lobs-demasked-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recycled_id_selects_run_by_extent_length
+PASSED ../tests/test_outputs.py::test_does_not_create_demasked_report_yet
+2 passed in 0.08s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.079" timestamp="2026-08-20T03:39:53.443475+00:00" hostname="eedd90c8d4d4"><testcase classname="test_outputs" name="test_recycled_id_selects_run_by_extent_length" time="0.066" /><testcase classname="test_outputs" name="test_does_not_create_demasked_report_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests
+STEP 2 2_recycled-run-detection  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/3_demasked-pivot-decompress-splice/tests/. tbench-mt-chained-lobs-demasked-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+________________ test_demasked_method_and_compressed_second_run ________________
+
+    def test_demasked_method_and_compressed_second_run():
+        compressed=bytes([3,ord("A"),2,ord("B")]); word=(1<<29)|len(compressed)
+        Path("/app/heap.bin").write_text(json.dumps([{"row_id":11,"chunk_id":8,"len_word":word,"rawsize":5}]))
+        chunks=[(0,0,b"xx"),(1,0,compressed[:2]),(2,1,compressed[2:])]
+        Path("/app/toast.bin").write_text(json.dumps([{"chunk_id":8,"seq":seq,"physical":pos,"data":base64.b64encode(data).decode()} for pos,seq,data in chunks]))
+>       r=subprocess.run(["/app/recover","11"],capture_output=True); assert r.returncode==0 and r.stdout==b"AAABB"
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert (0 == 0 and b'\x03A\x02B' == b'AAABB'
+E        +  where 0 = CompletedProcess(args=['/app/recover', '11'], returncode=0, stdout=b'\x03A\x02B', stderr=b'').returncode
+E         
+E         At index 0 diff: b'\x03' != b'A'
+E         Use -v to get more diff)
+
+/tests/test_outputs.py:10: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recycled_report_is_retained
+FAILED ../tests/test_outputs.py::test_demasked_method_and_compressed_second_run
+1 failed, 1 passed in 0.08s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.086" timestamp="2026-08-20T03:39:54.607855+00:00" hostname="eedd90c8d4d4"><testcase classname="test_outputs" name="test_demasked_method_and_compressed_second_run" time="0.064"><failure message="AssertionError: assert (0 == 0 and b'\x03A\x02B' == b'AAABB'&#10; +  where 0 = CompletedProcess(args=['/app/recover', '11'], returncode=0, stdout=b'\x03A\x02B', stderr=b'').returncode&#10;  &#10;  At index 0 diff: b'\x03' != b'A'&#10;  Use -v to get more diff)">def test_demasked_method_and_compressed_second_run():
+        compressed=bytes([3,ord("A"),2,ord("B")]); word=(1&lt;&lt;29)|len(compressed)
+        Path("/app/heap.bin").write_text(json.dumps([{"row_id":11,"chunk_id":8,"len_word":word,"rawsize":5}]))
+        chunks=[(0,0,b"xx"),(1,0,compressed[:2]),(2,1,compressed[2:])]
+        Path("/app/toast.bin").write_text(json.dumps([{"chunk_id":8,"seq":seq,"physical":pos,"data":base64.b64encode(data).decode()} for pos,seq,data in chunks]))
+&gt;       r=subprocess.run(["/app/recover","11"],capture_output=True); assert r.returncode==0 and r.stdout==b"AAABB"
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert (0 == 0 and b'\x03A\x02B' == b'AAABB'
+E        +  where 0 = CompletedProcess(args=['/app/recover', '11'], returncode=0, stdout=b'\x03A\x02B', stderr=b'').returncode
+E         
+E         At index 0 diff: b'\x03' != b'A'
+E         Use -v to get more diff)
+
+/tests/test_outputs.py:10: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_recycled_report_is_retained" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests
+STEP 3 3_demasked-pivot-decompress-splice  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/3_demasked-pivot-decompress-splice/solution/. tbench-mt-chained-lobs-demasked-pivot-chain:/solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /solution
+STEP 3 3_demasked-pivot-decompress-splice  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/3_demasked-pivot-decompress-splice/tests/. tbench-mt-chained-lobs-demasked-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_demasked_method_and_compressed_second_run
+PASSED ../tests/test_outputs.py::test_recycled_report_is_retained
+2 passed in 0.08s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.078" timestamp="2026-08-20T03:39:56.243632+00:00" hostname="eedd90c8d4d4"><testcase classname="test_outputs" name="test_demasked_method_and_compressed_second_run" time="0.065" /><testcase classname="test_outputs" name="test_recycled_report_is_retained" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-chain rm -rf /tests
+STEP 3 3_demasked-pivot-decompress-splice  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-chained-lobs-demasked-pivot-oe1
+Error response from daemon: No such container: tbench-mt-chained-lobs-demasked-pivot-oe1
+
+$ docker run -d --name tbench-mt-chained-lobs-demasked-pivot-oe1 tbench-mt-chained-lobs-demasked-pivot:validate sleep infinity
+67918bca98f452cbb40e1b9bbd1bf1f71a0793e24bb879be7a32b28425bec92e
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/1_chain-walk/solution/. tbench-mt-chained-lobs-demasked-pivot-oe1:/solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/2_recycled-run-detection/solution/. tbench-mt-chained-lobs-demasked-pivot-oe1:/solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/1_chain-walk/tests/. tbench-mt-chained-lobs-demasked-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-oe1 bash /tests/test.sh
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+____________ test_does_not_publish_recycled_or_demasked_reports_yet ____________
+
+    def test_does_not_publish_recycled_or_demasked_reports_yet():
+>       assert not Path("/app/2_recycled_report.json").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/2_recycled_report.json').exists
+E        +      where PosixPath('/app/2_recycled_report.json') = Path('/app/2_recycled_report.json')
+
+/tests/test_outputs.py:11: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_unique_chain_walk_uses_physical_order
+FAILED ../tests/test_outputs.py::test_does_not_publish_recycled_or_demasked_reports_yet
+1 failed, 1 passed in 0.09s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.089" timestamp="2026-08-20T03:39:58.749074+00:00" hostname="67918bca98f4"><testcase classname="test_outputs" name="test_unique_chain_walk_uses_physical_order" time="0.068" /><testcase classname="test_outputs" name="test_does_not_publish_recycled_or_demasked_reports_yet" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/2_recycled_report.json').exists&#10; +      where PosixPath('/app/2_recycled_report.json') = Path('/app/2_recycled_report.json')">def test_does_not_publish_recycled_or_demasked_reports_yet():
+&gt;       assert not Path("/app/2_recycled_report.json").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/2_recycled_report.json').exists
+E        +      where PosixPath('/app/2_recycled_report.json') = Path('/app/2_recycled_report.json')
+
+/tests/test_outputs.py:11: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe1 rm -rf /tests
+STEP 1 1_chain-walk  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-chained-lobs-demasked-pivot-oe1
+tbench-mt-chained-lobs-demasked-pivot-oe1
+
+$ docker rm -f tbench-mt-chained-lobs-demasked-pivot-oe2
+Error response from daemon: No such container: tbench-mt-chained-lobs-demasked-pivot-oe2
+
+$ docker run -d --name tbench-mt-chained-lobs-demasked-pivot-oe2 tbench-mt-chained-lobs-demasked-pivot:validate sleep infinity
+71b0ac4731a46005a2d9262b1cd5c504ae7fdeb9a2a75032223a1befdf5225d8
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/1_chain-walk/solution/. tbench-mt-chained-lobs-demasked-pivot-oe2:/solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/2_recycled-run-detection/solution/. tbench-mt-chained-lobs-demasked-pivot-oe2:/solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/3_demasked-pivot-decompress-splice/solution/. tbench-mt-chained-lobs-demasked-pivot-oe2:/solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/steps/2_recycled-run-detection/tests/. tbench-mt-chained-lobs-demasked-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-chained-lobs-demasked-pivot-oe2 bash /tests/test.sh
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+___________________ test_does_not_create_demasked_report_yet ___________________
+
+    def test_does_not_create_demasked_report_yet():
+>       assert not Path("/app/3_demasked_report.json").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/3_demasked_report.json').exists
+E        +      where PosixPath('/app/3_demasked_report.json') = Path('/app/3_demasked_report.json')
+
+/tests/test_outputs.py:12: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recycled_id_selects_run_by_extent_length
+FAILED ../tests/test_outputs.py::test_does_not_create_demasked_report_yet - A...
+1 failed, 1 passed in 0.09s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.087" timestamp="2026-08-20T03:40:02.041517+00:00" hostname="71b0ac4731a4"><testcase classname="test_outputs" name="test_recycled_id_selects_run_by_extent_length" time="0.067" /><testcase classname="test_outputs" name="test_does_not_create_demasked_report_yet" time="0.000"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/3_demasked_report.json').exists&#10; +      where PosixPath('/app/3_demasked_report.json') = Path('/app/3_demasked_report.json')">def test_does_not_create_demasked_report_yet():
+&gt;       assert not Path("/app/3_demasked_report.json").exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/app/3_demasked_report.json').exists
+E        +      where PosixPath('/app/3_demasked_report.json') = Path('/app/3_demasked_report.json')
+
+/tests/test_outputs.py:12: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-chained-lobs-demasked-pivot-oe2 rm -rf /tests
+STEP 2 2_recycled-run-detection  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-chained-lobs-demasked-pivot-oe2
+tbench-mt-chained-lobs-demasked-pivot-oe2
+
+$ docker rm -f tbench-mt-chained-lobs-demasked-pivot-chain
+tbench-mt-chained-lobs-demasked-pivot-chain
+
+$ docker rm -f tbench-mt-chained-lobs-demasked-pivot-oe1
+Error response from daemon: No such container: tbench-mt-chained-lobs-demasked-pivot-oe1
+
+$ docker rm -f tbench-mt-chained-lobs-demasked-pivot-oe2
+Error response from daemon: No such container: tbench-mt-chained-lobs-demasked-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/chained-lobs-demasked-pivot/.validation/chain-20260820T033943Z.json

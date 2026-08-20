@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:74fbd1c333d090af88a818597bf76ea7c1591ef7f95edf67b4937d649f27c529",
+  "final_audit": "promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/.validation/final-audit-20260820T185306Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/.validation/chain-20260820T185250Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/.validation/oracle-x3-current-20260820T191116Z.json",
+  "proposed_commit_pathspec": "promoted/filesystem-internals/seek-hole-data-kernel-match-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/filesystem-internals/seek-hole-data-kernel-match-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

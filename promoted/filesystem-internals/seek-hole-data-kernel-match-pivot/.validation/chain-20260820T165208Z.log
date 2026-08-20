@@ -1,0 +1,1119 @@
+== oracle chain: seek-hole-data-kernel-match-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-seek-hole-data-kernel-match-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/environment
+sha256:dd07be9e85f88828a68dd85c67f872aba57d2592959f717a442ce4235ca16551
+
+$ docker rm -f tbench-mt-seek-hole-data-kernel-match-pivot-chain
+Error response from daemon: No such container: tbench-mt-seek-hole-data-kernel-match-pivot-chain
+
+$ docker run -d --name tbench-mt-seek-hole-data-kernel-match-pivot-chain tbench-mt-seek-hole-data-kernel-match-pivot:validate sleep infinity
+63a1857f5fb603cb63306772db7db27041083ba27189fe7f7f2d330b992eed63
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/1_match-kernel-offline-sparse/tests/. tbench-mt-seek-hole-data-kernel-match-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-chain bash /tests/test.sh
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___________________ test_plain_sparse_kernel_seek_semantics ____________________
+
+    def test_plain_sparse_kernel_seek_semantics():
+     img={"files":{"/f":{"size":12,"extents":[{"start":0,"length":4,"state":"written"},{"start":8,"length":2,"state":"written"}]}}}
+>    assert run(img,"/f 1 HOLE\n/f 4 DATA\n/f 10 DATA\n/f 12 HOLE\n")=="4\n8\nENXIO\nENXIO\n"
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6: in run
+    p=Path("/tmp/seek.img"); q=Path("/tmp/seek.q"); o=Path("/tmp/seek.o"); p.write_text(json.dumps(img)); q.write_text(queries); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True); return o.read_text()
+                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q'...>
+args = ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q', '/tmp/seek.o']
+executable = b'/app/run.sh', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = -1, c2pwrite = -1, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/run.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+________________ test_does_not_match_holdout_unwritten_data_yet ________________
+
+    def test_does_not_match_holdout_unwritten_data_yet():
+     img={"files":{"/f":{"size":4,"extents":[{"start":0,"length":4,"state":"unwritten"}]}}}
+>    assert run(img,"/f 0 DATA\n")!="0\n"
+            ^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6: in run
+    p=Path("/tmp/seek.img"); q=Path("/tmp/seek.q"); o=Path("/tmp/seek.o"); p.write_text(json.dumps(img)); q.write_text(queries); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True); return o.read_text()
+                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: 255 args: ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q'...>
+args = ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q', '/tmp/seek.o']
+executable = b'/app/run.sh', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = -1, c2pwrite = -1, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/run.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_plain_sparse_kernel_seek_semantics - Fi...
+FAILED ../tests/test_outputs.py::test_does_not_match_holdout_unwritten_data_yet
+2 failed in 0.10s
+reward=0 (2 failed, 0 errored)
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="0.096" timestamp="2026-08-20T16:52:10.285079+00:00" hostname="63a1857f5fb6"><testcase classname="test_outputs" name="test_plain_sparse_kernel_seek_semantics" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/run.sh'">def test_plain_sparse_kernel_seek_semantics():
+     img={"files":{"/f":{"size":12,"extents":[{"start":0,"length":4,"state":"written"},{"start":8,"length":2,"state":"written"}]}}}
+&gt;    assert run(img,"/f 1 HOLE\n/f 4 DATA\n/f 10 DATA\n/f 12 HOLE\n")=="4\n8\nENXIO\nENXIO\n"
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6: in run
+    p=Path("/tmp/seek.img"); q=Path("/tmp/seek.q"); o=Path("/tmp/seek.o"); p.write_text(json.dumps(img)); q.write_text(queries); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True); return o.read_text()
+                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;Popen: returncode: 255 args: ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q'...&gt;
+args = ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q', '/tmp/seek.o']
+executable = b'/app/run.sh', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = -1, c2pwrite = -1, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/run.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_does_not_match_holdout_unwritten_data_yet" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/run.sh'">def test_does_not_match_holdout_unwritten_data_yet():
+     img={"files":{"/f":{"size":4,"extents":[{"start":0,"length":4,"state":"unwritten"}]}}}
+&gt;    assert run(img,"/f 0 DATA\n")!="0\n"
+            ^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_outputs.py:6: in run
+    p=Path("/tmp/seek.img"); q=Path("/tmp/seek.q"); o=Path("/tmp/seek.o"); p.write_text(json.dumps(img)); q.write_text(queries); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True); return o.read_text()
+                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:548: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/subprocess.py:1026: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;Popen: returncode: 255 args: ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q'...&gt;
+args = ['/app/run.sh', '/tmp/seek.img', '/tmp/seek.q', '/tmp/seek.o']
+executable = b'/app/run.sh', preexec_fn = None, close_fds = True, pass_fds = ()
+cwd = None, env = None, startupinfo = None, creationflags = 0, shell = False
+p2cread = -1, p2cwrite = -1, c2pread = -1, c2pwrite = -1, errread = -1
+errwrite = -1, restore_signals = True, gid = None, gids = None, uid = None
+umask = -1, start_new_session = False, process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+    
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+    
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+    
+        if executable is None:
+            executable = args[0]
+    
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+    
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and not close_fds
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread &gt; 2)
+                and (c2pwrite == -1 or c2pwrite &gt; 2)
+                and (errwrite == -1 or errwrite &gt; 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask &lt; 0):
+            self._posix_spawn(args, executable, env, restore_signals,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+    
+        orig_executable = executable
+    
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write &lt; 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+    
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn, _USE_VFORK)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+    
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+    
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) &gt; 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+    
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+    
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+&gt;                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   FileNotFoundError: [Errno 2] No such file or directory: '/app/run.sh'
+
+/usr/local/lib/python3.11/subprocess.py:1955: FileNotFoundError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests
+STEP 1 1_match-kernel-offline-sparse  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/1_match-kernel-offline-sparse/solution/. tbench-mt-seek-hole-data-kernel-match-pivot-chain:/solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /solution
+STEP 1 1_match-kernel-offline-sparse  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/1_match-kernel-offline-sparse/tests/. tbench-mt-seek-hole-data-kernel-match-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_plain_sparse_kernel_seek_semantics
+PASSED ../tests/test_outputs.py::test_does_not_match_holdout_unwritten_data_yet
+2 passed in 0.14s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.139" timestamp="2026-08-20T16:52:11.920940+00:00" hostname="63a1857f5fb6"><testcase classname="test_outputs" name="test_plain_sparse_kernel_seek_semantics" time="0.063" /><testcase classname="test_outputs" name="test_does_not_match_holdout_unwritten_data_yet" time="0.063" /></testsuite></testsuites>
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests
+STEP 1 1_match-kernel-offline-sparse  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/2_handle-unwritten-and-eof-cutoff/tests/. tbench-mt-seek-hole-data-kernel-match-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+_____________ test_unwritten_is_mapped_and_eof_precedes_map_lookup _____________
+
+    def test_unwritten_is_mapped_and_eof_precedes_map_lookup():
+     img={"files":{"/f":{"size":6,"extents":[{"start":0,"length":10,"state":"unwritten"}]}}}
+>    assert invoke(img,"/f 0 DATA\n/f 0 HOLE\n/f 6 DATA\n")=="0\n6\nENXIO\n"
+E    AssertionError: assert 'ENXIO\n0\nENXIO\n' == '0\n6\nENXIO\n'
+E      
+E      + ENXIO
+E        0
+E      - 6
+E        ENXIO
+
+/tests/test_outputs.py:9: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_does_not_handle_deep_holdout_tree_yet
+FAILED ../tests/test_outputs.py::test_unwritten_is_mapped_and_eof_precedes_map_lookup
+1 failed, 1 passed in 0.08s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.084" timestamp="2026-08-20T16:52:13.131056+00:00" hostname="63a1857f5fb6"><testcase classname="test_outputs" name="test_unwritten_is_mapped_and_eof_precedes_map_lookup" time="0.063"><failure message="AssertionError: assert 'ENXIO\n0\nENXIO\n' == '0\n6\nENXIO\n'&#10;  &#10;  + ENXIO&#10;    0&#10;  - 6&#10;    ENXIO">def test_unwritten_is_mapped_and_eof_precedes_map_lookup():
+     img={"files":{"/f":{"size":6,"extents":[{"start":0,"length":10,"state":"unwritten"}]}}}
+&gt;    assert invoke(img,"/f 0 DATA\n/f 0 HOLE\n/f 6 DATA\n")=="0\n6\nENXIO\n"
+E    AssertionError: assert 'ENXIO\n0\nENXIO\n' == '0\n6\nENXIO\n'
+E      
+E      + ENXIO
+E        0
+E      - 6
+E        ENXIO
+
+/tests/test_outputs.py:9: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_handle_deep_holdout_tree_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests
+STEP 2 2_handle-unwritten-and-eof-cutoff  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/2_handle-unwritten-and-eof-cutoff/solution/. tbench-mt-seek-hole-data-kernel-match-pivot-chain:/solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /solution
+STEP 2 2_handle-unwritten-and-eof-cutoff  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/2_handle-unwritten-and-eof-cutoff/tests/. tbench-mt-seek-hole-data-kernel-match-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_unwritten_is_mapped_and_eof_precedes_map_lookup
+PASSED ../tests/test_outputs.py::test_does_not_handle_deep_holdout_tree_yet
+2 passed in 0.07s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.076" timestamp="2026-08-20T16:52:14.715834+00:00" hostname="63a1857f5fb6"><testcase classname="test_outputs" name="test_unwritten_is_mapped_and_eof_precedes_map_lookup" time="0.063" /><testcase classname="test_outputs" name="test_does_not_handle_deep_holdout_tree_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests
+STEP 2 2_handle-unwritten-and-eof-cutoff  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/3_raw-parser-no-debugfs-and-straddle/tests/. tbench-mt-seek-hole-data-kernel-match-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-chain bash /tests/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_raw_deep_tree_blocksize_and_keep_size_cutoff _______________
+
+    def test_raw_deep_tree_blocksize_and_keep_size_cutoff():
+     img={"requires_raw_depth":True,"block_size":1024,"files":{"/f":{"size":2500,"extents":[{"start":1024,"length":4096,"state":"unwritten","node":2}]}}}
+     p=Path("/tmp/raw.img"); q=Path("/tmp/raw.q"); o=Path("/tmp/raw.o"); p.write_text(json.dumps(img)); q.write_text("/f 0 DATA\n/f 1024 HOLE\n/f 2500 DATA\n"); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True)
+     assert o.read_text()=="1024\n2500\nENXIO\n"
+>    src=Path("/app/run.sh").read_text(); assert "debugfs" not in src and "dumpe2fs" not in src and "requires_raw_depth" in src
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    assert ('debugfs' not in '#!/usr/bin/...ut)+"\\n")\n'
+E      
+E      'debugfs' is contained here:
+E        out)+"\n") and 'dumpe2fs' not in '#!/usr/bin/...ut)+"\\n")\n'
+E      
+E      'dumpe2fs' is contained here:
+E        out)+"\n") and 'requires_raw_depth' in '#!/usr/bin/env python3\nimport json,sys\nimg=json.load(open(sys.argv[1])); out=[]\nfor line in open(sys.argv[2]):\n p...ate(x)),size)\n out.append("ENXIO" if ans is None else str(ans))\nopen(sys.argv[3],"w").write("\\n".join(out)+"\\n")\n')
+
+/tests/test_outputs.py:9: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_raw_deep_tree_blocksize_and_keep_size_cutoff
+1 failed in 0.08s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.086" timestamp="2026-08-20T16:52:15.874624+00:00" hostname="63a1857f5fb6"><testcase classname="test_outputs" name="test_raw_deep_tree_blocksize_and_keep_size_cutoff" time="0.063"><failure message="assert ('debugfs' not in '#!/usr/bin/...ut)+&quot;\\n&quot;)\n'&#10;  &#10;  'debugfs' is contained here:&#10;    out)+&quot;\n&quot;) and 'dumpe2fs' not in '#!/usr/bin/...ut)+&quot;\\n&quot;)\n'&#10;  &#10;  'dumpe2fs' is contained here:&#10;    out)+&quot;\n&quot;) and 'requires_raw_depth' in '#!/usr/bin/env python3\nimport json,sys\nimg=json.load(open(sys.argv[1])); out=[]\nfor line in open(sys.argv[2]):\n p...ate(x)),size)\n out.append(&quot;ENXIO&quot; if ans is None else str(ans))\nopen(sys.argv[3],&quot;w&quot;).write(&quot;\\n&quot;.join(out)+&quot;\\n&quot;)\n')">def test_raw_deep_tree_blocksize_and_keep_size_cutoff():
+     img={"requires_raw_depth":True,"block_size":1024,"files":{"/f":{"size":2500,"extents":[{"start":1024,"length":4096,"state":"unwritten","node":2}]}}}
+     p=Path("/tmp/raw.img"); q=Path("/tmp/raw.q"); o=Path("/tmp/raw.o"); p.write_text(json.dumps(img)); q.write_text("/f 0 DATA\n/f 1024 HOLE\n/f 2500 DATA\n"); subprocess.run(["/app/run.sh",str(p),str(q),str(o)],check=True)
+     assert o.read_text()=="1024\n2500\nENXIO\n"
+&gt;    src=Path("/app/run.sh").read_text(); assert "debugfs" not in src and "dumpe2fs" not in src and "requires_raw_depth" in src
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E    assert ('debugfs' not in '#!/usr/bin/...ut)+"\\n")\n'
+E      
+E      'debugfs' is contained here:
+E        out)+"\n") and 'dumpe2fs' not in '#!/usr/bin/...ut)+"\\n")\n'
+E      
+E      'dumpe2fs' is contained here:
+E        out)+"\n") and 'requires_raw_depth' in '#!/usr/bin/env python3\nimport json,sys\nimg=json.load(open(sys.argv[1])); out=[]\nfor line in open(sys.argv[2]):\n p...ate(x)),size)\n out.append("ENXIO" if ans is None else str(ans))\nopen(sys.argv[3],"w").write("\\n".join(out)+"\\n")\n')
+
+/tests/test_outputs.py:9: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests
+STEP 3 3_raw-parser-no-debugfs-and-straddle  DO-NOTHING  OK    red before the work (1 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/3_raw-parser-no-debugfs-and-straddle/solution/. tbench-mt-seek-hole-data-kernel-match-pivot-chain:/solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /solution
+STEP 3 3_raw-parser-no-debugfs-and-straddle  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/3_raw-parser-no-debugfs-and-straddle/tests/. tbench-mt-seek-hole-data-kernel-match-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-chain bash /tests/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_raw_deep_tree_blocksize_and_keep_size_cutoff
+1 passed in 0.07s
+reward=1 (1 passed, 0 skipped)
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.074" timestamp="2026-08-20T16:52:17.855587+00:00" hostname="63a1857f5fb6"><testcase classname="test_outputs" name="test_raw_deep_tree_blocksize_and_keep_size_cutoff" time="0.062" /></testsuite></testsuites>
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-chain rm -rf /tests
+STEP 3 3_raw-parser-no-debugfs-and-straddle  GREEN       OK    1 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-seek-hole-data-kernel-match-pivot-oe1
+Error response from daemon: No such container: tbench-mt-seek-hole-data-kernel-match-pivot-oe1
+
+$ docker run -d --name tbench-mt-seek-hole-data-kernel-match-pivot-oe1 tbench-mt-seek-hole-data-kernel-match-pivot:validate sleep infinity
+07f91f18021200ecb7ee669c605dbe319f1986641e50c121850d471009fde46c
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/1_match-kernel-offline-sparse/solution/. tbench-mt-seek-hole-data-kernel-match-pivot-oe1:/solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/2_handle-unwritten-and-eof-cutoff/solution/. tbench-mt-seek-hole-data-kernel-match-pivot-oe1:/solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/1_match-kernel-offline-sparse/tests/. tbench-mt-seek-hole-data-kernel-match-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-oe1 bash /tests/test.sh
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+________________ test_does_not_match_holdout_unwritten_data_yet ________________
+
+    def test_does_not_match_holdout_unwritten_data_yet():
+     img={"files":{"/f":{"size":4,"extents":[{"start":0,"length":4,"state":"unwritten"}]}}}
+>    assert run(img,"/f 0 DATA\n")!="0\n"
+E    AssertionError: assert '0\n' != '0\n'
+E     +  where '0\n' = run({'files': {'/f': {'extents': [{'length': 4, 'start': 0, 'state': 'unwritten'}], 'size': 4}}}, '/f 0 DATA\n')
+
+/tests/test_outputs.py:12: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_plain_sparse_kernel_seek_semantics
+FAILED ../tests/test_outputs.py::test_does_not_match_holdout_unwritten_data_yet
+1 failed, 1 passed in 0.14s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.145" timestamp="2026-08-20T16:52:20.450737+00:00" hostname="07f91f180212"><testcase classname="test_outputs" name="test_plain_sparse_kernel_seek_semantics" time="0.061" /><testcase classname="test_outputs" name="test_does_not_match_holdout_unwritten_data_yet" time="0.062"><failure message="AssertionError: assert '0\n' != '0\n'&#10; +  where '0\n' = run({'files': {'/f': {'extents': [{'length': 4, 'start': 0, 'state': 'unwritten'}], 'size': 4}}}, '/f 0 DATA\n')">def test_does_not_match_holdout_unwritten_data_yet():
+     img={"files":{"/f":{"size":4,"extents":[{"start":0,"length":4,"state":"unwritten"}]}}}
+&gt;    assert run(img,"/f 0 DATA\n")!="0\n"
+E    AssertionError: assert '0\n' != '0\n'
+E     +  where '0\n' = run({'files': {'/f': {'extents': [{'length': 4, 'start': 0, 'state': 'unwritten'}], 'size': 4}}}, '/f 0 DATA\n')
+
+/tests/test_outputs.py:12: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe1 rm -rf /tests
+STEP 1 1_match-kernel-offline-sparse  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-seek-hole-data-kernel-match-pivot-oe1
+tbench-mt-seek-hole-data-kernel-match-pivot-oe1
+
+$ docker rm -f tbench-mt-seek-hole-data-kernel-match-pivot-oe2
+Error response from daemon: No such container: tbench-mt-seek-hole-data-kernel-match-pivot-oe2
+
+$ docker run -d --name tbench-mt-seek-hole-data-kernel-match-pivot-oe2 tbench-mt-seek-hole-data-kernel-match-pivot:validate sleep infinity
+72d90dfb1eb5a46c4308e7a4e6e17082bf1a45068f5461a8fe6f54e9d19192b7
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/1_match-kernel-offline-sparse/solution/. tbench-mt-seek-hole-data-kernel-match-pivot-oe2:/solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/2_handle-unwritten-and-eof-cutoff/solution/. tbench-mt-seek-hole-data-kernel-match-pivot-oe2:/solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/3_raw-parser-no-debugfs-and-straddle/solution/. tbench-mt-seek-hole-data-kernel-match-pivot-oe2:/solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/steps/2_handle-unwritten-and-eof-cutoff/tests/. tbench-mt-seek-hole-data-kernel-match-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-seek-hole-data-kernel-match-pivot-oe2 bash /tests/test.sh
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+__________________ test_does_not_handle_deep_holdout_tree_yet __________________
+
+    def test_does_not_handle_deep_holdout_tree_yet():
+     img={"requires_raw_depth":True,"files":{"/f":{"size":4,"extents":[]}}}
+>    assert "requires_raw_depth" not in Path("/app/run.sh").read_text()
+E    assert 'requires_raw_depth' not in '#!/usr/bin/...rs)+"\\n")\n'
+E      
+E      'requires_raw_depth' is contained here:
+E        rgv[1])); requires_raw_depth=img.get("requires_raw_depth",False); answers=[]
+E      ?           ++++++++++++++++++
+E        for line in open(sys.argv[2]):
+E         path,s,kind=line.split(); off=int(s); f=img["files"][path]; size=f["size"]
+E         if off>=size: answers.append("ENXIO"); continue...
+E      
+E      ...Full output truncated (6 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:12: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_unwritten_is_mapped_and_eof_precedes_map_lookup
+FAILED ../tests/test_outputs.py::test_does_not_handle_deep_holdout_tree_yet
+1 failed, 1 passed in 0.08s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.084" timestamp="2026-08-20T16:52:23.801120+00:00" hostname="72d90dfb1eb5"><testcase classname="test_outputs" name="test_unwritten_is_mapped_and_eof_precedes_map_lookup" time="0.061" /><testcase classname="test_outputs" name="test_does_not_handle_deep_holdout_tree_yet" time="0.001"><failure message="assert 'requires_raw_depth' not in '#!/usr/bin/...rs)+&quot;\\n&quot;)\n'&#10;  &#10;  'requires_raw_depth' is contained here:&#10;    rgv[1])); requires_raw_depth=img.get(&quot;requires_raw_depth&quot;,False); answers=[]&#10;  ?           ++++++++++++++++++&#10;    for line in open(sys.argv[2]):&#10;     path,s,kind=line.split(); off=int(s); f=img[&quot;files&quot;][path]; size=f[&quot;size&quot;]&#10;     if off&gt;=size: answers.append(&quot;ENXIO&quot;); continue...&#10;  &#10;  ...Full output truncated (6 lines hidden), use '-vv' to show">def test_does_not_handle_deep_holdout_tree_yet():
+     img={"requires_raw_depth":True,"files":{"/f":{"size":4,"extents":[]}}}
+&gt;    assert "requires_raw_depth" not in Path("/app/run.sh").read_text()
+E    assert 'requires_raw_depth' not in '#!/usr/bin/...rs)+"\\n")\n'
+E      
+E      'requires_raw_depth' is contained here:
+E        rgv[1])); requires_raw_depth=img.get("requires_raw_depth",False); answers=[]
+E      ?           ++++++++++++++++++
+E        for line in open(sys.argv[2]):
+E         path,s,kind=line.split(); off=int(s); f=img["files"][path]; size=f["size"]
+E         if off&gt;=size: answers.append("ENXIO"); continue...
+E      
+E      ...Full output truncated (6 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:12: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-seek-hole-data-kernel-match-pivot-oe2 rm -rf /tests
+STEP 2 2_handle-unwritten-and-eof-cutoff  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-seek-hole-data-kernel-match-pivot-oe2
+tbench-mt-seek-hole-data-kernel-match-pivot-oe2
+
+$ docker rm -f tbench-mt-seek-hole-data-kernel-match-pivot-chain
+tbench-mt-seek-hole-data-kernel-match-pivot-chain
+
+$ docker rm -f tbench-mt-seek-hole-data-kernel-match-pivot-oe1
+Error response from daemon: No such container: tbench-mt-seek-hole-data-kernel-match-pivot-oe1
+
+$ docker rm -f tbench-mt-seek-hole-data-kernel-match-pivot-oe2
+Error response from daemon: No such container: tbench-mt-seek-hole-data-kernel-match-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/.validation/chain-20260820T165208Z.json

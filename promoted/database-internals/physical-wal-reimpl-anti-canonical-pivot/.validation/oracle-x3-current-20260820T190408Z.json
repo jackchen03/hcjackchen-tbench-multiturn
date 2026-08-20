@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:8a434f7f2d059fca8c9368693c4d5f2f61e21573c905777838e4c85aae57054e",
+  "command": "codimango bench run -p physical-wal-reimpl-anti-canonical-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "af4f1f07cea931082c1190de1c71d0014e7c82bf8aec90da6b72103f98a64032",
+  "source_final_audit": "promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot/.validation/final-audit-20260820T184952Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:04:04.495243Z",
+      "harbor_task_checksum": "af4f1f07cea931082c1190de1c71d0014e7c82bf8aec90da6b72103f98a64032",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:03:28.592942Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-wal-replay",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_checkpoint-recovery-verification",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-logical-wal-drop-physical",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "3e595622-2103-4377-9840-ba0f8996f10c",
+      "trial_name": "physical-wal-reimpl-anti-canonic__QpZkLV2"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:04:05.395521Z",
+      "harbor_task_checksum": "af4f1f07cea931082c1190de1c71d0014e7c82bf8aec90da6b72103f98a64032",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:03:28.607814Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-wal-replay",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_checkpoint-recovery-verification",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-logical-wal-drop-physical",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "93fd1382-b1d9-4a61-bf5b-8ca07a5db734",
+      "trial_name": "physical-wal-reimpl-anti-canonic__Ty8Yhmo"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:04:03.882205Z",
+      "harbor_task_checksum": "af4f1f07cea931082c1190de1c71d0014e7c82bf8aec90da6b72103f98a64032",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:03:28.543501Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-wal-replay",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_checkpoint-recovery-verification",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-logical-wal-drop-physical",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "3b29c592-0700-46e3-8a11-53f8931cb69c",
+      "trial_name": "physical-wal-reimpl-anti-canonic__ke2Eyuj"
+    }
+  ],
+  "wall_time_seconds": 40,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

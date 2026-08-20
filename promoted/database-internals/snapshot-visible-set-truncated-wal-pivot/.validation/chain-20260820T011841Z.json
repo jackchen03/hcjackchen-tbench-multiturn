@@ -1,0 +1,27 @@
+{
+  "task": "snapshot-visible-set-truncated-wal-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-snapshot-visible-set-truncated-wal-pivot:validate"
+    },
+    {
+      "step": "1_recover-visible-set",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-visible-set",
+      "phase": "ORACLE",
+      "status": "FAIL",
+      "detail": "exit 1"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "0/2 probed",
+  "unproven": true
+}

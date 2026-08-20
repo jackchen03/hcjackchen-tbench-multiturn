@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:831a39724e64169339159df6ae419610187b4ce0cf1ca3c56bd47dd957825782",
+  "command": "codimango bench run -p packed-feed-corrupt-book-rebuild-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "cfa635dc7e524d4cf52b42230e96b60c7f347c0a41f7092333a8cbd5a4bcaae5",
+  "source_final_audit": "promoted/trading/packed-feed-corrupt-book-rebuild-pivot/.validation/final-audit-20260820T185652Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/trading/packed-feed-corrupt-book-rebuild-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:19:59.312606Z",
+      "harbor_task_checksum": "cfa635dc7e524d4cf52b42230e96b60c7f347c0a41f7092333a8cbd5a4bcaae5",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:19:22.089185Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_packed-feed-book-still-corrupt",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_price-still-byte-swapped-id-mismatch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-v2-structural-reorder-version",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "2b1141d8-b675-4918-b0d5-9c480b79c096",
+      "trial_name": "packed-feed-corrupt-book-rebuild__GMmFTcZ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:19:57.854344Z",
+      "harbor_task_checksum": "cfa635dc7e524d4cf52b42230e96b60c7f347c0a41f7092333a8cbd5a4bcaae5",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:19:22.026928Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_packed-feed-book-still-corrupt",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_price-still-byte-swapped-id-mismatch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-v2-structural-reorder-version",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "377feb8c-4299-4e9b-92b2-0bdb97c21435",
+      "trial_name": "packed-feed-corrupt-book-rebuild__j4G3YS4"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:19:58.438588Z",
+      "harbor_task_checksum": "cfa635dc7e524d4cf52b42230e96b60c7f347c0a41f7092333a8cbd5a4bcaae5",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:19:22.074940Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_packed-feed-book-still-corrupt",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_price-still-byte-swapped-id-mismatch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-v2-structural-reorder-version",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "64421644-670f-4625-afbd-b6d03978a646",
+      "trial_name": "packed-feed-corrupt-book-rebuild__yhxEngC"
+    }
+  ],
+  "wall_time_seconds": 40,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

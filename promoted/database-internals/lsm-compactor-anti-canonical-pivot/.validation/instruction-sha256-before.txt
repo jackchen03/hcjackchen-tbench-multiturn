@@ -1,0 +1,3 @@
+675eb074b9db40e959ece12fb7d47f109d10438176753b0bda18f8e792b06da5  promoted/database-internals/lsm-compactor-anti-canonical-pivot/steps/1_byte-match-anti-canonical-compactor/instruction.md
+1fb74aea1d50683a3dac6bd7829042e34512c46d4fb6dc7111dc8b5d3be92005  promoted/database-internals/lsm-compactor-anti-canonical-pivot/steps/2_add-level-accounting-from-sstable/instruction.md
+c78c4c251d099cb0285f89ed9d894890f38b834f9980f90324f174b4f033dc76  promoted/database-internals/lsm-compactor-anti-canonical-pivot/steps/3_pivot-tiered-no-parity-drop-accounting/instruction.md

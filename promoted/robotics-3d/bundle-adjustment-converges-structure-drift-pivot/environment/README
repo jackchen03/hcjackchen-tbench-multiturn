@@ -1,0 +1,2 @@
+The npz keys are points, poses, obs, cam_ids, pt_ids, sigmas. Run python3 /app/ba_refine.py --input problem.npz --output result.npz. Output preserves points and poses; the first camera remains fixed.
+

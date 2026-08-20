@@ -1,0 +1,393 @@
+== oracle chain: moldudp64-gap-detection-multi-msg-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-moldudp64-gap-detection-multi-msg-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/environment
+sha256:c638aeb8902150042f827da5adfb7349b2d8266b0991b556356bbe908aca9776
+
+$ docker rm -f tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain
+Error response from daemon: No such container: tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain
+
+$ docker run -d --name tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain tbench-mt-moldudp64-gap-detection-multi-msg-pivot:validate sleep infinity
+c564439ec63a934edeffa1beb01670afd0169ae014d85d62b8005f64ca0cbb41
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/1_multi-msg-count-drift/tests/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+________________ test_multi_message_global_sequence_accounting _________________
+
+    def test_multi_message_global_sequence_accounting():
+        stream,gaps=run("prod_multi")
+>       assert stream == "41\n42\n43\n44\n45\n47\n"
+E       AssertionError: assert '41\n44\n47\n' == '41\n42\n43\n44\n45\n47\n'
+E         
+E           41
+E         - 42
+E         - 43
+E           44
+E         - 45
+E           47
+
+/tests/test_outputs.py:14: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_does_not_handle_heartbeat_or_end_of_session_yet
+FAILED ../tests/test_outputs.py::test_multi_message_global_sequence_accounting
+1 failed, 1 passed in 0.06s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.067" timestamp="2026-08-20T00:54:27.105920+00:00" hostname="c564439ec63a"><testcase classname="test_outputs" name="test_multi_message_global_sequence_accounting" time="0.046"><failure message="AssertionError: assert '41\n44\n47\n' == '41\n42\n43\n44\n45\n47\n'&#10;  &#10;    41&#10;  - 42&#10;  - 43&#10;    44&#10;  - 45&#10;    47">def test_multi_message_global_sequence_accounting():
+        stream,gaps=run("prod_multi")
+&gt;       assert stream == "41\n42\n43\n44\n45\n47\n"
+E       AssertionError: assert '41\n44\n47\n' == '41\n42\n43\n44\n45\n47\n'
+E         
+E           41
+E         - 42
+E         - 43
+E           44
+E         - 45
+E           47
+
+/tests/test_outputs.py:14: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_handle_heartbeat_or_end_of_session_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests
+STEP 1 1_multi-msg-count-drift  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/1_multi-msg-count-drift/solution/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain:/solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /solution
+STEP 1 1_multi-msg-count-drift  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/1_multi-msg-count-drift/tests/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_multi_message_global_sequence_accounting
+PASSED ../tests/test_outputs.py::test_does_not_handle_heartbeat_or_end_of_session_yet
+2 passed in 0.06s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.061" timestamp="2026-08-20T00:54:28.762958+00:00" hostname="c564439ec63a"><testcase classname="test_outputs" name="test_multi_message_global_sequence_accounting" time="0.047" /><testcase classname="test_outputs" name="test_does_not_handle_heartbeat_or_end_of_session_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests
+STEP 1 1_multi-msg-count-drift  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/2_heartbeat-eos-sentinel/tests/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain bash /tests/test.sh
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_heartbeat_and_end_of_session_are_ignored _________________
+
+    def test_heartbeat_and_end_of_session_are_ignored():
+        stream,gaps=run("with_heartbeat")
+>       assert stream == "41\n42\n43\n"
+E       AssertionError: assert '41\n42\n43\n\n' == '41\n42\n43\n'
+E         
+E           41
+E           42
+E           43
+E         +
+
+/tests/test_outputs.py:14: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_preserves_multi_message_sequence_accounting
+PASSED ../tests/test_outputs.py::test_does_not_use_store_setdefault_first_wins_yet
+FAILED ../tests/test_outputs.py::test_heartbeat_and_end_of_session_are_ignored
+1 failed, 2 passed in 0.11s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.114" timestamp="2026-08-20T00:54:29.924449+00:00" hostname="c564439ec63a"><testcase classname="test_outputs" name="test_heartbeat_and_end_of_session_are_ignored" time="0.046"><failure message="AssertionError: assert '41\n42\n43\n\n' == '41\n42\n43\n'&#10;  &#10;    41&#10;    42&#10;    43&#10;  +">def test_heartbeat_and_end_of_session_are_ignored():
+        stream,gaps=run("with_heartbeat")
+&gt;       assert stream == "41\n42\n43\n"
+E       AssertionError: assert '41\n42\n43\n\n' == '41\n42\n43\n'
+E         
+E           41
+E           42
+E           43
+E         +
+
+/tests/test_outputs.py:14: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_preserves_multi_message_sequence_accounting" time="0.045" /><testcase classname="test_outputs" name="test_does_not_use_store_setdefault_first_wins_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests
+STEP 2 2_heartbeat-eos-sentinel  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/2_heartbeat-eos-sentinel/solution/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain:/solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /solution
+STEP 2 2_heartbeat-eos-sentinel  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/2_heartbeat-eos-sentinel/tests/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_heartbeat_and_end_of_session_are_ignored
+PASSED ../tests/test_outputs.py::test_preserves_multi_message_sequence_accounting
+PASSED ../tests/test_outputs.py::test_does_not_use_store_setdefault_first_wins_yet
+3 passed in 0.11s
+reward=1 (3 passed, 0 skipped)
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.108" timestamp="2026-08-20T00:54:31.599072+00:00" hostname="c564439ec63a"><testcase classname="test_outputs" name="test_heartbeat_and_end_of_session_are_ignored" time="0.046" /><testcase classname="test_outputs" name="test_preserves_multi_message_sequence_accounting" time="0.047" /><testcase classname="test_outputs" name="test_does_not_use_store_setdefault_first_wins_yet" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests
+STEP 2 2_heartbeat-eos-sentinel  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/3_global-seq-dedup-pivot/tests/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain bash /tests/test.sh
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_overlapping_retransmit_uses_per_message_first_wins ____________
+
+    def test_overlapping_retransmit_uses_per_message_first_wins():
+        stream,gaps=run("collision")
+>       assert stream == "41\n42\n43\n44\n45\n46\n47\n"
+E       AssertionError: assert '41\n42\n43\n44\n45\n46\n' == '41\n42\n43\n44\n45\n46\n47\n'
+E         
+E           41
+E           42
+E           43
+E           44
+E           45
+E           46
+E         - 47
+
+/tests/test_outputs.py:14: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_preserves_prior_multi_message_and_sentinel_behavior
+FAILED ../tests/test_outputs.py::test_overlapping_retransmit_uses_per_message_first_wins
+1 failed, 1 passed in 0.16s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.160" timestamp="2026-08-20T00:54:32.795698+00:00" hostname="c564439ec63a"><testcase classname="test_outputs" name="test_overlapping_retransmit_uses_per_message_first_wins" time="0.047"><failure message="AssertionError: assert '41\n42\n43\n44\n45\n46\n' == '41\n42\n43\n44\n45\n46\n47\n'&#10;  &#10;    41&#10;    42&#10;    43&#10;    44&#10;    45&#10;    46&#10;  - 47">def test_overlapping_retransmit_uses_per_message_first_wins():
+        stream,gaps=run("collision")
+&gt;       assert stream == "41\n42\n43\n44\n45\n46\n47\n"
+E       AssertionError: assert '41\n42\n43\n44\n45\n46\n' == '41\n42\n43\n44\n45\n46\n47\n'
+E         
+E           41
+E           42
+E           43
+E           44
+E           45
+E           46
+E         - 47
+
+/tests/test_outputs.py:14: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_preserves_prior_multi_message_and_sentinel_behavior" time="0.092" /></testsuite></testsuites>
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests
+STEP 3 3_global-seq-dedup-pivot  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/3_global-seq-dedup-pivot/solution/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain:/solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /solution
+STEP 3 3_global-seq-dedup-pivot  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/3_global-seq-dedup-pivot/tests/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_overlapping_retransmit_uses_per_message_first_wins
+PASSED ../tests/test_outputs.py::test_preserves_prior_multi_message_and_sentinel_behavior
+2 passed in 0.15s
+reward=1 (2 passed, 0 skipped)
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.155" timestamp="2026-08-20T00:54:34.560724+00:00" hostname="c564439ec63a"><testcase classname="test_outputs" name="test_overlapping_retransmit_uses_per_message_first_wins" time="0.050" /><testcase classname="test_outputs" name="test_preserves_prior_multi_message_and_sentinel_behavior" time="0.092" /></testsuite></testsuites>
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain rm -rf /tests
+STEP 3 3_global-seq-dedup-pivot  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1
+Error response from daemon: No such container: tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1
+
+$ docker run -d --name tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 tbench-mt-moldudp64-gap-detection-multi-msg-pivot:validate sleep infinity
+72ee9c2243d451457b51f657e4a9849433e1aa65429d12db77118bcfdee39727
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/1_multi-msg-count-drift/solution/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1:/solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/2_heartbeat-eos-sentinel/solution/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1:/solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/1_multi-msg-count-drift/tests/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 bash /tests/test.sh
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_____________ test_does_not_handle_heartbeat_or_end_of_session_yet _____________
+
+    def test_does_not_handle_heartbeat_or_end_of_session_yet():
+        source=Path("/app/moldfeed/reconcile.py").read_text()
+>       assert "0xFFFF" not in source
+E       AssertionError: assert '0xFFFF' not in 'import sys\...argv[1:4])\n'
+E         
+E         '0xFFFF' is contained here:
+E            count == 0xFFFF:
+E         ?           ++++++
+E                       continue
+E                   if seq in seen_starts:
+E                       continue...
+E         
+E         ...Full output truncated (9 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:19: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_multi_message_global_sequence_accounting
+FAILED ../tests/test_outputs.py::test_does_not_handle_heartbeat_or_end_of_session_yet
+1 failed, 1 passed in 0.07s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.068" timestamp="2026-08-20T00:54:37.222292+00:00" hostname="72ee9c2243d4"><testcase classname="test_outputs" name="test_multi_message_global_sequence_accounting" time="0.047" /><testcase classname="test_outputs" name="test_does_not_handle_heartbeat_or_end_of_session_yet" time="0.001"><failure message="AssertionError: assert '0xFFFF' not in 'import sys\...argv[1:4])\n'&#10;  &#10;  '0xFFFF' is contained here:&#10;     count == 0xFFFF:&#10;  ?           ++++++&#10;                continue&#10;            if seq in seen_starts:&#10;                continue...&#10;  &#10;  ...Full output truncated (9 lines hidden), use '-vv' to show">def test_does_not_handle_heartbeat_or_end_of_session_yet():
+        source=Path("/app/moldfeed/reconcile.py").read_text()
+&gt;       assert "0xFFFF" not in source
+E       AssertionError: assert '0xFFFF' not in 'import sys\...argv[1:4])\n'
+E         
+E         '0xFFFF' is contained here:
+E            count == 0xFFFF:
+E         ?           ++++++
+E                       continue
+E                   if seq in seen_starts:
+E                       continue...
+E         
+E         ...Full output truncated (9 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:19: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1 rm -rf /tests
+STEP 1 1_multi-msg-count-drift  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1
+tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1
+
+$ docker rm -f tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2
+Error response from daemon: No such container: tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2
+
+$ docker run -d --name tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 tbench-mt-moldudp64-gap-detection-multi-msg-pivot:validate sleep infinity
+7eaa61128c0d37db7c3f1ebeeb50f69fdcd38cc79ae2d21699553ce402abc7d7
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/1_multi-msg-count-drift/solution/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2:/solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/2_heartbeat-eos-sentinel/solution/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2:/solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/3_global-seq-dedup-pivot/solution/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2:/solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 bash /solution/solve.sh
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 rm -rf /solution
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/2_heartbeat-eos-sentinel/tests/. tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2:/tests
+$ docker exec -w /app tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 bash /tests/test.sh
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+______________ test_does_not_use_store_setdefault_first_wins_yet _______________
+
+    def test_does_not_use_store_setdefault_first_wins_yet():
+        source=Path("/app/moldfeed/reconcile.py").read_text()
+>       assert "store.setdefault" not in source
+E       assert 'store.setdefault' not in 'import sys\...argv[1:4])\n'
+E         
+E         'store.setdefault' is contained here:
+E                     store.setdefault(seq+i,message)
+E         ?           ++++++++++++++++
+E               with open(stream_out,"w") as handle:
+E                   for key in sorted(store): handle.write(store[key].hex()+"\n")
+E               with open(gaps_out,"w") as handle:...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:24: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_heartbeat_and_end_of_session_are_ignored
+PASSED ../tests/test_outputs.py::test_preserves_multi_message_sequence_accounting
+FAILED ../tests/test_outputs.py::test_does_not_use_store_setdefault_first_wins_yet
+1 failed, 2 passed in 0.11s
+reward=0 (1 failed, 0 errored)
+
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.115" timestamp="2026-08-20T00:54:40.379522+00:00" hostname="7eaa61128c0d"><testcase classname="test_outputs" name="test_heartbeat_and_end_of_session_are_ignored" time="0.046" /><testcase classname="test_outputs" name="test_preserves_multi_message_sequence_accounting" time="0.046" /><testcase classname="test_outputs" name="test_does_not_use_store_setdefault_first_wins_yet" time="0.001"><failure message="assert 'store.setdefault' not in 'import sys\...argv[1:4])\n'&#10;  &#10;  'store.setdefault' is contained here:&#10;              store.setdefault(seq+i,message)&#10;  ?           ++++++++++++++++&#10;        with open(stream_out,&quot;w&quot;) as handle:&#10;            for key in sorted(store): handle.write(store[key].hex()+&quot;\n&quot;)&#10;        with open(gaps_out,&quot;w&quot;) as handle:...&#10;  &#10;  ...Full output truncated (3 lines hidden), use '-vv' to show">def test_does_not_use_store_setdefault_first_wins_yet():
+        source=Path("/app/moldfeed/reconcile.py").read_text()
+&gt;       assert "store.setdefault" not in source
+E       assert 'store.setdefault' not in 'import sys\...argv[1:4])\n'
+E         
+E         'store.setdefault' is contained here:
+E                     store.setdefault(seq+i,message)
+E         ?           ++++++++++++++++
+E               with open(stream_out,"w") as handle:
+E                   for key in sorted(store): handle.write(store[key].hex()+"\n")
+E               with open(gaps_out,"w") as handle:...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:24: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2 rm -rf /tests
+STEP 2 2_heartbeat-eos-sentinel  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2
+tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2
+
+$ docker rm -f tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain
+tbench-mt-moldudp64-gap-detection-multi-msg-pivot-chain
+
+$ docker rm -f tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1
+Error response from daemon: No such container: tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe1
+
+$ docker rm -f tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2
+Error response from daemon: No such container: tbench-mt-moldudp64-gap-detection-multi-msg-pivot-oe2
+
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/trading/moldudp64-gap-detection-multi-msg-pivot/.validation/chain-20260820T005421Z.json

@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "promoted/filesystem-internals/sparsepack-three-state-archive-pivot",
+  "task_checksum": "b300d7996ffd8848d6a8aba23d21d4cc553d0f8974c52e63e614ed1045fd90fc",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:49:09.013938Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:48:33.696238Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reverse-basic-spk-format",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-written-zeros",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-physical-tree-segmentation",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "b300d7996ffd8848d6a8aba23d21d4cc553d0f8974c52e63e614ed1045fd90fc",
+      "trial_id": "7cf8de9b-c0f2-4f85-9319-a44da6b68c68",
+      "trial_name": "sparsepack-three-state-archive-p__QDvhd7V"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:49:10.413351Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:48:33.756913Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reverse-basic-spk-format",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-written-zeros",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-physical-tree-segmentation",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "b300d7996ffd8848d6a8aba23d21d4cc553d0f8974c52e63e614ed1045fd90fc",
+      "trial_id": "6a29431b-1f58-4c72-a703-f796b936f389",
+      "trial_name": "sparsepack-three-state-archive-p__azFrmTh"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:49:09.584239Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:48:33.744003Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reverse-basic-spk-format",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-written-zeros",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-physical-tree-segmentation",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "b300d7996ffd8848d6a8aba23d21d4cc553d0f8974c52e63e614ed1045fd90fc",
+      "trial_id": "798e26dd-f7b6-4b48-b83b-68326405095e",
+      "trial_name": "sparsepack-three-state-archive-p__xmcwshY"
+    }
+  ]
+}

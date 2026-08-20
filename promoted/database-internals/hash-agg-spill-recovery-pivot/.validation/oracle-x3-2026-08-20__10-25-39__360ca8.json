@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/hash-agg-spill-recovery-pivot",
+  "task_checksum": "2d4c7920e4a76155462d4163eaab0ab9562f6fc4f97e992c6084b71dbfc7e623",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:26:16.900972Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:25:39.882498Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-naive-aggregate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-partial-aggregates",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-sort-aggregation",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "2d4c7920e4a76155462d4163eaab0ab9562f6fc4f97e992c6084b71dbfc7e623",
+      "trial_id": "61b7278e-1a06-4876-ba96-6de116162ee7",
+      "trial_name": "hash-agg-spill-recovery-pivot__7CoLUMy"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:26:16.346913Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:25:39.866800Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-naive-aggregate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-partial-aggregates",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-sort-aggregation",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "2d4c7920e4a76155462d4163eaab0ab9562f6fc4f97e992c6084b71dbfc7e623",
+      "trial_id": "0405ed3d-7898-45cf-8188-b96ed0b82430",
+      "trial_name": "hash-agg-spill-recovery-pivot__hzApTZ5"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:26:16.085445Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:25:39.813887Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-naive-aggregate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-partial-aggregates",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-sort-aggregation",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "2d4c7920e4a76155462d4163eaab0ab9562f6fc4f97e992c6084b71dbfc7e623",
+      "trial_id": "6e46010d-8b0a-4f31-bb1c-ab22b9a11005",
+      "trial_name": "hash-agg-spill-recovery-pivot__unAkg2Z"
+    }
+  ]
+}

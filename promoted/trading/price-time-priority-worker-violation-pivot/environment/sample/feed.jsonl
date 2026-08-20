@@ -1,0 +1,4 @@
+{"oid":1001,"sym":"XYZ","side":"ASK","price":100,"qty":5,"action":"ADD"}
+{"oid":1002,"sym":"XYZ","side":"ASK","price":100,"qty":7,"action":"ADD"}
+{"oid":2001,"sym":"XYZ","side":"ASK","price":100,"qty":8,"action":"TAKE"}
+

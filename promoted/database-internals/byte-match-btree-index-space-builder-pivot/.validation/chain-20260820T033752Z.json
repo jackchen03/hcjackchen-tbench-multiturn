@@ -1,0 +1,33 @@
+{
+  "task": "byte-match-btree-index-space-builder-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-byte-match-btree-index-space-builder-pivot:validate"
+    },
+    {
+      "step": "1_btree-byte-exact-builder",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_btree-byte-exact-builder",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_btree-byte-exact-builder",
+      "phase": "GREEN",
+      "status": "FAIL",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "0/2 probed",
+  "unproven": true
+}

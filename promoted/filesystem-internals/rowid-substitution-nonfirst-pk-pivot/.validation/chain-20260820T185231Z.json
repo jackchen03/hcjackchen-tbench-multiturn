@@ -1,0 +1,81 @@
+{
+  "task": "rowid-substitution-nonfirst-pk-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-rowid-substitution-nonfirst-pk-pivot:validate"
+    },
+    {
+      "step": "1_decode-leaf-page",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_decode-leaf-page",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_decode-leaf-page",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_merge-second-evidence",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_merge-second-evidence",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_merge-second-evidence",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_rebuild-queryable-db",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "3_rebuild-queryable-db",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_rebuild-queryable-db",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_decode-leaf-page",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_merge-second-evidence",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

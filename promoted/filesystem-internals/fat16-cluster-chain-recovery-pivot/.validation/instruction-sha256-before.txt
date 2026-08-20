@@ -1,0 +1,3 @@
+1b80dcc3b8357d68d770096ae15e4fddd4ae6100c3e8bc9bf14464b5a03ea747  promoted/filesystem-internals/fat16-cluster-chain-recovery-pivot/steps/1_recover-this-card/instruction.md
+3da39aac07e8756335cfd3d6d7bd99d409090c145e67d0ef77a4ec4ecef277b1  promoted/filesystem-internals/fat16-cluster-chain-recovery-pivot/steps/2_generalize-recover-binary/instruction.md
+6e7fb8aa5d0e64bd1cdf94afdab6c669ddfc582722c8e64bb1e015ef3716dd59  promoted/filesystem-internals/fat16-cluster-chain-recovery-pivot/steps/3_pivot-to-unaligned-scan/instruction.md

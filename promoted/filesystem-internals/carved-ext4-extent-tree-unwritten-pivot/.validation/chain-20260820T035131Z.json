@@ -1,0 +1,81 @@
+{
+  "task": "carved-ext4-extent-tree-unwritten-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-carved-ext4-extent-tree-unwritten-pivot:validate"
+    },
+    {
+      "step": "1_recover-file-contiguous-extent",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-file-contiguous-extent",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover-file-contiguous-extent",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_handle-unwritten-and-decoy-bound",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_handle-unwritten-and-decoy-bound",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_handle-unwritten-and-decoy-bound",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_truncate-eof-and-fix-unwritten-length",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "3_truncate-eof-and-fix-unwritten-length",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_truncate-eof-and-fix-unwritten-length",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "1 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-file-contiguous-extent",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_handle-unwritten-and-decoy-bound",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 2 failed, 0 errored"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all probed",
+  "unproven": false
+}

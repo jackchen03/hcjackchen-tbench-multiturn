@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "promoted/filesystem-internals/crosslinked-block-victim-real-block-pivot",
+  "task_checksum": "23f8f31808c9705932f71b5ee8a8381cac4f2f3f8769c323735f3358d39b27f9",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:40:30.618610Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:39:55.104660Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-and-repair-disk",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_generalize-repair-tool",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_handle-deep-extents-and-selective-leaks",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "23f8f31808c9705932f71b5ee8a8381cac4f2f3f8769c323735f3358d39b27f9",
+      "trial_id": "759c7077-e5be-4a5e-9fcf-40ca1a0d6d3d",
+      "trial_name": "crosslinked-block-victim-real-bl__KcsRK8w"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:40:31.433328Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:39:55.153698Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-and-repair-disk",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_generalize-repair-tool",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_handle-deep-extents-and-selective-leaks",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "23f8f31808c9705932f71b5ee8a8381cac4f2f3f8769c323735f3358d39b27f9",
+      "trial_id": "0f8618b6-559a-4869-bc02-3fcdcc42de2a",
+      "trial_name": "crosslinked-block-victim-real-bl__k5WJ47n"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:40:32.237736Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:39:55.167468Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-and-repair-disk",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_generalize-repair-tool",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_handle-deep-extents-and-selective-leaks",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "23f8f31808c9705932f71b5ee8a8381cac4f2f3f8769c323735f3358d39b27f9",
+      "trial_id": "28574a76-5edc-43bd-84e5-7b4e272e3f62",
+      "trial_name": "crosslinked-block-victim-real-bl__u9r8M2f"
+    }
+  ]
+}

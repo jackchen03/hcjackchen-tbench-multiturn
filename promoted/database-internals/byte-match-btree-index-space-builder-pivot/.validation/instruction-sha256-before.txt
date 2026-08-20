@@ -1,0 +1,3 @@
+af04fe38f510f42bdb8ad888081d54787b4d9a358d88406b52967c25f06477c3  promoted/database-internals/byte-match-btree-index-space-builder-pivot/steps/1_btree-byte-exact-builder/instruction.md
+6a06c7dad637d50da665d315f8cfd851fabb647c1e84b6350c5dc5e958b7d493  promoted/database-internals/byte-match-btree-index-space-builder-pivot/steps/2_report-space-accounting/instruction.md
+4591f5da60a0ea57ee8609cfd3e872d0ee1a76d149189870d3cd3d9b9b4c8e7b  promoted/database-internals/byte-match-btree-index-space-builder-pivot/steps/3_deletion-merge-redistribution-pivot/instruction.md

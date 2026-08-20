@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:a35951aa5fdc67a9f5e96effdae63f9566f0b8eceed2f0404ad616fe1e2419ab",
+  "final_audit": "promoted/database-internals/byte-exact-pages-mixed-insert-delete-pivot/.validation/final-audit-20260820T184719Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "promoted/database-internals/byte-exact-pages-mixed-insert-delete-pivot/.validation/chain-20260820T184703Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "promoted/database-internals/byte-exact-pages-mixed-insert-delete-pivot/.validation/oracle-x3-current-20260820T185827Z.json",
+  "proposed_commit_pathspec": "promoted/database-internals/byte-exact-pages-mixed-insert-delete-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "promoted/database-internals/byte-exact-pages-mixed-insert-delete-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

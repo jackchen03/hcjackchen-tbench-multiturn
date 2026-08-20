@@ -1,0 +1,2 @@
+print("uses hints only")
+

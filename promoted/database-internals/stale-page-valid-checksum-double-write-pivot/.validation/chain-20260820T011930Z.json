@@ -1,0 +1,33 @@
+{
+  "task": "stale-page-valid-checksum-double-write-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-stale-page-valid-checksum-double-write-pivot:validate"
+    },
+    {
+      "step": "1_diagnose-stale-pages",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "no readable junit report [no parseable pytest summary]"
+    },
+    {
+      "step": "1_diagnose-stale-pages",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_diagnose-stale-pages",
+      "phase": "GREEN",
+      "status": "FAIL",
+      "detail": "no readable junit report [no parseable pytest summary]"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "0/2 probed",
+  "unproven": true
+}

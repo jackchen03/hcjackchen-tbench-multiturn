@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b016384e812417371923dcd78af77fff6e70b7051fc797f9626a70b9c25790ac",
+  "command": "codimango bench run -p stale-page-valid-checksum-double-write-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "cf187d7494cb9042dd17f37304da9a63847d0c8cf4c5245aa5f7e20e74379b76",
+  "source_final_audit": "promoted/database-internals/stale-page-valid-checksum-double-write-pivot/.validation/final-audit-20260820T185033Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/stale-page-valid-checksum-double-write-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:05:31.315954Z",
+      "harbor_task_checksum": "cf187d7494cb9042dd17f37304da9a63847d0c8cf4c5245aa5f7e20e74379b76",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:04:55.126252Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-stale-pages",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-heap",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pitr-manifest-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "6142874c-8ee9-4449-a8ed-06ec9df54c1e",
+      "trial_name": "stale-page-valid-checksum-double__8fyH3Re"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:05:31.863730Z",
+      "harbor_task_checksum": "cf187d7494cb9042dd17f37304da9a63847d0c8cf4c5245aa5f7e20e74379b76",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:04:55.176432Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-stale-pages",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-heap",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pitr-manifest-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "475ea6af-c2ad-4879-81a9-65df991d455e",
+      "trial_name": "stale-page-valid-checksum-double__C3H2mvb"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:05:32.754868Z",
+      "harbor_task_checksum": "cf187d7494cb9042dd17f37304da9a63847d0c8cf4c5245aa5f7e20e74379b76",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:04:55.191771Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-stale-pages",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-heap",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pitr-manifest-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "483d7c6d-fc2f-42f8-8e7d-f58ac6d1eac9",
+      "trial_name": "stale-page-valid-checksum-double__HLuXuh2"
+    }
+  ],
+  "wall_time_seconds": 41,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

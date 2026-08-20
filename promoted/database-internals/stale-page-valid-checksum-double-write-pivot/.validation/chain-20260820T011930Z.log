@@ -1,0 +1,82 @@
+== oracle chain: stale-page-valid-checksum-double-write-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-stale-page-valid-checksum-double-write-pivot:validate /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/stale-page-valid-checksum-double-write-pivot/environment
+sha256:e4c1a4c6478746aac3ceeb31d4709ff2d782fb069abf274c7a8f7dfbc59a67fa
+
+$ docker rm -f tbench-mt-stale-page-valid-checksum-double-write-pivot-chain
+Error response from daemon: No such container: tbench-mt-stale-page-valid-checksum-double-write-pivot-chain
+
+$ docker run -d --name tbench-mt-stale-page-valid-checksum-double-write-pivot-chain tbench-mt-stale-page-valid-checksum-double-write-pivot:validate sleep infinity
+0378178fc0eee548777c795b0f58f54a6f31c741f1802800e2abf1236b1b972f
+
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/stale-page-valid-checksum-double-write-pivot/steps/1_diagnose-stale-pages/tests/. tbench-mt-stale-page-valid-checksum-double-write-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-stale-page-valid-checksum-double-write-pivot-chain bash /tests/test.sh
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 148, in _get_module_details
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/usr/local/lib/python3.11/site-packages/pytest/__init__.py", line 8, in <module>
+    from _pytest._code import ExceptionInfo
+  File "/usr/local/lib/python3.11/site-packages/_pytest/_code/__init__.py", line 5, in <module>
+    from .code import Code
+  File "/usr/local/lib/python3.11/site-packages/_pytest/_code/code.py", line 9, in <module>
+    import dataclasses
+  File "/usr/local/lib/python3.11/dataclasses.py", line 5, in <module>
+    import inspect
+  File "/app/inspect.py", line 2, in <module>
+    print(json.load(open(sys.argv[1])))
+                    ^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '-p'
+reward=0 (no junit report was produced)
+
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain cat /logs/verifier/junit.xml
+cat: /logs/verifier/junit.xml: No such file or directory
+
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain rm -rf /tests
+STEP 1 1_diagnose-stale-pages  DO-NOTHING  OK    red before the work (no readable junit report [no parseable pytest summary])
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/stale-page-valid-checksum-double-write-pivot/steps/1_diagnose-stale-pages/solution/. tbench-mt-stale-page-valid-checksum-double-write-pivot-chain:/solution
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-stale-page-valid-checksum-double-write-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain rm -rf /solution
+STEP 1 1_diagnose-stale-pages  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/stale-page-valid-checksum-double-write-pivot/steps/1_diagnose-stale-pages/tests/. tbench-mt-stale-page-valid-checksum-double-write-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-stale-page-valid-checksum-double-write-pivot-chain bash /tests/test.sh
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 148, in _get_module_details
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/usr/local/lib/python3.11/site-packages/pytest/__init__.py", line 8, in <module>
+    from _pytest._code import ExceptionInfo
+  File "/usr/local/lib/python3.11/site-packages/_pytest/_code/__init__.py", line 5, in <module>
+    from .code import Code
+  File "/usr/local/lib/python3.11/site-packages/_pytest/_code/code.py", line 9, in <module>
+    import dataclasses
+  File "/usr/local/lib/python3.11/dataclasses.py", line 5, in <module>
+    import inspect
+  File "/app/inspect.py", line 2, in <module>
+    print(json.load(open(sys.argv[1])))
+                    ^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '-p'
+reward=0 (no junit report was produced)
+
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain cat /logs/verifier/junit.xml
+cat: /logs/verifier/junit.xml: No such file or directory
+
+$ docker exec tbench-mt-stale-page-valid-checksum-double-write-pivot-chain rm -rf /tests
+STEP 1 1_diagnose-stale-pages  GREEN       FAIL  tests do not pass after the oracle ran (no readable junit report [no parseable pytest summary])
+$ docker rm -f tbench-mt-stale-page-valid-checksum-double-write-pivot-chain
+tbench-mt-stale-page-valid-checksum-double-write-pivot-chain
+
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/stale-page-valid-checksum-double-write-pivot/.validation/chain-20260820T011930Z.json   full log: /home/hcjackchen/hcjackchen-tbench-multiturn-build33/promoted/database-internals/stale-page-valid-checksum-double-write-pivot/.validation/chain-20260820T011930Z.log

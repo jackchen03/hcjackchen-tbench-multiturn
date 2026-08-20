@@ -1,18 +1,16 @@
 schema_version = "1.1"
-
 [task]
-name = "filesystem-internals/clobbered-dirent-link-count-pivot"
-description = "Ext4 filesystem repair: clobbered dirent inode number causing two link-count mismatches; fix dirent via file_type residual, then add link-count reconciliation, then pivot to byte-identical restore-only strategy dropping rewrite."
-authors = []
-
+name = "codimango/clobbered-dirent-link-count-pivot"
+description = "Repair a directory entry, reconcile link counts, then pivot to restore-only output."
+authors = [{ name = "Jack Chen", email = "hcjackchen@meta.com" }]
+keywords = ["filesystem-internals", "forensics", "multi-turn", "state-transition"]
 [metadata]
+author_name = "Jack Chen"
+author_email = "hcjackchen@meta.com"
 difficulty = "hard"
-category = "fix_bug"
+category = "filesystem-internals"
+reward_type = "binary"
 tags = ["multi-turn", "context-following", "context-overriding"]
-
-[agent]
-timeout_sec = 1800.0
-
 [environment]
 build_timeout_sec = 600.0
 cpus = 1
@@ -20,38 +18,32 @@ memory_mb = 2048
 storage_mb = 10240
 gpus = 0
 allow_internet = false
-
+mcp_servers = []
+[environment.env]
+[solution.env]
 [[steps]]
 name = "1_fix-dirent-inode-mismatch"
 dependencies = []
 min_reward = 1.0
-
 [steps.verifier]
-timeout_sec = 600.0
-
+timeout_sec = 1800.0
 [steps.agent]
 timeout_sec = 1800.0
-
 [[steps]]
 name = "2_reconcile-link-counts-carry"
 dependencies = ["1_fix-dirent-inode-mismatch"]
-min_reward = 1.0
 inherit_prior_session = true
-
+min_reward = 1.0
 [steps.verifier]
-timeout_sec = 600.0
-
+timeout_sec = 1800.0
 [steps.agent]
 timeout_sec = 1800.0
-
 [[steps]]
 name = "3_pivot-restore-only-drop-rewrite"
 dependencies = ["2_reconcile-link-counts-carry"]
-min_reward = 1.0
 inherit_prior_session = true
-
+min_reward = 1.0
 [steps.verifier]
-timeout_sec = 600.0
-
+timeout_sec = 1800.0
 [steps.agent]
 timeout_sec = 1800.0

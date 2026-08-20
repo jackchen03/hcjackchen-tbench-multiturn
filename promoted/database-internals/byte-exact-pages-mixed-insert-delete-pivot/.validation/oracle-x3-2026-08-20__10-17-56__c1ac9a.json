@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/byte-exact-pages-mixed-insert-delete-pivot",
+  "task_checksum": "8fa28256b38be198ff9150f17566f780c035ea806c6837d3ed8a9c4e91af6da8",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:18:34.655206Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:17:56.912959Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_single-page-ghost-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_full-split-merge-byte-fill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-compact-ghost-free",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "8fa28256b38be198ff9150f17566f780c035ea806c6837d3ed8a9c4e91af6da8",
+      "trial_id": "dd6e4c76-4dda-4fc9-a80f-e34aa4e03f70",
+      "trial_name": "byte-exact-pages-mixed-insert-de__CKQ62Yc"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:18:36.189231Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:17:56.975497Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_single-page-ghost-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_full-split-merge-byte-fill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-compact-ghost-free",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "8fa28256b38be198ff9150f17566f780c035ea806c6837d3ed8a9c4e91af6da8",
+      "trial_id": "f0cfb515-b1d9-493c-8dd4-1dfe5ae289e2",
+      "trial_name": "byte-exact-pages-mixed-insert-de__nVFNHVi"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:18:35.548265Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:17:56.962312Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_single-page-ghost-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_full-split-merge-byte-fill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-compact-ghost-free",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "8fa28256b38be198ff9150f17566f780c035ea806c6837d3ed8a9c4e91af6da8",
+      "trial_id": "244b45f7-79bf-4929-8f46-1d217b28a085",
+      "trial_name": "byte-exact-pages-mixed-insert-de__yof8cwG"
+    }
+  ]
+}

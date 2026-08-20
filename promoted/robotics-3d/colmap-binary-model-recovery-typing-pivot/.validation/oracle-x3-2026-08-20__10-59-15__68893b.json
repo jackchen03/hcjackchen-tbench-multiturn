@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "promoted/robotics-3d/colmap-binary-model-recovery-typing-pivot",
+  "task_checksum": "50d264c25f8fc388635e0014dff08d2a4126e847b26a4cc308b10709ad23a973",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T18:00:01.231193Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:59:15.877944Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-points",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-poses",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-standard-binary",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "50d264c25f8fc388635e0014dff08d2a4126e847b26a4cc308b10709ad23a973",
+      "trial_id": "1f3ccaca-9710-4ddc-be1a-91df428374be",
+      "trial_name": "colmap-binary-model-recovery-typ__EfsU6ce"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T18:00:00.355470Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:59:15.815769Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-points",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-poses",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-standard-binary",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "50d264c25f8fc388635e0014dff08d2a4126e847b26a4cc308b10709ad23a973",
+      "trial_id": "9e5651d9-ca31-4740-96ce-a61faf96a70c",
+      "trial_name": "colmap-binary-model-recovery-typ__LV8uTTL"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:59:58.879293Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:59:15.713952Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-points",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-poses",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-standard-binary",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "50d264c25f8fc388635e0014dff08d2a4126e847b26a4cc308b10709ad23a973",
+      "trial_id": "916bef27-4d55-4e61-a17c-075f2cb23cf6",
+      "trial_name": "colmap-binary-model-recovery-typ__yTyskVE"
+    }
+  ]
+}

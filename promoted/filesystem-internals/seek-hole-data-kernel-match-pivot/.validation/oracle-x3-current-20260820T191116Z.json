@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:74fbd1c333d090af88a818597bf76ea7c1591ef7f95edf67b4937d649f27c529",
+  "command": "codimango bench run -p seek-hole-data-kernel-match-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "aebfb6eed81800a4a073c04ee66cbd6713b94bd7865d2bd59895b1c3077dabf9",
+  "source_final_audit": "promoted/filesystem-internals/seek-hole-data-kernel-match-pivot/.validation/final-audit-20260820T185306Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/filesystem-internals/seek-hole-data-kernel-match-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:11:13.814692Z",
+      "harbor_task_checksum": "aebfb6eed81800a4a073c04ee66cbd6713b94bd7865d2bd59895b1c3077dabf9",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:10:37.829335Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_match-kernel-offline-sparse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-eof-cutoff",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_raw-parser-no-debugfs-and-straddle",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "398d5241-4be1-44f1-a210-a48ca7f2a5cb",
+      "trial_name": "seek-hole-data-kernel-match-pivo__GrVEg3j"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:11:13.178215Z",
+      "harbor_task_checksum": "aebfb6eed81800a4a073c04ee66cbd6713b94bd7865d2bd59895b1c3077dabf9",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:10:37.782311Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_match-kernel-offline-sparse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-eof-cutoff",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_raw-parser-no-debugfs-and-straddle",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "e845adc5-576c-46fa-b35b-7e0c19f91b2d",
+      "trial_name": "seek-hole-data-kernel-match-pivo__SFFsUBQ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:11:14.407209Z",
+      "harbor_task_checksum": "aebfb6eed81800a4a073c04ee66cbd6713b94bd7865d2bd59895b1c3077dabf9",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:10:37.843526Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_match-kernel-offline-sparse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-eof-cutoff",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_raw-parser-no-debugfs-and-straddle",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "9601964d-2e19-4fab-9794-55d3d192879a",
+      "trial_name": "seek-hole-data-kernel-match-pivo__rFFqxTZ"
+    }
+  ],
+  "wall_time_seconds": 39,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

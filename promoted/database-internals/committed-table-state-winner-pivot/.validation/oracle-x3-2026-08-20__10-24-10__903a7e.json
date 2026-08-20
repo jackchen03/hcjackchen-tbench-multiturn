@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/committed-table-state-winner-pivot",
+  "task_checksum": "392c7f1055f532d8f56e28f7e8d0351dfc51d87f7f6b710f2a40e6418de08fa1",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:24:47.546333Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:24:10.613773Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reconstruct-committed-state",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_apply-incremental-on-recovered-shape",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-retention-resolution",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "392c7f1055f532d8f56e28f7e8d0351dfc51d87f7f6b710f2a40e6418de08fa1",
+      "trial_id": "1d537d5d-9069-47f7-836e-f8fb37e157ea",
+      "trial_name": "committed-table-state-winner-piv__BhqurZu"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:24:46.421944Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:24:10.546616Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reconstruct-committed-state",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_apply-incremental-on-recovered-shape",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-retention-resolution",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "392c7f1055f532d8f56e28f7e8d0351dfc51d87f7f6b710f2a40e6418de08fa1",
+      "trial_id": "d9f7d565-c89d-433a-b646-eff707f06fef",
+      "trial_name": "committed-table-state-winner-piv__aaLCQLc"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:24:46.616252Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:24:10.597481Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reconstruct-committed-state",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_apply-incremental-on-recovered-shape",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-retention-resolution",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "392c7f1055f532d8f56e28f7e8d0351dfc51d87f7f6b710f2a40e6418de08fa1",
+      "trial_id": "099b7db2-590f-46ee-b46c-09ab220e3e69",
+      "trial_name": "committed-table-state-winner-piv__onwzptc"
+    }
+  ]
+}

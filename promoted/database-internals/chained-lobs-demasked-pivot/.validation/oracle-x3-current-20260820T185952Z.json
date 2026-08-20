@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:67d2b1d90ad3a067690ad82c750d7691b9a2955cbe0e092dcfca4e9d20caaa8b",
+  "command": "codimango bench run -p chained-lobs-demasked-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "2f5ab24bd865a102a0ef03edd6f4ffa8b59bdac399e881ce4a75cca8a6d3e120",
+  "source_final_audit": "promoted/database-internals/chained-lobs-demasked-pivot/.validation/final-audit-20260820T184757Z.json",
+  "status": "3/3 PASS",
+  "task": "promoted/database-internals/chained-lobs-demasked-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T18:59:50.163922Z",
+      "harbor_task_checksum": "2f5ab24bd865a102a0ef03edd6f4ffa8b59bdac399e881ce4a75cca8a6d3e120",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T18:59:13.636140Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_chain-walk",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recycled-run-detection",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_demasked-pivot-decompress-splice",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "b30c4708-e2c8-4f47-a01d-c128e1e375f4",
+      "trial_name": "chained-lobs-demasked-pivot__D4u5b6i"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T18:59:49.310163Z",
+      "harbor_task_checksum": "2f5ab24bd865a102a0ef03edd6f4ffa8b59bdac399e881ce4a75cca8a6d3e120",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T18:59:13.622505Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_chain-walk",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recycled-run-detection",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_demasked-pivot-decompress-splice",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "303fbaa6-08f1-4d7f-b3ba-f1751abb0e99",
+      "trial_name": "chained-lobs-demasked-pivot__XSkM5mm"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T18:59:48.798230Z",
+      "harbor_task_checksum": "2f5ab24bd865a102a0ef03edd6f4ffa8b59bdac399e881ce4a75cca8a6d3e120",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T18:59:13.576126Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_chain-walk",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recycled-run-detection",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_demasked-pivot-decompress-splice",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "62740874-f2ff-4242-b9f5-f61b4ced9804",
+      "trial_name": "chained-lobs-demasked-pivot__gAufzeC"
+    }
+  ],
+  "wall_time_seconds": 39,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}
