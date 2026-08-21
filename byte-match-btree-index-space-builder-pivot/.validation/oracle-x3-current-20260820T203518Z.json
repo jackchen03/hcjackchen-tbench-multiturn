@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:466570ca52d03328ddc7dab5c9ecd62f7a77543e730c5060e3d3dffe98daa5c1",
+  "command": "codimango bench run -p byte-match-btree-index-space-builder-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "8618de2fbfe0690654fae560d8c027d76a977cad45685df4ef5f33c2b58e234f",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.QHOyhP/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.QHOyhP",
+  "source_final_audit": "byte-match-btree-index-space-builder-pivot/.validation/final-audit-20260820T202728Z.json",
+  "status": "3/3 PASS",
+  "task": "byte-match-btree-index-space-builder-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:35:14.825155Z",
+      "harbor_task_checksum": "8618de2fbfe0690654fae560d8c027d76a977cad45685df4ef5f33c2b58e234f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:34:38.565994Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_btree-byte-exact-builder",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_report-space-accounting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_deletion-merge-redistribution-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "3e2b5cb7-d424-4347-b225-7cc82f632e99",
+      "trial_name": "byte-match-btree-index-space-bui__BZwbZZy"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:35:14.649401Z",
+      "harbor_task_checksum": "8618de2fbfe0690654fae560d8c027d76a977cad45685df4ef5f33c2b58e234f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:34:38.517497Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_btree-byte-exact-builder",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_report-space-accounting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_deletion-merge-redistribution-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "cc121583-9c94-4ad7-a555-2abaea7dc5de",
+      "trial_name": "byte-match-btree-index-space-bui__EPSBwAF"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:35:15.925270Z",
+      "harbor_task_checksum": "8618de2fbfe0690654fae560d8c027d76a977cad45685df4ef5f33c2b58e234f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:34:38.580327Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_btree-byte-exact-builder",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_report-space-accounting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_deletion-merge-redistribution-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "1e0f7efd-bd4a-43c4-8c1f-1da8c1d7e42b",
+      "trial_name": "byte-match-btree-index-space-bui__hGnB3tD"
+    }
+  ],
+  "wall_time_seconds": 44,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

@@ -1,3 +1,0 @@
-a0e8006dcb2aabed76cae8c8560fd0ebb92ad6d8efc883038b1471db3f0e116e  promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot/steps/1_byte-match-wal-replay/instruction.md
-c1612c08fddfabb349c9a628dd804c96755ec01d54c32f6fae758ac0c3dbbe4d  promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot/steps/2_checkpoint-recovery-verification/instruction.md
-b2b086e7719408c80fa8deca7d9057d92e1b62d7522447985192405cef42f78d  promoted/database-internals/physical-wal-reimpl-anti-canonical-pivot/steps/3_pivot-logical-wal-drop-physical/instruction.md

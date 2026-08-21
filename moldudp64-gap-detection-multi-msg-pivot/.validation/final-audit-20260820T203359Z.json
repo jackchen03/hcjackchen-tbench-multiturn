@@ -1,0 +1,55 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:c93713dd312ae15cf53997cc339e84dff1ee0148057feba97ab2cca56990a3ca",
+  "chain_evidence": "moldudp64-gap-detection-multi-msg-pivot/.validation/chain-20260820T202335Z.json",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "green_phases": [
+    {
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "1_multi-msg-count-drift"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "2_heartbeat-eos-sentinel"
+    },
+    {
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "3_global-seq-dedup-pivot"
+    }
+  ],
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "overexec_phases": [
+    {
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "1_multi-msg-count-drift"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "2_heartbeat-eos-sentinel"
+    }
+  ],
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "skipped": 0,
+  "static_audit": "PASS",
+  "static_finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "WARN": 0
+  },
+  "status": "PASS",
+  "task": "moldudp64-gap-detection-multi-msg-pivot"
+}

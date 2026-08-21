@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 25,
+  "bundle_fingerprint": "bundle-sha256-v1:9c9d17fae785c79761dc8439c4f523bfb4a311f5d956dcfdfbfd314ebadd6c1c",
+  "final_audit": "hash-agg-spill-recovery-pivot/.validation/final-audit-20260820T202755Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "hash-agg-spill-recovery-pivot/.validation/chain-20260820T201144Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "hash-agg-spill-recovery-pivot/.validation/oracle-x3-current-20260820T205649Z.json",
+  "proposed_commit_pathspec": "hash-agg-spill-recovery-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "hash-agg-spill-recovery-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

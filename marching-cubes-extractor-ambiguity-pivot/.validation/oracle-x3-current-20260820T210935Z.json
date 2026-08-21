@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:4e39b8b081f8ee2c7975c3f8d01f5d1a9076ff5cbda431e06ecea31c197a8f15",
+  "command": "codimango bench run -p marching-cubes-extractor-ambiguity-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "5469da7cc39138f3f5024460d2d36502e97ef392072c0c48d789dfbd8097a95a",
+  "issues": [],
+  "source_final_audit": "marching-cubes-extractor-ambiguity-pivot/.validation/final-audit-20260820T202509Z.json",
+  "status": "3/3 PASS",
+  "task": "marching-cubes-extractor-ambiguity-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:04:45.635825Z",
+      "harbor_task_checksum": "5469da7cc39138f3f5024460d2d36502e97ef392072c0c48d789dfbd8097a95a",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:04:06.858524Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_probe_ambiguity",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_rescaled_decider",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_raster_ownership_pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "dee9025b-af2f-4050-89b8-ceca9e0ede0f",
+      "trial_name": "marching-cubes-extractor-ambigui__62h3KvG"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:04:47.910308Z",
+      "harbor_task_checksum": "5469da7cc39138f3f5024460d2d36502e97ef392072c0c48d789dfbd8097a95a",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:04:07.021201Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_probe_ambiguity",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_rescaled_decider",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_raster_ownership_pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "ec5665b6-b91d-49ca-b22b-5fe95fa9cd24",
+      "trial_name": "marching-cubes-extractor-ambigui__jZN6NBV"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:04:46.687357Z",
+      "harbor_task_checksum": "5469da7cc39138f3f5024460d2d36502e97ef392072c0c48d789dfbd8097a95a",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:04:06.959672Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_probe_ambiguity",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_rescaled_decider",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_raster_ownership_pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "30062542-a45e-462b-a3fe-3ce62396c10b",
+      "trial_name": "marching-cubes-extractor-ambigui__ni76DS8"
+    }
+  ],
+  "wall_time_seconds": 128,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

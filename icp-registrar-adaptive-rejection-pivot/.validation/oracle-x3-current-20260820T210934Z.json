@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:f758b71bfd6fe9fd7fd96e38dc368642fb8d006dda8350093d3a67fbc1b5ae6b",
+  "command": "codimango bench run -p icp-registrar-adaptive-rejection-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "14f32059b60dce03b6e06a846a4d7c3b244cf6fd3871c2becabda681f6d391dd",
+  "issues": [],
+  "source_final_audit": "icp-registrar-adaptive-rejection-pivot/.validation/final-audit-20260820T202502Z.json",
+  "status": "3/3 PASS",
+  "task": "icp-registrar-adaptive-rejection-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:57:34.368188Z",
+      "harbor_task_checksum": "14f32059b60dce03b6e06a846a4d7c3b244cf6fd3871c2becabda681f6d391dd",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:56:50.454332Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_match_opaque_registrar",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_overlap_report_extension",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot_to_unbiased_geometric",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "0715f0a3-84f3-4354-8012-b12151dcb528",
+      "trial_name": "icp-registrar-adaptive-rejection__JK6XGoG"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:57:33.402296Z",
+      "harbor_task_checksum": "14f32059b60dce03b6e06a846a4d7c3b244cf6fd3871c2becabda681f6d391dd",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:56:50.393556Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_match_opaque_registrar",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_overlap_report_extension",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot_to_unbiased_geometric",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "c4e70932-1c53-4d71-bd2e-509c7ea62855",
+      "trial_name": "icp-registrar-adaptive-rejection__VpEYLBT"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:57:32.749446Z",
+      "harbor_task_checksum": "14f32059b60dce03b6e06a846a4d7c3b244cf6fd3871c2becabda681f6d391dd",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:56:50.293936Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_match_opaque_registrar",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_overlap_report_extension",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot_to_unbiased_geometric",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "de71bd44-8774-437e-9caa-e7984c7b5965",
+      "trial_name": "icp-registrar-adaptive-rejection__nUGNRkR"
+    }
+  ],
+  "wall_time_seconds": 131,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

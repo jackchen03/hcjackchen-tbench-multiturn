@@ -1,3 +1,0 @@
-c5b2e28ed23ee569d1b9fd36d5e107b0691a7c9cab5d57b51ed606e6aba0ed9e  promoted/database-internals/legacy-page-writer-byte-image-pivot/steps/1_bulk-and-slot-layout/instruction.md
-680c78849439aae3c28d23b554ed16e334abb0822105d5371354064a4443caf7  promoted/database-internals/legacy-page-writer-byte-image-pivot/steps/2_delete-reinsert-sliver-reuse/instruction.md
-11ee6b0a6f575d8583db3a3b6f51fe8b341404772cf87a93a3d91c591b2c2543  promoted/database-internals/legacy-page-writer-byte-image-pivot/steps/3_compaction-cascade-reclaim-pivot/instruction.md

@@ -1,0 +1,91 @@
+{
+  "task": "incremental-sfm-chamfer-drift-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p incremental-sfm-chamfer-drift-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3-final.CfAyru",
+  "job_dir": "/tmp/tbench-oracle-x3-final.CfAyru/jobs/2026-08-20__10-21-06__7e00a5",
+  "recorded_at": "2026-08-20T17:22:58.678011+00:00",
+  "wall_time_sec": 127,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "72a7aacf198cab8808598f15e16524b5607eb4ead0ee36238ef756574d4cec64",
+  "bundle_file_count": 32,
+  "chain_evidence": "incremental-sfm-chamfer-drift-pivot/.validation/chain-20260820T172035Z.json",
+  "trials": [
+    {
+      "trial_id": "8b0c7994-b07f-45da-b582-af1089e6ed17",
+      "trial_name": "incremental-sfm-chamfer-drift-pi__UhDnaXs",
+      "task_checksum": "e274df52dea6ef1fc924a0685f9a27b770337c581904d088f998156d46a4472d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-and-fix-chamfer-drift",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-track-quality-report",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-ply-and-optimize-track-merge",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-final.CfAyru/jobs/2026-08-20__10-21-06__7e00a5/incremental-sfm-chamfer-drift-pi__UhDnaXs/result.json"
+    },
+    {
+      "trial_id": "35c70800-abe4-4104-b195-c66551fabcde",
+      "trial_name": "incremental-sfm-chamfer-drift-pi__pfCG83e",
+      "task_checksum": "e274df52dea6ef1fc924a0685f9a27b770337c581904d088f998156d46a4472d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-and-fix-chamfer-drift",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-track-quality-report",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-ply-and-optimize-track-merge",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-final.CfAyru/jobs/2026-08-20__10-21-06__7e00a5/incremental-sfm-chamfer-drift-pi__pfCG83e/result.json"
+    },
+    {
+      "trial_id": "98ab6b81-7675-4aee-96ff-e0104b5b9dcd",
+      "trial_name": "incremental-sfm-chamfer-drift-pi__wSeM3qM",
+      "task_checksum": "e274df52dea6ef1fc924a0685f9a27b770337c581904d088f998156d46a4472d",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-and-fix-chamfer-drift",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-track-quality-report",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-ply-and-optimize-track-merge",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-final.CfAyru/jobs/2026-08-20__10-21-06__7e00a5/incremental-sfm-chamfer-drift-pi__wSeM3qM/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

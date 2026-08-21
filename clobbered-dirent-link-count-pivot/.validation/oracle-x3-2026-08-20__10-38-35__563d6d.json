@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "clobbered-dirent-link-count-pivot",
+  "task_checksum": "6e2a711c8d5cf15ee8c33df63fdfcf0421e47f4dfbc8b270fc20f7ee4b168a82",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:39:12.414235Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:38:35.830079Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-dirent-inode-mismatch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_reconcile-link-counts-carry",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-restore-only-drop-rewrite",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "6e2a711c8d5cf15ee8c33df63fdfcf0421e47f4dfbc8b270fc20f7ee4b168a82",
+      "trial_id": "f9682cfc-8fb7-4b76-a32f-4c6422db9a96",
+      "trial_name": "clobbered-dirent-link-count-pivo__BVs8BdU"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:39:11.618028Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:38:35.816993Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-dirent-inode-mismatch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_reconcile-link-counts-carry",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-restore-only-drop-rewrite",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "6e2a711c8d5cf15ee8c33df63fdfcf0421e47f4dfbc8b270fc20f7ee4b168a82",
+      "trial_id": "e034629f-965c-4e0d-b932-d302906d7adc",
+      "trial_name": "clobbered-dirent-link-count-pivo__RRpnQoK"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:39:11.115629Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:38:35.767464Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-dirent-inode-mismatch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_reconcile-link-counts-carry",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-restore-only-drop-rewrite",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "6e2a711c8d5cf15ee8c33df63fdfcf0421e47f4dfbc8b270fc20f7ee4b168a82",
+      "trial_id": "3bb61337-d079-4a09-8217-b8d36ddf2cbc",
+      "trial_name": "clobbered-dirent-link-count-pivo__oyqJgog"
+    }
+  ]
+}

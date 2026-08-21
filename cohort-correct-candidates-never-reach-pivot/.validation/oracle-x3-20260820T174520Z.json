@@ -1,0 +1,92 @@
+{
+  "task": "cohort-correct-candidates-never-reach-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p cohort-correct-candidates-never-reach-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.WgGK24",
+  "job_dir": "/tmp/tbench-oracle-x3.WgGK24/jobs/2026-08-20__10-44-37__3e418a",
+  "run_log": "/tmp/tbench-oracle-x3.WgGK24/run.log",
+  "recorded_at": "2026-08-20T17:45:20.677324+00:00",
+  "wall_time_sec": 81,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "2da80266caa458be4e3303c4cd70299f559444a7cdf9a16cc72a484f524ab7fb",
+  "bundle_file_count": 30,
+  "chain_evidence": "cohort-correct-candidates-never-reach-pivot/.validation/chain-20260820T172149Z.json",
+  "trials": [
+    {
+      "trial_id": "4e8c19fc-33b3-4ca5-bdc5-6a54989f0585",
+      "trial_name": "cohort-correct-candidates-never__PGx9DYC",
+      "task_checksum": "0f4a1b1fc46aa36f7d28d60d9f55b515c364231546fc59401f232fd2b699d796",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-and-fix-incomplete-ranking",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-cohort-recall-metrics",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-two-phase-ranking",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.WgGK24/jobs/2026-08-20__10-44-37__3e418a/cohort-correct-candidates-never__PGx9DYC/result.json"
+    },
+    {
+      "trial_id": "858f2f1a-89a3-4f8f-b342-04af29548ae2",
+      "trial_name": "cohort-correct-candidates-never__RKnaQNs",
+      "task_checksum": "0f4a1b1fc46aa36f7d28d60d9f55b515c364231546fc59401f232fd2b699d796",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-and-fix-incomplete-ranking",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-cohort-recall-metrics",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-two-phase-ranking",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.WgGK24/jobs/2026-08-20__10-44-37__3e418a/cohort-correct-candidates-never__RKnaQNs/result.json"
+    },
+    {
+      "trial_id": "aa089baa-db46-4166-965d-dd173d8defe7",
+      "trial_name": "cohort-correct-candidates-never__ytJLPei",
+      "task_checksum": "0f4a1b1fc46aa36f7d28d60d9f55b515c364231546fc59401f232fd2b699d796",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_diagnose-and-fix-incomplete-ranking",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_add-cohort-recall-metrics",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-two-phase-ranking",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.WgGK24/jobs/2026-08-20__10-44-37__3e418a/cohort-correct-candidates-never__ytJLPei/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

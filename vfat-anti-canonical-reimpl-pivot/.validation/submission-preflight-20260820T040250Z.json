@@ -1,0 +1,19 @@
+{
+  "task": "vfat-anti-canonical-reimpl-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:02:50.615750+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "c8c34be3c00baf67887d9233336c5ae7f14c3ab95b8ff0f2de73644e1528d44b",
+    "bundle_file_count": 33,
+    "chain_evidence": "vfat-anti-canonical-reimpl-pivot/.validation/chain-20260820T004939Z.json",
+    "oracle_x3_evidence": "vfat-anti-canonical-reimpl-pivot/.validation/oracle-x3-20260820T034449Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "vfat-anti-canonical-reimpl-pivot"
+  ]
+}

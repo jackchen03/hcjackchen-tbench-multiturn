@@ -1,0 +1,19 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:49095cac5ed95d8974cbbf7441bef48bbee524f2b8bf5763bbd32295a77b36ad",
+  "final_audit": "greedy-reranker-diversity-pivot/.validation/final-audit-20260820T203320Z.json",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "greedy-reranker-diversity-pivot/.validation/chain-20260820T200735Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "greedy-reranker-diversity-pivot/.validation/oracle-x3-current-20260820T204256Z.json",
+  "proposed_commit_pathspec": "greedy-reranker-diversity-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "greedy-reranker-diversity-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

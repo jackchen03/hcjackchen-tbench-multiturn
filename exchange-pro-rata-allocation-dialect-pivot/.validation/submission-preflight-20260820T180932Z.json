@@ -1,0 +1,17 @@
+{
+  "task": "exchange-pro-rata-allocation-dialect-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:32.168678+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "b5bfc77b59e1c0318a060ee1332b04adf135ded3492205aba123ec37646d43aa",
+    "bundle_file_count": 26,
+    "chain_evidence": "exchange-pro-rata-allocation-dialect-pivot/.validation/chain-20260820T170641Z.json",
+    "oracle_x3_evidence": "exchange-pro-rata-allocation-dialect-pivot/.validation/oracle-x3-20260820T180045Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "exchange-pro-rata-allocation-dialect-pivot"
+  ]
+}

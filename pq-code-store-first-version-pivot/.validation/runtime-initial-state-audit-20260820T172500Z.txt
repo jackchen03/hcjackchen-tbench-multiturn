@@ -1,0 +1,7 @@
+Task: pq-code-store-first-version-pivot
+Image: tbench-mt-pq-code-store-first-version-pivot:validate
+Recorded: 2026-08-20T17:25:00Z
+Current initial-image audit:
+- no /opt/grader-staging directory or staged successor payload
+- no successor reference, migration, dictionary, canonical sample, or canonical writer under /app
+- successor material is embedded only in the hidden predecessor verifier and materialized after that verifier's positive and absence checks

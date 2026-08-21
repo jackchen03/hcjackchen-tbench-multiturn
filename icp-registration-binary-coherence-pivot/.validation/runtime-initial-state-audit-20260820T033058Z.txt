@@ -1,0 +1,12 @@
+Task: icp-registration-binary-coherence-pivot
+Image: tbench-mt-icp-registration-binary-coherence-pivot:validate
+Chain evidence: icp-registration-binary-coherence-pivot/.validation/chain-20260820T005545Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=oracle-builder /build/oracle.pyc /app/oracle.pyc
+Runtime explicit builder-copy destinations:
+PATH /app/oracle.pyc
+-rw-r--r-- 1 root root 6194 Jan  1  2024 /app/oracle.pyc
+FIRST4 a70d0d0a
+Potential readable source under reference/grader roots:
+Future-staging paths:

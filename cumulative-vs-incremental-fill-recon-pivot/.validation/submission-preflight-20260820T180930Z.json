@@ -1,0 +1,17 @@
+{
+  "task": "cumulative-vs-incremental-fill-recon-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:30.146760+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "978817763de27c3097646768b2efe742ec4ffa8678df5273b62da802a2ebd80c",
+    "bundle_file_count": 29,
+    "chain_evidence": "cumulative-vs-incremental-fill-recon-pivot/.validation/chain-20260820T170559Z.json",
+    "oracle_x3_evidence": "cumulative-vs-incremental-fill-recon-pivot/.validation/oracle-x3-20260820T175915Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "cumulative-vs-incremental-fill-recon-pivot"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "task": "restored-mf-checkpoint-heldout-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:03:05.496583+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "ef59e92423d844734a67059b1a490cdd916e976eeadb64c8d196f4d26b2e515e",
+    "bundle_file_count": 25,
+    "chain_evidence": "restored-mf-checkpoint-heldout-pivot/.validation/chain-20260820T005247Z.json",
+    "oracle_x3_evidence": "restored-mf-checkpoint-heldout-pivot/.validation/oracle-x3-20260820T034908Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "restored-mf-checkpoint-heldout-pivot"
+  ]
+}

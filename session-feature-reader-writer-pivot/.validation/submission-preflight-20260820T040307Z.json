@@ -1,0 +1,19 @@
+{
+  "task": "session-feature-reader-writer-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:03:07.639497+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "89fdba19628d0ddf8900a539618c59e5bd27b399e80b993a2b4fef1925d13b8a",
+    "bundle_file_count": 27,
+    "chain_evidence": "session-feature-reader-writer-pivot/.validation/chain-20260820T005315Z.json",
+    "oracle_x3_evidence": "session-feature-reader-writer-pivot/.validation/oracle-x3-20260820T034952Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "session-feature-reader-writer-pivot"
+  ]
+}

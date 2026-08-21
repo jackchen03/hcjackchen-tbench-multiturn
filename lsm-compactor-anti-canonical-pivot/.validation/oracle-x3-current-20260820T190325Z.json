@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:42b369f132c626a8e40f184c7b7600deeeae295cea0afddb1a85aa1d460828bf",
+  "command": "codimango bench run -p lsm-compactor-anti-canonical-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "a1c10d2e7e8269df6d7be1f035bcabda28a24d8c08c3afec436bae5423f9f136",
+  "source_final_audit": "lsm-compactor-anti-canonical-pivot/.validation/final-audit-20260820T184932Z.json",
+  "status": "3/3 PASS",
+  "task": "lsm-compactor-anti-canonical-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:03:21.728186Z",
+      "harbor_task_checksum": "a1c10d2e7e8269df6d7be1f035bcabda28a24d8c08c3afec436bae5423f9f136",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:02:46.173619Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-anti-canonical-compactor",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-level-accounting-from-sstable",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-tiered-no-parity-drop-accounting",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "5fcc21ae-c180-4a16-8015-8176c4d127bc",
+      "trial_name": "lsm-compactor-anti-canonical-piv__geN4nhE"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:03:22.940478Z",
+      "harbor_task_checksum": "a1c10d2e7e8269df6d7be1f035bcabda28a24d8c08c3afec436bae5423f9f136",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:02:46.241255Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-anti-canonical-compactor",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-level-accounting-from-sstable",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-tiered-no-parity-drop-accounting",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "75bba1cc-57dc-47fa-af05-e33364fc3c04",
+      "trial_name": "lsm-compactor-anti-canonical-piv__kTDrWnA"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:03:21.972970Z",
+      "harbor_task_checksum": "a1c10d2e7e8269df6d7be1f035bcabda28a24d8c08c3afec436bae5423f9f136",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:02:46.225807Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-anti-canonical-compactor",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-level-accounting-from-sstable",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-tiered-no-parity-drop-accounting",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "b3db625e-a8c6-47d4-8a47-c04e1970f7cf",
+      "trial_name": "lsm-compactor-anti-canonical-piv__nKGu5Ld"
+    }
+  ],
+  "wall_time_seconds": 40,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

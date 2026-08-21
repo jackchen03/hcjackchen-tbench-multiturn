@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:0a0ef44c819afc545c927828605e9de2047acc09c8155e0bb80f33eda793d485",
+  "command": "codimango bench run -p linear-hash-index-on-disk-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "80126c20f6c8c2c9d5f0de12b2eba027331e0da9d3218619949d63a380702769",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.NPB1Cm/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.NPB1Cm",
+  "source_final_audit": "linear-hash-index-on-disk-pivot/.validation/final-audit-20260820T202810Z.json",
+  "status": "3/3 PASS",
+  "task": "linear-hash-index-on-disk-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:10:35.659452Z",
+      "harbor_task_checksum": "80126c20f6c8c2c9d5f0de12b2eba027331e0da9d3218619949d63a380702769",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:09:54.573696Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-header-and-addressing",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-split-trigger-and-overflow-chain",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-seq-order-redistribution",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "c0275f28-e3ab-4383-b0b5-dbce6d1eb044",
+      "trial_name": "linear-hash-index-on-disk-pivot__DRQZWjS"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:10:36.915267Z",
+      "harbor_task_checksum": "80126c20f6c8c2c9d5f0de12b2eba027331e0da9d3218619949d63a380702769",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:09:54.588357Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-header-and-addressing",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-split-trigger-and-overflow-chain",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-seq-order-redistribution",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "fbb7f8b8-7062-47a0-b558-c2723ab94656",
+      "trial_name": "linear-hash-index-on-disk-pivot__eDSn6P2"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:10:34.728104Z",
+      "harbor_task_checksum": "80126c20f6c8c2c9d5f0de12b2eba027331e0da9d3218619949d63a380702769",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:09:54.524208Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-header-and-addressing",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-split-trigger-and-overflow-chain",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-seq-order-redistribution",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "44114fac-65b3-41ec-9d54-69e186066ba6",
+      "trial_name": "linear-hash-index-on-disk-pivot__uYxGV9G"
+    }
+  ],
+  "wall_time_seconds": 129,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

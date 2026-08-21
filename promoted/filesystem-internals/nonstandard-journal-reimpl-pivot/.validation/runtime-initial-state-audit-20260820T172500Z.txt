@@ -1,7 +1,0 @@
-Task: promoted/filesystem-internals/nonstandard-journal-reimpl-pivot
-Image: tbench-mt-nonstandard-journal-reimpl-pivot:validate
-Recorded: 2026-08-20T17:25:00Z
-Current initial-image audit:
-- no /opt/grader-staging directory or staged successor payload
-- no successor reference, migration, dictionary, canonical sample, or canonical writer under /app
-- successor material is embedded only in the hidden predecessor verifier and materialized after that verifier's positive and absence checks

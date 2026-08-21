@@ -1,0 +1,17 @@
+{
+  "task": "icp-registrar-adaptive-rejection-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:18.476831+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "1716fbc7f738e084d43e0bce9f4b8356a697cc9c7199337df7b7412095cf65fd",
+    "bundle_file_count": 28,
+    "chain_evidence": "icp-registrar-adaptive-rejection-pivot/.validation/chain-20260820T165905Z.json",
+    "oracle_x3_evidence": "icp-registrar-adaptive-rejection-pivot/.validation/oracle-x3-20260820T175246Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "icp-registrar-adaptive-rejection-pivot"
+  ]
+}

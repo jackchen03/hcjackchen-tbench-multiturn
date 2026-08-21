@@ -1,0 +1,54 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:ef561b61b90929e075613959c88d03e9e9065e044a888ed14a6790bbada9977b",
+  "chain_evidence": "word-aligned-bitmap-index-anti-canonical-pivot/.validation/chain-20260820T202506Z.json",
+  "green_phases": [
+    {
+      "detail": "6 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "1_byte-match-bitmap-index"
+    },
+    {
+      "detail": "7 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "2_add-query-path"
+    },
+    {
+      "detail": "5 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "3_pivot-uncompressed-drop-wah"
+    }
+  ],
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "overexec_phases": [
+    {
+      "detail": "6 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "1_byte-match-bitmap-index"
+    },
+    {
+      "detail": "7 executed, 0 skipped, 6 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "2_add-query-path"
+    }
+  ],
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "skipped": 0,
+  "static_audit": "PASS",
+  "static_finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "WARN": 0
+  },
+  "status": "PASS",
+  "task": "word-aligned-bitmap-index-anti-canonical-pivot"
+}

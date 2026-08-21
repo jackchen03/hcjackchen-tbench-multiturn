@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b61b696f79ed6d7ea334887c268d9a55e816058b9a7742accd090be06a82eddd",
+  "command": "codimango bench run -p snapshot-visible-set-truncated-wal-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "177fab048b6295d9c25f68ff508acc7f6d81c05192cdea9588ba49c67def9b25",
+  "source_final_audit": "snapshot-visible-set-truncated-wal-pivot/.validation/final-audit-20260820T185011Z.json",
+  "status": "3/3 PASS",
+  "task": "snapshot-visible-set-truncated-wal-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:04:47.236307Z",
+      "harbor_task_checksum": "177fab048b6295d9c25f68ff508acc7f6d81c05192cdea9588ba49c67def9b25",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:04:11.060448Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_query-over-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-visibility-model",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "2e37cdef-d42e-491f-891f-443ee80ac04f",
+      "trial_name": "snapshot-visible-set-truncated-w__P9Uegvk"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:04:49.567727Z",
+      "harbor_task_checksum": "177fab048b6295d9c25f68ff508acc7f6d81c05192cdea9588ba49c67def9b25",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:04:11.125962Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_query-over-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-visibility-model",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "68e535e1-8c0c-4de2-a05f-9bffab3ad9f6",
+      "trial_name": "snapshot-visible-set-truncated-w__XgAz3Gz"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:04:47.771372Z",
+      "harbor_task_checksum": "177fab048b6295d9c25f68ff508acc7f6d81c05192cdea9588ba49c67def9b25",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:04:11.109697Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_query-over-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-visibility-model",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "4b3d5832-a2b1-4c17-b894-c97eccaefa89",
+      "trial_name": "snapshot-visible-set-truncated-w__vJ6LSUU"
+    }
+  ],
+  "wall_time_seconds": 42,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

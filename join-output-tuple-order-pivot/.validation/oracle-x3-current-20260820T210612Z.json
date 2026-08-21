@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:f1b38163e29a24deee7a1611813169425266882082cbe2b6562a601b1f190690",
+  "command": "codimango bench run -p join-output-tuple-order-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "462126e8d3e99517e50580f135047e669090002c9c876ffa1bab41cc9762c978",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.aeSzwe/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.aeSzwe",
+  "source_final_audit": "join-output-tuple-order-pivot/.validation/final-audit-20260820T202806Z.json",
+  "status": "3/3 PASS",
+  "task": "join-output-tuple-order-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:06:08.616981Z",
+      "harbor_task_checksum": "462126e8d3e99517e50580f135047e669090002c9c876ffa1bab41cc9762c978",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:05:31.190566Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fit-order-and-spill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_byte-threshold-recursion",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_child-grouped-emission-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "0e2fe3d2-23eb-4edf-91bb-8a30322d2860",
+      "trial_name": "join-output-tuple-order-pivot__PZFHFJP"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:06:08.484216Z",
+      "harbor_task_checksum": "462126e8d3e99517e50580f135047e669090002c9c876ffa1bab41cc9762c978",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:05:31.239726Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fit-order-and-spill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_byte-threshold-recursion",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_child-grouped-emission-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "65e7a164-9bbe-4807-9f25-988250b3f3b1",
+      "trial_name": "join-output-tuple-order-pivot__tzEVFmA"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:06:09.440868Z",
+      "harbor_task_checksum": "462126e8d3e99517e50580f135047e669090002c9c876ffa1bab41cc9762c978",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:05:31.256653Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fit-order-and-spill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_byte-threshold-recursion",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_child-grouped-emission-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "bedd0ec0-e67d-4b5b-81b0-7ff230b45cb3",
+      "trial_name": "join-output-tuple-order-pivot__wzRCEdL"
+    }
+  ],
+  "wall_time_seconds": 123,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

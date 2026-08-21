@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:f468041d4ba5f492c7d81c447c27d0adbdefda1aedda386ff8c32e921b5f333f",
+  "final_audit": "price-time-priority-worker-violation-pivot/.validation/final-audit-20260820T185715Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "price-time-priority-worker-violation-pivot/.validation/chain-20260820T185654Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "price-time-priority-worker-violation-pivot/.validation/oracle-x3-current-20260820T192047Z.json",
+  "proposed_commit_pathspec": "price-time-priority-worker-violation-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "price-time-priority-worker-violation-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

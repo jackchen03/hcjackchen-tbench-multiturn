@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:c059308170c5559f41fb8203c5eee17227cc5429ec558deff1726a552a17db8b",
+  "command": "codimango bench run -p packed-feed-corrupt-book-rebuild-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "9462bbe55554caa766c990b92b05f73fb0c68b82140297abfa6cb847235c7171",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.yEpx7F/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.yEpx7F",
+  "source_final_audit": "packed-feed-corrupt-book-rebuild-pivot/.validation/final-audit-20260820T203404Z.json",
+  "status": "3/3 PASS",
+  "task": "packed-feed-corrupt-book-rebuild-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:17:13.018688Z",
+      "harbor_task_checksum": "9462bbe55554caa766c990b92b05f73fb0c68b82140297abfa6cb847235c7171",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:16:36.323239Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_packed-feed-book-still-corrupt",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_price-still-byte-swapped-id-mismatch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-v2-structural-reorder-version",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "7fda6989-914f-423a-9371-43383a194ec4",
+      "trial_name": "packed-feed-corrupt-book-rebuild__TARTWcR"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:17:14.049912Z",
+      "harbor_task_checksum": "9462bbe55554caa766c990b92b05f73fb0c68b82140297abfa6cb847235c7171",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:16:36.337154Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_packed-feed-book-still-corrupt",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_price-still-byte-swapped-id-mismatch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-v2-structural-reorder-version",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "c3a2460d-1135-442f-abb5-86e4fc17e294",
+      "trial_name": "packed-feed-corrupt-book-rebuild__nrdMBsu"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:17:12.790288Z",
+      "harbor_task_checksum": "9462bbe55554caa766c990b92b05f73fb0c68b82140297abfa6cb847235c7171",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:16:36.274151Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_packed-feed-book-still-corrupt",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_price-still-byte-swapped-id-mismatch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-v2-structural-reorder-version",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "8071d558-781c-428e-9536-d3628e93fa7b",
+      "trial_name": "packed-feed-corrupt-book-rebuild__uaNM4CY"
+    }
+  ],
+  "wall_time_seconds": 80,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

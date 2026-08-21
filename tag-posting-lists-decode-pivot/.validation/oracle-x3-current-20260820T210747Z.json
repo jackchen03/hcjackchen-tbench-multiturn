@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:26f647f86f2caf320efdab247685e8dd75c92c9e2b50aaeec693d523cf6500a5",
+  "command": "codimango bench run -p tag-posting-lists-decode-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "697604c5e0fee545dfd34a245bd9daa5746386fe23fb0f14c47d8bb7c904e4b5",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.Vnn5ZX/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.Vnn5ZX",
+  "source_final_audit": "tag-posting-lists-decode-pivot/.validation/final-audit-20260820T203348Z.json",
+  "status": "3/3 PASS",
+  "task": "tag-posting-lists-decode-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:07:44.808007Z",
+      "harbor_task_checksum": "697604c5e0fee545dfd34a245bd9daa5746386fe23fb0f14c47d8bb7c904e4b5",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:07:01.434486Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode_postings",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_point_lookup",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_unified_absolute_pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "15d1a63c-8303-4d42-9687-6b8824ca0cfa",
+      "trial_name": "tag-posting-lists-decode-pivot__JX5AoLn"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:07:44.223321Z",
+      "harbor_task_checksum": "697604c5e0fee545dfd34a245bd9daa5746386fe23fb0f14c47d8bb7c904e4b5",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:07:01.374704Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode_postings",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_point_lookup",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_unified_absolute_pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "33411bbf-4f76-4995-918b-c22998ea7f54",
+      "trial_name": "tag-posting-lists-decode-pivot__TjUUrgQ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:07:43.091543Z",
+      "harbor_task_checksum": "697604c5e0fee545dfd34a245bd9daa5746386fe23fb0f14c47d8bb7c904e4b5",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:07:01.274317Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode_postings",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_point_lookup",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_unified_absolute_pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "e9aa71ad-9509-4574-80be-b74ee5ad39d5",
+      "trial_name": "tag-posting-lists-decode-pivot__Yu9P546"
+    }
+  ],
+  "wall_time_seconds": 135,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

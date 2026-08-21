@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:a35951aa5fdc67a9f5e96effdae63f9566f0b8eceed2f0404ad616fe1e2419ab",
+  "command": "codimango bench run -p byte-exact-pages-mixed-insert-delete-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "cacb6f102f4ee499e69c02c9359e36fddcd1a0c935d8575cb99f8cd31656a771",
+  "source_final_audit": "byte-exact-pages-mixed-insert-delete-pivot/.validation/final-audit-20260820T184719Z.json",
+  "status": "3/3 PASS",
+  "task": "byte-exact-pages-mixed-insert-delete-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T18:58:22.725370Z",
+      "harbor_task_checksum": "cacb6f102f4ee499e69c02c9359e36fddcd1a0c935d8575cb99f8cd31656a771",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T18:57:47.360529Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_single-page-ghost-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_full-split-merge-byte-fill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-compact-ghost-free",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "a8818301-1ad1-483d-a37c-b72d6a4340c2",
+      "trial_name": "byte-exact-pages-mixed-insert-de__Hz5rmJG"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T18:58:25.220824Z",
+      "harbor_task_checksum": "cacb6f102f4ee499e69c02c9359e36fddcd1a0c935d8575cb99f8cd31656a771",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T18:57:47.423403Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_single-page-ghost-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_full-split-merge-byte-fill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-compact-ghost-free",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "f71a2337-2fab-455a-8436-33a41eb22f23",
+      "trial_name": "byte-exact-pages-mixed-insert-de__MLTKVEc"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T18:58:23.228790Z",
+      "harbor_task_checksum": "cacb6f102f4ee499e69c02c9359e36fddcd1a0c935d8575cb99f8cd31656a771",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T18:57:47.409552Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_single-page-ghost-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_full-split-merge-byte-fill",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-compact-ghost-free",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "202917b3-9519-4c8c-8f28-3bfb771ebf8d",
+      "trial_name": "byte-exact-pages-mixed-insert-de__jYzpqTN"
+    }
+  ],
+  "wall_time_seconds": 41,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

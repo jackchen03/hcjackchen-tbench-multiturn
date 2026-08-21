@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 30,
+  "bundle_fingerprint": "bundle-sha256-v1:cdbf2e437cc08c578c6de3ed2de7331813e26f83918b2314ab595e2874a69987",
+  "final_audit": "committed-table-state-winner-pivot/.validation/final-audit-20260820T202745Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "committed-table-state-winner-pivot/.validation/chain-20260820T200752Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "committed-table-state-winner-pivot/.validation/oracle-x3-current-20260820T204751Z.json",
+  "proposed_commit_pathspec": "committed-table-state-winner-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "committed-table-state-winner-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

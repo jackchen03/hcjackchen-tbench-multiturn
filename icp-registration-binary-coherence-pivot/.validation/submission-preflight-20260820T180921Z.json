@@ -1,0 +1,17 @@
+{
+  "task": "icp-registration-binary-coherence-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:21.446059+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "fb122c359c2bf66c35ed05e87bc76083c03339569b43e292fcffc2feb7c7a80a",
+    "bundle_file_count": 29,
+    "chain_evidence": "icp-registration-binary-coherence-pivot/.validation/chain-20260820T170108Z.json",
+    "oracle_x3_evidence": "icp-registration-binary-coherence-pivot/.validation/oracle-x3-20260820T175436Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "icp-registration-binary-coherence-pivot"
+  ]
+}

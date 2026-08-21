@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:74a6747ee1c91540ce7d55b0947bbdabee3d40914d32de9915e81ca006ac3cec",
+  "final_audit": "moldudp64-gap-detection-multi-msg-pivot/.validation/final-audit-20260820T185633Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "moldudp64-gap-detection-multi-msg-pivot/.validation/chain-20260820T185617Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "moldudp64-gap-detection-multi-msg-pivot/.validation/oracle-x3-current-20260820T191919Z.json",
+  "proposed_commit_pathspec": "moldudp64-gap-detection-multi-msg-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "moldudp64-gap-detection-multi-msg-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

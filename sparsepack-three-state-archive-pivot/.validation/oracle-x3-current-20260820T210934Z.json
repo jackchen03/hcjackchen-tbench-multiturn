@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:db5dc4b32db7099fdb613298efa32ed6e0dc0df0def20a125ec355cb07da30f9",
+  "command": "codimango bench run -p sparsepack-three-state-archive-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "fd6a7679913da4888528bd7b31c9fc4b1c17d6ca635c3f1e36fcabeb561d71e9",
+  "issues": [],
+  "source_final_audit": "sparsepack-three-state-archive-pivot/.validation/final-audit-20260820T202451Z.json",
+  "status": "3/3 PASS",
+  "task": "sparsepack-three-state-archive-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:48:28.487282Z",
+      "harbor_task_checksum": "fd6a7679913da4888528bd7b31c9fc4b1c17d6ca635c3f1e36fcabeb561d71e9",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:47:52.356702Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reverse-basic-spk-format",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-written-zeros",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-physical-tree-segmentation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "ddcef0fc-d752-446f-8a55-519016339f90",
+      "trial_name": "sparsepack-three-state-archive-p__BEdzkAq"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:48:27.826746Z",
+      "harbor_task_checksum": "fd6a7679913da4888528bd7b31c9fc4b1c17d6ca635c3f1e36fcabeb561d71e9",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:47:52.308477Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reverse-basic-spk-format",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-written-zeros",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-physical-tree-segmentation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "4e83c22b-8807-4925-bf57-92a79420b12d",
+      "trial_name": "sparsepack-three-state-archive-p__WFji2nH"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:48:29.417124Z",
+      "harbor_task_checksum": "fd6a7679913da4888528bd7b31c9fc4b1c17d6ca635c3f1e36fcabeb561d71e9",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:47:52.371407Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reverse-basic-spk-format",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-written-zeros",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-physical-tree-segmentation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "a23bad84-d54e-467a-be64-c0296255f170",
+      "trial_name": "sparsepack-three-state-archive-p__gmy9BnH"
+    }
+  ],
+  "wall_time_seconds": 120,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

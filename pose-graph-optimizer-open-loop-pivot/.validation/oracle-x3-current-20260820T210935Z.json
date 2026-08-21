@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:8d6d91c312a1e5588ead5339b307143da3d4be8efa7b15534141aee98bdb6644",
+  "command": "codimango bench run -p pose-graph-optimizer-open-loop-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "30080d45c12592279dbb39fd8e407986f4c5a49dd392dcc133cf76c369bd526f",
+  "issues": [],
+  "source_final_audit": "pose-graph-optimizer-open-loop-pivot/.validation/final-audit-20260820T202514Z.json",
+  "status": "3/3 PASS",
+  "task": "pose-graph-optimizer-open-loop-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:09:09.163714Z",
+      "harbor_task_checksum": "30080d45c12592279dbb39fd8e407986f4c5a49dd392dcc133cf76c369bd526f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:08:28.086993Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-loop-direction",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_fix-covariance-weighting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-output-format",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "e292c22a-9af8-4173-b7f1-3801d3da0fc2",
+      "trial_name": "pose-graph-optimizer-open-loop-p__5rknn3r"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:09:10.187033Z",
+      "harbor_task_checksum": "30080d45c12592279dbb39fd8e407986f4c5a49dd392dcc133cf76c369bd526f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:08:28.205739Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-loop-direction",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_fix-covariance-weighting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-output-format",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "f17f4419-8537-4b9d-8f13-ab0d473e570c",
+      "trial_name": "pose-graph-optimizer-open-loop-p__8pWmKBo"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:09:11.237798Z",
+      "harbor_task_checksum": "30080d45c12592279dbb39fd8e407986f4c5a49dd392dcc133cf76c369bd526f",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:08:28.313155Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-loop-direction",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_fix-covariance-weighting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-output-format",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "d133866e-d312-4463-be99-2e6f859570e4",
+      "trial_name": "pose-graph-optimizer-open-loop-p__jPFaE4p"
+    }
+  ],
+  "wall_time_seconds": 131,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

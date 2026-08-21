@@ -1,0 +1,92 @@
+{
+  "task": "calibrated-ranking-monotone-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p calibrated-ranking-monotone-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.RPDOe2",
+  "job_dir": "/tmp/tbench-oracle-x3.RPDOe2/jobs/2026-08-20__10-43-15__93a813",
+  "run_log": "/tmp/tbench-oracle-x3.RPDOe2/run.log",
+  "recorded_at": "2026-08-20T17:43:56.953279+00:00",
+  "wall_time_sec": 78,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "272ef663c899706f4dfd468c590c4c9f8fbf757b24307117a984c1e40ae6a347",
+  "bundle_file_count": 36,
+  "chain_evidence": "calibrated-ranking-monotone-pivot/.validation/chain-20260820T165048Z.json",
+  "trials": [
+    {
+      "trial_id": "e8002af6-57ec-49a4-9214-75bf7c2477c5",
+      "trial_name": "calibrated-ranking-monotone-pivo__LE9eQPf",
+      "task_checksum": "806602e2577224359f6e1528cc169b87aa8491b38e38a049c8195aa6e77cc5ec",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_calib-loader-provenance-fix",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_bucket-boundary-alignment",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_audit-and-hot-reload-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.RPDOe2/jobs/2026-08-20__10-43-15__93a813/calibrated-ranking-monotone-pivo__LE9eQPf/result.json"
+    },
+    {
+      "trial_id": "e131618c-eed9-473e-b5f2-e519e39671ca",
+      "trial_name": "calibrated-ranking-monotone-pivo__MgPo5R4",
+      "task_checksum": "806602e2577224359f6e1528cc169b87aa8491b38e38a049c8195aa6e77cc5ec",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_calib-loader-provenance-fix",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_bucket-boundary-alignment",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_audit-and-hot-reload-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.RPDOe2/jobs/2026-08-20__10-43-15__93a813/calibrated-ranking-monotone-pivo__MgPo5R4/result.json"
+    },
+    {
+      "trial_id": "646f1b91-2150-47f4-8eeb-99081eaf824e",
+      "trial_name": "calibrated-ranking-monotone-pivo__qhtovSS",
+      "task_checksum": "806602e2577224359f6e1528cc169b87aa8491b38e38a049c8195aa6e77cc5ec",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_calib-loader-provenance-fix",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_bucket-boundary-alignment",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_audit-and-hot-reload-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.RPDOe2/jobs/2026-08-20__10-43-15__93a813/calibrated-ranking-monotone-pivo__qhtovSS/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

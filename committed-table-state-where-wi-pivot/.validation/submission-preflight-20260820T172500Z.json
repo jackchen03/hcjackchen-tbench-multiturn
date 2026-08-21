@@ -1,0 +1,21 @@
+{
+  "task": "committed-table-state-where-wi-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T17:25:00+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "9e207bddc6dc3c5d657802422c33eab1e5bf7d907c836c3f295595787f954ec4",
+    "bundle_file_count": 26,
+    "chain_evidence": "committed-table-state-where-wi-pivot/.validation/chain-20260820T171027Z.json",
+    "oracle_x3_evidence": "committed-table-state-where-wi-pivot/.validation/oracle-x3-20260820T172400Z.json",
+    "instruction_hashes": "MATCH",
+    "metadata_layout": "PASS",
+    "readme": "Oracle 3/3 from current x3; model rows unmeasured",
+    "hygiene": "PASS"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "committed-table-state-where-wi-pivot"
+  ]
+}

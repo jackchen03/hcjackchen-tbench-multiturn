@@ -1,0 +1,92 @@
+{
+  "task": "recycled-wal-committed-set-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p recycled-wal-committed-set-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.eup1kQ",
+  "job_dir": "/tmp/tbench-oracle-x3.eup1kQ/jobs/2026-08-20__09-50-07__c77a2e",
+  "run_log": "/tmp/tbench-oracle-x3.eup1kQ/run.log",
+  "recorded_at": "2026-08-20T16:50:48.451485+00:00",
+  "wall_time_sec": 168,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "bcf6f7ebdb1e4fc0fe0a534f859af40aca724fd35326a3a5b49f715e4a21aea7",
+  "bundle_file_count": 28,
+  "chain_evidence": "recycled-wal-committed-set-pivot/.validation/chain-20260820T164004Z.json",
+  "trials": [
+    {
+      "trial_id": "a6609b60-2912-4df7-89e8-0e27b0fbf013",
+      "trial_name": "recycled-wal-committed-set-pivot__2xeuRrd",
+      "task_checksum": "1c05e092d3440eb2c4ebfbd57acb8ad54872618a14c36d79e6d5838970b0ddd3",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-committed-set",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_build-commit-index",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_hash-lookup-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.eup1kQ/jobs/2026-08-20__09-50-07__c77a2e/recycled-wal-committed-set-pivot__2xeuRrd/result.json"
+    },
+    {
+      "trial_id": "ed5a79e7-74b4-434d-9db9-b622062eb4ae",
+      "trial_name": "recycled-wal-committed-set-pivot__VUCJ6Dx",
+      "task_checksum": "1c05e092d3440eb2c4ebfbd57acb8ad54872618a14c36d79e6d5838970b0ddd3",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-committed-set",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_build-commit-index",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_hash-lookup-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.eup1kQ/jobs/2026-08-20__09-50-07__c77a2e/recycled-wal-committed-set-pivot__VUCJ6Dx/result.json"
+    },
+    {
+      "trial_id": "bab799d9-2256-461b-9243-c4b5daeb1624",
+      "trial_name": "recycled-wal-committed-set-pivot__qgDCwta",
+      "task_checksum": "1c05e092d3440eb2c4ebfbd57acb8ad54872618a14c36d79e6d5838970b0ddd3",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-committed-set",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_build-commit-index",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_hash-lookup-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.eup1kQ/jobs/2026-08-20__09-50-07__c77a2e/recycled-wal-committed-set-pivot__qgDCwta/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

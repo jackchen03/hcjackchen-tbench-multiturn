@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:3a39985296005456820e21939145e0936e894402e8de7f2503edc060fd6d43a1",
+  "command": "codimango bench run -p bundle-adjustment-converges-structure-drift-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "475262e341a1b2e7c92dddcecb8b724b3c54c1cecbc318737672be8f0c363f76",
+  "source_final_audit": "bundle-adjustment-converges-structure-drift-pivot/.validation/final-audit-20260820T185529Z.json",
+  "status": "3/3 PASS",
+  "task": "bundle-adjustment-converges-structure-drift-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:16:53.540384Z",
+      "harbor_task_checksum": "475262e341a1b2e7c92dddcecb8b724b3c54c1cecbc318737672be8f0c363f76",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:16:06.564977Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_whiten-jacobian-weighting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_fix-gain-ratio-lm-damping",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_unify-weighted-path-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "21df0de6-77fa-4b4b-a6a9-8764bd82d083",
+      "trial_name": "bundle-adjustment-converges-stru__WwVpJkP"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:16:54.794850Z",
+      "harbor_task_checksum": "475262e341a1b2e7c92dddcecb8b724b3c54c1cecbc318737672be8f0c363f76",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:16:06.666459Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_whiten-jacobian-weighting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_fix-gain-ratio-lm-damping",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_unify-weighted-path-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "19efbec3-bee9-4dfd-8e21-a4da7b579c3d",
+      "trial_name": "bundle-adjustment-converges-stru__oJej8uy"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:16:55.323311Z",
+      "harbor_task_checksum": "475262e341a1b2e7c92dddcecb8b724b3c54c1cecbc318737672be8f0c363f76",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:16:06.729752Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_whiten-jacobian-weighting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_fix-gain-ratio-lm-damping",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_unify-weighted-path-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "7e2a9bcc-3eec-48b0-8460-9bead419ed4a",
+      "trial_name": "bundle-adjustment-converges-stru__wa4jMgD"
+    }
+  ],
+  "wall_time_seconds": 52,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

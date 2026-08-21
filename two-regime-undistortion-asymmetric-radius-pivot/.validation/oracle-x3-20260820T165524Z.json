@@ -1,0 +1,92 @@
+{
+  "task": "two-regime-undistortion-asymmetric-radius-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p two-regime-undistortion-asymmetric-radius-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.4gG7FJ",
+  "job_dir": "/tmp/tbench-oracle-x3.4gG7FJ/jobs/2026-08-20__09-54-45__419ae9",
+  "run_log": "/tmp/tbench-oracle-x3.4gG7FJ/run.log",
+  "recorded_at": "2026-08-20T16:55:24.926509+00:00",
+  "wall_time_sec": 131,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "ba06053c0be78bca72bb469f0f5cc4bca967a6225f3b5189b88178bcfb5fcae5",
+  "bundle_file_count": 33,
+  "chain_evidence": "two-regime-undistortion-asymmetric-radius-pivot/.validation/chain-20260820T164424Z.json",
+  "trials": [
+    {
+      "trial_id": "114ba75e-d1d6-4262-abfd-00764219f3de",
+      "trial_name": "two-regime-undistortion-asymmetr__S6URGoW",
+      "task_checksum": "02fc3f2739fcd36cf5639f2199e0935bfbb900947cf0bdb680b087f6b66b847b",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_detect-radius-seam-and-branch",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_radial-warm-start-asymmetric-radius",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-mixed-domain-tangential",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.4gG7FJ/jobs/2026-08-20__09-54-45__419ae9/two-regime-undistortion-asymmetr__S6URGoW/result.json"
+    },
+    {
+      "trial_id": "032ec246-1f79-4fcf-9aed-85552e3c7def",
+      "trial_name": "two-regime-undistortion-asymmetr__ntGP8T9",
+      "task_checksum": "02fc3f2739fcd36cf5639f2199e0935bfbb900947cf0bdb680b087f6b66b847b",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_detect-radius-seam-and-branch",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_radial-warm-start-asymmetric-radius",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-mixed-domain-tangential",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.4gG7FJ/jobs/2026-08-20__09-54-45__419ae9/two-regime-undistortion-asymmetr__ntGP8T9/result.json"
+    },
+    {
+      "trial_id": "1293ea93-e3f2-43de-81c0-37c665ef98cd",
+      "trial_name": "two-regime-undistortion-asymmetr__rDCELPi",
+      "task_checksum": "02fc3f2739fcd36cf5639f2199e0935bfbb900947cf0bdb680b087f6b66b847b",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_detect-radius-seam-and-branch",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_radial-warm-start-asymmetric-radius",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-to-mixed-domain-tangential",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.4gG7FJ/jobs/2026-08-20__09-54-45__419ae9/two-regime-undistortion-asymmetr__rDCELPi/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

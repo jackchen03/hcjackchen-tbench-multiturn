@@ -1,0 +1,17 @@
+{
+  "task": "consistent-heap-live-set-rebuild-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:08:36.229336+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "40c6c304a55a564190e6dbaad780dcfdc7bd8d25465523c85c17dadcf1d47eb7",
+    "bundle_file_count": 24,
+    "chain_evidence": "consistent-heap-live-set-rebuild-pivot/.validation/chain-20260820T163600Z.json",
+    "oracle_x3_evidence": "consistent-heap-live-set-rebuild-pivot/.validation/oracle-x3-20260820T172717Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "consistent-heap-live-set-rebuild-pivot"
+  ]
+}

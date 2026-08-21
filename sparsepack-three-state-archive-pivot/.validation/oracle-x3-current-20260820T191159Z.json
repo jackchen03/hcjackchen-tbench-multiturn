@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:851e084596de55508955084404d8b749293275aea94cf514684e1564ea8d142c",
+  "command": "codimango bench run -p sparsepack-three-state-archive-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "9f1d4bad98a1b6e1b0d24f349aebad30895083e70bec55ed4f683a2b5c8767a4",
+  "source_final_audit": "sparsepack-three-state-archive-pivot/.validation/final-audit-20260820T185324Z.json",
+  "status": "3/3 PASS",
+  "task": "sparsepack-three-state-archive-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:11:55.795134Z",
+      "harbor_task_checksum": "9f1d4bad98a1b6e1b0d24f349aebad30895083e70bec55ed4f683a2b5c8767a4",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:11:20.429384Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reverse-basic-spk-format",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-written-zeros",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-physical-tree-segmentation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "5ff4c5b8-c65d-428f-82f2-106ed06e3809",
+      "trial_name": "sparsepack-three-state-archive-p__ZgSGdDM"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:11:56.410881Z",
+      "harbor_task_checksum": "9f1d4bad98a1b6e1b0d24f349aebad30895083e70bec55ed4f683a2b5c8767a4",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:11:20.475576Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reverse-basic-spk-format",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-written-zeros",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-physical-tree-segmentation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "ccf10ea7-d263-4f5e-b952-7ebd78f4a4bd",
+      "trial_name": "sparsepack-three-state-archive-p__e2JGGv7"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:11:57.008668Z",
+      "harbor_task_checksum": "9f1d4bad98a1b6e1b0d24f349aebad30895083e70bec55ed4f683a2b5c8767a4",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:11:20.488964Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reverse-basic-spk-format",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-written-zeros",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_fix-physical-tree-segmentation",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "dd306a13-6dba-4dbd-a79a-12fe1e89a735",
+      "trial_name": "sparsepack-three-state-archive-p__ffng3fV"
+    }
+  ],
+  "wall_time_seconds": 40,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

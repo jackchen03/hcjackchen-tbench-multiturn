@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "seek-hole-data-kernel-match-pivot",
+  "task_checksum": "fdaa85d675023597f54d80d10c634797b11431160a90244ea07acd2ec72cadcd",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:47:43.920612Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:47:07.807306Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_match-kernel-offline-sparse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-eof-cutoff",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_raw-parser-no-debugfs-and-straddle",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "fdaa85d675023597f54d80d10c634797b11431160a90244ea07acd2ec72cadcd",
+      "trial_id": "66cb7040-bde7-4b77-9808-45bdd393eb73",
+      "trial_name": "seek-hole-data-kernel-match-pivo__6jRs72W"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:47:43.079500Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:47:07.758981Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_match-kernel-offline-sparse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-eof-cutoff",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_raw-parser-no-debugfs-and-straddle",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "fdaa85d675023597f54d80d10c634797b11431160a90244ea07acd2ec72cadcd",
+      "trial_id": "17f6ef42-42f7-4578-b443-8915c42cc309",
+      "trial_name": "seek-hole-data-kernel-match-pivo__9SzaRjx"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:47:45.008071Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:47:07.820380Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_match-kernel-offline-sparse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-eof-cutoff",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_raw-parser-no-debugfs-and-straddle",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "fdaa85d675023597f54d80d10c634797b11431160a90244ea07acd2ec72cadcd",
+      "trial_id": "28f53d44-a40e-4141-8cf5-fcb67728eaa7",
+      "trial_name": "seek-hole-data-kernel-match-pivo__TtoLzr3"
+    }
+  ]
+}

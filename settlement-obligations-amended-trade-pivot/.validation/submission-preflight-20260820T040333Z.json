@@ -1,0 +1,19 @@
+{
+  "task": "settlement-obligations-amended-trade-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:03:33.481912+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "f122f65972224517c6f5395a0bcafb44d6f6810efa4a214e2a35302eb3a8a0cb",
+    "bundle_file_count": 32,
+    "chain_evidence": "settlement-obligations-amended-trade-pivot/.validation/chain-20260820T010116Z.json",
+    "oracle_x3_evidence": "settlement-obligations-amended-trade-pivot/.validation/oracle-x3-20260820T040032Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "settlement-obligations-amended-trade-pivot"
+  ]
+}

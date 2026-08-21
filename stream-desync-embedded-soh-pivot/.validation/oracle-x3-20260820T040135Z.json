@@ -1,0 +1,92 @@
+{
+  "task": "stream-desync-embedded-soh-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p stream-desync-embedded-soh-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.iENsaH",
+  "job_dir": "/tmp/tbench-oracle-x3.iENsaH/jobs/2026-08-19__21-00-53__e0b35a",
+  "run_log": "/tmp/tbench-oracle-x3.iENsaH/run.log",
+  "recorded_at": "2026-08-20T04:01:35.560509+00:00",
+  "wall_time_sec": 60,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "cd7d2c1360031b1fcac1e56acd61b6f2fcf0cdc9ce86304a21a06efe803cce75",
+  "bundle_file_count": 26,
+  "chain_evidence": "stream-desync-embedded-soh-pivot/.validation/chain-20260820T010211Z.json",
+  "trials": [
+    {
+      "trial_id": "7e5276dc-51aa-4e2b-90b5-ca83e0a80a70",
+      "trial_name": "stream-desync-embedded-soh-pivot__9gfaSRi",
+      "task_checksum": "79bea95907479b29fd7f71cb50598c92767b86bbc7b0aa34f29085ce58fedc31",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fix-rawdata-embedded-soh",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_generalize-family-dictionary",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-checksum-resync-drop-report",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.iENsaH/jobs/2026-08-19__21-00-53__e0b35a/stream-desync-embedded-soh-pivot__9gfaSRi/result.json"
+    },
+    {
+      "trial_id": "4af470a1-38c7-47d8-ad26-896839e3cbb6",
+      "trial_name": "stream-desync-embedded-soh-pivot__o42eWKG",
+      "task_checksum": "79bea95907479b29fd7f71cb50598c92767b86bbc7b0aa34f29085ce58fedc31",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fix-rawdata-embedded-soh",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_generalize-family-dictionary",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-checksum-resync-drop-report",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.iENsaH/jobs/2026-08-19__21-00-53__e0b35a/stream-desync-embedded-soh-pivot__o42eWKG/result.json"
+    },
+    {
+      "trial_id": "cecd33a9-22ba-4f91-b54f-b00a060e2d25",
+      "trial_name": "stream-desync-embedded-soh-pivot__x5hFFKx",
+      "task_checksum": "79bea95907479b29fd7f71cb50598c92767b86bbc7b0aa34f29085ce58fedc31",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fix-rawdata-embedded-soh",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_generalize-family-dictionary",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-checksum-resync-drop-report",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.iENsaH/jobs/2026-08-19__21-00-53__e0b35a/stream-desync-embedded-soh-pivot__x5hFFKx/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

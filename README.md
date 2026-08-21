@@ -8,6 +8,9 @@ This repo is separate from `hcjackchen-tbench-1` (single-turn) to keep multi-tur
 
 Each task lives in its own directory:
 
+Submission-ready tasks are top-level directories. Incomplete Phase-2 drafts remain
+under `promoted/<family>/` so repository-level task discovery ignores them.
+
 ```
 <task-slug>/
 ├── task.toml              # schema_version = "1.1", [[steps]] chain, tags BEFORE steps
@@ -103,7 +106,7 @@ See `Ideas/single-to-multiturn-promotion.md` for promotion patterns.
 ## GitHub setup
 
 ```bash
-gh repo create hcjackchen/hcjackchen-tbench-multiturn --public --source=. --remote=origin --push
+gh repo create codimango/hcjackchen-tbench-multiturn --public --source=. --remote=origin --push
 ```
 
 Or manual:
@@ -113,6 +116,6 @@ git init
 git add .
 git commit -m "Initial multi-turn scaffold (schema 1.1, 3-step bias, overriding)"
 git branch -M main
-git remote add origin https://github.com/<you>/hcjackchen-tbench-multiturn.git
+git remote add origin https://github.com/codimango/hcjackchen-tbench-multiturn.git
 git push -u origin main
 ```

@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:9d278a1325634415d916562003f484710c60ae9a079681df5c8a3203e8032273",
+  "command": "codimango bench run -p price-time-priority-worker-violation-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "6eda86e0e2fa5dc952955d383a4baf62bab59258c41118123623546577803ea6",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.eYUwAA/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.eYUwAA",
+  "source_final_audit": "price-time-priority-worker-violation-pivot/.validation/final-audit-20260820T203407Z.json",
+  "status": "3/3 PASS",
+  "task": "price-time-priority-worker-violation-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:18:36.796915Z",
+      "harbor_task_checksum": "6eda86e0e2fa5dc952955d383a4baf62bab59258c41118123623546577803ea6",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:17:57.837103Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-price-time-priority",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_determinism-multi-symbol",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-sequential-ingest",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "60634c51-46a6-41e2-a41a-77b113e0a8c5",
+      "trial_name": "price-time-priority-worker-viola__QZEaZZJ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:18:37.945458Z",
+      "harbor_task_checksum": "6eda86e0e2fa5dc952955d383a4baf62bab59258c41118123623546577803ea6",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:17:57.852320Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-price-time-priority",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_determinism-multi-symbol",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-sequential-ingest",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "9b1c45a5-9a9b-4e2c-89a6-c85ea1e8face",
+      "trial_name": "price-time-priority-worker-viola__b4jAek6"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:18:36.064873Z",
+      "harbor_task_checksum": "6eda86e0e2fa5dc952955d383a4baf62bab59258c41118123623546577803ea6",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:17:57.786959Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-price-time-priority",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_determinism-multi-symbol",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-sequential-ingest",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "962045a9-509d-4054-88db-017d0b07107d",
+      "trial_name": "price-time-priority-worker-viola__hyfu4aA"
+    }
+  ],
+  "wall_time_seconds": 82,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

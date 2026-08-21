@@ -1,0 +1,47 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b016384e812417371923dcd78af77fff6e70b7051fc797f9626a70b9c25790ac",
+  "chain_evidence": "stale-page-valid-checksum-double-write-pivot/.validation/chain-20260820T185013Z.json",
+  "green_phases": [
+    {
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "1_diagnose-stale-pages"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "2_recover-heap"
+    },
+    {
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "3_pitr-manifest-pivot"
+    }
+  ],
+  "instruction_hashes": "MATCH",
+  "overexec_phases": [
+    {
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "1_diagnose-stale-pages"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "2_recover-heap"
+    }
+  ],
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "skipped": 0,
+  "static_audit": "PASS",
+  "status": "PASS",
+  "task": "stale-page-valid-checksum-double-write-pivot"
+}

@@ -1,0 +1,24 @@
+Task: nonstandard-journal-reimpl-pivot
+Image: tbench-mt-nonstandard-journal-reimpl-pivot:validate
+Chain evidence: nonstandard-journal-reimpl-pivot/.validation/chain-20260820T004834Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=opaque-builder /build/jrecover /app/reference/jrecover
+Runtime explicit builder-copy destinations:
+PATH /app/reference/jrecover
+-r-xr-xr-x 1 root root 14440 Jan  1  2020 /app/reference/jrecover
+FIRST4 7f454c46
+Potential readable source under reference/grader roots:
+Future-staging paths:
+444 /opt/grader-staging/canonical/case_00/audit.json
+444 /opt/grader-staging/canonical/case_00/base.img
+444 /opt/grader-staging/canonical/case_00/journal.jnl
+444 /opt/grader-staging/canonical/case_00/recovered.img
+444 /opt/grader-staging/canonical/case_01/audit.json
+444 /opt/grader-staging/canonical/case_01/base.img
+444 /opt/grader-staging/canonical/case_01/journal.jnl
+444 /opt/grader-staging/canonical/case_01/recovered.img
+444 /opt/grader-staging/canonical/case_02/audit.json
+444 /opt/grader-staging/canonical/case_02/base.img
+444 /opt/grader-staging/canonical/case_02/journal.jnl
+444 /opt/grader-staging/canonical/case_02/recovered.img

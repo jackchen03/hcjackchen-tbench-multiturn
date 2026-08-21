@@ -1,0 +1,35 @@
+Task: byte-match-non-greedy-rle-bitpack-pivot
+Image: tbench-mt-byte-match-non-greedy-rle-bitpack-pivot:validate
+Chain evidence: byte-match-non-greedy-rle-bitpack-pivot/.validation/chain-20260820T004217Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=payload-builder /out/oracle_payload.h ./
+COPY --from=oracle-builder /build/legacy_encoder /verifier/legacy_encoder
+COPY --from=oracle-builder /build/dict_encoder /opt/grader-staging/dict_encoder
+Runtime explicit builder-copy destinations:
+PATH ./
+drwxr-xr-x 1 root root 54 Aug 20 00:42 ./
+644 ./README.txt
+644 ./canary.txt
+644 ./samples/sample_boundary_run.bin
+644 ./samples/sample_boundary_run.json
+644 ./samples/sample_incompressible.bin
+644 ./samples/sample_incompressible.json
+644 ./samples/sample_odd_width.bin
+644 ./samples/sample_odd_width.json
+644 ./samples/sample_small.bin
+644 ./samples/sample_small.json
+644 ./samples/sample_tail_pad.bin
+644 ./samples/sample_tail_pad.json
+PATH /verifier/legacy_encoder
+-r-xr-xr-x 1 root root 14432 Jan  1  2020 /verifier/legacy_encoder
+FIRST4 7f454c46
+PATH /opt/grader-staging/dict_encoder
+-r--r--r-- 1 root root 14432 Jan  1  2020 /opt/grader-staging/dict_encoder
+FIRST4 7f454c46
+Potential readable source under reference/grader roots:
+Future-staging paths:
+444 /opt/grader-staging/dict_encoder
+444 /opt/grader-staging/production_traces/README.md
+444 /opt/grader-staging/production_traces/trace_high_card.json
+444 /opt/grader-staging/production_traces/trace_mixed_card.json

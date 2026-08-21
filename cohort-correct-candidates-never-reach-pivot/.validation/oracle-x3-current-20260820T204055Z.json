@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:56cb8d478a3d832ec6426d6e253db8f917a40aacbe5fafc1b85093a27db2c3ca",
+  "command": "codimango bench run -p cohort-correct-candidates-never-reach-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "6292ba6d734c7b1e24689a61975f0320da2ab26cb194b9d93c838cfe8d0cdc8a",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.fOgLlL/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.fOgLlL",
+  "source_final_audit": "cohort-correct-candidates-never-reach-pivot/.validation/final-audit-20260820T203318Z.json",
+  "status": "3/3 PASS",
+  "task": "cohort-correct-candidates-never-reach-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:40:53.161486Z",
+      "harbor_task_checksum": "6292ba6d734c7b1e24689a61975f0320da2ab26cb194b9d93c838cfe8d0cdc8a",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:40:14.268338Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-and-fix-incomplete-ranking",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-cohort-recall-metrics",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-two-phase-ranking",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "48222537-bb99-4c67-a9ea-793b05867ca0",
+      "trial_name": "cohort-correct-candidates-never__QJmnLpA"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:40:52.165022Z",
+      "harbor_task_checksum": "6292ba6d734c7b1e24689a61975f0320da2ab26cb194b9d93c838cfe8d0cdc8a",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:40:14.253374Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-and-fix-incomplete-ranking",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-cohort-recall-metrics",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-two-phase-ranking",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "3489d993-dbba-49b9-bd3b-d5885b320239",
+      "trial_name": "cohort-correct-candidates-never__iJBcuEU"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:40:51.613860Z",
+      "harbor_task_checksum": "6292ba6d734c7b1e24689a61975f0320da2ab26cb194b9d93c838cfe8d0cdc8a",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:40:14.203243Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-and-fix-incomplete-ranking",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-cohort-recall-metrics",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-two-phase-ranking",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "b71f9264-634b-43f7-8029-2e1e7ee3aa20",
+      "trial_name": "cohort-correct-candidates-never__zBVUjJK"
+    }
+  ],
+  "wall_time_seconds": 131,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

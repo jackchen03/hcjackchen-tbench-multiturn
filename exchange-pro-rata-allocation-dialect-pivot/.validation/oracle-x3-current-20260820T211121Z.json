@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:cbd3d4dc8ba3bdd165b68f3b61576e78648d266253633664396cf262e3a7e8b7",
+  "command": "codimango bench run -p exchange-pro-rata-allocation-dialect-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "59fc13e56b4362e304b7039aba94ca9392e456ddca8812cee549d6e454ce2e19",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.BVyWdO/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.BVyWdO",
+  "source_final_audit": "exchange-pro-rata-allocation-dialect-pivot/.validation/final-audit-20260820T203353Z.json",
+  "status": "3/3 PASS",
+  "task": "exchange-pro-rata-allocation-dialect-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:11:17.205287Z",
+      "harbor_task_checksum": "59fc13e56b4362e304b7039aba94ca9392e456ddca8812cee549d6e454ce2e19",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:10:40.006671Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reproduce-carveout",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-min-fill-repool",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-remove-carveout-report-pnl",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "0784e7d7-d339-493a-b0c4-f1ecd351ff37",
+      "trial_name": "exchange-pro-rata-allocation-dia__5AMYwMi"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:11:16.553390Z",
+      "harbor_task_checksum": "59fc13e56b4362e304b7039aba94ca9392e456ddca8812cee549d6e454ce2e19",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:10:39.961631Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reproduce-carveout",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-min-fill-repool",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-remove-carveout-report-pnl",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "502fd192-4bdc-448b-a207-4d59657c6696",
+      "trial_name": "exchange-pro-rata-allocation-dia__jqHwtFt"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:11:18.162886Z",
+      "harbor_task_checksum": "59fc13e56b4362e304b7039aba94ca9392e456ddca8812cee549d6e454ce2e19",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:10:40.017102Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reproduce-carveout",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-min-fill-repool",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-remove-carveout-report-pnl",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "2ff02cbe-5c35-4d44-bbe6-7e3caff5b82c",
+      "trial_name": "exchange-pro-rata-allocation-dia__mxTGs5G"
+    }
+  ],
+  "wall_time_seconds": 85,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

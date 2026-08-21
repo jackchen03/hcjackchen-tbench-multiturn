@@ -1,0 +1,17 @@
+{
+  "task": "stream-desync-embedded-soh-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:41.193322+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "4cd5ff5606fe18f219c0c5f3145ad799fa1006f0862f8b093850c71c2659d2fd",
+    "bundle_file_count": 26,
+    "chain_evidence": "stream-desync-embedded-soh-pivot/.validation/chain-20260820T171651Z.json",
+    "oracle_x3_evidence": "stream-desync-embedded-soh-pivot/.validation/oracle-x3-20260820T180641Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "stream-desync-embedded-soh-pivot"
+  ]
+}

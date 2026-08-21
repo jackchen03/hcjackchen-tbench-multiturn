@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:5a950609d2f1b6c9ebb52482b0d1b18ee4c9b8d6cb33fe2d2dda736d00a88f64",
+  "command": "codimango bench run -p per-ranker-credit-interleaving-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "15c85b3265eff15b287905037e463ffe17ad0b615acfabceeb4d2005da79da7b",
+  "source_final_audit": "per-ranker-credit-interleaving-pivot/.validation/final-audit-20260820T185446Z.json",
+  "status": "3/3 PASS",
+  "task": "per-ranker-credit-interleaving-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:15:18.819084Z",
+      "harbor_task_checksum": "15c85b3265eff15b287905037e463ffe17ad0b615acfabceeb4d2005da79da7b",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:14:29.556476Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reproduce-served-slate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_correct-per-ranker-click-credit",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_correct-log-and-contested-audit",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "53d4f6f4-eaea-4fbc-b0cd-f2b14b0cc810",
+      "trial_name": "per-ranker-credit-interleaving-p__PdmcrDJ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:15:19.409795Z",
+      "harbor_task_checksum": "15c85b3265eff15b287905037e463ffe17ad0b615acfabceeb4d2005da79da7b",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:14:29.722447Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reproduce-served-slate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_correct-per-ranker-click-credit",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_correct-log-and-contested-audit",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "432ebb0c-813b-4ade-93f7-28f757882c56",
+      "trial_name": "per-ranker-credit-interleaving-p__q73jK6s"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T19:15:19.091072Z",
+      "harbor_task_checksum": "15c85b3265eff15b287905037e463ffe17ad0b615acfabceeb4d2005da79da7b",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T19:14:29.659763Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_reproduce-served-slate",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_correct-per-ranker-click-credit",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_correct-log-and-contested-audit",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "93ab7117-5884-494f-aaea-f40631e444a4",
+      "trial_name": "per-ranker-credit-interleaving-p__sQGQdfW"
+    }
+  ],
+  "wall_time_seconds": 53,
+  "working_tree_head": "2f9cae502f18562ab1dde2342b42b3d2a85964d7"
+}

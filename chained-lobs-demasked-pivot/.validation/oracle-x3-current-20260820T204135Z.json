@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:2ac2eb29e62b61a321d3cb45d975575bb11cbce9874eb298976116b4412ba387",
+  "command": "codimango bench run -p chained-lobs-demasked-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "331570d7a4ff75126db8a392d5b6160aa1d91a8d4ddfcc07ce3223008b9d5936",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.fZzUWC/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.fZzUWC",
+  "source_final_audit": "chained-lobs-demasked-pivot/.validation/final-audit-20260820T202737Z.json",
+  "status": "3/3 PASS",
+  "task": "chained-lobs-demasked-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:41:31.784439Z",
+      "harbor_task_checksum": "331570d7a4ff75126db8a392d5b6160aa1d91a8d4ddfcc07ce3223008b9d5936",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:40:56.314407Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_chain-walk",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recycled-run-detection",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_demasked-pivot-decompress-splice",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "956061f2-b2bc-4b33-859a-12588f5719d4",
+      "trial_name": "chained-lobs-demasked-pivot__8txU3kg"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:41:32.349951Z",
+      "harbor_task_checksum": "331570d7a4ff75126db8a392d5b6160aa1d91a8d4ddfcc07ce3223008b9d5936",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:40:56.363627Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_chain-walk",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recycled-run-detection",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_demasked-pivot-decompress-splice",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "558212cd-e02b-4962-8f92-8b68327a5f97",
+      "trial_name": "chained-lobs-demasked-pivot__d49Qk3v"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:41:33.253797Z",
+      "harbor_task_checksum": "331570d7a4ff75126db8a392d5b6160aa1d91a8d4ddfcc07ce3223008b9d5936",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:40:56.378388Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_chain-walk",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recycled-run-detection",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_demasked-pivot-decompress-splice",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "4251563d-1603-495b-a934-9d311eac4225",
+      "trial_name": "chained-lobs-demasked-pivot__vhcQwAP"
+    }
+  ],
+  "wall_time_seconds": 127,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

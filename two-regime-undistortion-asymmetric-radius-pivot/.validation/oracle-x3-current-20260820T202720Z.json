@@ -1,0 +1,90 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:3799376f868dae3725ba30b90bcb24d1c6d7220c56bbe9cc5f0989cb954f20d8",
+  "command": "codimango bench run -p two-regime-undistortion-asymmetric-radius-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "4aab48d3283063fb71605514dd12430649f4ae246ac8a5e53312aa730b0f9b5d",
+  "source_final_audit": "two-regime-undistortion-asymmetric-radius-pivot/.validation/final-audit-20260820T202517Z.json",
+  "status": "3/3 PASS",
+  "task": "two-regime-undistortion-asymmetric-radius-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:26:53.525731Z",
+      "harbor_task_checksum": "4aab48d3283063fb71605514dd12430649f4ae246ac8a5e53312aa730b0f9b5d",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:26:16.630776Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_detect-radius-seam-and-branch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_radial-warm-start-asymmetric-radius",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-mixed-domain-tangential",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "91dd6b30-4aba-4a27-8d82-da9562464baa",
+      "trial_name": "two-regime-undistortion-asymmetr__LJbkygF"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:26:52.617239Z",
+      "harbor_task_checksum": "4aab48d3283063fb71605514dd12430649f4ae246ac8a5e53312aa730b0f9b5d",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:26:16.613574Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_detect-radius-seam-and-branch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_radial-warm-start-asymmetric-radius",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-mixed-domain-tangential",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "0f2f8f33-fb63-4595-a155-dfe33927f98b",
+      "trial_name": "two-regime-undistortion-asymmetr__cr8EA62"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:26:52.040390Z",
+      "harbor_task_checksum": "4aab48d3283063fb71605514dd12430649f4ae246ac8a5e53312aa730b0f9b5d",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:26:16.563669Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_detect-radius-seam-and-branch",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_radial-warm-start-asymmetric-radius",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-mixed-domain-tangential",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "6954c66d-c203-4675-b4dd-0f50bc186812",
+      "trial_name": "two-regime-undistortion-asymmetr__izYB6Yf"
+    }
+  ],
+  "wall_time_seconds": 37,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

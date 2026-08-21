@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:e80e8925543e9c903068cf12cef89525a2b67a247e19c19a20572cab69bfaad6",
+  "command": "codimango bench run -p physical-wal-reimpl-anti-canonical-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "50c1e87d8c0e3c4a3318d12bf43e2cadbf9311c11e8b24e189bc26ded68b2b59",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.znSBWv/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.znSBWv",
+  "source_final_audit": "physical-wal-reimpl-anti-canonical-pivot/.validation/final-audit-20260820T202814Z.json",
+  "status": "3/3 PASS",
+  "task": "physical-wal-reimpl-anti-canonical-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:13:47.776921Z",
+      "harbor_task_checksum": "50c1e87d8c0e3c4a3318d12bf43e2cadbf9311c11e8b24e189bc26ded68b2b59",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:13:10.556070Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-wal-replay",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_checkpoint-recovery-verification",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-logical-wal-drop-physical",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "8dbebd62-3c6f-475a-b9ac-9a3e441d8cb3",
+      "trial_name": "physical-wal-reimpl-anti-canonic__BEMrYBm"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:13:46.834655Z",
+      "harbor_task_checksum": "50c1e87d8c0e3c4a3318d12bf43e2cadbf9311c11e8b24e189bc26ded68b2b59",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:13:10.542178Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-wal-replay",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_checkpoint-recovery-verification",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-logical-wal-drop-physical",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "b4d6c636-da1f-4ad1-b1ef-6f0dedf543f3",
+      "trial_name": "physical-wal-reimpl-anti-canonic__mo49RsE"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:13:46.171378Z",
+      "harbor_task_checksum": "50c1e87d8c0e3c4a3318d12bf43e2cadbf9311c11e8b24e189bc26ded68b2b59",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:13:10.493737Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-wal-replay",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_checkpoint-recovery-verification",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-logical-wal-drop-physical",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "8d3749b3-b4d4-482a-b573-da526e8f8e37",
+      "trial_name": "physical-wal-reimpl-anti-canonic__ug4BLKF"
+    }
+  ],
+  "wall_time_seconds": 107,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

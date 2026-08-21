@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:562f3da2ef2274075924cda36119d9d82b36bd4cab21bf3aaa084116259d3ec5",
+  "final_audit": "house-ann-greedy-dialect-pivot/.validation/final-audit-20260820T185420Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "house-ann-greedy-dialect-pivot/.validation/chain-20260820T185405Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "house-ann-greedy-dialect-pivot/.validation/oracle-x3-current-20260820T191427Z.json",
+  "proposed_commit_pathspec": "house-ann-greedy-dialect-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "house-ann-greedy-dialect-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

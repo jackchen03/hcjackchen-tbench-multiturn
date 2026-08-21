@@ -1,0 +1,92 @@
+{
+  "task": "overflow-reassembly-corrupts-large-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p overflow-reassembly-corrupts-large-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.WtRwnb",
+  "job_dir": "/tmp/tbench-oracle-x3.WtRwnb/jobs/2026-08-19__20-43-08__cd4f71",
+  "run_log": "/tmp/tbench-oracle-x3.WtRwnb/run.log",
+  "recorded_at": "2026-08-20T03:43:48.514683+00:00",
+  "wall_time_sec": 58,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "f1710be28034966fa7eda6e538d9f7dbe90022464fffcd741f2e6d9ef39ff329",
+  "bundle_file_count": 27,
+  "chain_evidence": "overflow-reassembly-corrupts-large-pivot/.validation/chain-20260820T004914Z.json",
+  "trials": [
+    {
+      "trial_id": "577b865e-4ec2-48c7-be97-a996c77d34c1",
+      "trial_name": "overflow-reassembly-corrupts-lar__9beS5od",
+      "task_checksum": "6ee162b6faa6be0b382d76885301e8248a78ae1cba091a4fe2481521c14ca9fa",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_inventory-corrupted-sqlite",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_reassemble-overflow-blobs",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_migrate-to-content-addressed-store",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.WtRwnb/jobs/2026-08-19__20-43-08__cd4f71/overflow-reassembly-corrupts-lar__9beS5od/result.json"
+    },
+    {
+      "trial_id": "1b109ac8-9182-4109-afc7-3904ab00bfdb",
+      "trial_name": "overflow-reassembly-corrupts-lar__poL632m",
+      "task_checksum": "6ee162b6faa6be0b382d76885301e8248a78ae1cba091a4fe2481521c14ca9fa",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_inventory-corrupted-sqlite",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_reassemble-overflow-blobs",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_migrate-to-content-addressed-store",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.WtRwnb/jobs/2026-08-19__20-43-08__cd4f71/overflow-reassembly-corrupts-lar__poL632m/result.json"
+    },
+    {
+      "trial_id": "593c38a7-5720-4460-87aa-be5d8b81fbb6",
+      "trial_name": "overflow-reassembly-corrupts-lar__qoNwsNb",
+      "task_checksum": "6ee162b6faa6be0b382d76885301e8248a78ae1cba091a4fe2481521c14ca9fa",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_inventory-corrupted-sqlite",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_reassemble-overflow-blobs",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_migrate-to-content-addressed-store",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.WtRwnb/jobs/2026-08-19__20-43-08__cd4f71/overflow-reassembly-corrupts-lar__qoNwsNb/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

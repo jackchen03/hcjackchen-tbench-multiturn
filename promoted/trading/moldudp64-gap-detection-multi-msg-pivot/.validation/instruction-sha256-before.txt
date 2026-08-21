@@ -1,3 +1,0 @@
-c23f4d174caf02f9cbdf8aff354243f5aa75ab024b81b9e17fd7efab8a44c267  promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/1_multi-msg-count-drift/instruction.md
-13015f2e865267b3828b787e40a645701d128490167441fc86f2e3c30a02afa0  promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/2_heartbeat-eos-sentinel/instruction.md
-6f37e3b80855a7e1e026497d4e441d2b668e687168cd73ae2f25ffe2d6397d59  promoted/trading/moldudp64-gap-detection-multi-msg-pivot/steps/3_global-seq-dedup-pivot/instruction.md

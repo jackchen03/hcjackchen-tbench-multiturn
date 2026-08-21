@@ -1,0 +1,18 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:901e1e0936b99c43f54a7c50fb67f7e25ef552722e2d3c275c10ed8af6ddc64f",
+  "final_audit": "htree-dirhash-reverse-pivot/.validation/final-audit-20260820T202433Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "htree-dirhash-reverse-pivot/.validation/chain-20260820T200456Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "htree-dirhash-reverse-pivot/.validation/oracle-x3-current-20260820T210933Z.json",
+  "proposed_commit_pathspec": "htree-dirhash-reverse-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "htree-dirhash-reverse-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

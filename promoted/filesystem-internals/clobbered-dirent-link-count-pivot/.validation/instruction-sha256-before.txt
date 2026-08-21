@@ -1,3 +1,0 @@
-958f3eda94a4564c96f5026645178b1746abc163f10571fe6c4835584d643061  promoted/filesystem-internals/clobbered-dirent-link-count-pivot/steps/1_fix-dirent-inode-mismatch/instruction.md
-2d6e10546c7f99831488bd0fc88b366a507ca498fb1a26ca085436bba2ff260d  promoted/filesystem-internals/clobbered-dirent-link-count-pivot/steps/2_reconcile-link-counts-carry/instruction.md
-4e574963a19d22035826243fce66fce0418c894681d98b91fbb0a26f8613801d  promoted/filesystem-internals/clobbered-dirent-link-count-pivot/steps/3_pivot-restore-only-drop-rewrite/instruction.md

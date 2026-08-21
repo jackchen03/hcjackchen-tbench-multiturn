@@ -1,0 +1,19 @@
+{
+  "task": "htree-dirhash-reverse-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:02:46.318097+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "53084bb597a84ac6d82c0f2c96c72042ee8f183b6e3f140b421b74aa2dfacd86",
+    "bundle_file_count": 27,
+    "chain_evidence": "htree-dirhash-reverse-pivot/.validation/chain-20260820T004812Z.json",
+    "oracle_x3_evidence": "htree-dirhash-reverse-pivot/.validation/oracle-x3-20260820T034248Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "htree-dirhash-reverse-pivot"
+  ]
+}

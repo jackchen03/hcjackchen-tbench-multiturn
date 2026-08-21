@@ -1,0 +1,54 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:4e39b8b081f8ee2c7975c3f8d01f5d1a9076ff5cbda431e06ecea31c197a8f15",
+  "chain_evidence": "marching-cubes-extractor-ambiguity-pivot/.validation/chain-20260820T202010Z.json",
+  "green_phases": [
+    {
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "1_probe_ambiguity"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "2_rescaled_decider"
+    },
+    {
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored",
+      "phase": "GREEN",
+      "status": "OK",
+      "step": "3_raster_ownership_pivot"
+    }
+  ],
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "overexec_phases": [
+    {
+      "detail": "2 executed, 0 skipped, 1 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "1_probe_ambiguity"
+    },
+    {
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored",
+      "phase": "OVER-EXEC",
+      "status": "OK",
+      "step": "2_rescaled_decider"
+    }
+  ],
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "skipped": 0,
+  "static_audit": "PASS",
+  "static_finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "WARN": 1
+  },
+  "status": "PASS",
+  "task": "marching-cubes-extractor-ambiguity-pivot"
+}

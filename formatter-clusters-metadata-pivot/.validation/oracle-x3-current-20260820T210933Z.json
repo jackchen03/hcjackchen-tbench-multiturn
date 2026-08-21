@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:c00c04bff1437a2a3fe85dd2c7fdbbf250da9b3668621f9c1e1ace50f6ace243",
+  "command": "codimango bench run -p formatter-clusters-metadata-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "a07407ebefe8561b98dff4cc8e05328fb77f1542604b17c00994268dd225dfe7",
+  "issues": [],
+  "source_final_audit": "formatter-clusters-metadata-pivot/.validation/final-audit-20260820T202431Z.json",
+  "status": "3/3 PASS",
+  "task": "formatter-clusters-metadata-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:33:49.237219Z",
+      "harbor_task_checksum": "a07407ebefe8561b98dff4cc8e05328fb77f1542604b17c00994268dd225dfe7",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:33:11.160967Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_baseline-stride1-clustering",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_stride-pad-accounting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_modulo-bump-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "d7d3991e-c563-418a-9c8d-cc3384d00242",
+      "trial_name": "formatter-clusters-metadata-pivo__KAZw5cZ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:33:49.408787Z",
+      "harbor_task_checksum": "a07407ebefe8561b98dff4cc8e05328fb77f1542604b17c00994268dd225dfe7",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:33:11.222006Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_baseline-stride1-clustering",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_stride-pad-accounting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_modulo-bump-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "7aafa1f3-f0b4-40b9-8131-59842e4d7a75",
+      "trial_name": "formatter-clusters-metadata-pivo__X2Qd6q3"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:33:50.555699Z",
+      "harbor_task_checksum": "a07407ebefe8561b98dff4cc8e05328fb77f1542604b17c00994268dd225dfe7",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:33:11.249904Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_baseline-stride1-clustering",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_stride-pad-accounting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_modulo-bump-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "345a5023-9e8b-419d-8084-7ede7b4d239a",
+      "trial_name": "formatter-clusters-metadata-pivo__m6Ln87M"
+    }
+  ],
+  "wall_time_seconds": 43,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

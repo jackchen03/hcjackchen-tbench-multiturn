@@ -1,0 +1,3 @@
+a9160a2b62187cfa107735c555d1e2fcddb3d6bd8db531f8de484870561ea15b  recycled-wal-committed-set-pivot/steps/1_recover-committed-set/instruction.md
+8447bcd389dfc1c735bea9b64b0fb8ec711f95e5cdd3e9f27804cc96b131d9a0  recycled-wal-committed-set-pivot/steps/2_build-commit-index/instruction.md
+eed5191d55295b4b31e97cc1c479aae3eb8b34089b0c3191c33839db2a67ebe8  recycled-wal-committed-set-pivot/steps/3_hash-lookup-pivot/instruction.md

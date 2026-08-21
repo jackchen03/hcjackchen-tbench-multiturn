@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:c29d660a4830d5237efa79290a9a43eebb613acb2f86e2ce76aab602c6a94ccf",
+  "command": "codimango bench run -p snapshot-visible-set-truncated-wal-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "aba7d77ddda7b561c3aca4eccc147af003750a906544cb4ba87c8982cf337b75",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.IFdjW9/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.IFdjW9",
+  "source_final_audit": "snapshot-visible-set-truncated-wal-pivot/.validation/final-audit-20260820T202820Z.json",
+  "status": "3/3 PASS",
+  "task": "snapshot-visible-set-truncated-wal-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:16:33.182649Z",
+      "harbor_task_checksum": "aba7d77ddda7b561c3aca4eccc147af003750a906544cb4ba87c8982cf337b75",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:15:54.509291Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_query-over-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-visibility-model",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "628af426-b251-4790-9a7b-7baf09f43d0f",
+      "trial_name": "snapshot-visible-set-truncated-w__4HxcgRE"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:16:32.692905Z",
+      "harbor_task_checksum": "aba7d77ddda7b561c3aca4eccc147af003750a906544cb4ba87c8982cf337b75",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:15:54.560283Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_query-over-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-visibility-model",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "b6d37fec-078c-44d5-b3b0-cd398c47b81d",
+      "trial_name": "snapshot-visible-set-truncated-w__WWYpYgQ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:16:32.899026Z",
+      "harbor_task_checksum": "aba7d77ddda7b561c3aca4eccc147af003750a906544cb4ba87c8982cf337b75",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:15:54.576542Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_query-over-visible-set",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-visibility-model",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "d7b66be7-a96a-4708-a55f-d0a092a508cf",
+      "trial_name": "snapshot-visible-set-truncated-w__fZ3Dh6Z"
+    }
+  ],
+  "wall_time_seconds": 81,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

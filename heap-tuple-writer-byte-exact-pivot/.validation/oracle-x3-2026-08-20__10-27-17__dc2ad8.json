@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "heap-tuple-writer-byte-exact-pivot",
+  "task_checksum": "b866faa8c56407020ead0b626312ec8e12eb92eb558279671c1507696e4c92cc",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:27:55.646604Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:27:18.302694Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_core-layout-byte-exact",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_overflow-largest-first",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_content-hash-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "b866faa8c56407020ead0b626312ec8e12eb92eb558279671c1507696e4c92cc",
+      "trial_id": "09a3bbaa-a90f-4fcd-8223-a7cc9beac8f6",
+      "trial_name": "heap-tuple-writer-byte-exact-piv__TRtq6GE"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:27:54.666355Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:27:18.239609Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_core-layout-byte-exact",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_overflow-largest-first",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_content-hash-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "b866faa8c56407020ead0b626312ec8e12eb92eb558279671c1507696e4c92cc",
+      "trial_id": "4bffcb17-150e-4863-9e3c-04def1c9be90",
+      "trial_name": "heap-tuple-writer-byte-exact-piv__pCUb2FS"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:27:54.796016Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:27:18.288982Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_core-layout-byte-exact",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_overflow-largest-first",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_content-hash-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "b866faa8c56407020ead0b626312ec8e12eb92eb558279671c1507696e4c92cc",
+      "trial_id": "662e3854-2374-42f2-8dd1-2b8c7593c0bc",
+      "trial_name": "heap-tuple-writer-byte-exact-piv__v5ZmkGd"
+    }
+  ]
+}

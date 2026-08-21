@@ -1,0 +1,92 @@
+{
+  "task": "byte-match-external-merge-intermediate-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p byte-match-external-merge-intermediate-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.5ynynr",
+  "job_dir": "/tmp/tbench-oracle-x3.5ynynr/jobs/2026-08-20__10-23-29__f78321",
+  "run_log": "/tmp/tbench-oracle-x3.5ynynr/run.log",
+  "recorded_at": "2026-08-20T17:24:10.076311+00:00",
+  "wall_time_sec": 90,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "b67065d194903a0bb410a182d9f85a6930d453d8fec13463bbcfe15970208549",
+  "bundle_file_count": 29,
+  "chain_evidence": "byte-match-external-merge-intermediate-pivot/.validation/chain-20260820T163438Z.json",
+  "trials": [
+    {
+      "trial_id": "8267add7-73de-4d19-a41c-bf3840207317",
+      "trial_name": "byte-match-external-merge-interm__Af2oKrb",
+      "task_checksum": "8b1ceac26ea4e57d638dbe615dc820312fea026e44fce4d5adca0b8bee4e5530",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_build-external-sort-basic",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_enforce-intermediate-spill-identity",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_switch-to-kway-heap-drop-cleanup",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.5ynynr/jobs/2026-08-20__10-23-29__f78321/byte-match-external-merge-interm__Af2oKrb/result.json"
+    },
+    {
+      "trial_id": "e13f8584-e51b-4734-a26b-ded2ddd76b74",
+      "trial_name": "byte-match-external-merge-interm__GdLZgYj",
+      "task_checksum": "8b1ceac26ea4e57d638dbe615dc820312fea026e44fce4d5adca0b8bee4e5530",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_build-external-sort-basic",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_enforce-intermediate-spill-identity",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_switch-to-kway-heap-drop-cleanup",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.5ynynr/jobs/2026-08-20__10-23-29__f78321/byte-match-external-merge-interm__GdLZgYj/result.json"
+    },
+    {
+      "trial_id": "d10170b2-cd87-4478-9e03-bc740929a4f8",
+      "trial_name": "byte-match-external-merge-interm__o3ETrJi",
+      "task_checksum": "8b1ceac26ea4e57d638dbe615dc820312fea026e44fce4d5adca0b8bee4e5530",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_build-external-sort-basic",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_enforce-intermediate-spill-identity",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_switch-to-kway-heap-drop-cleanup",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.5ynynr/jobs/2026-08-20__10-23-29__f78321/byte-match-external-merge-interm__o3ETrJi/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

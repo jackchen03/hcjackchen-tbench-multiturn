@@ -1,0 +1,92 @@
+{
+  "task": "join-output-tuple-order-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p join-output-tuple-order-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3.JglDzu",
+  "job_dir": "/tmp/tbench-oracle-x3.JglDzu/jobs/2026-08-20__10-09-46__e4fdf6",
+  "run_log": "/tmp/tbench-oracle-x3.JglDzu/run.log",
+  "recorded_at": "2026-08-20T17:10:27.055427+00:00",
+  "wall_time_sec": 166,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "2a4d79ca0b4f9aba9eda955fcf217059c9e51cd7a8b112dd355dd69ca6883c8f",
+  "bundle_file_count": 29,
+  "chain_evidence": "join-output-tuple-order-pivot/.validation/chain-20260820T165812Z.json",
+  "trials": [
+    {
+      "trial_id": "e127db84-19a5-48da-bbba-2308f6172ec2",
+      "trial_name": "join-output-tuple-order-pivot__6G3nABs",
+      "task_checksum": "44ecae21b7bb520ea0ccf0ade44afdfa693b7ee0ad14f2376b2d617730e6549c",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fit-order-and-spill",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_byte-threshold-recursion",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_child-grouped-emission-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.JglDzu/jobs/2026-08-20__10-09-46__e4fdf6/join-output-tuple-order-pivot__6G3nABs/result.json"
+    },
+    {
+      "trial_id": "cf43983c-98f9-48ea-a6b2-fe44cfe1214b",
+      "trial_name": "join-output-tuple-order-pivot__MV4XgFd",
+      "task_checksum": "44ecae21b7bb520ea0ccf0ade44afdfa693b7ee0ad14f2376b2d617730e6549c",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fit-order-and-spill",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_byte-threshold-recursion",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_child-grouped-emission-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.JglDzu/jobs/2026-08-20__10-09-46__e4fdf6/join-output-tuple-order-pivot__MV4XgFd/result.json"
+    },
+    {
+      "trial_id": "16dca75a-2eca-4fc1-8c1e-226d408a6671",
+      "trial_name": "join-output-tuple-order-pivot__PdnH957",
+      "task_checksum": "44ecae21b7bb520ea0ccf0ade44afdfa693b7ee0ad14f2376b2d617730e6549c",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_fit-order-and-spill",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_byte-threshold-recursion",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_child-grouped-emission-pivot",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3.JglDzu/jobs/2026-08-20__10-09-46__e4fdf6/join-output-tuple-order-pivot__PdnH957/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

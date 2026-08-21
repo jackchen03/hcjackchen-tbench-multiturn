@@ -1,0 +1,17 @@
+{
+  "task": "byte-match-external-merge-intermediate-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:08:32.062801+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "b67065d194903a0bb410a182d9f85a6930d453d8fec13463bbcfe15970208549",
+    "bundle_file_count": 29,
+    "chain_evidence": "byte-match-external-merge-intermediate-pivot/.validation/chain-20260820T163438Z.json",
+    "oracle_x3_evidence": "byte-match-external-merge-intermediate-pivot/.validation/oracle-x3-20260820T172410Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "byte-match-external-merge-intermediate-pivot"
+  ]
+}

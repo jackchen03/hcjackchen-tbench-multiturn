@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "lsm-compactor-anti-canonical-pivot",
+  "task_checksum": "8dd9b9eab181f7c1ceccb7c9506eb28f31be97d1f77bf1d9cb87415c8be0d9d5",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:32:14.719928Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:31:37.822141Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-anti-canonical-compactor",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-level-accounting-from-sstable",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-tiered-no-parity-drop-accounting",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "8dd9b9eab181f7c1ceccb7c9506eb28f31be97d1f77bf1d9cb87415c8be0d9d5",
+      "trial_id": "9567276f-2257-4476-bb74-13cddc1dfaf6",
+      "trial_name": "lsm-compactor-anti-canonical-piv__CixcpmC"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:32:13.540641Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:31:37.752654Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-anti-canonical-compactor",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-level-accounting-from-sstable",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-tiered-no-parity-drop-accounting",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "8dd9b9eab181f7c1ceccb7c9506eb28f31be97d1f77bf1d9cb87415c8be0d9d5",
+      "trial_id": "b6b71e8f-cdb3-4c24-a394-cd74212cb6ee",
+      "trial_name": "lsm-compactor-anti-canonical-piv__SKiZ7e4"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:32:13.782762Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:31:37.808850Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_byte-match-anti-canonical-compactor",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-level-accounting-from-sstable",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-tiered-no-parity-drop-accounting",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "8dd9b9eab181f7c1ceccb7c9506eb28f31be97d1f77bf1d9cb87415c8be0d9d5",
+      "trial_id": "4e673f2f-f40f-419f-ac0a-27fb678200d1",
+      "trial_name": "lsm-compactor-anti-canonical-piv__roPcUqv"
+    }
+  ]
+}

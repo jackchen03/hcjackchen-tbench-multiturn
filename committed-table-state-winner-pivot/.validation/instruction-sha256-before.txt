@@ -1,0 +1,3 @@
+8f856c1454e28d02443ea0861cf12e1301a031a7a00987bab128db2c42e3ec83  committed-table-state-winner-pivot/steps/1_reconstruct-committed-state/instruction.md
+e304fa89d766fd3ae5fa085db8a6642d14147a3e571f49c991af13101076d5c6  committed-table-state-winner-pivot/steps/2_apply-incremental-on-recovered-shape/instruction.md
+46a134c3ff01cdf0646d7fd021905ef584c40648b82d9ac47617cbd7e5ba76a1  committed-table-state-winner-pivot/steps/3_pivot-to-retention-resolution/instruction.md

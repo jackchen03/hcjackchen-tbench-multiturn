@@ -1,0 +1,19 @@
+{
+  "bundle_file_count": 25,
+  "bundle_fingerprint": "bundle-sha256-v1:2d20fac57d6d2bc75b5786d017d3ea993f5ecadbb8d1a6888420522f1f6b551d",
+  "final_audit": "byte-exact-pages-mixed-insert-delete-pivot/.validation/final-audit-20260820T202725Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "byte-exact-pages-mixed-insert-delete-pivot/.validation/chain-20260820T200149Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "byte-exact-pages-mixed-insert-delete-pivot/.validation/oracle-x3-current-20260820T203021Z.json",
+  "proposed_commit_pathspec": "byte-exact-pages-mixed-insert-delete-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "byte-exact-pages-mixed-insert-delete-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

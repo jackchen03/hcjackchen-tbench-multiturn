@@ -1,0 +1,18 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:3799376f868dae3725ba30b90bcb24d1c6d7220c56bbe9cc5f0989cb954f20d8",
+  "final_audit": "two-regime-undistortion-asymmetric-radius-pivot/.validation/final-audit-20260820T202517Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "two-regime-undistortion-asymmetric-radius-pivot/.validation/chain-20260820T200016Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "two-regime-undistortion-asymmetric-radius-pivot/.validation/oracle-x3-current-20260820T202720Z.json",
+  "proposed_commit_pathspec": "two-regime-undistortion-asymmetric-radius-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "two-regime-undistortion-asymmetric-radius-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

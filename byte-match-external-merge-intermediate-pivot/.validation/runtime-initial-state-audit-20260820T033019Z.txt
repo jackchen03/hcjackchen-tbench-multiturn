@@ -1,0 +1,30 @@
+Task: byte-match-external-merge-intermediate-pivot
+Image: tbench-mt-byte-match-external-merge-intermediate-pivot:validate
+Chain evidence: byte-match-external-merge-intermediate-pivot/.validation/chain-20260820T004155Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=builder /build/refpolysort /app/refpolysort
+COPY --from=builder /generated/samples /app/samples
+Runtime explicit builder-copy destinations:
+PATH /app/refpolysort
+-rwxr-xr-x 1 root root 14328 Jan  1  2020 /app/refpolysort
+FIRST4 7f454c46
+PATH /app/samples
+drwxr-xr-x 1 root root 112 Aug 19 18:23 /app/samples
+644 /app/samples/multi.in
+644 /app/samples/multi.out
+644 /app/samples/multi.spill/run_0000.bin
+644 /app/samples/multi.spill/run_0001.bin
+644 /app/samples/multi.spill/run_0002.bin
+644 /app/samples/multi.spill/run_0003.bin
+644 /app/samples/multi.spill/run_0004.bin
+644 /app/samples/multi.spill/run_0005.bin
+644 /app/samples/multi.spill/run_0006.bin
+644 /app/samples/multi.spill/run_0007.bin
+644 /app/samples/small.in
+644 /app/samples/small.out
+644 /app/samples/small.spill/run_0000.bin
+644 /app/samples/small.spill/run_0001.bin
+644 /app/samples/small.spill/run_0002.bin
+Potential readable source under reference/grader roots:
+Future-staging paths:

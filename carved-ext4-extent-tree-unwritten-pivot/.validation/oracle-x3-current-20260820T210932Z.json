@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:47ee4cf860f938d6f83f94fa8be9ffe0e464ee22146335a7662f1581e08b11c4",
+  "command": "codimango bench run -p carved-ext4-extent-tree-unwritten-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "2a373f5b5fafd4ae9bed1360e73eb7aac38e57aa0ae7186f24fd8b84845944c0",
+  "issues": [],
+  "source_final_audit": "carved-ext4-extent-tree-unwritten-pivot/.validation/final-audit-20260820T202421Z.json",
+  "status": "3/3 PASS",
+  "task": "carved-ext4-extent-tree-unwritten-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:28:58.048844Z",
+      "harbor_task_checksum": "2a373f5b5fafd4ae9bed1360e73eb7aac38e57aa0ae7186f24fd8b84845944c0",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:28:22.142352Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-file-contiguous-extent",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-decoy-bound",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_truncate-eof-and-fix-unwritten-length",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "95f72908-ae23-4f22-a19d-9214220b5441",
+      "trial_name": "carved-ext4-extent-tree-unwritte__RpDfRMx"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:28:58.949092Z",
+      "harbor_task_checksum": "2a373f5b5fafd4ae9bed1360e73eb7aac38e57aa0ae7186f24fd8b84845944c0",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:28:22.157900Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-file-contiguous-extent",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-decoy-bound",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_truncate-eof-and-fix-unwritten-length",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "23f0db24-1583-4519-a58f-dd7543f6aefa",
+      "trial_name": "carved-ext4-extent-tree-unwritte__rzAoQjm"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:28:57.803276Z",
+      "harbor_task_checksum": "2a373f5b5fafd4ae9bed1360e73eb7aac38e57aa0ae7186f24fd8b84845944c0",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:28:22.092938Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_recover-file-contiguous-extent",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_handle-unwritten-and-decoy-bound",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_truncate-eof-and-fix-unwritten-length",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "9baf259b-8e82-4324-b872-ad6b4ef6b116",
+      "trial_name": "carved-ext4-extent-tree-unwritte__wpR7Guw"
+    }
+  ],
+  "wall_time_seconds": 40,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

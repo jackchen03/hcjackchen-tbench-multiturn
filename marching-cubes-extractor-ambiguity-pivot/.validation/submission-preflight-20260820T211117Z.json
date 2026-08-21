@@ -1,0 +1,18 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:4e39b8b081f8ee2c7975c3f8d01f5d1a9076ff5cbda431e06ecea31c197a8f15",
+  "final_audit": "marching-cubes-extractor-ambiguity-pivot/.validation/final-audit-20260820T202509Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "issues": [],
+  "local_chain": "marching-cubes-extractor-ambiguity-pivot/.validation/chain-20260820T202010Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "marching-cubes-extractor-ambiguity-pivot/.validation/oracle-x3-current-20260820T210935Z.json",
+  "proposed_commit_pathspec": "marching-cubes-extractor-ambiguity-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "marching-cubes-extractor-ambiguity-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

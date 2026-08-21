@@ -1,0 +1,17 @@
+{
+  "task": "order-by-order-reimpl-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:36.826443+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "5c8c86361038465444eb83e6d55681778dd95720c2d9d7cd1ced76c0d09e9f13",
+    "bundle_file_count": 27,
+    "chain_evidence": "order-by-order-reimpl-pivot/.validation/chain-20260820T171139Z.json",
+    "oracle_x3_evidence": "order-by-order-reimpl-pivot/.validation/oracle-x3-20260820T180357Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "order-by-order-reimpl-pivot"
+  ]
+}

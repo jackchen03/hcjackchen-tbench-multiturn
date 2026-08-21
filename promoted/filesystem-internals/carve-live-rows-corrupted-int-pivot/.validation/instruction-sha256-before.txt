@@ -1,3 +1,0 @@
-0246fcf9ebca487f3b8b221b45cc29b21b780396283dcd1931e80504fb4ad610  promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/1_carve_live_rows/instruction.md
-48796ea7e6b176f870d95266688fa3f6791c5032ed880265d1733e7b3948ad0e  promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/2_add_checksum_index/instruction.md
-62739b13f5ade55e7f419bf4ee1183d4a9306358d6830d97c1a2d84bc143eac3  promoted/filesystem-internals/carve-live-rows-corrupted-int-pivot/steps/3_pivot_to_varint_encoding/instruction.md

@@ -1,0 +1,21 @@
+Task: session-feature-reader-writer-pivot
+Image: tbench-mt-session-feature-reader-writer-pivot:validate
+Chain evidence: session-feature-reader-writer-pivot/.validation/chain-20260820T005315Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=reference-builder /reference/shards/ /app/shards/
+COPY --from=reference-builder /reference/session_serving_validate /app/session_serving_validate
+Runtime explicit builder-copy destinations:
+PATH /app/shards/
+drwxr-xr-x 1 root root 158 Aug 19 16:39 /app/shards/
+644 /app/shards/sessions.jsonl
+644 /app/shards/shard_000.bin
+644 /app/shards/shard_001.bin
+644 /app/shards/shard_002.bin
+644 /app/shards/shard_003.bin
+644 /app/shards/shard_004.bin
+PATH /app/session_serving_validate
+-r-xr-xr-x 1 root root 15336 Jan  1  2020 /app/session_serving_validate
+FIRST4 7f454c46
+Potential readable source under reference/grader roots:
+Future-staging paths:

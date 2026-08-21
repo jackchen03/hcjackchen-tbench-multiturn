@@ -1,0 +1,91 @@
+{
+  "task": "item-factor-matrix-quantized-recovery-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p item-factor-matrix-quantized-recovery-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3-item-final.QWCQxO",
+  "job_dir": "/tmp/tbench-oracle-x3-item-final.QWCQxO/jobs/2026-08-20__10-30-58__6d4e91",
+  "recorded_at": "2026-08-20T17:32:00.738347+00:00",
+  "wall_time_sec": 125,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "4fcfbc74b1b8dd8f63455206b8a0a817c9e584585f2359a97033896a38ee61de",
+  "bundle_file_count": 28,
+  "chain_evidence": "item-factor-matrix-quantized-recovery-pivot/.validation/chain-20260820T173040Z.json",
+  "trials": [
+    {
+      "trial_id": "45a0cfeb-a9c3-422f-a80f-782ca3a38e3e",
+      "trial_name": "item-factor-matrix-quantized-rec__DU5VeC4",
+      "task_checksum": "61c6dbb420802b0bdaae3813ee4bcb90f1bcd3bd25b0929e9edbc06ab2b57191",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-quantized-factors",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_expose-head-diagnostics",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-lazy-on-demand-decoder",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-item-final.QWCQxO/jobs/2026-08-20__10-30-58__6d4e91/item-factor-matrix-quantized-rec__DU5VeC4/result.json"
+    },
+    {
+      "trial_id": "86eb819b-4368-4d63-a070-da587bd5b48f",
+      "trial_name": "item-factor-matrix-quantized-rec__hyNwN8q",
+      "task_checksum": "61c6dbb420802b0bdaae3813ee4bcb90f1bcd3bd25b0929e9edbc06ab2b57191",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-quantized-factors",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_expose-head-diagnostics",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-lazy-on-demand-decoder",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-item-final.QWCQxO/jobs/2026-08-20__10-30-58__6d4e91/item-factor-matrix-quantized-rec__hyNwN8q/result.json"
+    },
+    {
+      "trial_id": "fc22467a-ecbc-41ec-b5c6-6d530035c58f",
+      "trial_name": "item-factor-matrix-quantized-rec__xtMVWdK",
+      "task_checksum": "61c6dbb420802b0bdaae3813ee4bcb90f1bcd3bd25b0929e9edbc06ab2b57191",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_recover-quantized-factors",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_expose-head-diagnostics",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-lazy-on-demand-decoder",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-item-final.QWCQxO/jobs/2026-08-20__10-30-58__6d4e91/item-factor-matrix-quantized-rec__xtMVWdK/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

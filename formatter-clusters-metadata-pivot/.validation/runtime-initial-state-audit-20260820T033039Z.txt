@@ -1,0 +1,19 @@
+Task: formatter-clusters-metadata-pivot
+Image: tbench-mt-formatter-clusters-metadata-pivot:validate
+Chain evidence: formatter-clusters-metadata-pivot/.validation/chain-20260820T004709Z.json
+Docker inspect rc: 0
+COPY --from lines:
+COPY --from=builder /build/myfs-mkfs /app/reference/myfs-mkfs
+COPY --from=builder /generated/samples /app/samples
+Runtime explicit builder-copy destinations:
+PATH /app/reference/myfs-mkfs
+-rwxr-xr-x 1 root root 18424 Jan  1  1970 /app/reference/myfs-mkfs
+FIRST4 7f454c46
+PATH /app/samples
+drwxr-xr-x 1 root root 48 Jan  1  1970 /app/samples
+644 /app/samples/FORMAT_NOTES.md
+644 /app/samples/myfs-12-1-2.img
+644 /app/samples/myfs-8-1-1.img
+644 /app/samples/specs.txt
+Potential readable source under reference/grader roots:
+Future-staging paths:

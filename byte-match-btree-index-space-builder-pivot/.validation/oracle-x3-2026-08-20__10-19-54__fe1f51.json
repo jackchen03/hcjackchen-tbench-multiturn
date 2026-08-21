@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "byte-match-btree-index-space-builder-pivot",
+  "task_checksum": "99530ee04200665aee781c8fd86805f854d735a1ff218f5d58f028a2af82730e",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:20:32.258793Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:19:54.358455Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_btree-byte-exact-builder",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_report-space-accounting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_deletion-merge-redistribution-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "99530ee04200665aee781c8fd86805f854d735a1ff218f5d58f028a2af82730e",
+      "trial_id": "9130720b-ed54-4d68-9d0d-3a67c3215cd9",
+      "trial_name": "byte-match-btree-index-space-bui__LSPPysG"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:20:29.910698Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:19:54.286765Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_btree-byte-exact-builder",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_report-space-accounting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_deletion-merge-redistribution-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "99530ee04200665aee781c8fd86805f854d735a1ff218f5d58f028a2af82730e",
+      "trial_id": "58f0f3dc-7956-4028-98ff-075aef25e0e4",
+      "trial_name": "byte-match-btree-index-space-bui__gkXbnhe"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:20:30.031228Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:19:54.339644Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_btree-byte-exact-builder",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_report-space-accounting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_deletion-merge-redistribution-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "99530ee04200665aee781c8fd86805f854d735a1ff218f5d58f028a2af82730e",
+      "trial_id": "c722ced6-e461-4236-9f5c-03dcf6d499fb",
+      "trial_name": "byte-match-btree-index-space-bui__upwomcY"
+    }
+  ]
+}

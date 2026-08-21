@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "stale-page-valid-checksum-double-write-pivot",
+  "task_checksum": "53b4f342610ec682f680c5aa026ff37aa115a978971144c1a1958fe1226a09e7",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:36:24.726761Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:35:48.047836Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-stale-pages",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-heap",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pitr-manifest-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "53b4f342610ec682f680c5aa026ff37aa115a978971144c1a1958fe1226a09e7",
+      "trial_id": "3d8a97fc-36ba-40fe-ab47-c1a79b003730",
+      "trial_name": "stale-page-valid-checksum-double__CjstQhS"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:36:24.643706Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:35:48.100700Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-stale-pages",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-heap",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pitr-manifest-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "53b4f342610ec682f680c5aa026ff37aa115a978971144c1a1958fe1226a09e7",
+      "trial_id": "77ea2e77-b9e7-4aa3-8f63-e40b188ef887",
+      "trial_name": "stale-page-valid-checksum-double__K5iR8Mj"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:36:25.805439Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:35:48.115678Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_diagnose-stale-pages",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_recover-heap",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pitr-manifest-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "53b4f342610ec682f680c5aa026ff37aa115a978971144c1a1958fe1226a09e7",
+      "trial_id": "46a74429-bb7b-4094-a8ce-11c15cf6fcd7",
+      "trial_name": "stale-page-valid-checksum-double__k9scosJ"
+    }
+  ]
+}

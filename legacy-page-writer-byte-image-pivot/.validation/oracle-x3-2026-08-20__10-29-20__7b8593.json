@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "legacy-page-writer-byte-image-pivot",
+  "task_checksum": "36ec10544384ef18e49f85af6786868cefec6b7e35bdf5bc16890d6854c54637",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:29:56.441863Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:29:21.134332Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_bulk-and-slot-layout",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_delete-reinsert-sliver-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_compaction-cascade-reclaim-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "36ec10544384ef18e49f85af6786868cefec6b7e35bdf5bc16890d6854c54637",
+      "trial_id": "424a753b-1f03-43b7-892f-12010c9dac55",
+      "trial_name": "legacy-page-writer-byte-image-pi__5JEernQ"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:29:56.913668Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:29:21.181851Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_bulk-and-slot-layout",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_delete-reinsert-sliver-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_compaction-cascade-reclaim-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "36ec10544384ef18e49f85af6786868cefec6b7e35bdf5bc16890d6854c54637",
+      "trial_id": "339ae0c6-1adc-4825-beaf-dcb8838f3e80",
+      "trial_name": "legacy-page-writer-byte-image-pi__SCANsdt"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:29:57.782205Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:29:21.195152Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_bulk-and-slot-layout",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_delete-reinsert-sliver-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_compaction-cascade-reclaim-pivot",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "36ec10544384ef18e49f85af6786868cefec6b7e35bdf5bc16890d6854c54637",
+      "trial_id": "37dc67a4-03f1-4bd1-83ed-6b81de89969b",
+      "trial_name": "legacy-page-writer-byte-image-pi__iNvnden"
+    }
+  ]
+}

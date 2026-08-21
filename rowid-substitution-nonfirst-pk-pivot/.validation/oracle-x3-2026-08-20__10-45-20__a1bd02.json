@@ -1,0 +1,86 @@
+{
+  "command": "codimango bench run -p <slug> -a oracle -k 3 --timeout-multiplier 3.0",
+  "status": "3/3 PASS",
+  "task": "rowid-substitution-nonfirst-pk-pivot",
+  "task_checksum": "a2a5f5bf016eff0f479172f6f2801e4f54b97c1413633dca5f22d566b0f4c4a6",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:46:05.382861Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:45:21.193405Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode-leaf-page",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-second-evidence",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_rebuild-queryable-db",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "a2a5f5bf016eff0f479172f6f2801e4f54b97c1413633dca5f22d566b0f4c4a6",
+      "trial_id": "e2858a1e-07b6-4da8-b300-6dff3dc59e1c",
+      "trial_name": "rowid-substitution-nonfirst-pk-p__QUmotSr"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:46:05.520579Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:45:21.206677Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode-leaf-page",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-second-evidence",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_rebuild-queryable-db",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "a2a5f5bf016eff0f479172f6f2801e4f54b97c1413633dca5f22d566b0f4c4a6",
+      "trial_id": "00ab8539-2a55-4e7b-8e3e-a7454edc0272",
+      "trial_name": "rowid-substitution-nonfirst-pk-p__VUSVEby"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T17:46:01.585366Z",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T17:45:21.143460Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode-leaf-page",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-second-evidence",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_rebuild-queryable-db",
+          "reward": 1.0
+        }
+      ],
+      "task_checksum": "a2a5f5bf016eff0f479172f6f2801e4f54b97c1413633dca5f22d566b0f4c4a6",
+      "trial_id": "52ddd1bc-04b8-41bc-9a8c-91e941162f58",
+      "trial_name": "rowid-substitution-nonfirst-pk-p__iJT9a29"
+    }
+  ]
+}

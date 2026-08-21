@@ -1,0 +1,19 @@
+{
+  "task": "calibrated-ranking-monotone-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:02:56.156342+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "949d20e2f361b16090248de05baccda3279b2f86a36302aba6f958eaf1d09175",
+    "bundle_file_count": 36,
+    "chain_evidence": "calibrated-ranking-monotone-pivot/.validation/chain-20260820T005032Z.json",
+    "oracle_x3_evidence": "calibrated-ranking-monotone-pivot/.validation/oracle-x3-20260820T034634Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "calibrated-ranking-monotone-pivot"
+  ]
+}

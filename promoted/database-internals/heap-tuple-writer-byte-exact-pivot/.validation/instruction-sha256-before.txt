@@ -1,3 +1,0 @@
-da26d88a26c1eb433f269ac639d6733e0f9aa42a4aac9094ff0e755afac2dd10  promoted/database-internals/heap-tuple-writer-byte-exact-pivot/steps/1_core-layout-byte-exact/instruction.md
-01cda638f9649eb739d220c1cfab4dbf27dcf4073581a74bcb8c225f8c081bec  promoted/database-internals/heap-tuple-writer-byte-exact-pivot/steps/2_overflow-largest-first/instruction.md
-000c8e8b31f5fff334da4cee8013d7c8e29d878d67b32aa182763c7b8a0d63fd  promoted/database-internals/heap-tuple-writer-byte-exact-pivot/steps/3_content-hash-pivot/instruction.md

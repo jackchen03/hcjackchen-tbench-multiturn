@@ -1,3 +1,0 @@
-233797c6e4709a51fdb54a1a7d4168e221470cf4afa7f741a31e49b507ace315  promoted/filesystem-internals/sparsepack-three-state-archive-pivot/steps/1_reverse-basic-spk-format/instruction.md
-4c01513404d60c2596a6666e5bd8a187ee8bb80efc226366ffd729f0a66eecaa  promoted/filesystem-internals/sparsepack-three-state-archive-pivot/steps/2_handle-unwritten-and-written-zeros/instruction.md
-90075b0372aa6c567778e54fdf4231059e1d1d27c3c3527e975e7f544293b3f3  promoted/filesystem-internals/sparsepack-three-state-archive-pivot/steps/3_fix-physical-tree-segmentation/instruction.md

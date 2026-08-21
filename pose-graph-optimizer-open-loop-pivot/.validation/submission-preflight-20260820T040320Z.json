@@ -1,0 +1,19 @@
+{
+  "task": "pose-graph-optimizer-open-loop-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:03:20.619142+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "2217e5161caf2d8013fa70b12572f11185469e1cc6fbb6745da5f48bbd53af0c",
+    "bundle_file_count": 27,
+    "chain_evidence": "pose-graph-optimizer-open-loop-pivot/.validation/chain-20260820T005751Z.json",
+    "oracle_x3_evidence": "pose-graph-optimizer-open-loop-pivot/.validation/oracle-x3-20260820T035504Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "pose-graph-optimizer-open-loop-pivot"
+  ]
+}

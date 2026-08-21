@@ -1,0 +1,17 @@
+{
+  "task": "cohort-correct-candidates-never-reach-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:09:04.494633+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "2da80266caa458be4e3303c4cd70299f559444a7cdf9a16cc72a484f524ab7fb",
+    "bundle_file_count": 30,
+    "chain_evidence": "cohort-correct-candidates-never-reach-pivot/.validation/chain-20260820T172149Z.json",
+    "oracle_x3_evidence": "cohort-correct-candidates-never-reach-pivot/.validation/oracle-x3-20260820T174520Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "cohort-correct-candidates-never-reach-pivot"
+  ]
+}

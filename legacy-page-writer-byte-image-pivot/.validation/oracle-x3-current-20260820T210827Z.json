@@ -1,0 +1,93 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:88073ce00027323c4ebed6f828ef775c908a67d64e126b475866b338d9eb0285",
+  "command": "codimango bench run -p legacy-page-writer-byte-image-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "76216c53408247787cac549aca2a641ddd38dc716ac729d212321a934c1b301e",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3-db25.K2MrJ2/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3-db25.K2MrJ2",
+  "source_final_audit": "legacy-page-writer-byte-image-pivot/.validation/final-audit-20260820T202807Z.json",
+  "status": "3/3 PASS",
+  "task": "legacy-page-writer-byte-image-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:08:23.823452Z",
+      "harbor_task_checksum": "76216c53408247787cac549aca2a641ddd38dc716ac729d212321a934c1b301e",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:07:47.938499Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_bulk-and-slot-layout",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_delete-reinsert-sliver-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_compaction-cascade-reclaim-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "b3fceb7b-e8db-496d-8f9e-ff245075b755",
+      "trial_name": "legacy-page-writer-byte-image-pi__8xm5oGs"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:08:23.568906Z",
+      "harbor_task_checksum": "76216c53408247787cac549aca2a641ddd38dc716ac729d212321a934c1b301e",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:07:47.890399Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_bulk-and-slot-layout",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_delete-reinsert-sliver-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_compaction-cascade-reclaim-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "c04e0fa2-2f8c-44ee-a789-5f15572e49c4",
+      "trial_name": "legacy-page-writer-byte-image-pi__opiTEnk"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:08:24.854183Z",
+      "harbor_task_checksum": "76216c53408247787cac549aca2a641ddd38dc716ac729d212321a934c1b301e",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:07:47.953273Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_bulk-and-slot-layout",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_delete-reinsert-sliver-reuse",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_compaction-cascade-reclaim-pivot",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "410ffab5-025e-445f-996a-891a9fc89831",
+      "trial_name": "legacy-page-writer-byte-image-pi__pgA4XR2"
+    }
+  ],
+  "wall_time_seconds": 133,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

@@ -1,0 +1,19 @@
+{
+  "task": "linear-hash-index-on-disk-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T04:02:39.785271+00:00",
+  "verdict": "NOT READY",
+  "issues": [
+    "README_ORACLE_X3_STALE"
+  ],
+  "details": {
+    "bundle_fingerprint_sha256": "4ba360b41b133fa6f19dfb1eba0306b42ea88b68b8ce6993cbe96f8817a06b07",
+    "bundle_file_count": 26,
+    "chain_evidence": "linear-hash-index-on-disk-pivot/.validation/chain-20260820T004528Z.json",
+    "oracle_x3_evidence": "linear-hash-index-on-disk-pivot/.validation/oracle-x3-20260820T033943Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "linear-hash-index-on-disk-pivot"
+  ]
+}

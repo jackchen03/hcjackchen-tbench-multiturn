@@ -1,0 +1,94 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:1fe9b18160454d19c21de7da00eb17e0dc6e452cd87eaf922b72e60fa7d1e0df",
+  "command": "codimango bench run -p settlement-obligations-amended-trade-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "fingerprint_algorithm": "sorted(relative_path NUL executable_marker NUL byte_length NUL raw_bytes)",
+  "harbor_task_checksum": "400913225f3228b76913d97d50c3b66bb2ed58a0e433eebd7b092bf26559609b",
+  "issues": [],
+  "run_log": "/tmp/tbench-oracle-x3.jpryZc/run.log",
+  "scratch_root": "/tmp/tbench-oracle-x3.jpryZc",
+  "source_final_audit": "settlement-obligations-amended-trade-pivot/.validation/final-audit-20260820T203409Z.json",
+  "status": "3/3 PASS",
+  "task": "settlement-obligations-amended-trade-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:20:01.993898Z",
+      "harbor_task_checksum": "400913225f3228b76913d97d50c3b66bb2ed58a0e433eebd7b092bf26559609b",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:19:23.929952Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-settlement-netting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-funding-ledger",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-gross-exposure",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "29126ecd-ae9c-418c-bf34-2b4f7f35b8e8",
+      "trial_name": "settlement-obligations-amended-t__5KzTeh5"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:20:00.871208Z",
+      "harbor_task_checksum": "400913225f3228b76913d97d50c3b66bb2ed58a0e433eebd7b092bf26559609b",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:19:23.918684Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-settlement-netting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-funding-ledger",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-gross-exposure",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "be71c3d2-2c53-4a9c-b700-263fdf2d7bf3",
+      "trial_name": "settlement-obligations-amended-t__Nk9AXX3"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T21:20:00.651881Z",
+      "harbor_task_checksum": "400913225f3228b76913d97d50c3b66bb2ed58a0e433eebd7b092bf26559609b",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T21:19:23.872651Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_fix-settlement-netting",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_add-funding-ledger",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_pivot-to-gross-exposure",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "8ea1af8e-613c-4a0a-838e-dc4b61813c7b",
+      "trial_name": "settlement-obligations-amended-t__vHKPori"
+    }
+  ],
+  "wall_time_seconds": 81,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

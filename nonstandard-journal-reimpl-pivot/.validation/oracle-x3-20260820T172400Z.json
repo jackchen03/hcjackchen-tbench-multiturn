@@ -1,0 +1,91 @@
+{
+  "task": "nonstandard-journal-reimpl-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before run",
+  "command": "codimango bench run -p nonstandard-journal-reimpl-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "scratch_root": "/tmp/tbench-oracle-x3-final.m0C1Vx",
+  "job_dir": "/tmp/tbench-oracle-x3-final.m0C1Vx/jobs/2026-08-20__10-16-10__842d11",
+  "recorded_at": "2026-08-20T17:22:43.291803+00:00",
+  "wall_time_sec": 148,
+  "command_rc": 0,
+  "bundle_fingerprint_sha256": "b9418c6c548e256985ee9ec2ad52347048632f7a3f3ceb17a9bc13f73d7a4bdb",
+  "bundle_file_count": 26,
+  "chain_evidence": "nonstandard-journal-reimpl-pivot/.validation/chain-20260820T171541Z.json",
+  "trials": [
+    {
+      "trial_id": "6025cb9d-a6bd-4c29-8f6e-5c9d2c539b6f",
+      "trial_name": "nonstandard-journal-reimpl-pivot__9Y6TA7n",
+      "task_checksum": "a4e41d822bf1eba7fbeaad886c8da05cc9cb3f13b16b7e94cfb28715fd9f3876",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_byte-exact-nonstandard-reimpl",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_audit-committed-revoke-escape",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-canonical-jbd2-recovery",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-final.m0C1Vx/jobs/2026-08-20__10-16-10__842d11/nonstandard-journal-reimpl-pivot__9Y6TA7n/result.json"
+    },
+    {
+      "trial_id": "01f5565c-7255-4404-adcd-9fa2e84515ce",
+      "trial_name": "nonstandard-journal-reimpl-pivot__FDNHJkn",
+      "task_checksum": "a4e41d822bf1eba7fbeaad886c8da05cc9cb3f13b16b7e94cfb28715fd9f3876",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_byte-exact-nonstandard-reimpl",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_audit-committed-revoke-escape",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-canonical-jbd2-recovery",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-final.m0C1Vx/jobs/2026-08-20__10-16-10__842d11/nonstandard-journal-reimpl-pivot__FDNHJkn/result.json"
+    },
+    {
+      "trial_id": "bbfb2d7d-7641-4f39-87b3-f62787d0b008",
+      "trial_name": "nonstandard-journal-reimpl-pivot__pjKDBcc",
+      "task_checksum": "a4e41d822bf1eba7fbeaad886c8da05cc9cb3f13b16b7e94cfb28715fd9f3876",
+      "reward": 1.0,
+      "exception": null,
+      "steps": [
+        {
+          "step": "1_byte-exact-nonstandard-reimpl",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "2_audit-committed-revoke-escape",
+          "reward": 1.0,
+          "exception": null
+        },
+        {
+          "step": "3_pivot-canonical-jbd2-recovery",
+          "reward": 1.0,
+          "exception": null
+        }
+      ],
+      "result_path": "/tmp/tbench-oracle-x3-final.m0C1Vx/jobs/2026-08-20__10-16-10__842d11/nonstandard-journal-reimpl-pivot__pjKDBcc/result.json"
+    }
+  ],
+  "verdict": "3/3 PASS"
+}

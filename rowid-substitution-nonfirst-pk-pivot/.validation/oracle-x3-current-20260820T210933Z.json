@@ -1,0 +1,91 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:9aaac037633bc4e0ad7b5a6664a3fef693e2ea85fc1c8223f38cc98425f4fe1d",
+  "command": "codimango bench run -p rowid-substitution-nonfirst-pk-pivot -a oracle -k 3 --timeout-multiplier 3.0",
+  "harbor_task_checksum": "a6df91a3fe4b629928e7e2384126c251d9875b1c6dfe7ee5ada058fd5166f0c1",
+  "issues": [],
+  "source_final_audit": "rowid-substitution-nonfirst-pk-pivot/.validation/final-audit-20260820T202446Z.json",
+  "status": "3/3 PASS",
+  "task": "rowid-substitution-nonfirst-pk-pivot",
+  "trials": [
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:44:22.164637Z",
+      "harbor_task_checksum": "a6df91a3fe4b629928e7e2384126c251d9875b1c6dfe7ee5ada058fd5166f0c1",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:43:45.990613Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode-leaf-page",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-second-evidence",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_rebuild-queryable-db",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "3e4732fd-a745-4ced-8327-b32f806ee5c9",
+      "trial_name": "rowid-substitution-nonfirst-pk-p__EDWJVyM"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:44:21.981690Z",
+      "harbor_task_checksum": "a6df91a3fe4b629928e7e2384126c251d9875b1c6dfe7ee5ada058fd5166f0c1",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:43:45.943946Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode-leaf-page",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-second-evidence",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_rebuild-queryable-db",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "cf3de84e-3beb-4369-9997-0ced54d3efa6",
+      "trial_name": "rowid-substitution-nonfirst-pk-p__GfV3pbr"
+    },
+    {
+      "exception": null,
+      "finished_at": "2026-08-20T20:44:23.109555Z",
+      "harbor_task_checksum": "a6df91a3fe4b629928e7e2384126c251d9875b1c6dfe7ee5ada058fd5166f0c1",
+      "overall_reward": 1.0,
+      "started_at": "2026-08-20T20:43:46.004847Z",
+      "steps": [
+        {
+          "exception": null,
+          "name": "1_decode-leaf-page",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "2_merge-second-evidence",
+          "reward": 1.0
+        },
+        {
+          "exception": null,
+          "name": "3_rebuild-queryable-db",
+          "reward": 1.0
+        }
+      ],
+      "trial_id": "9c7bed21-077d-4306-aa26-e759e8bde532",
+      "trial_name": "rowid-substitution-nonfirst-pk-p__vRe6CDQ"
+    }
+  ],
+  "wall_time_seconds": 127,
+  "working_tree_head": "67f3aefbf9b9d1002b76fdb3fce7899a2c940ee6"
+}

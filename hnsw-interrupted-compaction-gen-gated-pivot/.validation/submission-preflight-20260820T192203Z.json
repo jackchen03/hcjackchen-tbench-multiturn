@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b2a862fc8f94982137208e914e9f0a2b3627f2f361893c2055cdc8ef4ff9ee44",
+  "final_audit": "hnsw-interrupted-compaction-gen-gated-pivot/.validation/final-audit-20260820T185402Z.json",
+  "hygiene": "PASS",
+  "instruction_hashes": "MATCH",
+  "local_chain": "hnsw-interrupted-compaction-gen-gated-pivot/.validation/chain-20260820T185346Z.json",
+  "metadata_layout": "PASS",
+  "oracle_x3": "hnsw-interrupted-compaction-gen-gated-pivot/.validation/oracle-x3-current-20260820T191339Z.json",
+  "proposed_commit_pathspec": "hnsw-interrupted-compaction-gen-gated-pivot",
+  "protected_status": {
+    "nest": "UNREGISTERED",
+    "vanilla": "UNREGISTERED"
+  },
+  "readme": "PASS",
+  "task": "hnsw-interrupted-compaction-gen-gated-pivot",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST"
+}

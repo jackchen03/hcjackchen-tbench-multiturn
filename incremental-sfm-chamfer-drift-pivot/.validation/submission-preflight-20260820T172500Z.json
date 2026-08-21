@@ -1,0 +1,21 @@
+{
+  "task": "incremental-sfm-chamfer-drift-pivot",
+  "status_gate": "UNREGISTERED on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T17:25:00+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "72a7aacf198cab8808598f15e16524b5607eb4ead0ee36238ef756574d4cec64",
+    "bundle_file_count": 32,
+    "chain_evidence": "incremental-sfm-chamfer-drift-pivot/.validation/chain-20260820T172035Z.json",
+    "oracle_x3_evidence": "incremental-sfm-chamfer-drift-pivot/.validation/oracle-x3-20260820T172400Z.json",
+    "instruction_hashes": "MATCH",
+    "metadata_layout": "PASS",
+    "readme": "Oracle 3/3 from current x3; model rows unmeasured",
+    "hygiene": "PASS"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "incremental-sfm-chamfer-drift-pivot"
+  ]
+}

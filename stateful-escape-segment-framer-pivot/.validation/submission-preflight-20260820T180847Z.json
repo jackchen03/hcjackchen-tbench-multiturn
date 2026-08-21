@@ -1,0 +1,17 @@
+{
+  "task": "stateful-escape-segment-framer-pivot",
+  "status_gate": "UNREGISTERED_OR_OPEN on Nest and Vanilla immediately before preflight",
+  "recorded_at": "2026-08-20T18:08:47.541494+00:00",
+  "verdict": "READY FOR EXPLICIT COMMIT REQUEST",
+  "issues": [],
+  "details": {
+    "bundle_fingerprint_sha256": "f1a56152cff50f32e37268f4b0cc8e3cbf5f1dd5d8af8025f37f7569ee5a6b82",
+    "bundle_file_count": 26,
+    "chain_evidence": "stateful-escape-segment-framer-pivot/.validation/chain-20260820T164120Z.json",
+    "oracle_x3_evidence": "stateful-escape-segment-framer-pivot/.validation/oracle-x3-20260820T173547Z.json"
+  },
+  "proposed_commit_pathspec": [
+    "--",
+    "stateful-escape-segment-framer-pivot"
+  ]
+}
