@@ -1,0 +1,3 @@
+The recovered logical state is correct, but rewriting the store invalidates replica cursors that were saved before the crash. Replace that behavior with a non-destructive recovery view: every source byte must remain cryptographically identical, and the view must use the exact recovery decisions already produced.
+
+Keep the documented `segstore resolve-cursor STORE CURSOR --view VIEW` interface. It must resume without omissions or duplicate acknowledged transactions for valid generation/segment/offset cursors, including positions inside continuation records, aborted transactions, stale generations, and records adjacent to corruption.

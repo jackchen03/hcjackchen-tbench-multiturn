@@ -1,0 +1,33 @@
+{
+  "task": "cursor-stable-segment-recovery",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-cursor-stable-segment-recovery:validate"
+    },
+    {
+      "step": "1_recover-acknowledged-transactions",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-acknowledged-transactions",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover-acknowledged-transactions",
+      "phase": "GREEN",
+      "status": "FAIL",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

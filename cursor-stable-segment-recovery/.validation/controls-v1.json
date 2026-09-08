@@ -1,0 +1,45 @@
+{
+  "schema": "tbench-phase2-controls-v1",
+  "task": "cursor-stable-segment-recovery",
+  "bundle_fingerprint": "bundle-sha256-v1:911bc6221b8904c4bb078fe5f334186fb33d2eaf39ffec8a4dc7e8d2d32f8df6",
+  "valid_alternatives": [
+    {
+      "name": "optional-debug-report",
+      "surface": "solver-chosen diagnostics",
+      "difference": "candidate emitted an additional non-authoritative /app/work/debug/trace.txt while preserving contract outputs",
+      "step_1": {"status": "ACCEPTED", "executed": 3, "skipped": 0},
+      "step_2": {"status": "ACCEPTED", "executed": 3, "skipped": 0}
+    }
+  ],
+  "rejected_mutants": [
+    {
+      "name": "stop-at-first-damage",
+      "finding_ids": ["F02", "F03"],
+      "status": "REJECTED",
+      "result": {"executed": 3, "passed": 1, "failed": 2, "skipped": 0, "reward": 0},
+      "first_delta": "post-pocket accepted transaction omitted"
+    },
+    {
+      "name": "nearest-record-interior-cursor",
+      "finding_ids": ["F09"],
+      "status": "REJECTED",
+      "result": {"executed": 3, "passed": 2, "failed": 1, "skipped": 0, "reward": 0},
+      "first_delta": "cursor inside an accepted envelope resumed after rather than before its transaction"
+    },
+    {
+      "name": "starter-noop-and-legacy",
+      "finding_ids": ["F01", "F02", "F04", "F09"],
+      "status": "REJECTED",
+      "evidence": ".validation/chain-20260903T193720Z.json",
+      "result": "both step-local DO-NOTHING phases rejected with three executed and zero skipped"
+    }
+  ],
+  "public_hidden_disjoint": {
+    "status": "PASS",
+    "evidence": "Step 1 exercised twelve hidden-{700..711} lineages and a separate hidden-757 case; Step 2 exercised cursor-911, cursor-919, and cursor-927 stores, none present in the public fixture"
+  },
+  "grader_isolation": {
+    "status": "PASS",
+    "evidence": "candidate subprocess runs as uid/gid 1001 with only current store paths and candidate-owned output paths; expected semantic objects remain in the verifier process"
+  }
+}

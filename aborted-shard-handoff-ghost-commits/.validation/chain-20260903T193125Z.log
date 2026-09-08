@@ -1,0 +1,17 @@
+== oracle chain: aborted-shard-handoff-ghost-commits (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-aborted-shard-handoff-ghost-commits:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/environment
+Dockerfile:7
+--------------------
+   6 |     COPY requirements.txt /tmp/requirements.txt
+   7 | >>> RUN apt-get update \
+   8 | >>>  && apt-get install -y --no-install-recommends python3-pip \
+   9 | >>>  && pip3 install --break-system-packages --no-cache-dir --no-index --find-links=/tmp/wheels -r /tmp/requirements.txt \
+  10 | >>>  && rm -rf /var/lib/apt/lists/* /tmp/wheels /tmp/requirements.txt
+  11 |     WORKDIR /app
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c apt-get update  && apt-get install -y --no-install-recommends python3-pip  && pip3 install --break-system-packages --no-cache-dir --no-index --find-links=/tmp/wheels -r /tmp/requirements.txt  && rm -rf /var/lib/apt/lists/* /tmp/wheels /tmp/requirements.txt" did not complete successfully: exit code: 100
+BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/.validation/chain-20260903T193125Z.log
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/.validation/chain-20260903T193125Z.json   full log: /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/.validation/chain-20260903T193125Z.log

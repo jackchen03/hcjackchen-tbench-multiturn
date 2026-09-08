@@ -1,0 +1,57 @@
+{
+  "task": "packed-bytecode-origin-ledger",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-packed-bytecode-origin-ledger:validate"
+    },
+    {
+      "step": "1_reconcile-packed-origins",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "1_reconcile-packed-origins",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_reconcile-packed-origins",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_preserve-fused-phase-order",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 1 failed, 0 errored"
+    },
+    {
+      "step": "2_preserve-fused-phase-order",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_preserve-fused-phase-order",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_reconcile-packed-origins",
+      "phase": "OVER-EXEC",
+      "status": "NOT_REQUIRED",
+      "detail": "current instruction has no explicit prohibition overlapping successor behavior"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

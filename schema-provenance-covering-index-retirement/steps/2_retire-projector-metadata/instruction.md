@@ -1,0 +1,3 @@
+Now make projector retirement reclaim everything that is no longer needed while preserving open snapshots and migrated continuations. Each retirement result must include an inclusion-minimal retention certificate that explains every retained root and dependency path, including cyclic dependencies, and continuation migration must reflect any root changes.
+
+Keep the earlier read guarantees intact, including after further alias mutations and compaction. Do not conservatively retain unrelated projector state, and keep incremental retirement within the deterministic maintenance limit in `/app/contracts/engine_contract.md`; a full graph scan is not an acceptable substitute.

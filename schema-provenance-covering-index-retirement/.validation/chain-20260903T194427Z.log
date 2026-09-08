@@ -1,0 +1,1647 @@
+== oracle chain: schema-provenance-covering-index-retirement (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-schema-provenance-covering-index-retirement:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/schema-provenance-covering-index-retirement/environment
+sha256:35199a942eca514139de6d6f04b36ff81efc5cf51b9f6c0f86e9dfc5a8e950b8
+$ docker rm -f tbench-mt-schema-provenance-covering-index-retirement-chain
+$ docker run -d --name tbench-mt-schema-provenance-covering-index-retirement-chain tbench-mt-schema-provenance-covering-index-retirement:validate sleep infinity
+ed204a4dd2cb5bb2a4d127e186443e2856497e1075c653fa56db9c263332c03e
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/schema-provenance-covering-index-retirement/steps/1_repair-covering-provenance/tests/. tbench-mt-schema-provenance-covering-index-retirement-chain:/tests
+$ docker exec -w /app tbench-mt-schema-provenance-covering-index-retirement-chain bash /tests/test.sh
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+__________ test_covering_projection_uses_page_materialization_context __________
+
+    def test_covering_projection_uses_page_materialization_context():
+        req = scenario(
+            ["id", "city", "score", "tag"],
+            ["id", "score", "tag", "city"],
+            [{"key": "k-h1", "payload": ["k-h1", "Kyoto", 73, "violet"]}],
+            ["tag", "city", "score"],
+            [{"src": "schema-old", "dst": "schema-new"}],
+        )
+>       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:67:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "city", "score", "tag"], "schema-new": ["id", "score", "tag", "city"]}, "pages": [{..., "dst": "schema-new"}], "reads": [{"page": "page-held-91", "key": "k-h1", "projection": ["tag", "city", "score"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': <function isolate_candidate at 0x7fb9a5f7dda0>, 'stderr': -1, 'stdin': -1, ...}
+process = <Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...>
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError
+________________ test_projection_orders_widths_and_alias_cycles ________________
+
+    def test_projection_orders_widths_and_alias_cycles():
+        req = scenario(
+            ["id", "signed", "note", "blob", "flag"],
+            ["flag", "id", "blob", "note", "signed"],
+            [
+                {"key": "k-h2", "payload": ["k-h2", -19, "north", "aa7f", True]},
+                {"key": "k-h3", "payload": ["k-h3", 41, "south", "18ce", False]},
+            ],
+            ["blob", "signed", "flag", "note"],
+            [
+                {"src": "schema-old", "dst": "schema-new"},
+                {"src": "schema-new", "dst": "schema-old"},
+            ],
+        )
+>       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:84:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "signed", "note", "blob", "flag"], "schema-new": ["flag", "id", "blob", "note", "si...gned", "flag", "note"]}, {"page": "page-held-91", "key": "k-h3", "projection": ["blob", "signed", "flag", "note"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': <function isolate_candidate at 0x7fb9a5f7dda0>, 'stderr': -1, 'stdin': -1, ...}
+process = <Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...>
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError
+_____________ test_witness_compactness_and_deterministic_counters ______________
+
+    def test_witness_compactness_and_deterministic_counters():
+        req = scenario(
+            ["id", "a", "b", "c", "d", "e", "f"],
+            ["f", "e", "d", "c", "b", "a", "id"],
+            [{"key": "k-h4", "payload": ["k-h4", 1, 2, 3, 4, 5, 6]}],
+            ["f", "c", "a", "e", "b", "d"],
+            [{"src": "schema-old", "dst": "schema-new"}],
+        )
+>       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:95:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "a", "b", "c", "d", "e", "f"], "schema-new": ["f", "e", "d", "c", "b", "a", "id"]},...": "schema-new"}], "reads": [{"page": "page-held-91", "key": "k-h4", "projection": ["f", "c", "a", "e", "b", "d"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': <function isolate_candidate at 0x7fb9a5f7dda0>, 'stderr': -1, 'stdin': -1, ...}
+process = <Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...>
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError
+____________ test_materially_different_page_histories_are_accepted _____________
+
+    def test_materially_different_page_histories_are_accepted():
+        req = {
+            "schemas": {"s-a": ["id", "x", "y"], "s-b": ["id", "z", "x", "y"]},
+            "pages": [
+                {"id": "p-a", "schema": "s-a", "rows": [{"key": "one", "payload": ["one", 11, 12]}]},
+                {"id": "p-b", "schema": "s-b", "rows": [{"key": "two", "payload": ["two", 20, 21, 22]}]},
+            ],
+            "aliases": [{"src": "s-a", "dst": "s-b"}],
+            "reads": [
+                {"page": "p-a", "key": "one", "projection": ["y", "x"]},
+                {"page": "p-b", "key": "two", "projection": ["x", "z"]},
+            ],
+        }
+>       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:115:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"s-a": ["id", "x", "y"], "s-b": ["id", "z", "x", "y"]}, "pages": [{"id": "p-a", "schema": "s-a", "rows":... [{"page": "p-a", "key": "one", "projection": ["y", "x"]}, {"page": "p-b", "key": "two", "projection": ["x", "z"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': <function isolate_candidate at 0x7fb9a5f7dda0>, 'stderr': -1, 'stdin': -1, ...}
+process = <Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...>
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_covering_projection_uses_page_materialization_context
+FAILED ../tests/test_outputs.py::test_projection_orders_widths_and_alias_cycles
+FAILED ../tests/test_outputs.py::test_witness_compactness_and_deterministic_counters
+FAILED ../tests/test_outputs.py::test_materially_different_page_histories_are_accepted
+4 failed in 0.40s
+reward=0 (4 failed, 0 errored)
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="0.395" timestamp="2026-09-03T19:44:30.291249+00:00" hostname="ed204a4dd2cb"><testcase classname="test_outputs" name="test_covering_projection_uses_page_materialization_context" time="0.238"><failure message="subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.">def test_covering_projection_uses_page_materialization_context():
+        req = scenario(
+            ["id", "city", "score", "tag"],
+            ["id", "score", "tag", "city"],
+            [{"key": "k-h1", "payload": ["k-h1", "Kyoto", 73, "violet"]}],
+            ["tag", "city", "score"],
+            [{"src": "schema-old", "dst": "schema-new"}],
+        )
+&gt;       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:67:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "city", "score", "tag"], "schema-new": ["id", "score", "tag", "city"]}, "pages": [{..., "dst": "schema-new"}], "reads": [{"page": "page-held-91", "key": "k-h1", "projection": ["tag", "city", "score"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': &lt;function isolate_candidate at 0x7fb9a5f7dda0&gt;, 'stderr': -1, 'stdin': -1, ...}
+process = &lt;Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...&gt;
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError</failure></testcase><testcase classname="test_outputs" name="test_projection_orders_widths_and_alias_cycles" time="0.005"><failure message="subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.">def test_projection_orders_widths_and_alias_cycles():
+        req = scenario(
+            ["id", "signed", "note", "blob", "flag"],
+            ["flag", "id", "blob", "note", "signed"],
+            [
+                {"key": "k-h2", "payload": ["k-h2", -19, "north", "aa7f", True]},
+                {"key": "k-h3", "payload": ["k-h3", 41, "south", "18ce", False]},
+            ],
+            ["blob", "signed", "flag", "note"],
+            [
+                {"src": "schema-old", "dst": "schema-new"},
+                {"src": "schema-new", "dst": "schema-old"},
+            ],
+        )
+&gt;       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:84:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "signed", "note", "blob", "flag"], "schema-new": ["flag", "id", "blob", "note", "si...gned", "flag", "note"]}, {"page": "page-held-91", "key": "k-h3", "projection": ["blob", "signed", "flag", "note"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': &lt;function isolate_candidate at 0x7fb9a5f7dda0&gt;, 'stderr': -1, 'stdin': -1, ...}
+process = &lt;Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...&gt;
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError</failure></testcase><testcase classname="test_outputs" name="test_witness_compactness_and_deterministic_counters" time="0.005"><failure message="subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.">def test_witness_compactness_and_deterministic_counters():
+        req = scenario(
+            ["id", "a", "b", "c", "d", "e", "f"],
+            ["f", "e", "d", "c", "b", "a", "id"],
+            [{"key": "k-h4", "payload": ["k-h4", 1, 2, 3, 4, 5, 6]}],
+            ["f", "c", "a", "e", "b", "d"],
+            [{"src": "schema-old", "dst": "schema-new"}],
+        )
+&gt;       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:95:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "a", "b", "c", "d", "e", "f"], "schema-new": ["f", "e", "d", "c", "b", "a", "id"]},...": "schema-new"}], "reads": [{"page": "page-held-91", "key": "k-h4", "projection": ["f", "c", "a", "e", "b", "d"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': &lt;function isolate_candidate at 0x7fb9a5f7dda0&gt;, 'stderr': -1, 'stdin': -1, ...}
+process = &lt;Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...&gt;
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError</failure></testcase><testcase classname="test_outputs" name="test_materially_different_page_histories_are_accepted" time="0.005"><failure message="subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.">def test_materially_different_page_histories_are_accepted():
+        req = {
+            "schemas": {"s-a": ["id", "x", "y"], "s-b": ["id", "z", "x", "y"]},
+            "pages": [
+                {"id": "p-a", "schema": "s-a", "rows": [{"key": "one", "payload": ["one", 11, 12]}]},
+                {"id": "p-b", "schema": "s-b", "rows": [{"key": "two", "payload": ["two", 20, 21, 22]}]},
+            ],
+            "aliases": [{"src": "s-a", "dst": "s-b"}],
+            "reads": [
+                {"page": "p-a", "key": "one", "projection": ["y", "x"]},
+                {"page": "p-b", "key": "two", "projection": ["x", "z"]},
+            ],
+        }
+&gt;       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:115:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"s-a": ["id", "x", "y"], "s-b": ["id", "z", "x", "y"]}, "pages": [{"id": "p-a", "schema": "s-a", "rows":... [{"page": "p-a", "key": "one", "projection": ["y", "x"]}, {"page": "p-b", "key": "two", "projection": ["x", "z"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': &lt;function isolate_candidate at 0x7fb9a5f7dda0&gt;, 'stderr': -1, 'stdin': -1, ...}
+process = &lt;Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...&gt;
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain rm -rf /tests
+STEP 1 1_repair-covering-provenance  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 4 failed, 0 errored)
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain rm -rf /solution
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/schema-provenance-covering-index-retirement/steps/1_repair-covering-provenance/solution/. tbench-mt-schema-provenance-covering-index-retirement-chain:/solution
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-schema-provenance-covering-index-retirement-chain bash /solution/solve.sh
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain rm -rf /solution
+STEP 1 1_repair-covering-provenance  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/schema-provenance-covering-index-retirement/steps/1_repair-covering-provenance/tests/. tbench-mt-schema-provenance-covering-index-retirement-chain:/tests
+$ docker exec -w /app tbench-mt-schema-provenance-covering-index-retirement-chain bash /tests/test.sh
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+__________ test_covering_projection_uses_page_materialization_context __________
+
+    def test_covering_projection_uses_page_materialization_context():
+        req = scenario(
+            ["id", "city", "score", "tag"],
+            ["id", "score", "tag", "city"],
+            [{"key": "k-h1", "payload": ["k-h1", "Kyoto", 73, "violet"]}],
+            ["tag", "city", "score"],
+            [{"src": "schema-old", "dst": "schema-new"}],
+        )
+>       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:67:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "city", "score", "tag"], "schema-new": ["id", "score", "tag", "city"]}, "pages": [{..., "dst": "schema-new"}], "reads": [{"page": "page-held-91", "key": "k-h1", "projection": ["tag", "city", "score"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': <function isolate_candidate at 0x7f6e916a1da0>, 'stderr': -1, 'stdin': -1, ...}
+process = <Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...>
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError
+________________ test_projection_orders_widths_and_alias_cycles ________________
+
+    def test_projection_orders_widths_and_alias_cycles():
+        req = scenario(
+            ["id", "signed", "note", "blob", "flag"],
+            ["flag", "id", "blob", "note", "signed"],
+            [
+                {"key": "k-h2", "payload": ["k-h2", -19, "north", "aa7f", True]},
+                {"key": "k-h3", "payload": ["k-h3", 41, "south", "18ce", False]},
+            ],
+            ["blob", "signed", "flag", "note"],
+            [
+                {"src": "schema-old", "dst": "schema-new"},
+                {"src": "schema-new", "dst": "schema-old"},
+            ],
+        )
+>       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:84:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "signed", "note", "blob", "flag"], "schema-new": ["flag", "id", "blob", "note", "si...gned", "flag", "note"]}, {"page": "page-held-91", "key": "k-h3", "projection": ["blob", "signed", "flag", "note"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': <function isolate_candidate at 0x7f6e916a1da0>, 'stderr': -1, 'stdin': -1, ...}
+process = <Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...>
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError
+_____________ test_witness_compactness_and_deterministic_counters ______________
+
+    def test_witness_compactness_and_deterministic_counters():
+        req = scenario(
+            ["id", "a", "b", "c", "d", "e", "f"],
+            ["f", "e", "d", "c", "b", "a", "id"],
+            [{"key": "k-h4", "payload": ["k-h4", 1, 2, 3, 4, 5, 6]}],
+            ["f", "c", "a", "e", "b", "d"],
+            [{"src": "schema-old", "dst": "schema-new"}],
+        )
+>       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:95:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "a", "b", "c", "d", "e", "f"], "schema-new": ["f", "e", "d", "c", "b", "a", "id"]},...": "schema-new"}], "reads": [{"page": "page-held-91", "key": "k-h4", "projection": ["f", "c", "a", "e", "b", "d"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': <function isolate_candidate at 0x7f6e916a1da0>, 'stderr': -1, 'stdin': -1, ...}
+process = <Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...>
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError
+____________ test_materially_different_page_histories_are_accepted _____________
+
+    def test_materially_different_page_histories_are_accepted():
+        req = {
+            "schemas": {"s-a": ["id", "x", "y"], "s-b": ["id", "z", "x", "y"]},
+            "pages": [
+                {"id": "p-a", "schema": "s-a", "rows": [{"key": "one", "payload": ["one", 11, 12]}]},
+                {"id": "p-b", "schema": "s-b", "rows": [{"key": "two", "payload": ["two", 20, 21, 22]}]},
+            ],
+            "aliases": [{"src": "s-a", "dst": "s-b"}],
+            "reads": [
+                {"page": "p-a", "key": "one", "projection": ["y", "x"]},
+                {"page": "p-b", "key": "two", "projection": ["x", "z"]},
+            ],
+        }
+>       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:115:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"s-a": ["id", "x", "y"], "s-b": ["id", "z", "x", "y"]}, "pages": [{"id": "p-a", "schema": "s-a", "rows":... [{"page": "p-a", "key": "one", "projection": ["y", "x"]}, {"page": "p-b", "key": "two", "projection": ["x", "z"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': <function isolate_candidate at 0x7f6e916a1da0>, 'stderr': -1, 'stdin': -1, ...}
+process = <Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...>
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_covering_projection_uses_page_materialization_context
+FAILED ../tests/test_outputs.py::test_projection_orders_widths_and_alias_cycles
+FAILED ../tests/test_outputs.py::test_witness_compactness_and_deterministic_counters
+FAILED ../tests/test_outputs.py::test_materially_different_page_histories_are_accepted
+4 failed in 0.16s
+reward=0 (4 failed, 0 errored)
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="0.155" timestamp="2026-09-03T19:44:32.703161+00:00" hostname="ed204a4dd2cb"><testcase classname="test_outputs" name="test_covering_projection_uses_page_materialization_context" time="0.006"><failure message="subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.">def test_covering_projection_uses_page_materialization_context():
+        req = scenario(
+            ["id", "city", "score", "tag"],
+            ["id", "score", "tag", "city"],
+            [{"key": "k-h1", "payload": ["k-h1", "Kyoto", 73, "violet"]}],
+            ["tag", "city", "score"],
+            [{"src": "schema-old", "dst": "schema-new"}],
+        )
+&gt;       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:67:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "city", "score", "tag"], "schema-new": ["id", "score", "tag", "city"]}, "pages": [{..., "dst": "schema-new"}], "reads": [{"page": "page-held-91", "key": "k-h1", "projection": ["tag", "city", "score"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': &lt;function isolate_candidate at 0x7f6e916a1da0&gt;, 'stderr': -1, 'stdin': -1, ...}
+process = &lt;Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...&gt;
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError</failure></testcase><testcase classname="test_outputs" name="test_projection_orders_widths_and_alias_cycles" time="0.006"><failure message="subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.">def test_projection_orders_widths_and_alias_cycles():
+        req = scenario(
+            ["id", "signed", "note", "blob", "flag"],
+            ["flag", "id", "blob", "note", "signed"],
+            [
+                {"key": "k-h2", "payload": ["k-h2", -19, "north", "aa7f", True]},
+                {"key": "k-h3", "payload": ["k-h3", 41, "south", "18ce", False]},
+            ],
+            ["blob", "signed", "flag", "note"],
+            [
+                {"src": "schema-old", "dst": "schema-new"},
+                {"src": "schema-new", "dst": "schema-old"},
+            ],
+        )
+&gt;       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:84:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "signed", "note", "blob", "flag"], "schema-new": ["flag", "id", "blob", "note", "si...gned", "flag", "note"]}, {"page": "page-held-91", "key": "k-h3", "projection": ["blob", "signed", "flag", "note"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': &lt;function isolate_candidate at 0x7f6e916a1da0&gt;, 'stderr': -1, 'stdin': -1, ...}
+process = &lt;Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...&gt;
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError</failure></testcase><testcase classname="test_outputs" name="test_witness_compactness_and_deterministic_counters" time="0.005"><failure message="subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.">def test_witness_compactness_and_deterministic_counters():
+        req = scenario(
+            ["id", "a", "b", "c", "d", "e", "f"],
+            ["f", "e", "d", "c", "b", "a", "id"],
+            [{"key": "k-h4", "payload": ["k-h4", 1, 2, 3, 4, 5, 6]}],
+            ["f", "c", "a", "e", "b", "d"],
+            [{"src": "schema-old", "dst": "schema-new"}],
+        )
+&gt;       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:95:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"schema-old": ["id", "a", "b", "c", "d", "e", "f"], "schema-new": ["f", "e", "d", "c", "b", "a", "id"]},...": "schema-new"}], "reads": [{"page": "page-held-91", "key": "k-h4", "projection": ["f", "c", "a", "e", "b", "d"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': &lt;function isolate_candidate at 0x7f6e916a1da0&gt;, 'stderr': -1, 'stdin': -1, ...}
+process = &lt;Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...&gt;
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError</failure></testcase><testcase classname="test_outputs" name="test_materially_different_page_histories_are_accepted" time="0.005"><failure message="subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.">def test_materially_different_page_histories_are_accepted():
+        req = {
+            "schemas": {"s-a": ["id", "x", "y"], "s-b": ["id", "z", "x", "y"]},
+            "pages": [
+                {"id": "p-a", "schema": "s-a", "rows": [{"key": "one", "payload": ["one", 11, 12]}]},
+                {"id": "p-b", "schema": "s-b", "rows": [{"key": "two", "payload": ["two", 20, 21, 22]}]},
+            ],
+            "aliases": [{"src": "s-a", "dst": "s-b"}],
+            "reads": [
+                {"page": "p-a", "key": "one", "projection": ["y", "x"]},
+                {"page": "p-b", "key": "two", "projection": ["x", "z"]},
+            ],
+        }
+&gt;       got = run(req)
+              ^^^^^^^^
+
+/tests/test_outputs.py:115:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:40: in run
+    cp = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = '{"schemas": {"s-a": ["id", "x", "y"], "s-b": ["id", "z", "x", "y"]}, "pages": [{"id": "p-a", "schema": "s-a", "rows":... [{"page": "p-a", "key": "one", "projection": ["y", "x"]}, {"page": "p-b", "key": "two", "projection": ["x", "z"]}]}\n'
+capture_output = True, timeout = None, check = True
+popenargs = (['/usr/local/bin/python3', '/app/bin/run_scenario.py'],)
+kwargs = {'env': {'PATH': '/usr/local/bin:/usr/bin:/bin', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONPATH': '/app/src'}, 'preexec_fn': &lt;function isolate_candidate at 0x7f6e916a1da0&gt;, 'stderr': -1, 'stdin': -1, ...}
+process = &lt;Popen: returncode: 127 args: ['/usr/local/bin/python3', '/app/bin/run_scena...&gt;
+stdout = ''
+stderr = '/usr/local/bin/python3: error while loading shared libraries: libpython3.12.so.1.0: cannot open shared object file: No such file or directory\n'
+retcode = 127
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/usr/local/bin/python3', '/app/bin/run_scenario.py']' returned non-zero exit status 127.
+
+/usr/local/lib/python3.12/subprocess.py:571: CalledProcessError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-schema-provenance-covering-index-retirement-chain rm -rf /tests
+STEP 1 1_repair-covering-provenance  GREEN       FAIL  tests do not pass after the oracle ran (4 executed, 0 skipped, 4 failed, 0 errored)
+$ docker rm -f tbench-mt-schema-provenance-covering-index-retirement-chain
+tbench-mt-schema-provenance-covering-index-retirement-chain
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/schema-provenance-covering-index-retirement/.validation/chain-20260903T194427Z.json   full log: /home/hcjackchen/worktrees/phase2-five-hq-20260903/schema-provenance-covering-index-retirement/.validation/chain-20260903T194427Z.log

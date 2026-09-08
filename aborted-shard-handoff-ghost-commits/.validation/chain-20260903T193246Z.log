@@ -1,0 +1,220 @@
+== oracle chain: aborted-shard-handoff-ghost-commits (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-aborted-shard-handoff-ghost-commits:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/environment
+sha256:cb1097668e4840e83c0ddfb8697792991581ce78300790a1a1cf4d62511f1f91
+$ docker rm -f tbench-mt-aborted-shard-handoff-ghost-commits-chain
+$ docker run -d --name tbench-mt-aborted-shard-handoff-ghost-commits-chain tbench-mt-aborted-shard-handoff-ghost-commits:validate sleep infinity
+6987afa68596d0b4a81055cb37007f763d4c1125e3b0b59a2ddbf3428e00ace7
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/steps/1_preserve-live-handoff-effects/tests/. tbench-mt-aborted-shard-handoff-ghost-commits-chain:/tests
+$ docker exec -w /app tbench-mt-aborted-shard-handoff-ghost-commits-chain bash /tests/test.sh
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+_________________ test_late_admission_and_noncommutative_order _________________
+
+    def test_late_admission_and_noncommutative_order():
+        got = run(base_events())
+>       assert got["shards"]["ledger"]["values"] == ["obsidian", "cobalt"]
+E       AssertionError: assert ['cobalt'] == ['obsidian', 'cobalt']
+E
+E         At index 0 diff: 'cobalt' != 'obsidian'
+E         Right contains one more item: 'cobalt'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:39: AssertionError
+_______________ test_full_identity_and_original_reply_frontiers ________________
+
+    def test_full_identity_and_original_reply_frontiers():
+        got = run(base_events(33, "topaz", "umber"))
+>       records = {r["key"]: r for r in got["records"]}
+                   ^^^^^^^^
+E       KeyError: 'key'
+
+/tests/test_outputs.py:44: KeyError
+____________________ test_unrelated_shard_keeps_progressing ____________________
+
+    def test_unrelated_shard_keeps_progressing():
+        got = run(base_events(47, "jasper", "indigo"))
+        assert got["shards"]["sidecar"]["balance"] == 35
+>       rec = next(r for r in got["records"] if r["shard"] == "sidecar")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:53:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x7fb1a9d171c0>
+
+>   rec = next(r for r in got["records"] if r["shard"] == "sidecar")
+                                            ^^^^^^^^^^
+E   KeyError: 'shard'
+
+/tests/test_outputs.py:53: KeyError
+______________ test_hidden_values_are_not_public_sample_hardcoded ______________
+
+    def test_hidden_values_are_not_public_sample_hardcoded():
+        got = run(base_events(52, "heliotrope", "verdigris"))
+>       assert got["shards"]["ledger"]["values"] == ["heliotrope", "verdigris"]
+E       AssertionError: assert ['verdigris'] == ['heliotrope', 'verdigris']
+E
+E         At index 0 diff: 'verdigris' != 'heliotrope'
+E         Right contains one more item: 'verdigris'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:58: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_late_admission_and_noncommutative_order
+FAILED ../tests/test_outputs.py::test_full_identity_and_original_reply_frontiers
+FAILED ../tests/test_outputs.py::test_unrelated_shard_keeps_progressing - Key...
+FAILED ../tests/test_outputs.py::test_hidden_values_are_not_public_sample_hardcoded
+4 failed in 0.82s
+reward=0 (4 failed, 0 errored)
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="0.819" timestamp="2026-09-03T19:33:15.257766+00:00" hostname="6987afa68596"><testcase classname="test_outputs" name="test_late_admission_and_noncommutative_order" time="0.261"><failure message="AssertionError: assert ['cobalt'] == ['obsidian', 'cobalt']&#10;  &#10;  At index 0 diff: 'cobalt' != 'obsidian'&#10;  Right contains one more item: 'cobalt'&#10;  Use -v to get more diff">def test_late_admission_and_noncommutative_order():
+        got = run(base_events())
+&gt;       assert got["shards"]["ledger"]["values"] == ["obsidian", "cobalt"]
+E       AssertionError: assert ['cobalt'] == ['obsidian', 'cobalt']
+E
+E         At index 0 diff: 'cobalt' != 'obsidian'
+E         Right contains one more item: 'cobalt'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:39: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_full_identity_and_original_reply_frontiers" time="0.231"><failure message="KeyError: 'key'">def test_full_identity_and_original_reply_frontiers():
+        got = run(base_events(33, "topaz", "umber"))
+&gt;       records = {r["key"]: r for r in got["records"]}
+                   ^^^^^^^^
+E       KeyError: 'key'
+
+/tests/test_outputs.py:44: KeyError</failure></testcase><testcase classname="test_outputs" name="test_unrelated_shard_keeps_progressing" time="0.190"><failure message="KeyError: 'shard'">def test_unrelated_shard_keeps_progressing():
+        got = run(base_events(47, "jasper", "indigo"))
+        assert got["shards"]["sidecar"]["balance"] == 35
+&gt;       rec = next(r for r in got["records"] if r["shard"] == "sidecar")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:53:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;list_iterator object at 0x7fb1a9d171c0&gt;
+
+&gt;   rec = next(r for r in got["records"] if r["shard"] == "sidecar")
+                                            ^^^^^^^^^^
+E   KeyError: 'shard'
+
+/tests/test_outputs.py:53: KeyError</failure></testcase><testcase classname="test_outputs" name="test_hidden_values_are_not_public_sample_hardcoded" time="0.099"><failure message="AssertionError: assert ['verdigris'] == ['heliotrope', 'verdigris']&#10;  &#10;  At index 0 diff: 'verdigris' != 'heliotrope'&#10;  Right contains one more item: 'verdigris'&#10;  Use -v to get more diff">def test_hidden_values_are_not_public_sample_hardcoded():
+        got = run(base_events(52, "heliotrope", "verdigris"))
+&gt;       assert got["shards"]["ledger"]["values"] == ["heliotrope", "verdigris"]
+E       AssertionError: assert ['verdigris'] == ['heliotrope', 'verdigris']
+E
+E         At index 0 diff: 'verdigris' != 'heliotrope'
+E         Right contains one more item: 'verdigris'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:58: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /tests
+STEP 1 1_preserve-live-handoff-effects  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 4 failed, 0 errored)
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /solution
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/steps/1_preserve-live-handoff-effects/solution/. tbench-mt-aborted-shard-handoff-ghost-commits-chain:/solution
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-aborted-shard-handoff-ghost-commits-chain bash /solution/solve.sh
+internal/sim/protocol.go
+cmd/shardsim/main.go
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /solution
+STEP 1 1_preserve-live-handoff-effects  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/steps/1_preserve-live-handoff-effects/tests/. tbench-mt-aborted-shard-handoff-ghost-commits-chain:/tests
+$ docker exec -w /app tbench-mt-aborted-shard-handoff-ghost-commits-chain bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_late_admission_and_noncommutative_order
+PASSED ../tests/test_outputs.py::test_full_identity_and_original_reply_frontiers
+PASSED ../tests/test_outputs.py::test_unrelated_shard_keeps_progressing
+PASSED ../tests/test_outputs.py::test_hidden_values_are_not_public_sample_hardcoded
+4 passed in 0.59s
+reward=1 (4 passed, 0 skipped)
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.596" timestamp="2026-09-03T19:33:17.778452+00:00" hostname="6987afa68596"><testcase classname="test_outputs" name="test_late_admission_and_noncommutative_order" time="0.301" /><testcase classname="test_outputs" name="test_full_identity_and_original_reply_frontiers" time="0.094" /><testcase classname="test_outputs" name="test_unrelated_shard_keeps_progressing" time="0.092" /><testcase classname="test_outputs" name="test_hidden_values_are_not_public_sample_hardcoded" time="0.090" /></testsuite></testsuites>
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /tests
+STEP 1 1_preserve-live-handoff-effects  GREEN       OK    4 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/steps/2_reconcile-aborted-generations/tests/. tbench-mt-aborted-shard-handoff-ghost-commits-chain:/tests
+$ docker exec -w /app tbench-mt-aborted-shard-handoff-ghost-commits-chain bash /tests/test.sh
+..F.                                                                     [100%]
+=================================== FAILURES ===================================
+_______________ test_only_final_destination_can_issue_covered_gc _______________
+
+    def test_only_final_destination_can_issue_covered_gc():
+        denied = run(recovery_events(True, "A"))
+>       assert denied["certificate"] == []
+E       AssertionError: assert ['orders|41|old-a|6'] == []
+E
+E         Left contains one more item: 'orders|41|old-a|6'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:63: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_stale_controls_cannot_steal_generation_42
+PASSED ../tests/test_outputs.py::test_regression_preserves_full_identity_and_frontiers
+PASSED ../tests/test_outputs.py::test_reconciliation_is_idempotent_and_payload_generic
+FAILED ../tests/test_outputs.py::test_only_final_destination_can_issue_covered_gc
+1 failed, 3 passed in 0.74s
+reward=0 (1 failed, 0 errored)
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="0.740" timestamp="2026-09-03T19:33:19.212396+00:00" hostname="6987afa68596"><testcase classname="test_outputs" name="test_stale_controls_cannot_steal_generation_42" time="0.307" /><testcase classname="test_outputs" name="test_regression_preserves_full_identity_and_frontiers" time="0.201" /><testcase classname="test_outputs" name="test_only_final_destination_can_issue_covered_gc" time="0.108"><failure message="AssertionError: assert ['orders|41|old-a|6'] == []&#10;  &#10;  Left contains one more item: 'orders|41|old-a|6'&#10;  Use -v to get more diff">def test_only_final_destination_can_issue_covered_gc():
+        denied = run(recovery_events(True, "A"))
+&gt;       assert denied["certificate"] == []
+E       AssertionError: assert ['orders|41|old-a|6'] == []
+E
+E         Left contains one more item: 'orders|41|old-a|6'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:63: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_reconciliation_is_idempotent_and_payload_generic" time="0.089" /></testsuite></testsuites>
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /tests
+STEP 2 2_reconcile-aborted-generations  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /solution
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/steps/2_reconcile-aborted-generations/solution/. tbench-mt-aborted-shard-handoff-ghost-commits-chain:/solution
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-aborted-shard-handoff-ghost-commits-chain bash /solution/solve.sh
+internal/sim/protocol.go
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /solution
+STEP 2 2_reconcile-aborted-generations  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/steps/2_reconcile-aborted-generations/tests/. tbench-mt-aborted-shard-handoff-ghost-commits-chain:/tests
+$ docker exec -w /app tbench-mt-aborted-shard-handoff-ghost-commits-chain bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_stale_controls_cannot_steal_generation_42
+PASSED ../tests/test_outputs.py::test_regression_preserves_full_identity_and_frontiers
+PASSED ../tests/test_outputs.py::test_only_final_destination_can_issue_covered_gc
+PASSED ../tests/test_outputs.py::test_reconciliation_is_idempotent_and_payload_generic
+4 passed in 0.62s
+reward=1 (4 passed, 0 skipped)
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.624" timestamp="2026-09-03T19:33:21.680934+00:00" hostname="6987afa68596"><testcase classname="test_outputs" name="test_stale_controls_cannot_steal_generation_42" time="0.223" /><testcase classname="test_outputs" name="test_regression_preserves_full_identity_and_frontiers" time="0.087" /><testcase classname="test_outputs" name="test_only_final_destination_can_issue_covered_gc" time="0.208" /><testcase classname="test_outputs" name="test_reconciliation_is_idempotent_and_payload_generic" time="0.085" /></testsuite></testsuites>
+$ docker exec tbench-mt-aborted-shard-handoff-ghost-commits-chain rm -rf /tests
+STEP 2 2_reconcile-aborted-generations  GREEN       OK    4 executed, 0 skipped, 0 failed, 0 errored
+STEP 1 1_preserve-live-handoff-effects  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+$ docker rm -f tbench-mt-aborted-shard-handoff-ghost-commits-chain
+tbench-mt-aborted-shard-handoff-ghost-commits-chain
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/aborted-shard-handoff-ghost-commits/.validation/chain-20260903T193246Z.json

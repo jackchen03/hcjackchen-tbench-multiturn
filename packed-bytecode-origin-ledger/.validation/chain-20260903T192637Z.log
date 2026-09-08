@@ -1,0 +1,255 @@
+== oracle chain: packed-bytecode-origin-ledger (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-packed-bytecode-origin-ledger:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/environment
+sha256:686ce622b620114513e07d68516d7756155c7d8a546ddf4a3396e168b15da391
+$ docker rm -f tbench-mt-packed-bytecode-origin-ledger-chain
+$ docker run -d --name tbench-mt-packed-bytecode-origin-ledger-chain tbench-mt-packed-bytecode-origin-ledger:validate sleep infinity
+b1cd3b666724813e47e56285d11765f40f62468dd664601294925b1b5aa2b02c
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/steps/1_reconcile-packed-origins/tests/. tbench-mt-packed-bytecode-origin-ledger-chain:/tests
+$ docker exec -w /app tbench-mt-packed-bytecode-origin-ledger-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____ test_local_expansions_preserve_handlers_roots_markers_and_back_edge ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_local_expansions_preserve0')
+
+    def test_local_expansions_preserve_handlers_roots_markers_and_back_edge(tmp_path):
+        program = {"ops": [
+            {"id": "init", "op": "set", "arg": 0, "origin": "L0", "prefix": True},
+            {"id": "entry-marker", "op": "marker", "origin": "M0"},
+            {"id": "inc", "label": "loop", "op": "add", "arg": 1, "origin": "L1", "prefix": True},
+            {"id": "safe", "op": "safepoint", "origin": "L2", "roots": ["acc", "policy"]},
+            {"id": "again", "op": "branch_if_lt", "arg": 3, "target": "loop", "origin": "L3"},
+            {"id": "wide", "op": "add", "arg": 40000, "origin": "L4", "prefix": True},
+            {"id": "tail-marker", "op": "marker", "origin": "M1"},
+            {"id": "fault", "op": "throw", "origin": "L5", "handler": "inner"},
+            {"id": "done", "op": "halt", "origin": "L6"},
+        ]}
+>       actual, artifact = compile_and_run(tmp_path, program)
+
+/tests/test_outputs.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_local_expansions_preserve0')
+program = {'ops': [{'arg': 0, 'id': 'init', 'op': 'set', 'origin': 'L0', ...}, {'id': 'entry-marker', 'op': 'marker', 'origin': ...ain', 'op': 'branch_if_lt', 'origin': 'L3', ...}, {'arg': 40000, 'id': 'wide', 'op': 'add', 'origin': 'L4', ...}, ...]}
+
+    def compile_and_run(tmp_path, program):
+        source = tmp_path / "case.json"
+        artifact = tmp_path / "case.pvm"
+        source.write_text(json.dumps(program))
+        compiled = subprocess.run([CLI, "compile", source, artifact], text=True, capture_output=True)
+>       assert compiled.returncode == 0, compiled.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "/app/bin/policyvm", line 2, in <module>
+E             from policyvm.cli import main
+E         ModuleNotFoundError: No module named 'policyvm'
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/policyvm', 'compile', PosixPath('/tmp/pytest-of-root/pytest-0/test_local_expansions_p...olicyvm", line 2, in <module>\n    from policyvm.cli import main\nModuleNotFoundError: No module named \'policyvm\'\n').returncode
+
+/tests/test_outputs.py:57: AssertionError
+_____ test_forward_branch_and_adjacent_zero_width_events_use_final_owners ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_forward_branch_and_adjace0')
+
+    def test_forward_branch_and_adjacent_zero_width_events_use_final_owners(tmp_path):
+        program = {"ops": [
+            {"id": "s", "op": "set", "arg": 2, "origin": "A"},
+            {"id": "jump", "op": "branch_if_lt", "arg": 9, "target": "landing", "origin": "B", "prefix": True},
+            {"id": "dead", "op": "add", "arg": 70000, "origin": "DEAD"},
+            {"id": "m1", "label": "landing", "op": "marker", "origin": "C"},
+            {"id": "m2", "op": "marker", "origin": "C"},
+            {"id": "safe", "op": "safepoint", "origin": "D", "roots": ["x"]},
+            {"id": "fault", "op": "throw", "origin": "E", "handler": "outer"},
+            {"id": "done", "op": "halt", "origin": "F"},
+        ]}
+>       actual, _ = compile_and_run(tmp_path, program)
+
+/tests/test_outputs.py:97:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_forward_branch_and_adjace0')
+program = {'ops': [{'arg': 2, 'id': 's', 'op': 'set', 'origin': 'A'}, {'arg': 9, 'id': 'jump', 'op': 'branch_if_lt', 'origin': '...}, {'id': 'm2', 'op': 'marker', 'origin': 'C'}, {'id': 'safe', 'op': 'safepoint', 'origin': 'D', 'roots': ['x']}, ...]}
+
+    def compile_and_run(tmp_path, program):
+        source = tmp_path / "case.json"
+        artifact = tmp_path / "case.pvm"
+        source.write_text(json.dumps(program))
+        compiled = subprocess.run([CLI, "compile", source, artifact], text=True, capture_output=True)
+>       assert compiled.returncode == 0, compiled.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "/app/bin/policyvm", line 2, in <module>
+E             from policyvm.cli import main
+E         ModuleNotFoundError: No module named 'policyvm'
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/policyvm', 'compile', PosixPath('/tmp/pytest-of-root/pytest-0/test_forward_branch_and...olicyvm", line 2, in <module>\n    from policyvm.cli import main\nModuleNotFoundError: No module named \'policyvm\'\n').returncode
+
+/tests/test_outputs.py:57: AssertionError
+______________ test_artifact_is_self_contained_and_deterministic _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_artifact_is_self_containe0')
+
+    def test_artifact_is_self_contained_and_deterministic(tmp_path):
+        program = {"ops": [
+            {"id": "a", "op": "set", "arg": 130, "origin": "one", "roots": ["r"]},
+            {"id": "b", "op": "marker", "origin": "zero"},
+            {"id": "c", "op": "halt", "origin": "end"},
+        ]}
+>       first, artifact = compile_and_run(tmp_path, program)
+
+/tests/test_outputs.py:109:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_artifact_is_self_containe0')
+program = {'ops': [{'arg': 130, 'id': 'a', 'op': 'set', 'origin': 'one', ...}, {'id': 'b', 'op': 'marker', 'origin': 'zero'}, {'id': 'c', 'op': 'halt', 'origin': 'end'}]}
+
+    def compile_and_run(tmp_path, program):
+        source = tmp_path / "case.json"
+        artifact = tmp_path / "case.pvm"
+        source.write_text(json.dumps(program))
+        compiled = subprocess.run([CLI, "compile", source, artifact], text=True, capture_output=True)
+>       assert compiled.returncode == 0, compiled.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "/app/bin/policyvm", line 2, in <module>
+E             from policyvm.cli import main
+E         ModuleNotFoundError: No module named 'policyvm'
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/policyvm', 'compile', PosixPath('/tmp/pytest-of-root/pytest-0/test_artifact_is_self_c...olicyvm", line 2, in <module>\n    from policyvm.cli import main\nModuleNotFoundError: No module named \'policyvm\'\n').returncode
+
+/tests/test_outputs.py:57: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_local_expansions_preserve_handlers_roots_markers_and_back_edge
+FAILED ../tests/test_outputs.py::test_forward_branch_and_adjacent_zero_width_events_use_final_owners
+FAILED ../tests/test_outputs.py::test_artifact_is_self_contained_and_deterministic
+3 failed in 0.10s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.099" timestamp="2026-09-03T19:26:44.314168+00:00" hostname="b1cd3b666724"><testcase classname="test_outputs" name="test_local_expansions_preserve_handlers_roots_markers_and_back_edge" time="0.019"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;/app/bin/policyvm&quot;, line 2, in &lt;module&gt;&#10;      from policyvm.cli import main&#10;  ModuleNotFoundError: No module named 'policyvm'&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/policyvm', 'compile', PosixPath('/tmp/pytest-of-root/pytest-0/test_local_expansions_p...olicyvm&quot;, line 2, in &lt;module&gt;\n    from policyvm.cli import main\nModuleNotFoundError: No module named \'policyvm\'\n').returncode">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_local_expansions_preserve0')
+
+    def test_local_expansions_preserve_handlers_roots_markers_and_back_edge(tmp_path):
+        program = {"ops": [
+            {"id": "init", "op": "set", "arg": 0, "origin": "L0", "prefix": True},
+            {"id": "entry-marker", "op": "marker", "origin": "M0"},
+            {"id": "inc", "label": "loop", "op": "add", "arg": 1, "origin": "L1", "prefix": True},
+            {"id": "safe", "op": "safepoint", "origin": "L2", "roots": ["acc", "policy"]},
+            {"id": "again", "op": "branch_if_lt", "arg": 3, "target": "loop", "origin": "L3"},
+            {"id": "wide", "op": "add", "arg": 40000, "origin": "L4", "prefix": True},
+            {"id": "tail-marker", "op": "marker", "origin": "M1"},
+            {"id": "fault", "op": "throw", "origin": "L5", "handler": "inner"},
+            {"id": "done", "op": "halt", "origin": "L6"},
+        ]}
+&gt;       actual, artifact = compile_and_run(tmp_path, program)
+
+/tests/test_outputs.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_local_expansions_preserve0')
+program = {'ops': [{'arg': 0, 'id': 'init', 'op': 'set', 'origin': 'L0', ...}, {'id': 'entry-marker', 'op': 'marker', 'origin': ...ain', 'op': 'branch_if_lt', 'origin': 'L3', ...}, {'arg': 40000, 'id': 'wide', 'op': 'add', 'origin': 'L4', ...}, ...]}
+
+    def compile_and_run(tmp_path, program):
+        source = tmp_path / "case.json"
+        artifact = tmp_path / "case.pvm"
+        source.write_text(json.dumps(program))
+        compiled = subprocess.run([CLI, "compile", source, artifact], text=True, capture_output=True)
+&gt;       assert compiled.returncode == 0, compiled.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "/app/bin/policyvm", line 2, in &lt;module&gt;
+E             from policyvm.cli import main
+E         ModuleNotFoundError: No module named 'policyvm'
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/policyvm', 'compile', PosixPath('/tmp/pytest-of-root/pytest-0/test_local_expansions_p...olicyvm", line 2, in &lt;module&gt;\n    from policyvm.cli import main\nModuleNotFoundError: No module named \'policyvm\'\n').returncode
+
+/tests/test_outputs.py:57: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_forward_branch_and_adjacent_zero_width_events_use_final_owners" time="0.018"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;/app/bin/policyvm&quot;, line 2, in &lt;module&gt;&#10;      from policyvm.cli import main&#10;  ModuleNotFoundError: No module named 'policyvm'&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/policyvm', 'compile', PosixPath('/tmp/pytest-of-root/pytest-0/test_forward_branch_and...olicyvm&quot;, line 2, in &lt;module&gt;\n    from policyvm.cli import main\nModuleNotFoundError: No module named \'policyvm\'\n').returncode">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_forward_branch_and_adjace0')
+
+    def test_forward_branch_and_adjacent_zero_width_events_use_final_owners(tmp_path):
+        program = {"ops": [
+            {"id": "s", "op": "set", "arg": 2, "origin": "A"},
+            {"id": "jump", "op": "branch_if_lt", "arg": 9, "target": "landing", "origin": "B", "prefix": True},
+            {"id": "dead", "op": "add", "arg": 70000, "origin": "DEAD"},
+            {"id": "m1", "label": "landing", "op": "marker", "origin": "C"},
+            {"id": "m2", "op": "marker", "origin": "C"},
+            {"id": "safe", "op": "safepoint", "origin": "D", "roots": ["x"]},
+            {"id": "fault", "op": "throw", "origin": "E", "handler": "outer"},
+            {"id": "done", "op": "halt", "origin": "F"},
+        ]}
+&gt;       actual, _ = compile_and_run(tmp_path, program)
+
+/tests/test_outputs.py:97:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_forward_branch_and_adjace0')
+program = {'ops': [{'arg': 2, 'id': 's', 'op': 'set', 'origin': 'A'}, {'arg': 9, 'id': 'jump', 'op': 'branch_if_lt', 'origin': '...}, {'id': 'm2', 'op': 'marker', 'origin': 'C'}, {'id': 'safe', 'op': 'safepoint', 'origin': 'D', 'roots': ['x']}, ...]}
+
+    def compile_and_run(tmp_path, program):
+        source = tmp_path / "case.json"
+        artifact = tmp_path / "case.pvm"
+        source.write_text(json.dumps(program))
+        compiled = subprocess.run([CLI, "compile", source, artifact], text=True, capture_output=True)
+&gt;       assert compiled.returncode == 0, compiled.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "/app/bin/policyvm", line 2, in &lt;module&gt;
+E             from policyvm.cli import main
+E         ModuleNotFoundError: No module named 'policyvm'
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/policyvm', 'compile', PosixPath('/tmp/pytest-of-root/pytest-0/test_forward_branch_and...olicyvm", line 2, in &lt;module&gt;\n    from policyvm.cli import main\nModuleNotFoundError: No module named \'policyvm\'\n').returncode
+
+/tests/test_outputs.py:57: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_artifact_is_self_contained_and_deterministic" time="0.016"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;/app/bin/policyvm&quot;, line 2, in &lt;module&gt;&#10;      from policyvm.cli import main&#10;  ModuleNotFoundError: No module named 'policyvm'&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/policyvm', 'compile', PosixPath('/tmp/pytest-of-root/pytest-0/test_artifact_is_self_c...olicyvm&quot;, line 2, in &lt;module&gt;\n    from policyvm.cli import main\nModuleNotFoundError: No module named \'policyvm\'\n').returncode">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_artifact_is_self_containe0')
+
+    def test_artifact_is_self_contained_and_deterministic(tmp_path):
+        program = {"ops": [
+            {"id": "a", "op": "set", "arg": 130, "origin": "one", "roots": ["r"]},
+            {"id": "b", "op": "marker", "origin": "zero"},
+            {"id": "c", "op": "halt", "origin": "end"},
+        ]}
+&gt;       first, artifact = compile_and_run(tmp_path, program)
+
+/tests/test_outputs.py:109:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_artifact_is_self_containe0')
+program = {'ops': [{'arg': 130, 'id': 'a', 'op': 'set', 'origin': 'one', ...}, {'id': 'b', 'op': 'marker', 'origin': 'zero'}, {'id': 'c', 'op': 'halt', 'origin': 'end'}]}
+
+    def compile_and_run(tmp_path, program):
+        source = tmp_path / "case.json"
+        artifact = tmp_path / "case.pvm"
+        source.write_text(json.dumps(program))
+        compiled = subprocess.run([CLI, "compile", source, artifact], text=True, capture_output=True)
+&gt;       assert compiled.returncode == 0, compiled.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "/app/bin/policyvm", line 2, in &lt;module&gt;
+E             from policyvm.cli import main
+E         ModuleNotFoundError: No module named 'policyvm'
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/policyvm', 'compile', PosixPath('/tmp/pytest-of-root/pytest-0/test_artifact_is_self_c...olicyvm", line 2, in &lt;module&gt;\n    from policyvm.cli import main\nModuleNotFoundError: No module named \'policyvm\'\n').returncode
+
+/tests/test_outputs.py:57: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests
+STEP 1 1_reconcile-packed-origins  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /solution
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/steps/1_reconcile-packed-origins/solution/. tbench-mt-packed-bytecode-origin-ledger-chain:/solution
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-packed-bytecode-origin-ledger-chain bash /solution/solve.sh
+Traceback (most recent call last):
+  File "/app/bin/policyvm", line 2, in <module>
+    from policyvm.cli import main
+ModuleNotFoundError: No module named 'policyvm'
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /solution
+STEP 1 1_reconcile-packed-origins  ORACLE      FAIL  solve.sh exited 1
+        -> the reference oracle does not work. A scaffold stub that prints TODO and
+           exits 1 lands here. Nothing downstream can be trusted; fix this first.
+$ docker rm -f tbench-mt-packed-bytecode-origin-ledger-chain
+tbench-mt-packed-bytecode-origin-ledger-chain
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/.validation/chain-20260903T192637Z.json   full log: /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/.validation/chain-20260903T192637Z.log

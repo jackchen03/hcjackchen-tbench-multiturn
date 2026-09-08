@@ -1,0 +1,153 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "aborted-shard-handoff-ghost-commits",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {
+      "path": "steps/1_preserve-live-handoff-effects/instruction.md",
+      "baseline_sha256": "ba0bdc49c64205e74a1a316f5f4e85e2e342289181dad490bd42d9c18e85d2e0",
+      "current_sha256": "ba0bdc49c64205e74a1a316f5f4e85e2e342289181dad490bd42d9c18e85d2e0"
+    },
+    {
+      "path": "steps/2_reconcile-aborted-generations/instruction.md",
+      "baseline_sha256": "156e0a12a918ca88d6e0d481685d94be2d20d5e1fa001a4f685052f3b34225b1",
+      "current_sha256": "156e0a12a918ca88d6e0d481685d94be2d20d5e1fa001a4f685052f3b34225b1"
+    }
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/tbench-mt-5-hq-20260903/aborted-shard-handoff-ghost-commits",
+    "inputs_sha256": {
+      "dossier.md": "433bb1665a5e7c934f5bb4684a4b33e94f09ac0353ce8fd097e994b2ec96daeb",
+      "environment.spec.md": "25e1f879f57a0282694bb80581bd8395f9de71e40ee00c46bcde31527494e454",
+      ".meta/handoff.json": "3f6240f015f3919d3d4120cb6c75e9bf3d1afb234c6de023e7bf1f22e90f0a13"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:b6f9c7aa7f6df8c94c4a34e6605c68645b2e424d9eab639404688b58b3d5f24d",
+  "contract_map": {
+    "rows": 6,
+    "mapped": 6,
+    "non_unique_surfaces": 1,
+    "valid_alternatives_covered": 1,
+    "evidence": ".validation/contract-map.md"
+  },
+  "findings": [
+    {
+      "id": "BUILD-POLICY-ECR",
+      "disposition": "FIXED",
+      "evidence": [
+        ".validation/proof-summary.md"
+      ]
+    },
+    {
+      "id": "FORMAT-AUTHORITY",
+      "disposition": "FIXED",
+      "evidence": [
+        ".validation/contract-map.md"
+      ]
+    },
+    {
+      "id": "BOUNDARY-COMPATIBLE-SUPERSET",
+      "disposition": "NOT_APPLICABLE",
+      "evidence": [
+        ".validation/chain-20260903T194715Z.json"
+      ]
+    }
+  ],
+  "proof": {
+    "static": {
+      "status": "PASS",
+      "evidence": ".validation/proof-summary.md"
+    },
+    "starter": {
+      "status": "REJECTED",
+      "executed": 4,
+      "skipped": 0,
+      "evidence": ".validation/chain-20260903T194715Z.json"
+    },
+    "oracle_runs": [
+      {
+        "run_id": "a6eUJmw",
+        "status": "PASS",
+        "evidence": ".validation/oracle-x3.md"
+      },
+      {
+        "run_id": "EvNNZDw",
+        "status": "PASS",
+        "evidence": ".validation/oracle-x3.md"
+      },
+      {
+        "run_id": "Tx3M3oz",
+        "status": "PASS",
+        "evidence": ".validation/oracle-x3.md"
+      }
+    ],
+    "valid_alternatives": [
+      {
+        "name": "recovery-capable compatible superset through Step-1 grader",
+        "status": "ACCEPTED",
+        "evidence": ".validation/proof-summary.md"
+      }
+    ],
+    "rejected_mutants": [
+      {
+        "name": "carried Step-1 stale-control/source-only recovery",
+        "status": "REJECTED",
+        "finding_ids": [
+          "BOUNDARY-COMPATIBLE-SUPERSET"
+        ],
+        "evidence": ".validation/chain-20260903T194715Z.json"
+      }
+    ],
+    "public_hidden_disjoint": {
+      "status": "PASS",
+      "evidence": ".validation/proof-summary.md"
+    },
+    "grader_isolation": {
+      "status": "PASS",
+      "evidence": ".validation/proof-summary.md"
+    },
+    "hygiene": {
+      "status": "PASS",
+      "evidence": ".validation/proof-summary.md"
+    },
+    "projected_fingerprint": {
+      "status": "PASS",
+      "value": "bundle-sha256-v1:b6f9c7aa7f6df8c94c4a34e6605c68645b2e424d9eab639404688b58b3d5f24d"
+    }
+  },
+  "transitions": [
+    {
+      "from": "1_preserve-live-handoff-effects",
+      "to": "2_reconcile-aborted-generations",
+      "entry_state": "verified full-ticket live-handoff source",
+      "carried_artifacts": [
+        "/app/internal/sim/protocol.go",
+        "ticket journals",
+        "effect/reply frontiers"
+      ],
+      "mutated_artifacts": [
+        "protocol recovery and control reducer"
+      ],
+      "read_only_artifacts": [
+        "PUBLIC_CONTRACT.md"
+      ],
+      "overrides": [
+        "generation-41 authority after abort"
+      ],
+      "retired_artifacts": [
+        "generation-40/41 control authority after generation 42"
+      ],
+      "future_isolation": "Step-2 tests and solution are absent from Step-1 candidate view",
+      "prior_regressions": [
+        "late delivery",
+        "original replies",
+        "incarnation reuse",
+        "unrelated progress"
+      ],
+      "over_exec_status": "NOT_REQUIRED",
+      "evidence": ".validation/chain-20260903T194715Z.json"
+    }
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

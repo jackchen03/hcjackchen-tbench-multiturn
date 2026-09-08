@@ -1,0 +1,48 @@
+package sim
+
+import (
+  "bufio"
+  "encoding/json"
+  "fmt"
+  "io"
+  "os"
+  "sort"
+)
+
+type Event struct { Kind, Shard, Owner, Source, Destination, Node, Incarnation, Op, Value, Action, Issuer, Boundary string; Generation, Sequence, Balance, Amount int; Nodes, Coverage []string }
+type Shard struct { Owner string `json:"owner"`; Generation int `json:"generation"`; Values []string `json:"values"`; Balance int `json:"balance"` }
+type Record struct { Key, Shard, Node, Incarnation, Op, Reply string `json:"key"`; Generation, Sequence int `json:"generation"`; Applied, Replied bool `json:"applied"`; Value string `json:"value,omitempty"`; Amount int `json:"amount,omitempty"` }
+type Output struct { Shards map[string]*Shard `json:"shards"`; Records []*Record `json:"records"`; Certificate []string `json:"certificate"` }
+
+// The starter intentionally uses sequence alone and fences a valid late delivery.
+func ticketKey(e Event) string { return fmt.Sprintf("%s|%d", e.Shard, e.Sequence) }
+
+func Run(path string, out io.Writer) error {
+  f, err := os.Open(path); if err != nil { return err }; defer f.Close()
+  shards := map[string]*Shard{}; records := map[string]*Record{}; cert := []string{}
+  scan := bufio.NewScanner(f)
+  for scan.Scan() {
+    var e Event; if json.Unmarshal(scan.Bytes(), &e) != nil || e.Kind == "" { return fmt.Errorf("invalid") }
+    key := ticketKey(e)
+    switch e.Kind {
+    case "init": shards[e.Shard] = &Shard{Owner:e.Owner, Generation:e.Generation, Values:[]string{}, Balance:e.Balance}
+    case "begin": s:=shards[e.Shard]; s.Owner=e.Destination; s.Generation=e.Generation
+    case "admit": records[key]=&Record{Key:key,Shard:e.Shard,Node:e.Node,Generation:e.Generation,Incarnation:e.Incarnation,Sequence:e.Sequence,Op:e.Op,Value:e.Value,Amount:e.Amount}
+    case "deliver":
+      r:=records[key]; s:=shards[e.Shard]; if r==nil || r.Generation != s.Generation { continue }
+      if !r.Applied { if r.Op=="append" { old:=len(s.Values); s.Values=append(s.Values,r.Value); r.Reply=fmt.Sprintf("append:%d->%d",old,old+1) } else { old:=s.Balance; s.Balance-=r.Amount; r.Reply=fmt.Sprintf("debit:%d->%d",old,s.Balance) }; r.Applied=true }; r.Node=e.Node
+    case "ack": if r:=records[key]; r!=nil && r.Applied { r.Replied=true }
+    case "abort": s:=shards[e.Shard]; s.Owner=e.Source; s.Generation=e.Generation
+    case "control": if e.Action=="finalize" || e.Action=="abort" { s:=shards[e.Shard]; s.Owner=e.Node; s.Generation=e.Generation }
+    case "reconcile": for _,r:=range records { if r.Shard==e.Shard { r.Node=e.Destination } }
+    case "finalize": s:=shards[e.Shard]; s.Owner=e.Destination; s.Generation=e.Generation
+    case "gc": cert=append([]string{},e.Coverage...); for _,k:=range cert { delete(records,k) }
+    case "retry", "crash", "recover":
+    default: return fmt.Errorf("invalid")
+    }
+  }
+  if scan.Err()!=nil { return scan.Err() }
+  keys:=make([]string,0,len(records)); for k:=range records { keys=append(keys,k) }; sort.Strings(keys)
+  rs:=make([]*Record,0,len(keys)); for _,k:=range keys { rs=append(rs,records[k]) }
+  return json.NewEncoder(out).Encode(Output{Shards:shards,Records:rs,Certificate:cert})
+}

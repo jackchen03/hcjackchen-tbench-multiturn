@@ -1,0 +1,7 @@
+{
+  "ops": [
+    {"id": "s", "label": "start", "op": "set", "arg": 4, "origin": "line-1", "roots": ["policy"]},
+    {"id": "a", "op": "add", "arg": 3, "origin": "line-2", "roots": ["policy"]},
+    {"id": "z", "op": "halt", "origin": "line-3"}
+  ]
+}

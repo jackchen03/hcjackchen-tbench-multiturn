@@ -1,0 +1,33 @@
+{
+  "task": "aborted-shard-handoff-ghost-commits",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-aborted-shard-handoff-ghost-commits:validate"
+    },
+    {
+      "step": "1_preserve-live-handoff-effects",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 4 failed, 0 errored"
+    },
+    {
+      "step": "1_preserve-live-handoff-effects",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_preserve-live-handoff-effects",
+      "phase": "GREEN",
+      "status": "FAIL",
+      "detail": "4 executed, 0 skipped, 4 failed, 0 errored"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

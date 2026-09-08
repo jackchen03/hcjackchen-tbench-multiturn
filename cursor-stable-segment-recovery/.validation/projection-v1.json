@@ -1,0 +1,9 @@
+{
+  "schema": "bundle-projection-v1",
+  "working": "bundle-sha256-v1:911bc6221b8904c4bb078fe5f334186fb33d2eaf39ffec8a4dc7e8d2d32f8df6",
+  "projected": "bundle-sha256-v1:911bc6221b8904c4bb078fe5f334186fb33d2eaf39ffec8a4dc7e8d2d32f8df6",
+  "ignored_included": [],
+  "author_only_included": [],
+  "live_handoff": false,
+  "result": "PASS"
+}

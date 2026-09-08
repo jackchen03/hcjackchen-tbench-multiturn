@@ -1,0 +1,52 @@
+schema_version = "1.1"
+[task]
+name = "codimango/packed-bytecode-origin-ledger"
+description = "Repair packed-bytecode semantic origins, then preserve ordered phase behavior through size-constrained fusion."
+authors = [{ name = "Jack Chen", email = "hcjackchen@meta.com" }]
+keywords = ["bytecode", "compiler", "runtime", "fusion", "debug-metadata"]
+
+[metadata]
+author_name = "Jack Chen"
+author_email = "hcjackchen@meta.com"
+difficulty = "hard"
+category = "iterate_on_feature"
+category_usecase = "reimplementation"
+category_subdomain = "compiler-runtime"
+reward_type = "binary"
+tags = ["multi-turn", "context-following", "vm-tooling", "bytecode", "compiler-runtime"]
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+allow_internet = false
+mcp_servers = []
+
+[environment.env]
+[solution.env]
+
+[[steps]]
+name = "1_reconcile-packed-origins"
+dependencies = []
+inherit_prior_session = false
+min_reward = 1.0
+
+[steps.verifier]
+timeout_sec = 1800
+
+[steps.agent]
+timeout_sec = 1800
+
+[[steps]]
+name = "2_preserve-fused-phase-order"
+dependencies = ["1_reconcile-packed-origins"]
+inherit_prior_session = true
+min_reward = 1.0
+
+[steps.verifier]
+timeout_sec = 1800
+
+[steps.agent]
+timeout_sec = 1800

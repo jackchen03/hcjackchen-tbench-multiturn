@@ -1,0 +1,3 @@
+Heap reads are correct, but index-only reads can return plausible stale or misdecoded included values after online schema compaction. Keys and visibility are already correct. Repair the engine so every requested covering projection agrees with the corresponding heap read across the existing mixed pages, later compactions, alias split/merge/cycle mutations, and historical snapshots.
+
+The repair must preserve the public behavior and deterministic operation limits in `/app/contracts/engine_contract.md`. Existing data must remain usable without reindexing, current-only repair, or heap fallback, and the per-page provenance exposed by the diagnostic API must stay within its documented compactness bound.

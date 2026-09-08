@@ -1,0 +1,9 @@
+# shardsim public contract
+
+Run `shardsim run --scenario NAME --trace PATH`. `PATH` is JSON Lines, one event per line. The final stdout line is a JSON object with `shards`, `records`, and `certificate`. Malformed events produce `{"error":"invalid_event"}` and a nonzero exit.
+
+Events are `init`, `begin`, `admit`, `deliver`, `ack`, `retry`, `crash`, `recover`, `abort`, `control`, `reconcile`, `finalize`, and `gc`. Shard events name `shard`; tickets name `generation`, `incarnation`, and integer `sequence`. Operations are `append` with string `value` and `debit` with integer `amount`. `begin` names `source`, `destination`, and the new generation. Control events name `action` (`forward`, `finalize`, `abort`, or `cleanup`) and generation. `reconcile` names `destination` and `nodes`. `gc` names `issuer` and `coverage` ticket keys.
+
+Admission fixes the complete ticket identity `(shard, generation, incarnation, sequence)` before delivery. Its stable JSON key is `<shard>|<generation>|<incarnation>|<sequence>`. Each record reports that key plus `shard`, `node`, `incarnation`, `generation`, `sequence`, `op`, `applied`, `replied`, `reply`, and the operation payload. Delivery may occur after ownership changes. An admitted effect is applied once; a retry returns its original reply. Effect application and reply acknowledgement are separate durable facts. Writes to other shards do not stop during movement.
+
+Crash `after_effect_fsync_before_reply_ack` removes volatile state only. Abort returns authority without undoing durable effects. Controls older than the current generation cannot change ownership, compensate effects, or authorize collection. Reconciliation joins per-ticket durable facts. The current owner can issue a certificate only after it holds reconciled facts and observes the source's durable finalization for that generation. Nodes retain uncovered records.

@@ -1,0 +1,16 @@
+{
+  "schema": "phase2-controls-v1",
+  "bundle_fingerprint": "bundle-sha256-v1:3022fbaa56db1ff8245864dccaece6dc898a71a56c3df8fd3e9236e08f38111d",
+  "valid_alternatives": [
+    {"name": "explicit-stable-id-side-table", "step": 1, "status": "ACCEPTED", "executed": 3, "skipped": 0},
+    {"name": "iterative-out-of-line-phase-ledger", "step": 2, "status": "ACCEPTED", "executed": 4, "skipped": 0}
+  ],
+  "rejected_mutants": [
+    {"name": "starter-provisional-coordinate-map", "step": 1, "status": "REJECTED", "executed": 3, "failed": 3},
+    {"name": "deduplicated-fused-origin-set", "step": 2, "status": "REJECTED", "executed": 4, "failed": 1},
+    {"name": "fusion-disabled", "step": 2, "status": "REJECTED", "executed": 4, "failed": 2},
+    {"name": "public-sample-hardcoding", "step": 1, "status": "REJECTED", "executed": 3, "failed": 3}
+  ],
+  "public_hidden_disjoint": "Public fixture is a three-op ordinary program; graded programs use distinct width, loop, marker, handler, root, and fused-phase families.",
+  "grader_isolation": "Tests invoke the public executable in subprocesses, delete source inputs before execution, and derive expected semantics independently without importing candidate modules."
+}

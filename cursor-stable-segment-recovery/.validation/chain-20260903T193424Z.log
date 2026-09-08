@@ -1,0 +1,307 @@
+== oracle chain: cursor-stable-segment-recovery (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-cursor-stable-segment-recovery:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/environment
+sha256:90be0c09917c649cd87724ba800d2425434df0f0e9d78074c8f3c5042c062424
+$ docker rm -f tbench-mt-cursor-stable-segment-recovery-chain
+$ docker run -d --name tbench-mt-cursor-stable-segment-recovery-chain tbench-mt-cursor-stable-segment-recovery:validate sleep infinity
+b357854239f1c6f1cbd0c963329275743e410b4ea256f82a78d5c27a7e4f8638
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/1_recover-acknowledged-transactions/tests/. tbench-mt-cursor-stable-segment-recovery-chain:/tests
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /tests/test.sh
+F.F                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_hidden_recovery_semantics_and_provenance _________________
+
+    def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            os.chmod(td, 0o755)
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+                got,_=run_recover(store,Path(td)/f"out-{seed}")
+>               assert got==expected
+E               AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})
+E
+E                 At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-0', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'split-0', 'incarnation': 1}, 'key': 'cross-0', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-0', 'op': 'put', 'op_index': 0, 'value': 'ok-0'}], 'values': {'base-0': 'v1', '...
+E
+E                 ...Full output truncated (2 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:156: AssertionError
+___________ test_public_sample_or_path_hardcoding_is_not_sufficient ____________
+
+    def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            os.chmod(td, 0o755)
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+            got,_=run_recover(store,Path(td)/"out")
+>           assert got==expected
+E           AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})
+E
+E             At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-57', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'split-57', 'incarnation': 1}, 'key': 'cross-57', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-57', 'op': 'put', 'op_index': 0, 'value': 'ok-57'}], 'values': {'base-57': '...
+E
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:176: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recovery_is_byte_deterministic
+FAILED ../tests/test_outputs.py::test_hidden_recovery_semantics_and_provenance
+FAILED ../tests/test_outputs.py::test_public_sample_or_path_hardcoding_is_not_sufficient
+2 failed, 1 passed in 0.57s
+reward=0 (2 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.573" timestamp="2026-09-03T19:34:37.082187+00:00" hostname="b357854239f1"><testcase classname="test_outputs" name="test_hidden_recovery_semantics_and_provenance" time="0.246"><failure message="AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})&#10;  &#10;  At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-0', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'split-0', 'incarnation': 1}, 'key': 'cross-0', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-0', 'op': 'put', 'op_index': 0, 'value': 'ok-0'}], 'values': {'base-0': 'v1', '...&#10;  &#10;  ...Full output truncated (2 lines hidden), use '-vv' to show">def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            os.chmod(td, 0o755)
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+                got,_=run_recover(store,Path(td)/f"out-{seed}")
+&gt;               assert got==expected
+E               AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})
+E
+E                 At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-0', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'split-0', 'incarnation': 1}, 'key': 'cross-0', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-0', 'op': 'put', 'op_index': 0, 'value': 'ok-0'}], 'values': {'base-0': 'v1', '...
+E
+E                 ...Full output truncated (2 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:156: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_recovery_is_byte_deterministic" time="0.123" /><testcase classname="test_outputs" name="test_public_sample_or_path_hardcoding_is_not_sufficient" time="0.147"><failure message="AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})&#10;  &#10;  At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-57', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'split-57', 'incarnation': 1}, 'key': 'cross-57', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-57', 'op': 'put', 'op_index': 0, 'value': 'ok-57'}], 'values': {'base-57': '...&#10;  &#10;  ...Full output truncated (2 lines hidden), use '-vv' to show">def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            os.chmod(td, 0o755)
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+            got,_=run_recover(store,Path(td)/"out")
+&gt;           assert got==expected
+E           AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})
+E
+E             At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-57', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'split-57', 'incarnation': 1}, 'key': 'cross-57', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-57', 'op': 'put', 'op_index': 0, 'value': 'ok-57'}], 'values': {'base-57': '...
+E
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:176: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests
+STEP 1 1_recover-acknowledged-transactions  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /solution
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/1_recover-acknowledged-transactions/solution/. tbench-mt-cursor-stable-segment-recovery-chain:/solution
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /solution/solve.sh
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /solution
+STEP 1 1_recover-acknowledged-transactions  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/1_recover-acknowledged-transactions/tests/. tbench-mt-cursor-stable-segment-recovery-chain:/tests
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_hidden_recovery_semantics_and_provenance _________________
+
+    def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            os.chmod(td, 0o755)
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+>               got,_=run_recover(store,Path(td)/f"out-{seed}")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:155:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-s1-bz2o_g4i/store-0')
+out = PosixPath('/tmp/codimango/segstore-s1-bz2o_g4i/out-0')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+        assert cp.returncode==0,cp.stderr
+        raw=[(out/n).read_bytes() for n in ("state.json","decisions.json","provenance.json")]
+        for value in raw:
+>           assert value.endswith(b"\n") and value==canon(json.loads(value))+b"\n"
+E           assert (True and b'{"applied":...version":1}\n' == b'{"applied":...version":1}\n'
+E            +  where True = <built-in method endswith of bytes object at 0x55d1dcd61310>(b'\n')
+E            +    where <built-in method endswith of bytes object at 0x55d1dcd61310> = b'{"applied":[{"identity":{"branch":"hidden-700","generation":20,"txid":"reuse","incarnation":1},"key":"base-0","op":"...0","op":"put","op_index":0,"value":"ok-0"}],"values":{"base-0":"v1","cross-0":"joined","tail-0":"ok-0"},"version":1}\n'.endswith
+E
+E             At index 64 diff: b't' != b'i'
+E             Use -v to get more diff)
+
+/tests/test_outputs.py:140: AssertionError
+_____________________ test_recovery_is_byte_deterministic ______________________
+
+    def test_recovery_is_byte_deterministic():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-det-") as td:
+            os.chmod(td, 0o755)
+            store=Path(td)/"store";store.mkdir();generate_case(store,31)
+>           _,first=run_recover(store,Path(td)/"a")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:165:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-det-jkn3y6el/store')
+out = PosixPath('/tmp/codimango/segstore-det-jkn3y6el/a')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+        assert cp.returncode==0,cp.stderr
+        raw=[(out/n).read_bytes() for n in ("state.json","decisions.json","provenance.json")]
+        for value in raw:
+>           assert value.endswith(b"\n") and value==canon(json.loads(value))+b"\n"
+E           assert (True and b'{"applied":...version":1}\n' == b'{"applied":...version":1}\n'
+E            +  where True = <built-in method endswith of bytes object at 0x55d1dcd13bb0>(b'\n')
+E            +    where <built-in method endswith of bytes object at 0x55d1dcd13bb0> = b'{"applied":[{"identity":{"branch":"hidden-731","generation":51,"txid":"reuse","incarnation":1},"key":"base-31","op":...p":"put","op_index":0,"value":"ok-31"}],"values":{"base-31":"v1","cross-31":"joined","tail-31":"ok-31"},"version":1}\n'.endswith
+E
+E             At index 64 diff: b't' != b'i'
+E             Use -v to get more diff)
+
+/tests/test_outputs.py:140: AssertionError
+___________ test_public_sample_or_path_hardcoding_is_not_sufficient ____________
+
+    def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            os.chmod(td, 0o755)
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+>           got,_=run_recover(store,Path(td)/"out")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:175:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-disjoint-_9kbyct9/unseen')
+out = PosixPath('/tmp/codimango/segstore-disjoint-_9kbyct9/out')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+        assert cp.returncode==0,cp.stderr
+        raw=[(out/n).read_bytes() for n in ("state.json","decisions.json","provenance.json")]
+        for value in raw:
+>           assert value.endswith(b"\n") and value==canon(json.loads(value))+b"\n"
+E           assert (True and b'{"applied":...version":1}\n' == b'{"applied":...version":1}\n'
+E            +  where True = <built-in method endswith of bytes object at 0x55d1dcd45b20>(b'\n')
+E            +    where <built-in method endswith of bytes object at 0x55d1dcd45b20> = b'{"applied":[{"identity":{"branch":"hidden-757","generation":77,"txid":"reuse","incarnation":1},"key":"base-57","op":...p":"put","op_index":0,"value":"ok-57"}],"values":{"base-57":"v1","cross-57":"joined","tail-57":"ok-57"},"version":1}\n'.endswith
+E
+E             At index 64 diff: b't' != b'i'
+E             Use -v to get more diff)
+
+/tests/test_outputs.py:140: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_hidden_recovery_semantics_and_provenance
+FAILED ../tests/test_outputs.py::test_recovery_is_byte_deterministic - assert...
+FAILED ../tests/test_outputs.py::test_public_sample_or_path_hardcoding_is_not_sufficient
+3 failed in 0.40s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.396" timestamp="2026-09-03T19:34:39.558745+00:00" hostname="b357854239f1"><testcase classname="test_outputs" name="test_hidden_recovery_semantics_and_provenance" time="0.111"><failure message="assert (True and b'{&quot;applied&quot;:...version&quot;:1}\n' == b'{&quot;applied&quot;:...version&quot;:1}\n'&#10; +  where True = &lt;built-in method endswith of bytes object at 0x55d1dcd61310&gt;(b'\n')&#10; +    where &lt;built-in method endswith of bytes object at 0x55d1dcd61310&gt; = b'{&quot;applied&quot;:[{&quot;identity&quot;:{&quot;branch&quot;:&quot;hidden-700&quot;,&quot;generation&quot;:20,&quot;txid&quot;:&quot;reuse&quot;,&quot;incarnation&quot;:1},&quot;key&quot;:&quot;base-0&quot;,&quot;op&quot;:&quot;...0&quot;,&quot;op&quot;:&quot;put&quot;,&quot;op_index&quot;:0,&quot;value&quot;:&quot;ok-0&quot;}],&quot;values&quot;:{&quot;base-0&quot;:&quot;v1&quot;,&quot;cross-0&quot;:&quot;joined&quot;,&quot;tail-0&quot;:&quot;ok-0&quot;},&quot;version&quot;:1}\n'.endswith&#10;  &#10;  At index 64 diff: b't' != b'i'&#10;  Use -v to get more diff)">def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            os.chmod(td, 0o755)
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+&gt;               got,_=run_recover(store,Path(td)/f"out-{seed}")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:155:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-s1-bz2o_g4i/store-0')
+out = PosixPath('/tmp/codimango/segstore-s1-bz2o_g4i/out-0')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+        assert cp.returncode==0,cp.stderr
+        raw=[(out/n).read_bytes() for n in ("state.json","decisions.json","provenance.json")]
+        for value in raw:
+&gt;           assert value.endswith(b"\n") and value==canon(json.loads(value))+b"\n"
+E           assert (True and b'{"applied":...version":1}\n' == b'{"applied":...version":1}\n'
+E            +  where True = &lt;built-in method endswith of bytes object at 0x55d1dcd61310&gt;(b'\n')
+E            +    where &lt;built-in method endswith of bytes object at 0x55d1dcd61310&gt; = b'{"applied":[{"identity":{"branch":"hidden-700","generation":20,"txid":"reuse","incarnation":1},"key":"base-0","op":"...0","op":"put","op_index":0,"value":"ok-0"}],"values":{"base-0":"v1","cross-0":"joined","tail-0":"ok-0"},"version":1}\n'.endswith
+E
+E             At index 64 diff: b't' != b'i'
+E             Use -v to get more diff)
+
+/tests/test_outputs.py:140: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_recovery_is_byte_deterministic" time="0.107"><failure message="assert (True and b'{&quot;applied&quot;:...version&quot;:1}\n' == b'{&quot;applied&quot;:...version&quot;:1}\n'&#10; +  where True = &lt;built-in method endswith of bytes object at 0x55d1dcd13bb0&gt;(b'\n')&#10; +    where &lt;built-in method endswith of bytes object at 0x55d1dcd13bb0&gt; = b'{&quot;applied&quot;:[{&quot;identity&quot;:{&quot;branch&quot;:&quot;hidden-731&quot;,&quot;generation&quot;:51,&quot;txid&quot;:&quot;reuse&quot;,&quot;incarnation&quot;:1},&quot;key&quot;:&quot;base-31&quot;,&quot;op&quot;:...p&quot;:&quot;put&quot;,&quot;op_index&quot;:0,&quot;value&quot;:&quot;ok-31&quot;}],&quot;values&quot;:{&quot;base-31&quot;:&quot;v1&quot;,&quot;cross-31&quot;:&quot;joined&quot;,&quot;tail-31&quot;:&quot;ok-31&quot;},&quot;version&quot;:1}\n'.endswith&#10;  &#10;  At index 64 diff: b't' != b'i'&#10;  Use -v to get more diff)">def test_recovery_is_byte_deterministic():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-det-") as td:
+            os.chmod(td, 0o755)
+            store=Path(td)/"store";store.mkdir();generate_case(store,31)
+&gt;           _,first=run_recover(store,Path(td)/"a")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:165:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-det-jkn3y6el/store')
+out = PosixPath('/tmp/codimango/segstore-det-jkn3y6el/a')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+        assert cp.returncode==0,cp.stderr
+        raw=[(out/n).read_bytes() for n in ("state.json","decisions.json","provenance.json")]
+        for value in raw:
+&gt;           assert value.endswith(b"\n") and value==canon(json.loads(value))+b"\n"
+E           assert (True and b'{"applied":...version":1}\n' == b'{"applied":...version":1}\n'
+E            +  where True = &lt;built-in method endswith of bytes object at 0x55d1dcd13bb0&gt;(b'\n')
+E            +    where &lt;built-in method endswith of bytes object at 0x55d1dcd13bb0&gt; = b'{"applied":[{"identity":{"branch":"hidden-731","generation":51,"txid":"reuse","incarnation":1},"key":"base-31","op":...p":"put","op_index":0,"value":"ok-31"}],"values":{"base-31":"v1","cross-31":"joined","tail-31":"ok-31"},"version":1}\n'.endswith
+E
+E             At index 64 diff: b't' != b'i'
+E             Use -v to get more diff)
+
+/tests/test_outputs.py:140: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_public_sample_or_path_hardcoding_is_not_sufficient" time="0.099"><failure message="assert (True and b'{&quot;applied&quot;:...version&quot;:1}\n' == b'{&quot;applied&quot;:...version&quot;:1}\n'&#10; +  where True = &lt;built-in method endswith of bytes object at 0x55d1dcd45b20&gt;(b'\n')&#10; +    where &lt;built-in method endswith of bytes object at 0x55d1dcd45b20&gt; = b'{&quot;applied&quot;:[{&quot;identity&quot;:{&quot;branch&quot;:&quot;hidden-757&quot;,&quot;generation&quot;:77,&quot;txid&quot;:&quot;reuse&quot;,&quot;incarnation&quot;:1},&quot;key&quot;:&quot;base-57&quot;,&quot;op&quot;:...p&quot;:&quot;put&quot;,&quot;op_index&quot;:0,&quot;value&quot;:&quot;ok-57&quot;}],&quot;values&quot;:{&quot;base-57&quot;:&quot;v1&quot;,&quot;cross-57&quot;:&quot;joined&quot;,&quot;tail-57&quot;:&quot;ok-57&quot;},&quot;version&quot;:1}\n'.endswith&#10;  &#10;  At index 64 diff: b't' != b'i'&#10;  Use -v to get more diff)">def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            os.chmod(td, 0o755)
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+&gt;           got,_=run_recover(store,Path(td)/"out")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:175:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-disjoint-_9kbyct9/unseen')
+out = PosixPath('/tmp/codimango/segstore-disjoint-_9kbyct9/out')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+        assert cp.returncode==0,cp.stderr
+        raw=[(out/n).read_bytes() for n in ("state.json","decisions.json","provenance.json")]
+        for value in raw:
+&gt;           assert value.endswith(b"\n") and value==canon(json.loads(value))+b"\n"
+E           assert (True and b'{"applied":...version":1}\n' == b'{"applied":...version":1}\n'
+E            +  where True = &lt;built-in method endswith of bytes object at 0x55d1dcd45b20&gt;(b'\n')
+E            +    where &lt;built-in method endswith of bytes object at 0x55d1dcd45b20&gt; = b'{"applied":[{"identity":{"branch":"hidden-757","generation":77,"txid":"reuse","incarnation":1},"key":"base-57","op":...p":"put","op_index":0,"value":"ok-57"}],"values":{"base-57":"v1","cross-57":"joined","tail-57":"ok-57"},"version":1}\n'.endswith
+E
+E             At index 64 diff: b't' != b'i'
+E             Use -v to get more diff)
+
+/tests/test_outputs.py:140: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests
+STEP 1 1_recover-acknowledged-transactions  GREEN       FAIL  tests do not pass after the oracle ran (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker rm -f tbench-mt-cursor-stable-segment-recovery-chain
+tbench-mt-cursor-stable-segment-recovery-chain
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/.validation/chain-20260903T193424Z.json   full log: /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/.validation/chain-20260903T193424Z.log

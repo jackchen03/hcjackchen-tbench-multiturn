@@ -1,0 +1,3 @@
+The recovery command is losing acknowledged writes after damaged regions and sometimes reviving aborted or obsolete work. Make `segstore recover STORE --state STATE --decisions DECISIONS --provenance PROVENANCE` recover all and only acknowledged transactions under the format contract in `/app/spec/FORMAT.md`, including records after bounded damage, transactions split across records or segment files, and reused transaction IDs.
+
+Keep the documented JSON interfaces stable. `STATE`, `DECISIONS`, and `PROVENANCE` must be deterministic, and every recovered operation must retain provenance to its original byte intervals. Do not discard later readable data merely because an earlier region is corrupt.

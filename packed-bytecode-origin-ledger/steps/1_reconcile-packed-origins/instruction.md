@@ -1,0 +1,3 @@
+The compact policy VM now packs selected operands to variable widths, but equivalent policies no longer behave alike after packing. Repair it so final packed programs preserve execution results, branch destinations, selected exception handlers, live roots at every GC safepoint, and reported source events. This must also hold when a semantic source marker emits no bytes and when an operation has an extension prefix.
+
+Keep compact variable-width packing and the existing public commands and formats. Metadata must describe the final emitted program rather than a provisional layout: prefix and opcode forms of the same operation must have the same semantic ownership, and a global offset adjustment or a branch-only layout fix is not sufficient.

@@ -1,0 +1,154 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "schema-provenance-covering-index-retirement",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {
+      "path": "steps/1_repair-covering-provenance/instruction.md",
+      "baseline_sha256": "1ec490a89a02a8a69f80b224147d4218fcb2182e607cffde46078c0310a94ba2",
+      "current_sha256": "1ec490a89a02a8a69f80b224147d4218fcb2182e607cffde46078c0310a94ba2"
+    },
+    {
+      "path": "steps/2_retire-projector-metadata/instruction.md",
+      "baseline_sha256": "2167f628e0b78329859bacb0eaee818c90363abedba7d054f37bf2d519adc6db",
+      "current_sha256": "2167f628e0b78329859bacb0eaee818c90363abedba7d054f37bf2d519adc6db"
+    }
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/tbench-mt-5-hq-20260903/schema-provenance-covering-index-retirement",
+    "inputs_sha256": {
+      "dossier.md": "6e8c324329db41894813edd98e9d644e38a82bf886f0418f4042dd5eb2fbde54",
+      "environment.spec.md": "51352b8c577c4f6ac43fdc86346f838b2566ed69f401faab1d6651d91ca56b8a",
+      ".meta/handoff.json": "d160a46bb8625f61fe0b5f3cf9f36099c5d9480da6f50c7d05a60452b9a9b650"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:419e1bc57d7cd71f064f916c5be7ca5c9f97461c7fcc2784be6d9d64a70c722c",
+  "contract_map": {
+    "rows": 7,
+    "mapped": 7,
+    "non_unique_surfaces": 1,
+    "valid_alternatives_covered": 1,
+    "evidence": ".validation/contract-map.md"
+  },
+  "findings": [
+    {
+      "id": "BUILD-POLICY-ECR",
+      "disposition": "FIXED",
+      "evidence": [
+        ".validation/proof-summary.md"
+      ]
+    },
+    {
+      "id": "CERTIFICATE-WITNESS-SCOPE",
+      "disposition": "FIXED",
+      "evidence": [
+        ".validation/contract-map.md"
+      ]
+    },
+    {
+      "id": "BOUNDARY-COMPATIBLE-SUPERSET",
+      "disposition": "NOT_APPLICABLE",
+      "evidence": [
+        ".validation/chain-20260903T194505Z.json"
+      ]
+    }
+  ],
+  "proof": {
+    "static": {
+      "status": "PASS",
+      "evidence": ".validation/proof-summary.md"
+    },
+    "starter": {
+      "status": "REJECTED",
+      "executed": 4,
+      "skipped": 0,
+      "evidence": ".validation/chain-20260903T194505Z.json"
+    },
+    "oracle_runs": [
+      {
+        "run_id": "KMFxQaZ",
+        "status": "PASS",
+        "evidence": ".validation/oracle-x3.md"
+      },
+      {
+        "run_id": "sckUYvG",
+        "status": "PASS",
+        "evidence": ".validation/oracle-x3.md"
+      },
+      {
+        "run_id": "gPQp7RL",
+        "status": "PASS",
+        "evidence": ".validation/oracle-x3.md"
+      }
+    ],
+    "valid_alternatives": [
+      {
+        "name": "representation-neutral provenance and certificate witness",
+        "status": "ACCEPTED",
+        "evidence": ".validation/proof-summary.md"
+      }
+    ],
+    "rejected_mutants": [
+      {
+        "name": "carried Step-1 conservative keep-all/full-scan retirement",
+        "status": "REJECTED",
+        "finding_ids": [
+          "CERTIFICATE-WITNESS-SCOPE"
+        ],
+        "evidence": ".validation/chain-20260903T194505Z.json"
+      }
+    ],
+    "public_hidden_disjoint": {
+      "status": "PASS",
+      "evidence": ".validation/proof-summary.md"
+    },
+    "grader_isolation": {
+      "status": "PASS",
+      "evidence": ".validation/proof-summary.md"
+    },
+    "hygiene": {
+      "status": "PASS",
+      "evidence": ".validation/proof-summary.md"
+    },
+    "projected_fingerprint": {
+      "status": "PASS",
+      "value": "bundle-sha256-v1:419e1bc57d7cd71f064f916c5be7ca5c9f97461c7fcc2784be6d9d64a70c722c"
+    }
+  },
+  "transitions": [
+    {
+      "from": "1_repair-covering-provenance",
+      "to": "2_retire-projector-metadata",
+      "entry_state": "verified page-local provenance and alias state",
+      "carried_artifacts": [
+        "/app/src/catalog_engine.py",
+        "page witnesses",
+        "typed dependency graph",
+        "open snapshots",
+        "continuations"
+      ],
+      "mutated_artifacts": [
+        "retirement state and continuation roots"
+      ],
+      "read_only_artifacts": [
+        "engine_contract.md"
+      ],
+      "overrides": [
+        "post-migration continuation roots replace prior roots"
+      ],
+      "retired_artifacts": [
+        "unreachable metadata and stale continuation roots"
+      ],
+      "future_isolation": "Step-2 graph deltas and expected closure are absent from Step-1 candidate view",
+      "prior_regressions": [
+        "covering reads",
+        "witness compactness",
+        "zero fallback/reindex"
+      ],
+      "over_exec_status": "NOT_REQUIRED",
+      "evidence": ".validation/chain-20260903T194505Z.json"
+    }
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

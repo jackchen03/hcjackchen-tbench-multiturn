@@ -1,0 +1,69 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "packed-bytecode-origin-ledger",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {"path": "steps/1_reconcile-packed-origins/instruction.md", "baseline_sha256": "73725a976477c8ab49cab51452c5e940a853347b5656fa1b2fe59616324398bc", "current_sha256": "73725a976477c8ab49cab51452c5e940a853347b5656fa1b2fe59616324398bc"},
+    {"path": "steps/2_preserve-fused-phase-order/instruction.md", "baseline_sha256": "60ae0e43575c95b3f72e8ca5470d5242f98602a35495b74698123ebd275a6226", "current_sha256": "60ae0e43575c95b3f72e8ca5470d5242f98602a35495b74698123ebd275a6226"}
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/tbench-mt-5-hq-20260903/packed-bytecode-origin-ledger",
+    "inputs_sha256": {
+      "dossier.md": "1497c6f30141ac8354edf951641cdcdd52a1639322537039e3ca955e833f55b7",
+      "environment.spec.md": "c60a2f45c1bd4cc622eb6c976e8cb0e0046a383cba262cf4e0f3f51d1f1bc189",
+      ".meta/handoff.json": "9b0d1c7fb93fad22b905383c09acd9c3a60a92960a1fbe569d319c24a06a7a27"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:3022fbaa56db1ff8245864dccaece6dc898a71a56c3df8fd3e9236e08f38111d",
+  "contract_map": {"rows": 10, "mapped": 10, "non_unique_surfaces": 2, "valid_alternatives_covered": 2, "evidence": ".validation/contract-map.md"},
+  "findings": [
+    {"id": "F1", "disposition": "FIXED", "evidence": [".validation/chain-20260903T193255Z.json"]},
+    {"id": "F2", "disposition": "FIXED", "evidence": [".validation/controls-and-mutants.json"]},
+    {"id": "F3", "disposition": "FIXED", "evidence": [".validation/controls-and-mutants.json"]},
+    {"id": "F4", "disposition": "FIXED", "evidence": [".validation/contract-map.md"]},
+    {"id": "F5", "disposition": "FIXED", "evidence": [".validation/controls-and-mutants.json"]},
+    {"id": "F6", "disposition": "FIXED", "evidence": [".validation/chain-20260903T193255Z.json"]},
+    {"id": "F7", "disposition": "NOT_APPLICABLE", "evidence": [".validation/chain-20260903T193255Z.json"]},
+    {"id": "F8", "disposition": "FIXED", "evidence": [".validation/review-readiness.md"]}
+  ],
+  "proof": {
+    "static": {"status": "PASS", "evidence": ".validation/static-final.md"},
+    "starter": {"status": "REJECTED", "executed": 3, "skipped": 0, "evidence": ".validation/chain-20260903T193255Z.json"},
+    "oracle_runs": [
+      {"run_id": "packed-bytecode-origin-ledger__EusHtev", "status": "PASS", "evidence": ".validation/oracle-x3-20260903T193308Z.json"},
+      {"run_id": "packed-bytecode-origin-ledger__2iHbzMd", "status": "PASS", "evidence": ".validation/oracle-x3-20260903T193308Z.json"},
+      {"run_id": "packed-bytecode-origin-ledger__gXhA5AS", "status": "PASS", "evidence": ".validation/oracle-x3-20260903T193308Z.json"}
+    ],
+    "valid_alternatives": [
+      {"name": "explicit-stable-id-side-table", "status": "ACCEPTED", "evidence": ".validation/controls-and-mutants.json"},
+      {"name": "iterative-out-of-line-phase-ledger", "status": "ACCEPTED", "evidence": ".validation/controls-and-mutants.json"}
+    ],
+    "rejected_mutants": [
+      {"name": "starter-provisional-coordinate-map", "status": "REJECTED", "finding_ids": ["F1"], "evidence": ".validation/controls-and-mutants.json"},
+      {"name": "deduplicated-fused-origin-set", "status": "REJECTED", "finding_ids": ["F2", "F3"], "evidence": ".validation/controls-and-mutants.json"},
+      {"name": "fusion-disabled", "status": "REJECTED", "finding_ids": ["F4"], "evidence": ".validation/controls-and-mutants.json"},
+      {"name": "public-sample-hardcoding", "status": "REJECTED", "finding_ids": ["F5"], "evidence": ".validation/controls-and-mutants.json"}
+    ],
+    "public_hidden_disjoint": {"status": "PASS", "evidence": ".validation/controls-and-mutants.json"},
+    "grader_isolation": {"status": "PASS", "evidence": ".validation/review-readiness.md"},
+    "hygiene": {"status": "PASS", "evidence": ".validation/review-readiness.md"},
+    "projected_fingerprint": {"status": "PASS", "value": "bundle-sha256-v1:3022fbaa56db1ff8245864dccaece6dc898a71a56c3df8fd3e9236e08f38111d"}
+  },
+  "transitions": [
+    {
+      "from": "1_reconcile-packed-origins",
+      "to": "2_preserve-fused-phase-order",
+      "entry_state": "verified Step-1 compiler/runtime filesystem",
+      "carried_mutated": ["compiler/runtime source", "semantic ownership map"],
+      "read_only": ["public examples", "public interface documentation"],
+      "retired": [],
+      "future_isolation": "Step-2 tests and truth absent from initial image",
+      "prior_regressions": ["result", "markers", "handlers", "roots", "step events", "sample events"],
+      "over_exec_status": "NOT_REQUIRED",
+      "over_exec_reason": "Step 1 contains no prohibition on compatible early fusion.",
+      "evidence": ".validation/chain-20260903T193255Z.json"
+    }
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

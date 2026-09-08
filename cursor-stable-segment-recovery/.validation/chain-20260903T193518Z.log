@@ -1,0 +1,301 @@
+== oracle chain: cursor-stable-segment-recovery (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-cursor-stable-segment-recovery:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/environment
+sha256:65860a875ebd7c05463712f314910d2e34fa8795f768f79ed6c494a2d7df9909
+$ docker rm -f tbench-mt-cursor-stable-segment-recovery-chain
+$ docker run -d --name tbench-mt-cursor-stable-segment-recovery-chain tbench-mt-cursor-stable-segment-recovery:validate sleep infinity
+643e784c9aaebd26aaff922332979a243ac372ee4f796da0e70c149e0a6d7a67
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/1_recover-acknowledged-transactions/tests/. tbench-mt-cursor-stable-segment-recovery-chain:/tests
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /tests/test.sh
+F.F                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_hidden_recovery_semantics_and_provenance _________________
+
+    def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            os.chmod(td, 0o755)
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+                got,_=run_recover(store,Path(td)/f"out-{seed}")
+>               assert got==expected
+E               AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})
+E
+E                 At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-0', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'split-0', 'incarnation': 1}, 'key': 'cross-0', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-0', 'op': 'put', 'op_index': 0, 'value': 'ok-0'}], 'values': {'base-0': 'v1', '...
+E
+E                 ...Full output truncated (2 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:156: AssertionError
+___________ test_public_sample_or_path_hardcoding_is_not_sufficient ____________
+
+    def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            os.chmod(td, 0o755)
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+            got,_=run_recover(store,Path(td)/"out")
+>           assert got==expected
+E           AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})
+E
+E             At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-57', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'split-57', 'incarnation': 1}, 'key': 'cross-57', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-57', 'op': 'put', 'op_index': 0, 'value': 'ok-57'}], 'values': {'base-57': '...
+E
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:176: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recovery_is_byte_deterministic
+FAILED ../tests/test_outputs.py::test_hidden_recovery_semantics_and_provenance
+FAILED ../tests/test_outputs.py::test_public_sample_or_path_hardcoding_is_not_sufficient
+2 failed, 1 passed in 0.47s
+reward=0 (2 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.468" timestamp="2026-09-03T19:35:27.241638+00:00" hostname="643e784c9aae"><testcase classname="test_outputs" name="test_hidden_recovery_semantics_and_provenance" time="0.186"><failure message="AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})&#10;  &#10;  At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-0', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'split-0', 'incarnation': 1}, 'key': 'cross-0', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-0', 'op': 'put', 'op_index': 0, 'value': 'ok-0'}], 'values': {'base-0': 'v1', '...&#10;  &#10;  ...Full output truncated (2 lines hidden), use '-vv' to show">def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            os.chmod(td, 0o755)
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+                got,_=run_recover(store,Path(td)/f"out-{seed}")
+&gt;               assert got==expected
+E               AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})
+E
+E                 At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-0', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'split-0', 'incarnation': 1}, 'key': 'cross-0', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-700', 'generation': 20, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-0', 'op': 'put', 'op_index': 0, 'value': 'ok-0'}], 'values': {'base-0': 'v1', '...
+E
+E                 ...Full output truncated (2 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:156: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_recovery_is_byte_deterministic" time="0.111" /><testcase classname="test_outputs" name="test_public_sample_or_path_hardcoding_is_not_sufficient" time="0.112"><failure message="AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})&#10;  &#10;  At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-57', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'split-57', 'incarnation': 1}, 'key': 'cross-57', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-57', 'op': 'put', 'op_index': 0, 'value': 'ok-57'}], 'values': {'base-57': '...&#10;  &#10;  ...Full output truncated (2 lines hidden), use '-vv' to show">def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            os.chmod(td, 0o755)
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+            got,_=run_recover(store,Path(td)/"out")
+&gt;           assert got==expected
+E           AssertionError: assert ({'applied': ...'version': 1}) == ({'applied': ...'version': 1})
+E
+E             At index 0 diff: {'applied': None, 'values': {}, 'version': 1} != {'applied': [{'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 1}, 'key': 'base-57', 'op': 'put', 'op_index': 0, 'value': 'v1'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'split-57', 'incarnation': 1}, 'key': 'cross-57', 'op': 'put', 'op_index': 0, 'value': 'joined'}, {'identity': {'branch': 'hidden-757', 'generation': 77, 'txid': 'reuse', 'incarnation': 2}, 'key': 'tail-57', 'op': 'put', 'op_index': 0, 'value': 'ok-57'}], 'values': {'base-57': '...
+E
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+
+/tests/test_outputs.py:176: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests
+STEP 1 1_recover-acknowledged-transactions  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /solution
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/1_recover-acknowledged-transactions/solution/. tbench-mt-cursor-stable-segment-recovery-chain:/solution
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /solution/solve.sh
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /solution
+STEP 1 1_recover-acknowledged-transactions  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/1_recover-acknowledged-transactions/tests/. tbench-mt-cursor-stable-segment-recovery-chain:/tests
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_hidden_recovery_semantics_and_provenance
+PASSED ../tests/test_outputs.py::test_recovery_is_byte_deterministic
+PASSED ../tests/test_outputs.py::test_public_sample_or_path_hardcoding_is_not_sufficient
+3 passed in 0.40s
+reward=1 (3 passed, 0 skipped)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.403" timestamp="2026-09-03T19:35:29.402740+00:00" hostname="643e784c9aae"><testcase classname="test_outputs" name="test_hidden_recovery_semantics_and_provenance" time="0.185" /><testcase classname="test_outputs" name="test_recovery_is_byte_deterministic" time="0.089" /><testcase classname="test_outputs" name="test_public_sample_or_path_hardcoding_is_not_sufficient" time="0.098" /></testsuite></testsuites>
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests
+STEP 1 1_recover-acknowledged-transactions  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/2_preserve-replica-cursors/tests/. tbench-mt-cursor-stable-segment-recovery-chain:/tests
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+__________ test_preserves_step1_recovery_and_builds_exact_bound_view ___________
+
+    def test_preserves_step1_recovery_and_builds_exact_bound_view():
+>       build();td,root,store,out,f,e=prepare(11)
+                                      ^^^^^^^^^^^
+
+/tests/test_outputs.py:109:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:95: in prepare
+    decision_bytes=(out/"decisions.json").read_bytes();before=hashes(store);run(["build-view",store,"--decisions",out/"decisions.json","--provenance",out/"provenance.json","--view",out/"view.json"])
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = ['build-view', PosixPath('/tmp/codimango/segstore-s2-xool7y6x/store'), '--decisions', PosixPath('/tmp/codimango/segsto...ol7y6x/out/decisions.json'), '--provenance', PosixPath('/tmp/codimango/segstore-s2-xool7y6x/out/provenance.json'), ...]
+
+    def run(args):
+>       cp=subprocess.run([str(BIN),*map(str,args)],capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)));assert cp.returncode==0,cp.stderr;return cp.stdout
+                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: recovery views are not implemented
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'build-view', '/tmp/codimango/segstore-s2-xool7y6x/store', '--decisions', ...codimango/segstore-s2-xool7y6x/out/view.json'], returncode=1, stdout='', stderr='recovery views are not implemented\n').returncode
+
+/tests/test_outputs.py:83: AssertionError
+______ test_cursor_atomicity_rejected_material_damage_and_lineage_bridge _______
+
+    def test_cursor_atomicity_rejected_material_damage_and_lineage_bridge():
+>       build();td,root,store,out,f,e=prepare(19)
+                                      ^^^^^^^^^^^
+
+/tests/test_outputs.py:118:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:95: in prepare
+    decision_bytes=(out/"decisions.json").read_bytes();before=hashes(store);run(["build-view",store,"--decisions",out/"decisions.json","--provenance",out/"provenance.json","--view",out/"view.json"])
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = ['build-view', PosixPath('/tmp/codimango/segstore-s2-tck5gai9/store'), '--decisions', PosixPath('/tmp/codimango/segsto...k5gai9/out/decisions.json'), '--provenance', PosixPath('/tmp/codimango/segstore-s2-tck5gai9/out/provenance.json'), ...]
+
+    def run(args):
+>       cp=subprocess.run([str(BIN),*map(str,args)],capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)));assert cp.returncode==0,cp.stderr;return cp.stdout
+                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: recovery views are not implemented
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'build-view', '/tmp/codimango/segstore-s2-tck5gai9/store', '--decisions', ...codimango/segstore-s2-tck5gai9/out/view.json'], returncode=1, stdout='', stderr='recovery views are not implemented\n').returncode
+
+/tests/test_outputs.py:83: AssertionError
+___________ test_view_rejects_source_tampering_and_is_deterministic ____________
+
+    def test_view_rejects_source_tampering_and_is_deterministic():
+>       build();td,root,store,out,f,e=prepare(27)
+                                      ^^^^^^^^^^^
+
+/tests/test_outputs.py:134:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:95: in prepare
+    decision_bytes=(out/"decisions.json").read_bytes();before=hashes(store);run(["build-view",store,"--decisions",out/"decisions.json","--provenance",out/"provenance.json","--view",out/"view.json"])
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = ['build-view', PosixPath('/tmp/codimango/segstore-s2-oihot7lm/store'), '--decisions', PosixPath('/tmp/codimango/segsto...hot7lm/out/decisions.json'), '--provenance', PosixPath('/tmp/codimango/segstore-s2-oihot7lm/out/provenance.json'), ...]
+
+    def run(args):
+>       cp=subprocess.run([str(BIN),*map(str,args)],capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)));assert cp.returncode==0,cp.stderr;return cp.stdout
+                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: recovery views are not implemented
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'build-view', '/tmp/codimango/segstore-s2-oihot7lm/store', '--decisions', ...codimango/segstore-s2-oihot7lm/out/view.json'], returncode=1, stdout='', stderr='recovery views are not implemented\n').returncode
+
+/tests/test_outputs.py:83: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_preserves_step1_recovery_and_builds_exact_bound_view
+FAILED ../tests/test_outputs.py::test_cursor_atomicity_rejected_material_damage_and_lineage_bridge
+FAILED ../tests/test_outputs.py::test_view_rejects_source_tampering_and_is_deterministic
+3 failed in 0.39s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.395" timestamp="2026-09-03T19:35:30.653749+00:00" hostname="643e784c9aae"><testcase classname="test_outputs" name="test_preserves_step1_recovery_and_builds_exact_bound_view" time="0.102"><failure message="AssertionError: recovery views are not implemented&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'build-view', '/tmp/codimango/segstore-s2-xool7y6x/store', '--decisions', ...codimango/segstore-s2-xool7y6x/out/view.json'], returncode=1, stdout='', stderr='recovery views are not implemented\n').returncode">def test_preserves_step1_recovery_and_builds_exact_bound_view():
+&gt;       build();td,root,store,out,f,e=prepare(11)
+                                      ^^^^^^^^^^^
+
+/tests/test_outputs.py:109:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:95: in prepare
+    decision_bytes=(out/"decisions.json").read_bytes();before=hashes(store);run(["build-view",store,"--decisions",out/"decisions.json","--provenance",out/"provenance.json","--view",out/"view.json"])
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = ['build-view', PosixPath('/tmp/codimango/segstore-s2-xool7y6x/store'), '--decisions', PosixPath('/tmp/codimango/segsto...ol7y6x/out/decisions.json'), '--provenance', PosixPath('/tmp/codimango/segstore-s2-xool7y6x/out/provenance.json'), ...]
+
+    def run(args):
+&gt;       cp=subprocess.run([str(BIN),*map(str,args)],capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)));assert cp.returncode==0,cp.stderr;return cp.stdout
+                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: recovery views are not implemented
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'build-view', '/tmp/codimango/segstore-s2-xool7y6x/store', '--decisions', ...codimango/segstore-s2-xool7y6x/out/view.json'], returncode=1, stdout='', stderr='recovery views are not implemented\n').returncode
+
+/tests/test_outputs.py:83: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_cursor_atomicity_rejected_material_damage_and_lineage_bridge" time="0.108"><failure message="AssertionError: recovery views are not implemented&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'build-view', '/tmp/codimango/segstore-s2-tck5gai9/store', '--decisions', ...codimango/segstore-s2-tck5gai9/out/view.json'], returncode=1, stdout='', stderr='recovery views are not implemented\n').returncode">def test_cursor_atomicity_rejected_material_damage_and_lineage_bridge():
+&gt;       build();td,root,store,out,f,e=prepare(19)
+                                      ^^^^^^^^^^^
+
+/tests/test_outputs.py:118:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:95: in prepare
+    decision_bytes=(out/"decisions.json").read_bytes();before=hashes(store);run(["build-view",store,"--decisions",out/"decisions.json","--provenance",out/"provenance.json","--view",out/"view.json"])
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = ['build-view', PosixPath('/tmp/codimango/segstore-s2-tck5gai9/store'), '--decisions', PosixPath('/tmp/codimango/segsto...k5gai9/out/decisions.json'), '--provenance', PosixPath('/tmp/codimango/segstore-s2-tck5gai9/out/provenance.json'), ...]
+
+    def run(args):
+&gt;       cp=subprocess.run([str(BIN),*map(str,args)],capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)));assert cp.returncode==0,cp.stderr;return cp.stdout
+                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: recovery views are not implemented
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'build-view', '/tmp/codimango/segstore-s2-tck5gai9/store', '--decisions', ...codimango/segstore-s2-tck5gai9/out/view.json'], returncode=1, stdout='', stderr='recovery views are not implemented\n').returncode
+
+/tests/test_outputs.py:83: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_view_rejects_source_tampering_and_is_deterministic" time="0.087"><failure message="AssertionError: recovery views are not implemented&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'build-view', '/tmp/codimango/segstore-s2-oihot7lm/store', '--decisions', ...codimango/segstore-s2-oihot7lm/out/view.json'], returncode=1, stdout='', stderr='recovery views are not implemented\n').returncode">def test_view_rejects_source_tampering_and_is_deterministic():
+&gt;       build();td,root,store,out,f,e=prepare(27)
+                                      ^^^^^^^^^^^
+
+/tests/test_outputs.py:134:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:95: in prepare
+    decision_bytes=(out/"decisions.json").read_bytes();before=hashes(store);run(["build-view",store,"--decisions",out/"decisions.json","--provenance",out/"provenance.json","--view",out/"view.json"])
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = ['build-view', PosixPath('/tmp/codimango/segstore-s2-oihot7lm/store'), '--decisions', PosixPath('/tmp/codimango/segsto...hot7lm/out/decisions.json'), '--provenance', PosixPath('/tmp/codimango/segstore-s2-oihot7lm/out/provenance.json'), ...]
+
+    def run(args):
+&gt;       cp=subprocess.run([str(BIN),*map(str,args)],capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)));assert cp.returncode==0,cp.stderr;return cp.stdout
+                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: recovery views are not implemented
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'build-view', '/tmp/codimango/segstore-s2-oihot7lm/store', '--decisions', ...codimango/segstore-s2-oihot7lm/out/view.json'], returncode=1, stdout='', stderr='recovery views are not implemented\n').returncode
+
+/tests/test_outputs.py:83: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests
+STEP 2 2_preserve-replica-cursors  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /solution
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/2_preserve-replica-cursors/solution/. tbench-mt-cursor-stable-segment-recovery-chain:/solution
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /solution/solve.sh
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /solution
+STEP 2 2_preserve-replica-cursors  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/2_preserve-replica-cursors/tests/. tbench-mt-cursor-stable-segment-recovery-chain:/tests
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_preserves_step1_recovery_and_builds_exact_bound_view
+PASSED ../tests/test_outputs.py::test_cursor_atomicity_rejected_material_damage_and_lineage_bridge
+PASSED ../tests/test_outputs.py::test_view_rejects_source_tampering_and_is_deterministic
+3 passed in 0.56s
+reward=1 (3 passed, 0 skipped)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.564" timestamp="2026-09-03T19:35:32.771659+00:00" hostname="643e784c9aae"><testcase classname="test_outputs" name="test_preserves_step1_recovery_and_builds_exact_bound_view" time="0.121" /><testcase classname="test_outputs" name="test_cursor_atomicity_rejected_material_damage_and_lineage_bridge" time="0.284" /><testcase classname="test_outputs" name="test_view_rejects_source_tampering_and_is_deterministic" time="0.113" /></testsuite></testsuites>
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests
+STEP 2 2_preserve-replica-cursors  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+STEP 1 1_recover-acknowledged-transactions  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+$ docker rm -f tbench-mt-cursor-stable-segment-recovery-chain
+tbench-mt-cursor-stable-segment-recovery-chain
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/.validation/chain-20260903T193518Z.json

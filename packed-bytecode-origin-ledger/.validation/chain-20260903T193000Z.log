@@ -1,0 +1,312 @@
+== oracle chain: packed-bytecode-origin-ledger (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-packed-bytecode-origin-ledger:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/environment
+sha256:529fba6ffa6b6fa812ebb41baf77f64d0d57d33f850a62c626893d9a84546271
+$ docker rm -f tbench-mt-packed-bytecode-origin-ledger-chain
+$ docker run -d --name tbench-mt-packed-bytecode-origin-ledger-chain tbench-mt-packed-bytecode-origin-ledger:validate sleep infinity
+2b0655094c4ce9a89dabf74bba8131043cdd51beafe7eb85a1a5efff3cfbaece
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/steps/1_reconcile-packed-origins/tests/. tbench-mt-packed-bytecode-origin-ledger-chain:/tests
+$ docker exec -w /app tbench-mt-packed-bytecode-origin-ledger-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____ test_local_expansions_preserve_handlers_roots_markers_and_back_edge ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_local_expansions_preserve0')
+
+    def test_local_expansions_preserve_handlers_roots_markers_and_back_edge(tmp_path):
+        program = {"ops": [
+            {"id": "init", "op": "set", "arg": 0, "origin": "L0", "prefix": True},
+            {"id": "entry-marker", "op": "marker", "origin": "M0"},
+            {"id": "inc", "label": "loop", "op": "add", "arg": 1, "origin": "L1", "prefix": True},
+            {"id": "safe", "op": "safepoint", "origin": "L2", "roots": ["acc", "policy"]},
+            {"id": "again", "op": "branch_if_lt", "arg": 3, "target": "loop", "origin": "L3"},
+            {"id": "wide", "op": "add", "arg": 40000, "origin": "L4", "prefix": True},
+            {"id": "tail-marker", "op": "marker", "origin": "M1"},
+            {"id": "fault", "op": "throw", "origin": "L5", "handler": "inner"},
+            {"id": "done", "op": "halt", "origin": "L6"},
+        ]}
+        actual, artifact = compile_and_run(tmp_path, program)
+>       assert_semantics(actual, expected(program))
+
+/tests/test_outputs.py:82:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+actual = {'branch_destinations': ['loop', 'loop'], 'encoded_size': 58, 'handler_events': [{'handler': None, 'origin': 'L6'}], 'result': 40003, ...}
+wanted = {'branch_destinations': ['loop', 'loop'], 'handler_events': [{'handler': 'inner', 'origin': 'L5'}], 'result': 40003, '...: ['acc', 'policy']}, {'origin': 'L2', 'roots': ['acc', 'policy']}, {'origin': 'L2', 'roots': ['acc', 'policy']}], ...}
+
+    def assert_semantics(actual, wanted):
+        for key, value in wanted.items():
+>           assert actual[key] == value, key
+E           AssertionError: handler_events
+E           assert [{'handler': ...rigin': 'L6'}] == [{'handler': ...rigin': 'L5'}]
+E
+E             At index 0 diff: {'handler': None, 'origin': 'L6'} != {'origin': 'L5', 'handler': 'inner'}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:66: AssertionError
+_____ test_forward_branch_and_adjacent_zero_width_events_use_final_owners ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_forward_branch_and_adjace0')
+
+    def test_forward_branch_and_adjacent_zero_width_events_use_final_owners(tmp_path):
+        program = {"ops": [
+            {"id": "s", "op": "set", "arg": 2, "origin": "A"},
+            {"id": "jump", "op": "branch_if_lt", "arg": 9, "target": "landing", "origin": "B", "prefix": True},
+            {"id": "dead", "op": "add", "arg": 70000, "origin": "DEAD"},
+            {"id": "m1", "label": "landing", "op": "marker", "origin": "C"},
+            {"id": "m2", "op": "marker", "origin": "C"},
+            {"id": "safe", "op": "safepoint", "origin": "D", "roots": ["x"]},
+            {"id": "fault", "op": "throw", "origin": "E", "handler": "outer"},
+            {"id": "done", "op": "halt", "origin": "F"},
+        ]}
+        actual, _ = compile_and_run(tmp_path, program)
+        wanted = expected(program)
+        assert actual["result"] == wanted["result"]
+>       assert_semantics(actual, wanted)
+
+/tests/test_outputs.py:100:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+actual = {'branch_destinations': ['landing'], 'encoded_size': 32, 'handler_events': [{'handler': None, 'origin': 'F'}], 'result': 2, ...}
+wanted = {'branch_destinations': ['landing'], 'handler_events': [{'handler': 'outer', 'origin': 'E'}], 'result': 2, 'safepoints': [{'origin': 'D', 'roots': ['x']}], ...}
+
+    def assert_semantics(actual, wanted):
+        for key, value in wanted.items():
+>           assert actual[key] == value, key
+E           AssertionError: handler_events
+E           assert [{'handler': ...origin': 'F'}] == [{'handler': ...origin': 'E'}]
+E
+E             At index 0 diff: {'handler': None, 'origin': 'F'} != {'origin': 'E', 'handler': 'outer'}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:66: AssertionError
+______________ test_artifact_is_self_contained_and_deterministic _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_artifact_is_self_containe0')
+
+    def test_artifact_is_self_contained_and_deterministic(tmp_path):
+        program = {"ops": [
+            {"id": "a", "op": "set", "arg": 130, "origin": "one", "roots": ["r"]},
+            {"id": "b", "op": "marker", "origin": "zero"},
+            {"id": "c", "op": "halt", "origin": "end"},
+        ]}
+        first, artifact = compile_and_run(tmp_path, program)
+        second, artifact2 = compile_and_run(tmp_path, program)
+        assert first == second
+        assert artifact == artifact2
+>       assert first["step_events"] == ["one", "zero", "end"]
+E       AssertionError: assert ['one', 'b', 'c'] == ['one', 'zero', 'end']
+E
+E         At index 1 diff: 'b' != 'zero'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:113: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_local_expansions_preserve_handlers_roots_markers_and_back_edge
+FAILED ../tests/test_outputs.py::test_forward_branch_and_adjacent_zero_width_events_use_final_owners
+FAILED ../tests/test_outputs.py::test_artifact_is_self_contained_and_deterministic
+3 failed in 0.98s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.985" timestamp="2026-09-03T19:30:02.725283+00:00" hostname="2b0655094c4c"><testcase classname="test_outputs" name="test_local_expansions_preserve_handlers_roots_markers_and_back_edge" time="0.237"><failure message="AssertionError: handler_events&#10;assert [{'handler': ...rigin': 'L6'}] == [{'handler': ...rigin': 'L5'}]&#10;  &#10;  At index 0 diff: {'handler': None, 'origin': 'L6'} != {'origin': 'L5', 'handler': 'inner'}&#10;  Use -v to get more diff">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_local_expansions_preserve0')
+
+    def test_local_expansions_preserve_handlers_roots_markers_and_back_edge(tmp_path):
+        program = {"ops": [
+            {"id": "init", "op": "set", "arg": 0, "origin": "L0", "prefix": True},
+            {"id": "entry-marker", "op": "marker", "origin": "M0"},
+            {"id": "inc", "label": "loop", "op": "add", "arg": 1, "origin": "L1", "prefix": True},
+            {"id": "safe", "op": "safepoint", "origin": "L2", "roots": ["acc", "policy"]},
+            {"id": "again", "op": "branch_if_lt", "arg": 3, "target": "loop", "origin": "L3"},
+            {"id": "wide", "op": "add", "arg": 40000, "origin": "L4", "prefix": True},
+            {"id": "tail-marker", "op": "marker", "origin": "M1"},
+            {"id": "fault", "op": "throw", "origin": "L5", "handler": "inner"},
+            {"id": "done", "op": "halt", "origin": "L6"},
+        ]}
+        actual, artifact = compile_and_run(tmp_path, program)
+&gt;       assert_semantics(actual, expected(program))
+
+/tests/test_outputs.py:82:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+actual = {'branch_destinations': ['loop', 'loop'], 'encoded_size': 58, 'handler_events': [{'handler': None, 'origin': 'L6'}], 'result': 40003, ...}
+wanted = {'branch_destinations': ['loop', 'loop'], 'handler_events': [{'handler': 'inner', 'origin': 'L5'}], 'result': 40003, '...: ['acc', 'policy']}, {'origin': 'L2', 'roots': ['acc', 'policy']}, {'origin': 'L2', 'roots': ['acc', 'policy']}], ...}
+
+    def assert_semantics(actual, wanted):
+        for key, value in wanted.items():
+&gt;           assert actual[key] == value, key
+E           AssertionError: handler_events
+E           assert [{'handler': ...rigin': 'L6'}] == [{'handler': ...rigin': 'L5'}]
+E
+E             At index 0 diff: {'handler': None, 'origin': 'L6'} != {'origin': 'L5', 'handler': 'inner'}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:66: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_forward_branch_and_adjacent_zero_width_events_use_final_owners" time="0.237"><failure message="AssertionError: handler_events&#10;assert [{'handler': ...origin': 'F'}] == [{'handler': ...origin': 'E'}]&#10;  &#10;  At index 0 diff: {'handler': None, 'origin': 'F'} != {'origin': 'E', 'handler': 'outer'}&#10;  Use -v to get more diff">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_forward_branch_and_adjace0')
+
+    def test_forward_branch_and_adjacent_zero_width_events_use_final_owners(tmp_path):
+        program = {"ops": [
+            {"id": "s", "op": "set", "arg": 2, "origin": "A"},
+            {"id": "jump", "op": "branch_if_lt", "arg": 9, "target": "landing", "origin": "B", "prefix": True},
+            {"id": "dead", "op": "add", "arg": 70000, "origin": "DEAD"},
+            {"id": "m1", "label": "landing", "op": "marker", "origin": "C"},
+            {"id": "m2", "op": "marker", "origin": "C"},
+            {"id": "safe", "op": "safepoint", "origin": "D", "roots": ["x"]},
+            {"id": "fault", "op": "throw", "origin": "E", "handler": "outer"},
+            {"id": "done", "op": "halt", "origin": "F"},
+        ]}
+        actual, _ = compile_and_run(tmp_path, program)
+        wanted = expected(program)
+        assert actual["result"] == wanted["result"]
+&gt;       assert_semantics(actual, wanted)
+
+/tests/test_outputs.py:100:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+actual = {'branch_destinations': ['landing'], 'encoded_size': 32, 'handler_events': [{'handler': None, 'origin': 'F'}], 'result': 2, ...}
+wanted = {'branch_destinations': ['landing'], 'handler_events': [{'handler': 'outer', 'origin': 'E'}], 'result': 2, 'safepoints': [{'origin': 'D', 'roots': ['x']}], ...}
+
+    def assert_semantics(actual, wanted):
+        for key, value in wanted.items():
+&gt;           assert actual[key] == value, key
+E           AssertionError: handler_events
+E           assert [{'handler': ...origin': 'F'}] == [{'handler': ...origin': 'E'}]
+E
+E             At index 0 diff: {'handler': None, 'origin': 'F'} != {'origin': 'E', 'handler': 'outer'}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:66: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_artifact_is_self_contained_and_deterministic" time="0.467"><failure message="AssertionError: assert ['one', 'b', 'c'] == ['one', 'zero', 'end']&#10;  &#10;  At index 1 diff: 'b' != 'zero'&#10;  Use -v to get more diff">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_artifact_is_self_containe0')
+
+    def test_artifact_is_self_contained_and_deterministic(tmp_path):
+        program = {"ops": [
+            {"id": "a", "op": "set", "arg": 130, "origin": "one", "roots": ["r"]},
+            {"id": "b", "op": "marker", "origin": "zero"},
+            {"id": "c", "op": "halt", "origin": "end"},
+        ]}
+        first, artifact = compile_and_run(tmp_path, program)
+        second, artifact2 = compile_and_run(tmp_path, program)
+        assert first == second
+        assert artifact == artifact2
+&gt;       assert first["step_events"] == ["one", "zero", "end"]
+E       AssertionError: assert ['one', 'b', 'c'] == ['one', 'zero', 'end']
+E
+E         At index 1 diff: 'b' != 'zero'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:113: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests
+STEP 1 1_reconcile-packed-origins  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /solution
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/steps/1_reconcile-packed-origins/solution/. tbench-mt-packed-bytecode-origin-ledger-chain:/solution
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-packed-bytecode-origin-ledger-chain bash /solution/solve.sh
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /solution
+STEP 1 1_reconcile-packed-origins  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/steps/1_reconcile-packed-origins/tests/. tbench-mt-packed-bytecode-origin-ledger-chain:/tests
+$ docker exec -w /app tbench-mt-packed-bytecode-origin-ledger-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_local_expansions_preserve_handlers_roots_markers_and_back_edge
+PASSED ../tests/test_outputs.py::test_forward_branch_and_adjacent_zero_width_events_use_final_owners
+PASSED ../tests/test_outputs.py::test_artifact_is_self_contained_and_deterministic
+3 passed in 0.96s
+reward=1 (3 passed, 0 skipped)
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.962" timestamp="2026-09-03T19:30:05.966219+00:00" hostname="2b0655094c4c"><testcase classname="test_outputs" name="test_local_expansions_preserve_handlers_roots_markers_and_back_edge" time="0.240" /><testcase classname="test_outputs" name="test_forward_branch_and_adjacent_zero_width_events_use_final_owners" time="0.234" /><testcase classname="test_outputs" name="test_artifact_is_self_contained_and_deterministic" time="0.464" /></testsuite></testsuites>
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests
+STEP 1 1_reconcile-packed-origins  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/steps/2_preserve-fused-phase-order/tests/. tbench-mt-packed-bytecode-origin-ledger-chain:/tests
+$ docker exec -w /app tbench-mt-packed-bytecode-origin-ledger-chain bash /tests/test.sh
+F...                                                                     [100%]
+=================================== FAILURES ===================================
+_________ test_fusion_preserves_duplicate_order_and_phase_local_state __________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_fusion_preserves_duplicat0')
+
+    def test_fusion_preserves_duplicate_order_and_phase_local_state(tmp_path):
+        program = fused_program()
+        actual, artifact = compile_and_run(tmp_path, program)
+        result, events, handlers, safepoints = expected(program)
+        assert actual["result"] == result
+>       assert actual["step_events"] == events
+E       AssertionError: assert ['INIT', 'A', 'B', 'C', 'END'] == ['INIT', 'A',...', 'C', 'END']
+E
+E         At index 3 diff: 'C' != 'A'
+E         Right contains one more item: 'END'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:72: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_complete_encoded_size_is_inclusive_and_within_manifest
+PASSED ../tests/test_outputs.py::test_regression_preserves_width_markers_roots_and_handlers
+PASSED ../tests/test_outputs.py::test_distinct_fusion_groups_remain_separate_but_ordered
+FAILED ../tests/test_outputs.py::test_fusion_preserves_duplicate_order_and_phase_local_state
+1 failed, 3 passed in 1.00s
+reward=0 (1 failed, 0 errored)
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="1.005" timestamp="2026-09-03T19:30:08.279814+00:00" hostname="2b0655094c4c"><testcase classname="test_outputs" name="test_fusion_preserves_duplicate_order_and_phase_local_state" time="0.242"><failure message="AssertionError: assert ['INIT', 'A', 'B', 'C', 'END'] == ['INIT', 'A',...', 'C', 'END']&#10;  &#10;  At index 3 diff: 'C' != 'A'&#10;  Right contains one more item: 'END'&#10;  Use -v to get more diff">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_fusion_preserves_duplicat0')
+
+    def test_fusion_preserves_duplicate_order_and_phase_local_state(tmp_path):
+        program = fused_program()
+        actual, artifact = compile_and_run(tmp_path, program)
+        result, events, handlers, safepoints = expected(program)
+        assert actual["result"] == result
+&gt;       assert actual["step_events"] == events
+E       AssertionError: assert ['INIT', 'A', 'B', 'C', 'END'] == ['INIT', 'A',...', 'C', 'END']
+E
+E         At index 3 diff: 'C' != 'A'
+E         Right contains one more item: 'END'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:72: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_complete_encoded_size_is_inclusive_and_within_manifest" time="0.246" /><testcase classname="test_outputs" name="test_regression_preserves_width_markers_roots_and_handlers" time="0.237" /><testcase classname="test_outputs" name="test_distinct_fusion_groups_remain_separate_but_ordered" time="0.237" /></testsuite></testsuites>
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests
+STEP 2 2_preserve-fused-phase-order  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /solution
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/steps/2_preserve-fused-phase-order/solution/. tbench-mt-packed-bytecode-origin-ledger-chain:/solution
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-packed-bytecode-origin-ledger-chain bash /solution/solve.sh
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /solution
+STEP 2 2_preserve-fused-phase-order  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/steps/2_preserve-fused-phase-order/tests/. tbench-mt-packed-bytecode-origin-ledger-chain:/tests
+$ docker exec -w /app tbench-mt-packed-bytecode-origin-ledger-chain bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_fusion_preserves_duplicate_order_and_phase_local_state
+PASSED ../tests/test_outputs.py::test_complete_encoded_size_is_inclusive_and_within_manifest
+PASSED ../tests/test_outputs.py::test_regression_preserves_width_markers_roots_and_handlers
+PASSED ../tests/test_outputs.py::test_distinct_fusion_groups_remain_separate_but_ordered
+4 passed in 0.96s
+reward=1 (4 passed, 0 skipped)
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.965" timestamp="2026-09-03T19:30:11.657182+00:00" hostname="2b0655094c4c"><testcase classname="test_outputs" name="test_fusion_preserves_duplicate_order_and_phase_local_state" time="0.230" /><testcase classname="test_outputs" name="test_complete_encoded_size_is_inclusive_and_within_manifest" time="0.234" /><testcase classname="test_outputs" name="test_regression_preserves_width_markers_roots_and_handlers" time="0.236" /><testcase classname="test_outputs" name="test_distinct_fusion_groups_remain_separate_but_ordered" time="0.236" /></testsuite></testsuites>
+$ docker exec tbench-mt-packed-bytecode-origin-ledger-chain rm -rf /tests
+STEP 2 2_preserve-fused-phase-order  GREEN       OK    4 executed, 0 skipped, 0 failed, 0 errored
+STEP 1 1_reconcile-packed-origins  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+$ docker rm -f tbench-mt-packed-bytecode-origin-ledger-chain
+tbench-mt-packed-bytecode-origin-ledger-chain
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/packed-bytecode-origin-ledger/.validation/chain-20260903T193000Z.json

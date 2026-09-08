@@ -1,0 +1,57 @@
+{
+  "task": "cursor-stable-segment-recovery",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-cursor-stable-segment-recovery:validate"
+    },
+    {
+      "step": "1_recover-acknowledged-transactions",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-acknowledged-transactions",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover-acknowledged-transactions",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_preserve-replica-cursors",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "2_preserve-replica-cursors",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_preserve-replica-cursors",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_recover-acknowledged-transactions",
+      "phase": "OVER-EXEC",
+      "status": "NOT_REQUIRED",
+      "detail": "current instruction has no explicit prohibition overlapping successor behavior"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

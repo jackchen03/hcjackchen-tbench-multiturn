@@ -1,0 +1,359 @@
+== oracle chain: cursor-stable-segment-recovery (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-cursor-stable-segment-recovery:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/environment
+sha256:9cd74d84004a8d00605c328ce11e7d4f3b2dc7ecae0698ab3563835cb4120a03
+$ docker rm -f tbench-mt-cursor-stable-segment-recovery-chain
+$ docker run -d --name tbench-mt-cursor-stable-segment-recovery-chain tbench-mt-cursor-stable-segment-recovery:validate sleep infinity
+53598dd4b72144b6e1ac5d0c10137b3c33a712500217328dd5dc623aec8878a4
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/1_recover-acknowledged-transactions/tests/. tbench-mt-cursor-stable-segment-recovery-chain:/tests
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_hidden_recovery_semantics_and_provenance _________________
+
+    def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+>               got,_=run_recover(store,Path(td)/f"out-{seed}")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:154:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-s1-vp_lztp2/store-0')
+out = PosixPath('/tmp/codimango/segstore-s1-vp_lztp2/out-0')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+>       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-s1-vp_lztp2/store-0/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-s1-vp_lztp2/store-0', '--state', '/tmp... returncode=1, stdout='', stderr='open /tmp/codimango/segstore-s1-vp_lztp2/store-0/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError
+_____________________ test_recovery_is_byte_deterministic ______________________
+
+    def test_recovery_is_byte_deterministic():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-det-") as td:
+            store=Path(td)/"store";store.mkdir();generate_case(store,31)
+>           _,first=run_recover(store,Path(td)/"a")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:163:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-det-uytt0djg/store')
+out = PosixPath('/tmp/codimango/segstore-det-uytt0djg/a')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+>       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-det-uytt0djg/store/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-det-uytt0djg/store', '--state', '/tmp/..., returncode=1, stdout='', stderr='open /tmp/codimango/segstore-det-uytt0djg/store/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError
+___________ test_public_sample_or_path_hardcoding_is_not_sufficient ____________
+
+    def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+>           got,_=run_recover(store,Path(td)/"out")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:172:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-disjoint-8i7mmt6k/unseen')
+out = PosixPath('/tmp/codimango/segstore-disjoint-8i7mmt6k/out')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+>       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-disjoint-8i7mmt6k/unseen/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-disjoint-8i7mmt6k/unseen', '--state', ...rncode=1, stdout='', stderr='open /tmp/codimango/segstore-disjoint-8i7mmt6k/unseen/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_hidden_recovery_semantics_and_provenance
+FAILED ../tests/test_outputs.py::test_recovery_is_byte_deterministic - Assert...
+FAILED ../tests/test_outputs.py::test_public_sample_or_path_hardcoding_is_not_sufficient
+3 failed in 0.43s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.432" timestamp="2026-09-03T19:32:15.581842+00:00" hostname="53598dd4b721"><testcase classname="test_outputs" name="test_hidden_recovery_semantics_and_provenance" time="0.149"><failure message="AssertionError: open /tmp/codimango/segstore-s1-vp_lztp2/store-0/manifest.json: permission denied&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-s1-vp_lztp2/store-0', '--state', '/tmp... returncode=1, stdout='', stderr='open /tmp/codimango/segstore-s1-vp_lztp2/store-0/manifest.json: permission denied\n').returncode">def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+&gt;               got,_=run_recover(store,Path(td)/f"out-{seed}")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:154:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-s1-vp_lztp2/store-0')
+out = PosixPath('/tmp/codimango/segstore-s1-vp_lztp2/out-0')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+&gt;       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-s1-vp_lztp2/store-0/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-s1-vp_lztp2/store-0', '--state', '/tmp... returncode=1, stdout='', stderr='open /tmp/codimango/segstore-s1-vp_lztp2/store-0/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_recovery_is_byte_deterministic" time="0.085"><failure message="AssertionError: open /tmp/codimango/segstore-det-uytt0djg/store/manifest.json: permission denied&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-det-uytt0djg/store', '--state', '/tmp/..., returncode=1, stdout='', stderr='open /tmp/codimango/segstore-det-uytt0djg/store/manifest.json: permission denied\n').returncode">def test_recovery_is_byte_deterministic():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-det-") as td:
+            store=Path(td)/"store";store.mkdir();generate_case(store,31)
+&gt;           _,first=run_recover(store,Path(td)/"a")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:163:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-det-uytt0djg/store')
+out = PosixPath('/tmp/codimango/segstore-det-uytt0djg/a')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+&gt;       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-det-uytt0djg/store/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-det-uytt0djg/store', '--state', '/tmp/..., returncode=1, stdout='', stderr='open /tmp/codimango/segstore-det-uytt0djg/store/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_public_sample_or_path_hardcoding_is_not_sufficient" time="0.120"><failure message="AssertionError: open /tmp/codimango/segstore-disjoint-8i7mmt6k/unseen/manifest.json: permission denied&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-disjoint-8i7mmt6k/unseen', '--state', ...rncode=1, stdout='', stderr='open /tmp/codimango/segstore-disjoint-8i7mmt6k/unseen/manifest.json: permission denied\n').returncode">def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+&gt;           got,_=run_recover(store,Path(td)/"out")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:172:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-disjoint-8i7mmt6k/unseen')
+out = PosixPath('/tmp/codimango/segstore-disjoint-8i7mmt6k/out')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+&gt;       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-disjoint-8i7mmt6k/unseen/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-disjoint-8i7mmt6k/unseen', '--state', ...rncode=1, stdout='', stderr='open /tmp/codimango/segstore-disjoint-8i7mmt6k/unseen/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests
+STEP 1 1_recover-acknowledged-transactions  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /solution
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/1_recover-acknowledged-transactions/solution/. tbench-mt-cursor-stable-segment-recovery-chain:/solution
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /solution/solve.sh
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /solution
+STEP 1 1_recover-acknowledged-transactions  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/steps/1_recover-acknowledged-transactions/tests/. tbench-mt-cursor-stable-segment-recovery-chain:/tests
+$ docker exec -w /app tbench-mt-cursor-stable-segment-recovery-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_hidden_recovery_semantics_and_provenance _________________
+
+    def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+>               got,_=run_recover(store,Path(td)/f"out-{seed}")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:154:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-s1-jv0l8y6t/store-0')
+out = PosixPath('/tmp/codimango/segstore-s1-jv0l8y6t/out-0')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+>       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-s1-jv0l8y6t/store-0/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-s1-jv0l8y6t/store-0', '--state', '/tmp... returncode=1, stdout='', stderr='open /tmp/codimango/segstore-s1-jv0l8y6t/store-0/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError
+_____________________ test_recovery_is_byte_deterministic ______________________
+
+    def test_recovery_is_byte_deterministic():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-det-") as td:
+            store=Path(td)/"store";store.mkdir();generate_case(store,31)
+>           _,first=run_recover(store,Path(td)/"a")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:163:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-det-6vc4x_dw/store')
+out = PosixPath('/tmp/codimango/segstore-det-6vc4x_dw/a')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+>       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-det-6vc4x_dw/store/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-det-6vc4x_dw/store', '--state', '/tmp/..., returncode=1, stdout='', stderr='open /tmp/codimango/segstore-det-6vc4x_dw/store/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError
+___________ test_public_sample_or_path_hardcoding_is_not_sufficient ____________
+
+    def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+>           got,_=run_recover(store,Path(td)/"out")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:172:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-disjoint-fi6nuj7x/unseen')
+out = PosixPath('/tmp/codimango/segstore-disjoint-fi6nuj7x/out')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+>       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-disjoint-fi6nuj7x/unseen/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-disjoint-fi6nuj7x/unseen', '--state', ...rncode=1, stdout='', stderr='open /tmp/codimango/segstore-disjoint-fi6nuj7x/unseen/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_hidden_recovery_semantics_and_provenance
+FAILED ../tests/test_outputs.py::test_recovery_is_byte_deterministic - Assert...
+FAILED ../tests/test_outputs.py::test_public_sample_or_path_hardcoding_is_not_sufficient
+3 failed in 0.44s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.439" timestamp="2026-09-03T19:32:17.743965+00:00" hostname="53598dd4b721"><testcase classname="test_outputs" name="test_hidden_recovery_semantics_and_provenance" time="0.117"><failure message="AssertionError: open /tmp/codimango/segstore-s1-jv0l8y6t/store-0/manifest.json: permission denied&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-s1-jv0l8y6t/store-0', '--state', '/tmp... returncode=1, stdout='', stderr='open /tmp/codimango/segstore-s1-jv0l8y6t/store-0/manifest.json: permission denied\n').returncode">def test_hidden_recovery_semantics_and_provenance():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-s1-") as td:
+            for seed in range(12):
+                store=Path(td)/f"store-{seed}"; store.mkdir(); expected=generate_case(store,seed)
+                before=tree_hash(store)
+&gt;               got,_=run_recover(store,Path(td)/f"out-{seed}")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:154:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-s1-jv0l8y6t/store-0')
+out = PosixPath('/tmp/codimango/segstore-s1-jv0l8y6t/out-0')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+&gt;       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-s1-jv0l8y6t/store-0/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-s1-jv0l8y6t/store-0', '--state', '/tmp... returncode=1, stdout='', stderr='open /tmp/codimango/segstore-s1-jv0l8y6t/store-0/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_recovery_is_byte_deterministic" time="0.133"><failure message="AssertionError: open /tmp/codimango/segstore-det-6vc4x_dw/store/manifest.json: permission denied&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-det-6vc4x_dw/store', '--state', '/tmp/..., returncode=1, stdout='', stderr='open /tmp/codimango/segstore-det-6vc4x_dw/store/manifest.json: permission denied\n').returncode">def test_recovery_is_byte_deterministic():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-det-") as td:
+            store=Path(td)/"store";store.mkdir();generate_case(store,31)
+&gt;           _,first=run_recover(store,Path(td)/"a")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:163:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-det-6vc4x_dw/store')
+out = PosixPath('/tmp/codimango/segstore-det-6vc4x_dw/a')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+&gt;       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-det-6vc4x_dw/store/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-det-6vc4x_dw/store', '--state', '/tmp/..., returncode=1, stdout='', stderr='open /tmp/codimango/segstore-det-6vc4x_dw/store/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_public_sample_or_path_hardcoding_is_not_sufficient" time="0.111"><failure message="AssertionError: open /tmp/codimango/segstore-disjoint-fi6nuj7x/unseen/manifest.json: permission denied&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-disjoint-fi6nuj7x/unseen', '--state', ...rncode=1, stdout='', stderr='open /tmp/codimango/segstore-disjoint-fi6nuj7x/unseen/manifest.json: permission denied\n').returncode">def test_public_sample_or_path_hardcoding_is_not_sufficient():
+        build_candidate()
+        with tempfile.TemporaryDirectory(prefix="/tmp/codimango/segstore-disjoint-") as td:
+            store=Path(td)/"unseen";store.mkdir();expected=generate_case(store,57)
+&gt;           got,_=run_recover(store,Path(td)/"out")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:172:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = PosixPath('/tmp/codimango/segstore-disjoint-fi6nuj7x/unseen')
+out = PosixPath('/tmp/codimango/segstore-disjoint-fi6nuj7x/out')
+
+    def run_recover(store,out):
+        out.mkdir(); os.chown(out,1001,1001); os.chmod(out,0o700)
+        args=[str(BIN),"recover",str(store),"--state",str(out/"state.json"),"--decisions",str(out/"decisions.json"),"--provenance",str(out/"provenance.json")]
+        cp=subprocess.run(args,capture_output=True,text=True,timeout=20,preexec_fn=lambda:(os.setgid(1001),os.setuid(1001)))
+&gt;       assert cp.returncode==0,cp.stderr
+E       AssertionError: open /tmp/codimango/segstore-disjoint-fi6nuj7x/unseen/manifest.json: permission denied
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/app/bin/segstore', 'recover', '/tmp/codimango/segstore-disjoint-fi6nuj7x/unseen', '--state', ...rncode=1, stdout='', stderr='open /tmp/codimango/segstore-disjoint-fi6nuj7x/unseen/manifest.json: permission denied\n').returncode
+
+/tests/test_outputs.py:137: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-cursor-stable-segment-recovery-chain rm -rf /tests
+STEP 1 1_recover-acknowledged-transactions  GREEN       FAIL  tests do not pass after the oracle ran (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker rm -f tbench-mt-cursor-stable-segment-recovery-chain
+tbench-mt-cursor-stable-segment-recovery-chain
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/.validation/chain-20260903T193135Z.json   full log: /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/.validation/chain-20260903T193135Z.log

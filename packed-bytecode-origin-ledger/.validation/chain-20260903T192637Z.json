@@ -1,0 +1,27 @@
+{
+  "task": "packed-bytecode-origin-ledger",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-packed-bytecode-origin-ledger:validate"
+    },
+    {
+      "step": "1_reconcile-packed-origins",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "1_reconcile-packed-origins",
+      "phase": "ORACLE",
+      "status": "FAIL",
+      "detail": "exit 1"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

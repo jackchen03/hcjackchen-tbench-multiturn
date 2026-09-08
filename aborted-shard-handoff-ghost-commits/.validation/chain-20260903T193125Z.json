@@ -1,0 +1,15 @@
+{
+  "task": "aborted-shard-handoff-ghost-commits",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "FAIL",
+      "detail": "docker build failed"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

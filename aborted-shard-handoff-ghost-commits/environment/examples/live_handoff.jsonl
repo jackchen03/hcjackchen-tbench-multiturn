@@ -1,0 +1,4 @@
+{"kind":"init","shard":"orders","owner":"A","generation":17,"balance":100}
+{"kind":"admit","shard":"orders","node":"A","generation":17,"incarnation":"client-a","sequence":3,"op":"append","value":"late"}
+{"kind":"begin","shard":"orders","source":"A","destination":"B","generation":18}
+{"kind":"deliver","shard":"orders","node":"B","generation":17,"incarnation":"client-a","sequence":3}

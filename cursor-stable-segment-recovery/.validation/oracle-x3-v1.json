@@ -1,0 +1,13 @@
+{
+  "schema": "tbench-phase2-oracle-x3-v1",
+  "task": "cursor-stable-segment-recovery",
+  "bundle_fingerprint": "bundle-sha256-v1:911bc6221b8904c4bb078fe5f334186fb33d2eaf39ffec8a4dc7e8d2d32f8df6",
+  "job_id": "2026-09-03__12-37-29__ec169f",
+  "job_result": "../jobs/2026-09-03__12-37-29__ec169f/result.json",
+  "runs": [
+    {"run_id": "cursor-stable-segment-recovery__RqLo8CM", "overall": 1.0, "step_1": 1.0, "step_2": 1.0},
+    {"run_id": "cursor-stable-segment-recovery__irvTW59", "overall": 1.0, "step_1": 1.0, "step_2": 1.0},
+    {"run_id": "cursor-stable-segment-recovery__s2rSFH2", "overall": 1.0, "step_1": 1.0, "step_2": 1.0}
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "when": "2026-09-03T19:30:00Z",
+    "static": "PASS",
+    "chain": "PASS",
+    "oracle3": "FAIL",
+    "cloud": "-",
+    "codes": "ORACLE3",
+    "fp": "778a4f08c4",
+    "cycle": 1
+  },
+  {
+    "when": "2026-09-03T19:32:54Z",
+    "static": "PASS",
+    "chain": "PASS",
+    "oracle3": "FAIL",
+    "cloud": "-",
+    "codes": "ORACLE3",
+    "fp": "cd634cc4ec",
+    "cycle": 2
+  }
+]

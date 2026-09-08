@@ -1,0 +1,13 @@
+{
+  "schema": "phase2-local-oracle-x3-v1",
+  "bundle_fingerprint": "bundle-sha256-v1:3022fbaa56db1ff8245864dccaece6dc898a71a56c3df8fd3e9236e08f38111d",
+  "job": "jobs/2026-09-03__12-33-08__9caa81",
+  "task_checksum": "66a6a8b5e50d9a8957d5c3d9fe62cadb02e70583154fbdceb0d7de8e35729f15",
+  "runs": [
+    {"run_id": "packed-bytecode-origin-ledger__EusHtev", "overall": 1.0, "steps": {"1_reconcile-packed-origins": 1.0, "2_preserve-fused-phase-order": 1.0}},
+    {"run_id": "packed-bytecode-origin-ledger__2iHbzMd", "overall": 1.0, "steps": {"1_reconcile-packed-origins": 1.0, "2_preserve-fused-phase-order": 1.0}},
+    {"run_id": "packed-bytecode-origin-ledger__gXhA5AS", "overall": 1.0, "steps": {"1_reconcile-packed-origins": 1.0, "2_preserve-fused-phase-order": 1.0}}
+  ],
+  "mean_reward": 1.0,
+  "note": "The enclosing autovalidate process mis-selected a concurrently-created schema task job; this task's own fresh three-trial job completed 3/3 with no exceptions."
+}

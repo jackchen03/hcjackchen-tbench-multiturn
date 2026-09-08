@@ -1,0 +1,77 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "cursor-stable-segment-recovery",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {
+      "path": "steps/1_recover-acknowledged-transactions/instruction.md",
+      "baseline_sha256": "f19ad0f2f431e4e55a61d0c48adfdf6f162ec8e42be1917d319c5718d3a98f5a",
+      "current_sha256": "f19ad0f2f431e4e55a61d0c48adfdf6f162ec8e42be1917d319c5718d3a98f5a"
+    },
+    {
+      "path": "steps/2_preserve-replica-cursors/instruction.md",
+      "baseline_sha256": "e313a63c8164f0e439b7fe679599cc8be1e32cb16373fdc829aab1ab71498a11",
+      "current_sha256": "e313a63c8164f0e439b7fe679599cc8be1e32cb16373fdc829aab1ab71498a11"
+    }
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/tbench-mt-5-hq-20260903/cursor-stable-segment-recovery",
+    "inputs_sha256": {
+      "dossier.md": "9996dd0c1ffa5ef2ff6d699efe4a07f9baf71f3b43d4ef9bc69d93f7fa9887a4",
+      "environment.spec.md": "7b4dd7e2f043b365d5e57735320b753369ec6f25142f66172fac5141d27cc4d7",
+      ".meta/handoff.json": "d8a3c2bd1b2e537d1a3d9dcc050643b7ead97f3b397526c386449a6df590f040"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:911bc6221b8904c4bb078fe5f334186fb33d2eaf39ffec8a4dc7e8d2d32f8df6",
+  "contract_map": {
+    "rows": 14,
+    "mapped": 14,
+    "non_unique_surfaces": 1,
+    "valid_alternatives_covered": 1,
+    "evidence": ".validation/contract-map.md"
+  },
+  "findings": [
+    {"id": "F01-F06", "disposition": "FIXED", "evidence": [".validation/finding-inventory.md", ".validation/chain-20260903T193720Z.json"]},
+    {"id": "F07-F09", "disposition": "FIXED", "evidence": [".validation/finding-inventory.md", ".validation/controls-v1.json"]},
+    {"id": "F10", "disposition": "FIXED", "evidence": [".validation/chain-20260903T193720Z.json"]},
+    {"id": "F11", "disposition": "FALSE_POSITIVE", "evidence": [".validation/transition-matrix.md"]},
+    {"id": "F12-F13", "disposition": "FIXED", "evidence": [".validation/hygiene-v1.md", ".validation/instruction-baseline.sha256"]}
+  ],
+  "transitions": [
+    {
+      "from": "1_recover-acknowledged-transactions",
+      "to": "2_preserve-replica-cursors",
+      "entry_state": "passing Step-1 implementation plus exact STATE, DECISIONS, and PROVENANCE",
+      "mutated_artifacts": ["candidate view/cursor implementation"],
+      "read_only_artifacts": ["DECISIONS bytes", "PROVENANCE", "source store"],
+      "retired_artifacts": ["physical rewrite authority", "byte-delta cursor translation"],
+      "future_isolation": "Step-2 fixtures and truth are verifier-only and absent from Step 1",
+      "prior_step_regressions": "Step-2 verifier regenerates and exactly compares all Step-1 artifacts",
+      "over_exec_status": "NOT_REQUIRED",
+      "over_exec_reason": "Step 1 permits a compatible non-destructive/cursor-capable superset",
+      "evidence": ".validation/transition-matrix.md"
+    }
+  ],
+  "proof": {
+    "static": {"status": "PASS", "evidence": ".validation/ledger.md"},
+    "starter": {"status": "REJECTED", "executed": 3, "skipped": 0, "evidence": ".validation/chain-20260903T193720Z.json"},
+    "oracle_runs": [
+      {"run_id": "cursor-stable-segment-recovery__RqLo8CM", "status": "PASS", "evidence": ".validation/oracle-x3-v1.json"},
+      {"run_id": "cursor-stable-segment-recovery__irvTW59", "status": "PASS", "evidence": ".validation/oracle-x3-v1.json"},
+      {"run_id": "cursor-stable-segment-recovery__s2rSFH2", "status": "PASS", "evidence": ".validation/oracle-x3-v1.json"}
+    ],
+    "valid_alternatives": [
+      {"name": "optional-debug-report", "status": "ACCEPTED", "evidence": ".validation/controls-v1.json"}
+    ],
+    "rejected_mutants": [
+      {"name": "stop-at-first-damage", "status": "REJECTED", "finding_ids": ["F02", "F03"], "evidence": ".validation/controls-v1.json"},
+      {"name": "nearest-record-interior-cursor", "status": "REJECTED", "finding_ids": ["F09"], "evidence": ".validation/controls-v1.json"}
+    ],
+    "public_hidden_disjoint": {"status": "PASS", "evidence": ".validation/runtime-audit.md"},
+    "grader_isolation": {"status": "PASS", "evidence": ".validation/runtime-audit.md"},
+    "hygiene": {"status": "PASS", "evidence": ".validation/hygiene-v1.md"},
+    "projected_fingerprint": {"status": "PASS", "value": "bundle-sha256-v1:911bc6221b8904c4bb078fe5f334186fb33d2eaf39ffec8a4dc7e8d2d32f8df6", "evidence": ".validation/projection-v1.json"}
+  },
+  "open_findings": [],
+  "result": "PASS"
+}

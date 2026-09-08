@@ -1,0 +1,1 @@
+{"schemas":{"old":["id","city","score"],"new":["id","score","city"]},"pages":[{"id":"p-public","schema":"old","rows":[{"key":"k-public","payload":["k-public","Rome",7]}]}],"aliases":[{"src":"old","dst":"new"}],"reads":[{"page":"p-public","key":"k-public","projection":["city","score"]}]}

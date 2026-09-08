@@ -1,0 +1,17 @@
+== oracle chain: cursor-stable-segment-recovery (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-cursor-stable-segment-recovery:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/environment
+Dockerfile:16
+--------------------
+  15 |         LANG=C
+  16 | >>> RUN python3 -m venv /opt/venv \
+  17 | >>>     && /opt/venv/bin/pip install --no-cache-dir pytest==8.3.5 \
+  18 | >>>     && useradd --create-home --uid 1001 candidate \
+  19 | >>>     && useradd --create-home --uid 1002 agent
+  20 |     WORKDIR /app
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c python3 -m venv /opt/venv     && /opt/venv/bin/pip install --no-cache-dir pytest==8.3.5     && useradd --create-home --uid 1001 candidate     && useradd --create-home --uid 1002 agent" did not complete successfully: exit code: 1
+BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/.validation/chain-20260903T193003Z.log
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/.validation/chain-20260903T193003Z.json   full log: /home/hcjackchen/worktrees/phase2-five-hq-20260903/cursor-stable-segment-recovery/.validation/chain-20260903T193003Z.log
