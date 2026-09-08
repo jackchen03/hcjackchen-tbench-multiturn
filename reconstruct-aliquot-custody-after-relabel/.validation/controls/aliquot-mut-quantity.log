@@ -1,0 +1,66 @@
+FFF.                                                                     [100%]
+=================================== FAILURES ===================================
+_____________ test_receipt_bound_conserving_graph_on_hidden_world ______________
+
+    def test_receipt_bound_conserving_graph_on_hidden_world():
+        case_dir, expected = _case("hidden-kappa")
+        completed, actual, _ = _run(case_dir)
+>       assert completed.returncode == 0, completed.stderr.decode()
+E       AssertionError: Traceback (most recent call last):
+E           File "<frozen runpy>", line 198, in _run_module_as_main
+E           File "<frozen runpy>", line 88, in _run_code
+E           File "/app/custody_audit/__main__.py", line 24, in <module>
+E             main()
+E           File "/app/custody_audit/__main__.py", line 15, in main
+E             report = build_report(args.case_dir)
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/app/custody_audit/engine.py", line 126, in build_report
+E             report, nodes, results = _base(case_dir)
+E                                      ^^^^^^^^^^^^^^^
+E           File "/app/custody_audit/engine.py", line 51, in _base
+E             raise ValueError(f"receipt {receipt['receipt_id']} does not bind one successful execution")
+E         ValueError: receipt hidden-kappa-rc-sa1 does not bind one successful execution
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python', '-m', 'custody_audit', '/tmp/codimango/reconstruct-aliquot-custody/hidden-kappa-uzcwo...not bind one successful execution")\nValueError: receipt hidden-kappa-rc-sa1 does not bind one successful execution\n').returncode
+
+/tests/test_outputs.py:126: AssertionError
+________________ test_does_not_treat_display_order_as_authority ________________
+
+    def test_does_not_treat_display_order_as_authority():
+        case_dir, _ = _case("hidden-nu")
+        _, actual, _ = _run(case_dir)
+        forbidden = {
+            "edge_type": "physical_material",
+            "from_node_id": "hidden-nu-s0",
+            "to_node_id": "hidden-nu-a2",
+            "quantity_ul": 50,
+            "receipt_id": None,
+        }
+        boundary_identifier = "result_authority"
+>       assert forbidden not in actual["custody_edges"], boundary_identifier
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+/tests/test_outputs.py:142: TypeError
+____________ test_report_is_stable_when_input_records_are_shuffled _____________
+
+    def test_report_is_stable_when_input_records_are_shuffled():
+        first, expected = _case("hidden-lambda", shuffle=False)
+        second, _ = _case("hidden-lambda", shuffle=True)
+        completed_a, actual_a, raw_a = _run(first)
+        completed_b, actual_b, raw_b = _run(second)
+>       assert completed_a.returncode == completed_b.returncode == 0
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python', '-m', 'custody_audit', '/tmp/codimango/reconstruct-aliquot-custody/hidden-lambda-flat...ot bind one successful execution")\nValueError: receipt hidden-lambda-rc-sa1 does not bind one successful execution\n').returncode
+
+/tests/test_outputs.py:150: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_conservation_violation_is_rejected
+FAILED ../tests/test_outputs.py::test_receipt_bound_conserving_graph_on_hidden_world
+FAILED ../tests/test_outputs.py::test_does_not_treat_display_order_as_authority
+FAILED ../tests/test_outputs.py::test_report_is_stable_when_input_records_are_shuffled
+3 failed, 1 passed in 0.27s
+reward=0 (3 failed, 0 errored)

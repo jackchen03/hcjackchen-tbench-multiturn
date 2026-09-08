@@ -1,0 +1,8 @@
+== oracle chain: reconstruct-aliquot-custody-after-relabel (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-reconstruct-aliquot-custody-after-relabel:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/environment
+ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
+BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/.validation/chain-20260908T154819Z.log
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/.validation/chain-20260908T154819Z.json   full log: /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/.validation/chain-20260908T154819Z.log

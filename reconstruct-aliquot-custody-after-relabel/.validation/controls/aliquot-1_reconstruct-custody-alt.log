@@ -1,0 +1,10 @@
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_receipt_bound_conserving_graph_on_hidden_world
+PASSED ../tests/test_outputs.py::test_does_not_treat_display_order_as_authority
+PASSED ../tests/test_outputs.py::test_report_is_stable_when_input_records_are_shuffled
+PASSED ../tests/test_outputs.py::test_conservation_violation_is_rejected
+4 passed in 0.26s
+reward=1 (4 passed, 0 skipped)

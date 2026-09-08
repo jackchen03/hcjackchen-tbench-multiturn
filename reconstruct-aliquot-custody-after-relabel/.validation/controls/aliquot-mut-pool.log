@@ -1,0 +1,23 @@
+.F.                                                                      [100%]
+=================================== FAILURES ===================================
+______ test_recollection_is_per_specimen_assay_with_exact_eligible_volume ______
+
+    def test_recollection_is_per_specimen_assay_with_exact_eligible_volume():
+        case_dir, expected = _case("hidden-phi")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+>       assert actual["recollect"] == expected["recollect"]
+E       AssertionError: assert [] == [{'assay_id':...den-phi-spA'}]
+E
+E         Right contains one more item: {'assay_id': 'hidden-phi-assayA', 'available_volume_ul': 20, 'minimum_volume_ul': 25, 'specimen_id': 'hidden-phi-spA'}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:130: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_minimal_current_result_recall_uses_typed_reagent_edges
+PASSED ../tests/test_outputs.py::test_preserves_prior_authority_and_physical_taint
+FAILED ../tests/test_outputs.py::test_recollection_is_per_specimen_assay_with_exact_eligible_volume
+1 failed, 2 passed in 0.24s
+reward=0 (1 failed, 0 errored)

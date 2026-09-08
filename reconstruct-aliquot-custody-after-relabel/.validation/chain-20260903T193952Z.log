@@ -1,0 +1,442 @@
+== oracle chain: reconstruct-aliquot-custody-after-relabel (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-reconstruct-aliquot-custody-after-relabel:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/environment
+sha256:246a3a629a9aa928f9eb9246538f3bcb26c6bf61cd97ae8c4b845b57d57bf8e3
+$ docker rm -f tbench-mt-reconstruct-aliquot-custody-after-relabel-chain
+$ docker run -d --name tbench-mt-reconstruct-aliquot-custody-after-relabel-chain tbench-mt-reconstruct-aliquot-custody-after-relabel:validate sleep infinity
+add5c472cf63fef64a25c3999f4e1def6d42088f06201c4a347f8cc6ace9e795
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/tests/. tbench-mt-reconstruct-aliquot-custody-after-relabel-chain:/tests
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-chain bash /tests/test.sh
+F.FF                                                                     [100%]
+=================================== FAILURES ===================================
+_____________ test_receipt_bound_conserving_graph_on_hidden_world ______________
+
+    def test_receipt_bound_conserving_graph_on_hidden_world():
+        case_dir, expected = _case("hidden-kappa")
+        completed, actual, _ = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+>       _assert_required(actual, expected)
+
+/tests/test_outputs.py:127:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+actual = {'authoritative_result_ids': [], 'custody_edges': [{'edge_type': 'physical_material', 'from_node_id': 'hidden-kappa-a1', 'quantity_ul': 30, 'receipt_id': None, ...}], 'tainted_physical_node_ids': []}
+expected = {'authoritative_result_ids': ['hidden-kappa-r1', 'hidden-kappa-r2', 'hidden-kappa-r3'], 'custody_edges': [{'edge_type'..., 'receipt_id': 'hidden-kappa-rc-sa1', ...}, ...], 'tainted_physical_node_ids': ['hidden-kappa-a2', 'hidden-kappa-w2']}
+
+    def _assert_required(actual: dict, expected: dict) -> None:
+        for field, value in expected.items():
+>           assert actual[field] == value
+E           AssertionError: assert [{'edge_type'...': None, ...}] == [{'edge_type'...1', ...}, ...]
+E
+E             At index 0 diff: {'edge_type': 'physical_material', 'from_node_id': 'hidden-kappa-a1', 'quantity_ul': 30, 'receipt_id': None, 'to_node_id': 'hidden-kappa-w2'} != {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-kappa-w1', 'to_node_id': 'hidden-kappa-r1', 'quantity_ul': 0, 'receipt_id': None}
+E             Right contains 8 more items, first extra item: {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-kappa-w2', 'quantity_ul': 0, 'receipt_id': None, ...}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:120: AssertionError
+____________ test_report_is_stable_when_input_records_are_shuffled _____________
+
+    def test_report_is_stable_when_input_records_are_shuffled():
+        first, expected = _case("hidden-lambda", shuffle=False)
+        second, _ = _case("hidden-lambda", shuffle=True)
+        completed_a, actual_a, raw_a = _run(first)
+        completed_b, actual_b, raw_b = _run(second)
+        assert completed_a.returncode == completed_b.returncode == 0
+>       _assert_required(actual_a, expected)
+
+/tests/test_outputs.py:151:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+actual = {'authoritative_result_ids': [], 'custody_edges': [{'edge_type': 'physical_material', 'from_node_id': 'hidden-lambda-a1', 'quantity_ul': 30, 'receipt_id': None, ...}], 'tainted_physical_node_ids': []}
+expected = {'authoritative_result_ids': ['hidden-lambda-r1', 'hidden-lambda-r2', 'hidden-lambda-r3'], 'custody_edges': [{'edge_ty...receipt_id': 'hidden-lambda-rc-sa1', ...}, ...], 'tainted_physical_node_ids': ['hidden-lambda-a2', 'hidden-lambda-w2']}
+
+    def _assert_required(actual: dict, expected: dict) -> None:
+        for field, value in expected.items():
+>           assert actual[field] == value
+E           AssertionError: assert [{'edge_type'...': None, ...}] == [{'edge_type'...1', ...}, ...]
+E
+E             At index 0 diff: {'edge_type': 'physical_material', 'from_node_id': 'hidden-lambda-a1', 'quantity_ul': 30, 'receipt_id': None, 'to_node_id': 'hidden-lambda-w2'} != {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-lambda-w1', 'to_node_id': 'hidden-lambda-r1', 'quantity_ul': 0, 'receipt_id': None}
+E             Right contains 8 more items, first extra item: {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-lambda-w2', 'quantity_ul': 0, 'receipt_id': None, ...}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:120: AssertionError
+___________________ test_conservation_violation_is_rejected ____________________
+
+    def test_conservation_violation_is_rejected():
+        case_dir, _ = _case("hidden-mu")
+        case_dir.chmod(0o755)
+        nodes_path = case_dir / "physical_nodes.jsonl"
+        nodes_path.chmod(0o644)
+        rows = [json.loads(line) for line in nodes_path.read_text().splitlines()]
+        rows[1]["retained_quantity_ul"] += 1
+        _jsonl(nodes_path, rows)
+        case_dir.chmod(0o555)
+        completed, _, _ = _run(case_dir)
+>       assert completed.returncode != 0
+E       AssertionError: assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['python', '-m', 'custody_audit', '/tmp/codimango/reconstruct-aliquot-custody/hidden-mu-bbjpv9el...-output', '/tmp/codimango/reconstruct-aliquot-custody/run-2a8pcms_/report.json'], returncode=0, stdout=b'', stderr=b'').returncode
+
+/tests/test_outputs.py:166: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_does_not_treat_display_order_as_authority
+FAILED ../tests/test_outputs.py::test_receipt_bound_conserving_graph_on_hidden_world
+FAILED ../tests/test_outputs.py::test_report_is_stable_when_input_records_are_shuffled
+FAILED ../tests/test_outputs.py::test_conservation_violation_is_rejected - As...
+3 failed, 1 passed in 0.24s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="4" time="0.245" timestamp="2026-09-03T19:39:54.978084+00:00" hostname="add5c472cf63"><testcase classname="test_outputs" name="test_receipt_bound_conserving_graph_on_hidden_world" time="0.039"><failure message="AssertionError: assert [{'edge_type'...': None, ...}] == [{'edge_type'...1', ...}, ...]&#10;  &#10;  At index 0 diff: {'edge_type': 'physical_material', 'from_node_id': 'hidden-kappa-a1', 'quantity_ul': 30, 'receipt_id': None, 'to_node_id': 'hidden-kappa-w2'} != {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-kappa-w1', 'to_node_id': 'hidden-kappa-r1', 'quantity_ul': 0, 'receipt_id': None}&#10;  Right contains 8 more items, first extra item: {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-kappa-w2', 'quantity_ul': 0, 'receipt_id': None, ...}&#10;  Use -v to get more diff">def test_receipt_bound_conserving_graph_on_hidden_world():
+        case_dir, expected = _case("hidden-kappa")
+        completed, actual, _ = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+&gt;       _assert_required(actual, expected)
+
+/tests/test_outputs.py:127:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+actual = {'authoritative_result_ids': [], 'custody_edges': [{'edge_type': 'physical_material', 'from_node_id': 'hidden-kappa-a1', 'quantity_ul': 30, 'receipt_id': None, ...}], 'tainted_physical_node_ids': []}
+expected = {'authoritative_result_ids': ['hidden-kappa-r1', 'hidden-kappa-r2', 'hidden-kappa-r3'], 'custody_edges': [{'edge_type'..., 'receipt_id': 'hidden-kappa-rc-sa1', ...}, ...], 'tainted_physical_node_ids': ['hidden-kappa-a2', 'hidden-kappa-w2']}
+
+    def _assert_required(actual: dict, expected: dict) -&gt; None:
+        for field, value in expected.items():
+&gt;           assert actual[field] == value
+E           AssertionError: assert [{'edge_type'...': None, ...}] == [{'edge_type'...1', ...}, ...]
+E
+E             At index 0 diff: {'edge_type': 'physical_material', 'from_node_id': 'hidden-kappa-a1', 'quantity_ul': 30, 'receipt_id': None, 'to_node_id': 'hidden-kappa-w2'} != {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-kappa-w1', 'to_node_id': 'hidden-kappa-r1', 'quantity_ul': 0, 'receipt_id': None}
+E             Right contains 8 more items, first extra item: {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-kappa-w2', 'quantity_ul': 0, 'receipt_id': None, ...}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:120: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_does_not_treat_display_order_as_authority" time="0.037" /><testcase classname="test_outputs" name="test_report_is_stable_when_input_records_are_shuffled" time="0.077"><failure message="AssertionError: assert [{'edge_type'...': None, ...}] == [{'edge_type'...1', ...}, ...]&#10;  &#10;  At index 0 diff: {'edge_type': 'physical_material', 'from_node_id': 'hidden-lambda-a1', 'quantity_ul': 30, 'receipt_id': None, 'to_node_id': 'hidden-lambda-w2'} != {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-lambda-w1', 'to_node_id': 'hidden-lambda-r1', 'quantity_ul': 0, 'receipt_id': None}&#10;  Right contains 8 more items, first extra item: {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-lambda-w2', 'quantity_ul': 0, 'receipt_id': None, ...}&#10;  Use -v to get more diff">def test_report_is_stable_when_input_records_are_shuffled():
+        first, expected = _case("hidden-lambda", shuffle=False)
+        second, _ = _case("hidden-lambda", shuffle=True)
+        completed_a, actual_a, raw_a = _run(first)
+        completed_b, actual_b, raw_b = _run(second)
+        assert completed_a.returncode == completed_b.returncode == 0
+&gt;       _assert_required(actual_a, expected)
+
+/tests/test_outputs.py:151:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+actual = {'authoritative_result_ids': [], 'custody_edges': [{'edge_type': 'physical_material', 'from_node_id': 'hidden-lambda-a1', 'quantity_ul': 30, 'receipt_id': None, ...}], 'tainted_physical_node_ids': []}
+expected = {'authoritative_result_ids': ['hidden-lambda-r1', 'hidden-lambda-r2', 'hidden-lambda-r3'], 'custody_edges': [{'edge_ty...receipt_id': 'hidden-lambda-rc-sa1', ...}, ...], 'tainted_physical_node_ids': ['hidden-lambda-a2', 'hidden-lambda-w2']}
+
+    def _assert_required(actual: dict, expected: dict) -&gt; None:
+        for field, value in expected.items():
+&gt;           assert actual[field] == value
+E           AssertionError: assert [{'edge_type'...': None, ...}] == [{'edge_type'...1', ...}, ...]
+E
+E             At index 0 diff: {'edge_type': 'physical_material', 'from_node_id': 'hidden-lambda-a1', 'quantity_ul': 30, 'receipt_id': None, 'to_node_id': 'hidden-lambda-w2'} != {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-lambda-w1', 'to_node_id': 'hidden-lambda-r1', 'quantity_ul': 0, 'receipt_id': None}
+E             Right contains 8 more items, first extra item: {'edge_type': 'analytical_derivation', 'from_node_id': 'hidden-lambda-w2', 'quantity_ul': 0, 'receipt_id': None, ...}
+E             Use -v to get more diff
+
+/tests/test_outputs.py:120: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_conservation_violation_is_rejected" time="0.038"><failure message="AssertionError: assert 0 != 0&#10; +  where 0 = CompletedProcess(args=['python', '-m', 'custody_audit', '/tmp/codimango/reconstruct-aliquot-custody/hidden-mu-bbjpv9el...-output', '/tmp/codimango/reconstruct-aliquot-custody/run-2a8pcms_/report.json'], returncode=0, stdout=b'', stderr=b'').returncode">def test_conservation_violation_is_rejected():
+        case_dir, _ = _case("hidden-mu")
+        case_dir.chmod(0o755)
+        nodes_path = case_dir / "physical_nodes.jsonl"
+        nodes_path.chmod(0o644)
+        rows = [json.loads(line) for line in nodes_path.read_text().splitlines()]
+        rows[1]["retained_quantity_ul"] += 1
+        _jsonl(nodes_path, rows)
+        case_dir.chmod(0o555)
+        completed, _, _ = _run(case_dir)
+&gt;       assert completed.returncode != 0
+E       AssertionError: assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['python', '-m', 'custody_audit', '/tmp/codimango/reconstruct-aliquot-custody/hidden-mu-bbjpv9el...-output', '/tmp/codimango/reconstruct-aliquot-custody/run-2a8pcms_/report.json'], returncode=0, stdout=b'', stderr=b'').returncode
+
+/tests/test_outputs.py:166: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests
+STEP 1 1_reconstruct-custody  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/solution/. tbench-mt-reconstruct-aliquot-custody-after-relabel-chain:/solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-chain bash /solution/solve.sh
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /solution
+STEP 1 1_reconstruct-custody  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/tests/. tbench-mt-reconstruct-aliquot-custody-after-relabel-chain:/tests
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-chain bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_receipt_bound_conserving_graph_on_hidden_world
+PASSED ../tests/test_outputs.py::test_does_not_treat_display_order_as_authority
+PASSED ../tests/test_outputs.py::test_report_is_stable_when_input_records_are_shuffled
+PASSED ../tests/test_outputs.py::test_conservation_violation_is_rejected
+4 passed in 0.22s
+reward=1 (4 passed, 0 skipped)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.222" timestamp="2026-09-03T19:39:56.882160+00:00" hostname="add5c472cf63"><testcase classname="test_outputs" name="test_receipt_bound_conserving_graph_on_hidden_world" time="0.039" /><testcase classname="test_outputs" name="test_does_not_treat_display_order_as_authority" time="0.039" /><testcase classname="test_outputs" name="test_report_is_stable_when_input_records_are_shuffled" time="0.078" /><testcase classname="test_outputs" name="test_conservation_violation_is_rejected" time="0.039" /></testsuite></testsuites>
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests
+STEP 1 1_reconstruct-custody  GREEN       OK    4 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/2_integrate-partial-reruns/tests/. tbench-mt-reconstruct-aliquot-custody-after-relabel-chain:/tests
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____________ test_signed_scope_precedence_revocation_and_boundary _____________
+
+    def test_signed_scope_precedence_revocation_and_boundary():
+        case_dir, expected = _case("hidden-rho")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+>       assert actual["result_authority"] == expected["result_authority"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result_authority'
+
+/tests/test_outputs.py:128: KeyError
+_______________ test_preserves_prior_custody_and_physical_taint ________________
+
+    def test_preserves_prior_custody_and_physical_taint():
+        case_dir, expected = _case("hidden-sigma")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+>       assert actual["custody_edges"] == expected["custody_edges"]
+E       AssertionError: assert [{'edge_type'...ne, ...}, ...] == [{'edge_type'...ne, ...}, ...]
+E
+E         Right contains one more item: {'edge_type': 'result_authority', 'from_node_id': 'hidden-sigma-r1', 'quantity_ul': 0, 'receipt_id': None, ...}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:137: AssertionError
+___________________ test_invalid_scope_signature_is_rejected ___________________
+
+    def test_invalid_scope_signature_is_rejected():
+        case_dir, _ = _case("hidden-tau", corrupt_signature=True)
+        completed, _ = _run(case_dir)
+>       assert completed.returncode != 0
+E       AssertionError: assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['python', '-m', 'custody_audit', '/tmp/codimango/reconstruct-aliquot-reruns/hidden-tau-ndiwx852...--output', '/tmp/codimango/reconstruct-aliquot-reruns/run-b04fhnku/report.json'], returncode=0, stdout=b'', stderr=b'').returncode
+
+/tests/test_outputs.py:144: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_signed_scope_precedence_revocation_and_boundary
+FAILED ../tests/test_outputs.py::test_preserves_prior_custody_and_physical_taint
+FAILED ../tests/test_outputs.py::test_invalid_scope_signature_is_rejected - A...
+3 failed in 0.23s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.234" timestamp="2026-09-03T19:39:58.028715+00:00" hostname="add5c472cf63"><testcase classname="test_outputs" name="test_signed_scope_precedence_revocation_and_boundary" time="0.065"><failure message="KeyError: 'result_authority'">def test_signed_scope_precedence_revocation_and_boundary():
+        case_dir, expected = _case("hidden-rho")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+&gt;       assert actual["result_authority"] == expected["result_authority"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result_authority'
+
+/tests/test_outputs.py:128: KeyError</failure></testcase><testcase classname="test_outputs" name="test_preserves_prior_custody_and_physical_taint" time="0.060"><failure message="AssertionError: assert [{'edge_type'...ne, ...}, ...] == [{'edge_type'...ne, ...}, ...]&#10;  &#10;  Right contains one more item: {'edge_type': 'result_authority', 'from_node_id': 'hidden-sigma-r1', 'quantity_ul': 0, 'receipt_id': None, ...}&#10;  Use -v to get more diff">def test_preserves_prior_custody_and_physical_taint():
+        case_dir, expected = _case("hidden-sigma")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+&gt;       assert actual["custody_edges"] == expected["custody_edges"]
+E       AssertionError: assert [{'edge_type'...ne, ...}, ...] == [{'edge_type'...ne, ...}, ...]
+E
+E         Right contains one more item: {'edge_type': 'result_authority', 'from_node_id': 'hidden-sigma-r1', 'quantity_ul': 0, 'receipt_id': None, ...}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:137: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_invalid_scope_signature_is_rejected" time="0.057"><failure message="AssertionError: assert 0 != 0&#10; +  where 0 = CompletedProcess(args=['python', '-m', 'custody_audit', '/tmp/codimango/reconstruct-aliquot-reruns/hidden-tau-ndiwx852...--output', '/tmp/codimango/reconstruct-aliquot-reruns/run-b04fhnku/report.json'], returncode=0, stdout=b'', stderr=b'').returncode">def test_invalid_scope_signature_is_rejected():
+        case_dir, _ = _case("hidden-tau", corrupt_signature=True)
+        completed, _ = _run(case_dir)
+&gt;       assert completed.returncode != 0
+E       AssertionError: assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['python', '-m', 'custody_audit', '/tmp/codimango/reconstruct-aliquot-reruns/hidden-tau-ndiwx852...--output', '/tmp/codimango/reconstruct-aliquot-reruns/run-b04fhnku/report.json'], returncode=0, stdout=b'', stderr=b'').returncode
+
+/tests/test_outputs.py:144: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests
+STEP 2 2_integrate-partial-reruns  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/2_integrate-partial-reruns/solution/. tbench-mt-reconstruct-aliquot-custody-after-relabel-chain:/solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-chain bash /solution/solve.sh
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /solution
+STEP 2 2_integrate-partial-reruns  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/2_integrate-partial-reruns/tests/. tbench-mt-reconstruct-aliquot-custody-after-relabel-chain:/tests
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_signed_scope_precedence_revocation_and_boundary
+PASSED ../tests/test_outputs.py::test_preserves_prior_custody_and_physical_taint
+PASSED ../tests/test_outputs.py::test_invalid_scope_signature_is_rejected
+3 passed in 0.32s
+reward=1 (3 passed, 0 skipped)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.317" timestamp="2026-09-03T19:39:59.815939+00:00" hostname="add5c472cf63"><testcase classname="test_outputs" name="test_signed_scope_precedence_revocation_and_boundary" time="0.096" /><testcase classname="test_outputs" name="test_preserves_prior_custody_and_physical_taint" time="0.095" /><testcase classname="test_outputs" name="test_invalid_scope_signature_is_rejected" time="0.096" /></testsuite></testsuites>
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests
+STEP 2 2_integrate-partial-reruns  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/3_compute-reagent-recall/tests/. tbench-mt-reconstruct-aliquot-custody-after-relabel-chain:/tests
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_________ test_minimal_current_result_recall_uses_typed_reagent_edges __________
+
+    def test_minimal_current_result_recall_uses_typed_reagent_edges():
+        case_dir, expected = _case("hidden-upsilon")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+>       assert actual["recall_result_ids"] == expected["recall_result_ids"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'recall_result_ids'
+
+/tests/test_outputs.py:119: KeyError
+______ test_recollection_is_per_specimen_assay_with_exact_eligible_volume ______
+
+    def test_recollection_is_per_specimen_assay_with_exact_eligible_volume():
+        case_dir, expected = _case("hidden-phi")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+>       assert actual["recollect"] == expected["recollect"]
+               ^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'recollect'
+
+/tests/test_outputs.py:130: KeyError
+______________ test_preserves_prior_authority_and_physical_taint _______________
+
+    def test_preserves_prior_authority_and_physical_taint():
+        case_dir, expected = _case("hidden-chi")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+        assert actual["result_authority"] == expected["result_authority"]
+        assert actual["tainted_physical_node_ids"] == expected["tainted_physical_node_ids"]
+        assert any(edge["edge_type"] == "physical_material" for edge in actual["custody_edges"])
+        assert any(edge["edge_type"] == "analytical_derivation" for edge in actual["custody_edges"])
+        assert any(edge["edge_type"] == "result_authority" for edge in actual["custody_edges"])
+>       assert any(edge["edge_type"] == "reagent_use" for edge in actual["custody_edges"])
+E       assert False
+E        +  where False = any(<generator object test_preserves_prior_authority_and_physical_taint.<locals>.<genexpr> at 0x7f61b1d55970>)
+
+/tests/test_outputs.py:142: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_minimal_current_result_recall_uses_typed_reagent_edges
+FAILED ../tests/test_outputs.py::test_recollection_is_per_specimen_assay_with_exact_eligible_volume
+FAILED ../tests/test_outputs.py::test_preserves_prior_authority_and_physical_taint
+3 failed in 0.28s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.284" timestamp="2026-09-03T19:40:01.080188+00:00" hostname="add5c472cf63"><testcase classname="test_outputs" name="test_minimal_current_result_recall_uses_typed_reagent_edges" time="0.063"><failure message="KeyError: 'recall_result_ids'">def test_minimal_current_result_recall_uses_typed_reagent_edges():
+        case_dir, expected = _case("hidden-upsilon")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+&gt;       assert actual["recall_result_ids"] == expected["recall_result_ids"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'recall_result_ids'
+
+/tests/test_outputs.py:119: KeyError</failure></testcase><testcase classname="test_outputs" name="test_recollection_is_per_specimen_assay_with_exact_eligible_volume" time="0.088"><failure message="KeyError: 'recollect'">def test_recollection_is_per_specimen_assay_with_exact_eligible_volume():
+        case_dir, expected = _case("hidden-phi")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+&gt;       assert actual["recollect"] == expected["recollect"]
+               ^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'recollect'
+
+/tests/test_outputs.py:130: KeyError</failure></testcase><testcase classname="test_outputs" name="test_preserves_prior_authority_and_physical_taint" time="0.075"><failure message="assert False&#10; +  where False = any(&lt;generator object test_preserves_prior_authority_and_physical_taint.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f61b1d55970&gt;)">def test_preserves_prior_authority_and_physical_taint():
+        case_dir, expected = _case("hidden-chi")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+        assert actual["result_authority"] == expected["result_authority"]
+        assert actual["tainted_physical_node_ids"] == expected["tainted_physical_node_ids"]
+        assert any(edge["edge_type"] == "physical_material" for edge in actual["custody_edges"])
+        assert any(edge["edge_type"] == "analytical_derivation" for edge in actual["custody_edges"])
+        assert any(edge["edge_type"] == "result_authority" for edge in actual["custody_edges"])
+&gt;       assert any(edge["edge_type"] == "reagent_use" for edge in actual["custody_edges"])
+E       assert False
+E        +  where False = any(&lt;generator object test_preserves_prior_authority_and_physical_taint.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f61b1d55970&gt;)
+
+/tests/test_outputs.py:142: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests
+STEP 3 3_compute-reagent-recall  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/3_compute-reagent-recall/solution/. tbench-mt-reconstruct-aliquot-custody-after-relabel-chain:/solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-chain bash /solution/solve.sh
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /solution
+STEP 3 3_compute-reagent-recall  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/3_compute-reagent-recall/tests/. tbench-mt-reconstruct-aliquot-custody-after-relabel-chain:/tests
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_minimal_current_result_recall_uses_typed_reagent_edges
+PASSED ../tests/test_outputs.py::test_recollection_is_per_specimen_assay_with_exact_eligible_volume
+PASSED ../tests/test_outputs.py::test_preserves_prior_authority_and_physical_taint
+3 passed in 0.22s
+reward=1 (3 passed, 0 skipped)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.224" timestamp="2026-09-03T19:40:02.941614+00:00" hostname="add5c472cf63"><testcase classname="test_outputs" name="test_minimal_current_result_recall_uses_typed_reagent_edges" time="0.065" /><testcase classname="test_outputs" name="test_recollection_is_per_specimen_assay_with_exact_eligible_volume" time="0.063" /><testcase classname="test_outputs" name="test_preserves_prior_authority_and_physical_taint" time="0.065" /></testsuite></testsuites>
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-chain rm -rf /tests
+STEP 3 3_compute-reagent-recall  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1
+$ docker run -d --name tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 tbench-mt-reconstruct-aliquot-custody-after-relabel:validate sleep infinity
+7f30c4a22fd0e8dba2512f6b9eb38be834712525f21104f17b94bad7b5c927a7
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 rm -rf /solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/solution/. tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1:/solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 rm -rf /solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 rm -rf /solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/2_integrate-partial-reruns/solution/. tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1:/solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 rm -rf /solution
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/tests/. tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1:/tests
+$ docker exec -w /app tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_receipt_bound_conserving_graph_on_hidden_world
+PASSED ../tests/test_outputs.py::test_does_not_treat_display_order_as_authority
+PASSED ../tests/test_outputs.py::test_report_is_stable_when_input_records_are_shuffled
+PASSED ../tests/test_outputs.py::test_conservation_violation_is_rejected
+4 passed in 0.30s
+reward=1 (4 passed, 0 skipped)
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.301" timestamp="2026-09-03T19:40:05.952367+00:00" hostname="7f30c4a22fd0"><testcase classname="test_outputs" name="test_receipt_bound_conserving_graph_on_hidden_world" time="0.056" /><testcase classname="test_outputs" name="test_does_not_treat_display_order_as_authority" time="0.059" /><testcase classname="test_outputs" name="test_report_is_stable_when_input_records_are_shuffled" time="0.112" /><testcase classname="test_outputs" name="test_conservation_violation_is_rejected" time="0.043" /></testsuite></testsuites>
+$ docker exec tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1 rm -rf /tests
+STEP 1 1_reconstruct-custody  OVER-EXEC   FAIL  still passes after step 2's work was done (4 executed, 0 skipped, 0 failed, 0 errored)
+        -> MC4: the boundary is unguarded. Add a negative test naming an artifact
+           that step 2's instruction explicitly asks for.
+$ docker rm -f tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1
+tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1
+STEP 2 2_integrate-partial-reruns  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+$ docker rm -f tbench-mt-reconstruct-aliquot-custody-after-relabel-chain
+tbench-mt-reconstruct-aliquot-custody-after-relabel-chain
+$ docker rm -f tbench-mt-reconstruct-aliquot-custody-after-relabel-oe1
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/.validation/chain-20260903T193952Z.json   full log: /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/.validation/chain-20260903T193952Z.log

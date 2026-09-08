@@ -1,0 +1,5 @@
+{"node_id":"specimen-public-A","node_kind":"specimen","specimen_id":"sp-public-A","initial_quantity_ul":120,"retained_quantity_ul":0,"consumed_quantity_ul":0,"tainted_initial":false}
+{"node_id":"aliquot-public-A1","node_kind":"aliquot","specimen_id":"sp-public-A","initial_quantity_ul":60,"retained_quantity_ul":40,"consumed_quantity_ul":0,"tainted_initial":false}
+{"node_id":"aliquot-public-A2","node_kind":"aliquot","specimen_id":"sp-public-A","initial_quantity_ul":60,"retained_quantity_ul":30,"consumed_quantity_ul":0,"tainted_initial":false}
+{"node_id":"well-public-1","node_kind":"well","specimen_id":"sp-public-A","initial_quantity_ul":20,"retained_quantity_ul":0,"consumed_quantity_ul":20,"tainted_initial":false}
+{"node_id":"well-public-2","node_kind":"well","specimen_id":"sp-public-A","initial_quantity_ul":30,"retained_quantity_ul":0,"consumed_quantity_ul":30,"tainted_initial":false}

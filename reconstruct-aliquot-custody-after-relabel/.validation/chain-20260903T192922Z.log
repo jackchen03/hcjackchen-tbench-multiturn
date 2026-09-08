@@ -1,0 +1,16 @@
+== oracle chain: reconstruct-aliquot-custody-after-relabel (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-reconstruct-aliquot-custody-after-relabel:validate /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/environment
+Dockerfile:6
+--------------------
+   5 |
+   6 | >>> RUN python -m pip install --no-cache-dir \
+   7 | >>>     cryptography==45.0.6 \
+   8 | >>>     pytest==8.4.1
+   9 |
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c python -m pip install --no-cache-dir     cryptography==45.0.6     pytest==8.4.1" did not complete successfully: exit code: 1
+BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/.validation/chain-20260903T192922Z.log
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/.validation/chain-20260903T192922Z.json   full log: /home/hcjackchen/worktrees/phase2-five-hq-20260903/reconstruct-aliquot-custody-after-relabel/.validation/chain-20260903T192922Z.log

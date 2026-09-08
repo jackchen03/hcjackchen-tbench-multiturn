@@ -1,0 +1,4 @@
+{"receipt_id":"receipt-public-1","command_digest":"sha256:split-a","execution_id":"boot-1-exec-1","input_position_id":"rack-in-1","output_position_id":"rack-out-1","quantity_ul":60}
+{"receipt_id":"receipt-public-2","command_digest":"sha256:split-b","execution_id":"boot-1-exec-2","input_position_id":"rack-in-1","output_position_id":"rack-out-2","quantity_ul":60}
+{"receipt_id":"receipt-public-3","command_digest":"sha256:transfer-a","execution_id":"boot-1-exec-3","input_position_id":"rack-out-1","output_position_id":"plate-1-A01","quantity_ul":20}
+{"receipt_id":"receipt-public-4","command_digest":"sha256:transfer-b","execution_id":"boot-1-exec-4","input_position_id":"rack-out-2","output_position_id":"plate-1-A02","quantity_ul":30}
