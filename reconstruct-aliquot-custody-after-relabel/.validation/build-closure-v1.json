@@ -1,0 +1,179 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "reconstruct-aliquot-custody-after-relabel",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {
+      "path": "steps/1_reconstruct-custody/instruction.md",
+      "baseline_sha256": "c55b7e32924fb9b12742acd19a0655ff82eb07fe57fee26287a4fdbca7316409",
+      "current_sha256": "c55b7e32924fb9b12742acd19a0655ff82eb07fe57fee26287a4fdbca7316409"
+    },
+    {
+      "path": "steps/2_integrate-partial-reruns/instruction.md",
+      "baseline_sha256": "750f0ae96782f914b4d123048fbd101b22e8275238fde7edcd81ea9d6505f072",
+      "current_sha256": "750f0ae96782f914b4d123048fbd101b22e8275238fde7edcd81ea9d6505f072"
+    },
+    {
+      "path": "steps/3_compute-reagent-recall/instruction.md",
+      "baseline_sha256": "9a0d97e9f5721b83089be191b14db2e5cf67f646d10093ff21490323b2115788",
+      "current_sha256": "9a0d97e9f5721b83089be191b14db2e5cf67f646d10093ff21490323b2115788"
+    }
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/tbench-mt-5-hq-20260903/reconstruct-aliquot-custody-after-relabel",
+    "inputs_sha256": {
+      "dossier.md": "2cf1e8751690a16d3370abe8debc98a3bf7a4903a20bf4f3d6a565ed23a54b8f",
+      "environment.spec.md": "020f69c969253df6635bada5cbc57714f26416e4154bb4f679c5fdb45f1f1925",
+      ".meta/handoff.json": "5fe65d90cd84f2611c076a6a8822716a36b74be0370ca0e21e0806622f82ddbd"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:b7decd2fc8beaf4259f12bfa986eb0c01e9a11898bb9d315e23150d11dd83b57",
+  "contract_map": {
+    "rows": 11,
+    "mapped": 11,
+    "non_unique_surfaces": 1,
+    "valid_alternatives_covered": 1,
+    "evidence": ".validation/contract-map.md"
+  },
+  "findings": [
+    {
+      "id": "BOUNDARY_CLASSIFIER_FALSE_POSITIVE_STEP1_TO_STEP2",
+      "disposition": "FIXED",
+      "evidence": [
+        ".validation/instruction-transition-20260908.json",
+        ".validation/chain-20260908T165348Z.json"
+      ]
+    },
+    {
+      "id": "RECEIPT_IDENTITY_AND_CONSERVATION",
+      "disposition": "FIXED",
+      "evidence": [".validation/controls-current/summary.json"]
+    },
+    {
+      "id": "RERUN_SCOPE_AND_PRECEDENCE",
+      "disposition": "FIXED",
+      "evidence": [".validation/controls-current/summary.json"]
+    },
+    {
+      "id": "TYPED_RECALL_AND_VOLUME",
+      "disposition": "FIXED",
+      "evidence": [".validation/controls-current/summary.json"]
+    }
+  ],
+  "proof": {
+    "static": {
+      "status": "PASS",
+      "evidence": ".validation/ledger.md"
+    },
+    "starter": {
+      "status": "REJECTED",
+      "executed": 10,
+      "skipped": 0,
+      "evidence": ".validation/chain-20260908T165348Z.json"
+    },
+    "oracle_runs": [
+      {
+        "run_id": "reconstruct-aliquot-custody-afte__3iLuES9",
+        "status": "PASS",
+        "evidence": ".validation/oracle-x3-20260908T165358Z.json"
+      },
+      {
+        "run_id": "reconstruct-aliquot-custody-afte__Yxeznsk",
+        "status": "PASS",
+        "evidence": ".validation/oracle-x3-20260908T165358Z.json"
+      },
+      {
+        "run_id": "reconstruct-aliquot-custody-afte__src7cHt",
+        "status": "PASS",
+        "evidence": ".validation/oracle-x3-20260908T165358Z.json"
+      }
+    ],
+    "valid_alternatives": [
+      {
+        "name": "extra-diagnostic-report-field",
+        "status": "ACCEPTED",
+        "evidence": ".validation/controls-current/summary.json"
+      }
+    ],
+    "rejected_mutants": [
+      {
+        "name": "quantity-only-receipt",
+        "status": "REJECTED",
+        "finding_ids": ["RECEIPT_IDENTITY_AND_CONSERVATION"],
+        "evidence": ".validation/controls-current/mutant-quantity.log"
+      },
+      {
+        "name": "latest-timestamp-rerun",
+        "status": "REJECTED",
+        "finding_ids": ["RERUN_SCOPE_AND_PRECEDENCE"],
+        "evidence": ".validation/controls-current/mutant-latest.log"
+      },
+      {
+        "name": "ancestor-closure-scope",
+        "status": "REJECTED",
+        "finding_ids": ["RERUN_SCOPE_AND_PRECEDENCE"],
+        "evidence": ".validation/controls-current/mutant-scope.log"
+      },
+      {
+        "name": "plate-wide-recall",
+        "status": "REJECTED",
+        "finding_ids": ["TYPED_RECALL_AND_VOLUME"],
+        "evidence": ".validation/controls-current/mutant-plate.log"
+      },
+      {
+        "name": "pooled-retained-volume",
+        "status": "REJECTED",
+        "finding_ids": ["TYPED_RECALL_AND_VOLUME"],
+        "evidence": ".validation/controls-current/mutant-pool.log"
+      }
+    ],
+    "public_hidden_disjoint": {
+      "status": "PASS",
+      "evidence": ".validation/control-summary.md"
+    },
+    "grader_isolation": {
+      "status": "PASS",
+      "evidence": ".validation/control-summary.md"
+    },
+    "hygiene": {
+      "status": "PASS",
+      "evidence": ".validation/ledger.md"
+    },
+    "projected_fingerprint": {
+      "status": "PASS",
+      "value": "bundle-sha256-v1:b7decd2fc8beaf4259f12bfa986eb0c01e9a11898bb9d315e23150d11dd83b57"
+    }
+  },
+  "transitions": [
+    {
+      "from": "1_reconstruct-custody",
+      "to": "2_integrate-partial-reruns",
+      "entry_state": "passing receipt-bound custody implementation and report",
+      "carried_mutated": ["custody_audit implementation", "custody report"],
+      "read_only": ["physical custody edges", "taint conclusions"],
+      "overrides": ["analytical result authority only"],
+      "retired": [],
+      "future_isolation": "signed rerun fixtures and truth are absent from Step 1",
+      "prior_regressions": ["exact physical custody", "physical taint"],
+      "over_exec_status": "NOT_REQUIRED",
+      "over_exec_reason": "Step 1 has no prohibition on a compatible future rerun implementation.",
+      "evidence": ".validation/chain-20260908T165348Z.json"
+    },
+    {
+      "from": "2_integrate-partial-reruns",
+      "to": "3_compute-reagent-recall",
+      "entry_state": "passing current-authority map over preserved physical custody",
+      "carried_mutated": ["custody_audit implementation", "current result authority map"],
+      "read_only": ["physical custody edges", "physical taint", "signed rerun decisions"],
+      "overrides": ["recall and recollection fields are added"],
+      "retired": [],
+      "future_isolation": "reagent-use and invalid-lot fixtures and truth are absent from Step 2",
+      "prior_regressions": ["current analytical authority", "exact physical custody", "physical taint"],
+      "over_exec_status": "NOT_REQUIRED",
+      "over_exec_reason": "Step 2 has no prohibition on a compatible future recall implementation.",
+      "evidence": ".validation/chain-20260908T165348Z.json"
+    }
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

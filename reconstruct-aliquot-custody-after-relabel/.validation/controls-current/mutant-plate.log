@@ -1,0 +1,25 @@
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+_________ test_minimal_current_result_recall_uses_typed_reagent_edges __________
+
+    def test_minimal_current_result_recall_uses_typed_reagent_edges():
+        case_dir, expected = _case("hidden-upsilon")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+>       assert actual["recall_result_ids"] == expected["recall_result_ids"]
+E       AssertionError: assert ['hidden-upsi...n-upsilon-r3'] == ['hidden-upsi...n-upsilon-r3']
+E
+E         At index 0 diff: 'hidden-upsilon-r1' != 'hidden-upsilon-r1-new'
+E         Left contains 2 more items, first extra item: 'hidden-upsilon-r2'
+E         Use -v to get more diff
+
+/tests/test_outputs.py:119: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recollection_is_per_specimen_assay_with_exact_eligible_volume
+PASSED ../tests/test_outputs.py::test_preserves_prior_authority_and_physical_taint
+FAILED ../tests/test_outputs.py::test_minimal_current_result_recall_uses_typed_reagent_edges
+1 failed, 2 passed in 0.24s
+reward=0 (1 failed, 0 errored)
+observed_reward=0

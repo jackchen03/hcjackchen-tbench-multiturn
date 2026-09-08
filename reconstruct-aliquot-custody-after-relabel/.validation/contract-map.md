@@ -1,6 +1,6 @@
 # Phase-2 contract map
 
-Bundle fingerprint: `bundle-sha256-v1:25512efaf2354273c6dbbbc7dcc8f15e71251e2b49c77cda461ed2d7a285e5a8`
+Bundle fingerprint: `bundle-sha256-v1:b7decd2fc8beaf4259f12bfa986eb0c01e9a11898bb9d315e23150d11dd83b57`
 
 All 11 graded surfaces are mapped to solver-visible authority:
 

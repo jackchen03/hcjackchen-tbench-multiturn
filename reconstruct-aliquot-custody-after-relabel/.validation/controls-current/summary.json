@@ -1,0 +1,17 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b7decd2fc8beaf4259f12bfa986eb0c01e9a11898bb9d315e23150d11dd83b57",
+  "rejected_mutants": {
+    "ancestor-closure-scope": "mutant-scope.log",
+    "latest-timestamp-rerun": "mutant-latest.log",
+    "plate-wide-recall": "mutant-plate.log",
+    "pooled-retained-volume": "mutant-pool.log",
+    "quantity-only-receipt": "mutant-quantity.log"
+  },
+  "result": "PASS",
+  "schema": "aliquot-post-metacode-controls-v1",
+  "valid_alternative": {
+    "1_reconstruct-custody": "1_reconstruct-custody-alternate.log",
+    "2_integrate-partial-reruns": "2_integrate-partial-reruns-alternate.log",
+    "3_compute-reagent-recall": "3_compute-reagent-recall-alternate.log"
+  }
+}

@@ -1,0 +1,37 @@
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+_____________ test_signed_scope_precedence_revocation_and_boundary _____________
+
+    def test_signed_scope_precedence_revocation_and_boundary():
+        case_dir, expected = _case("hidden-rho")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+>       assert actual["result_authority"] == expected["result_authority"]
+E       AssertionError: assert [{'authoritat...dden-rho-r2'}] == [{'authoritat...dden-rho-r2'}]
+E
+E         At index 1 diff: {'authoritative_result_id': 'hidden-rho-r2-scope-escape', 'authority_rerun_id': 'hidden-rho-rr-new', 'original_result_id': 'hidden-rho-r2'} != {'original_result_id': 'hidden-rho-r2', 'authoritative_result_id': 'hidden-rho-r2', 'authority_rerun_id': None}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:128: AssertionError
+_______________ test_preserves_prior_custody_and_physical_taint ________________
+
+    def test_preserves_prior_custody_and_physical_taint():
+        case_dir, expected = _case("hidden-sigma")
+        completed, actual = _run(case_dir)
+        assert completed.returncode == 0, completed.stderr.decode()
+>       assert actual["custody_edges"] == expected["custody_edges"]
+E       AssertionError: assert [{'edge_type'...ne, ...}, ...] == [{'edge_type'...ne, ...}, ...]
+E
+E         Left contains one more item: {'edge_type': 'result_authority', 'from_node_id': 'hidden-sigma-r2', 'quantity_ul': 0, 'receipt_id': None, ...}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:137: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_invalid_scope_signature_is_rejected
+FAILED ../tests/test_outputs.py::test_signed_scope_precedence_revocation_and_boundary
+FAILED ../tests/test_outputs.py::test_preserves_prior_custody_and_physical_taint
+2 failed, 1 passed in 0.31s
+reward=0 (2 failed, 0 errored)
+observed_reward=0

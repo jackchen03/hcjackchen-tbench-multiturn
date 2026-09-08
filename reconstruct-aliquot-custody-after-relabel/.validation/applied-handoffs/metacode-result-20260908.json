@@ -1,0 +1,71 @@
+{
+  "applied_non_instruction_work": [
+    "The complete Phase-2 bundle is implemented; starter-red, cumulative oracle-green, valid-alternative, and mutant controls pass. The only failing gate is the canonical boundary heuristic's lexical false positive."
+  ],
+  "commit_origin": "runner_envelope",
+  "finding_ids": [
+    "BOUNDARY_CLASSIFIER_FALSE_POSITIVE_STEP1_TO_STEP2"
+  ],
+  "instruction_author": "MetaCode",
+  "orchestration_schema": "tbench-adaptive-operation-v1",
+  "prompt_path": "/home/hcjackchen/tbench-metacode-runs/reconstruct-aliquot-custody-after-relabel-20260908/metacode-results/reconstruct-aliquot-custody-after-relabel-instruction-edit.prompt.txt",
+  "prompt_sha256": "5df245504d200aeeea193f28127ef5a32044d0e4683dfdb5e5a450f7caf6ab11",
+  "run_id": "aliquot-boundary-wording-20260908",
+  "schema": "tbench-metacode-auto-handoff-v2",
+  "status": "PASS",
+  "stderr_path": "/home/hcjackchen/tbench-metacode-runs/reconstruct-aliquot-custody-after-relabel-20260908/metacode-results/reconstruct-aliquot-custody-after-relabel-instruction-edit.stderr.txt",
+  "stdout_path": "/home/hcjackchen/tbench-metacode-runs/reconstruct-aliquot-custody-after-relabel-20260908/metacode-results/reconstruct-aliquot-custody-after-relabel-instruction-edit.stdout.txt",
+  "task": "reconstruct-aliquot-custody-after-relabel",
+  "verification": {
+    "branch": "codex/phase2-five-hq-20260903",
+    "changed_files": [
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md"
+    ],
+    "commit_sha": "25248619d70b3b088bd2e7c343696575aee19c04",
+    "hashes": {
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md": "c55b7e32924fb9b12742acd19a0655ff82eb07fe57fee26287a4fdbca7316409"
+    },
+    "mode": "EDIT_INSTRUCTION",
+    "parent_sha": "523c6c61b57ff1e6584b76e0e88d7e8d9374e265",
+    "stat": {
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md": {
+        "additions": "1",
+        "deletions": "1"
+      }
+    },
+    "status": "PASS"
+  },
+  "verification_input": {
+    "allowed_paths": [
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md"
+    ],
+    "branch": "codex/phase2-five-hq-20260903",
+    "canonical_repo": "/home/hcjackchen/hcjackchen-tbench-multiturn",
+    "changed_files": [
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md"
+    ],
+    "commit_sha": "25248619d70b3b088bd2e7c343696575aee19c04",
+    "expected_hashes": {
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md": "c55b7e32924fb9b12742acd19a0655ff82eb07fe57fee26287a4fdbca7316409"
+    },
+    "expected_parent": "523c6c61b57ff1e6584b76e0e88d7e8d9374e265",
+    "hashes": {
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md": "c55b7e32924fb9b12742acd19a0655ff82eb07fe57fee26287a4fdbca7316409"
+    },
+    "mode": "EDIT_INSTRUCTION",
+    "parent_sha": "523c6c61b57ff1e6584b76e0e88d7e8d9374e265",
+    "pre_edit_hashes": {
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md": "0a478f2d6d4c9b4f70ac59aafa561b7abafc41db7f1d86c87ea0aea6c3e8d54b"
+    },
+    "required_paths": [
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md"
+    ],
+    "stat": {
+      "reconstruct-aliquot-custody-after-relabel/steps/1_reconstruct-custody/instruction.md": {
+        "additions": "1",
+        "deletions": "1"
+      }
+    },
+    "worktree": "/home/hcjackchen/worktrees/phase2-five-hq-20260903"
+  }
+}

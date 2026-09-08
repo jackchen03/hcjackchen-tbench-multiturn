@@ -1,0 +1,13 @@
+{
+  "schema": "tbench-metacode-instruction-transition-v1",
+  "task": "reconstruct-aliquot-custody-after-relabel",
+  "path": "steps/1_reconstruct-custody/instruction.md",
+  "finding_id": "BOUNDARY_CLASSIFIER_FALSE_POSITIVE_STEP1_TO_STEP2",
+  "parent_commit": "523c6c61b57ff1e6584b76e0e88d7e8d9374e265",
+  "metacode_commit": "25248619d70b3b088bd2e7c343696575aee19c04",
+  "pre_sha256": "0a478f2d6d4c9b4f70ac59aafa561b7abafc41db7f1d86c87ea0aea6c3e8d54b",
+  "post_sha256": "c55b7e32924fb9b12742acd19a0655ff82eb07fe57fee26287a4fdbca7316409",
+  "verified_handoff": ".validation/applied-handoffs/metacode-result-20260908.json",
+  "archived_request": ".validation/applied-handoffs/harden_suggestion-20260908.md",
+  "result": "PASS"
+}
