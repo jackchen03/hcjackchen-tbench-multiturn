@@ -1,0 +1,147 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-09-30T19:25:32.741623Z",
+    "harbor": {},
+    "invocation": [
+        "/usr/local/bin/__codimango__resources/aai__codimango_cli__bench/codimango-bench.par",
+        "bench",
+        "run",
+        "-p",
+        "heavy-hitter-sketch-pivot",
+        "-a",
+        "oracle",
+        "-k",
+        "3",
+        "-o",
+        "heavy-hitter-sketch-pivot/.validation/oracle-x3-job",
+        "--json"
+    ],
+    "n_concurrent_trials": 3,
+    "retry": {
+        "max_retries": 3,
+        "include_exceptions": [
+            "AgentInstallError",
+            "AgentSetupTimeoutError",
+            "EnvironmentStartTimeoutError"
+        ],
+        "exclude_exceptions": [
+            "RewardFileNotFoundError",
+            "VerifierOutputParseError",
+            "RewardFileEmptyError",
+            "VerifierTimeoutError",
+            "AgentTimeoutError",
+            "EnsureDirsError"
+        ],
+        "wait_multiplier": 2.0,
+        "min_wait_sec": 10.0,
+        "max_wait_sec": 120.0,
+        "replay_stop_after_consecutive": 0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "heavy-hitter-sketch-pivot",
+                "type": "local",
+                "digest": "sha256:78a53de4e740a6c9f558035fee4e4457326613ce7e20e44a0cfece99bf084312",
+                "path": "heavy-hitter-sketch-pivot"
+            },
+            "start_step": 1,
+            "restore_checkpoint_session": true,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "model_name": "oracle",
+                "skills": [],
+                "skills_remove": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "mounts": [],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "heavy-hitter-sketch-pivot",
+                "type": "local",
+                "digest": "sha256:78a53de4e740a6c9f558035fee4e4457326613ce7e20e44a0cfece99bf084312",
+                "path": "heavy-hitter-sketch-pivot"
+            },
+            "start_step": 1,
+            "restore_checkpoint_session": true,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "model_name": "oracle",
+                "skills": [],
+                "skills_remove": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "mounts": [],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "heavy-hitter-sketch-pivot",
+                "type": "local",
+                "digest": "sha256:78a53de4e740a6c9f558035fee4e4457326613ce7e20e44a0cfece99bf084312",
+                "path": "heavy-hitter-sketch-pivot"
+            },
+            "start_step": 1,
+            "restore_checkpoint_session": true,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "model_name": "oracle",
+                "skills": [],
+                "skills_remove": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "mounts": [],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}

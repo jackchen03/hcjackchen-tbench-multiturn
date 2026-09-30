@@ -1,0 +1,571 @@
+== oracle chain: fat32-carved-extent-repair (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-fat32-carved-extent-repair:validate /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/environment
+sha256:4d967d2577a785509c1cc8f7c4a9539906f8eb6aef3f10cf91de025cf964a3c9
+$ docker rm -f tbench-mt-fat32-carved-extent-repair-chain
+$ docker run -d --name tbench-mt-fat32-carved-extent-repair-chain tbench-mt-fat32-carved-extent-repair:validate sleep infinity
+a432e7a7908765f687612ec68528ed48b93d4bb08e3856d376714b4b154cca03
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/steps/1_triage/tests/. tbench-mt-fat32-carved-extent-repair-chain:/tests
+$ docker exec -w /app tbench-mt-fat32-carved-extent-repair-chain bash /tests/test.sh
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+___________________ test_public_decision_and_repaired_image ____________________
+
+    def test_public_decision_and_repaired_image():
+        decision = WORK / "fat_decision.txt"
+        repaired = WORK / "repaired.img"
+        script = WORK / "repair.sh"
+>       assert decision.read_bytes() == b"HEALTHY=FAT2\n"
+
+/tests/test_outputs.py:64:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/fat_decision.txt'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/fat_decision.txt'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError
+________________ test_repair_cli_derives_flipped_healthy_table _________________
+
+    def test_repair_cli_derives_flipped_healthy_table():
+        root = Path(tempfile.mkdtemp(prefix="fat32-s1-", dir="/tmp"))
+        try:
+            hidden = root / "hidden.img"
+            output = root / "output.img"
+            healthy, low, high = make_flipped_hidden(WORK / "disk.img", hidden)
+>           run_script(WORK / "repair.sh", hidden, output)
+
+/tests/test_outputs.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+script = PosixPath('/work/repair.sh')
+args = (PosixPath('/tmp/fat32-s1-146wjicx/hidden.img'), PosixPath('/tmp/fat32-s1-146wjicx/output.img'))
+result = CompletedProcess(args=['bash', '/work/repair.sh', '/tmp/fat32-s1-146wjicx/hidden.img', '/tmp/fat32-s1-146wjicx/output.img'], returncode=127, stdout='', stderr='bash: /work/repair.sh: No such file or directory\n')
+@py_assert1 = 127, @py_assert4 = 0
+
+    def run_script(script, *args):
+        result = subprocess.run(
+            ["bash", str(script), *map(str, args)],
+            cwd="/tmp",
+            text=True,
+            capture_output=True,
+            env={"PATH": "/usr/local/bin:/usr/bin:/bin"},
+        )
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: bash: /work/repair.sh: No such file or directory
+E
+E       assert 127 == 0
+E        +  where 127 = CompletedProcess(args=['bash', '/work/repair.sh', '/tmp/fat32-s1-146wjicx/hidden.img', '/tmp/fat32-s1-146wjicx/output.img'], returncode=127, stdout='', stderr='bash: /work/repair.sh: No such file or directory\n').returncode
+
+/tests/test_outputs.py:56: AssertionError
+____________ test_original_is_unchanged_and_artifacts_are_nonempty _____________
+
+    def test_original_is_unchanged_and_artifacts_are_nonempty():
+        original = WORK / "disk.img"
+        assert original.stat().st_mode & 0o222 == 0
+>       assert hashlib.sha256(original.read_bytes()).hexdigest() != hashlib.sha256(
+            (WORK / "repaired.img").read_bytes()
+        ).hexdigest()
+
+/tests/test_outputs.py:92:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/repaired.img'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/repaired.img'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_public_decision_and_repaired_image - Fi...
+FAILED ../tests/test_outputs.py::test_repair_cli_derives_flipped_healthy_table
+FAILED ../tests/test_outputs.py::test_original_is_unchanged_and_artifacts_are_nonempty
+3 failed in 0.22s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.227" timestamp="2026-09-30T16:52:03.568203" hostname="a432e7a79087"><testcase classname="test_outputs" name="test_public_decision_and_repaired_image" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/work/fat_decision.txt'">def test_public_decision_and_repaired_image():
+        decision = WORK / "fat_decision.txt"
+        repaired = WORK / "repaired.img"
+        script = WORK / "repair.sh"
+&gt;       assert decision.read_bytes() == b"HEALTHY=FAT2\n"
+
+/tests/test_outputs.py:64:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/fat_decision.txt'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/fat_decision.txt'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_repair_cli_derives_flipped_healthy_table" time="0.082"><failure message="AssertionError: bash: /work/repair.sh: No such file or directory&#10;  &#10;assert 127 == 0&#10; +  where 127 = CompletedProcess(args=['bash', '/work/repair.sh', '/tmp/fat32-s1-146wjicx/hidden.img', '/tmp/fat32-s1-146wjicx/output.img'], returncode=127, stdout='', stderr='bash: /work/repair.sh: No such file or directory\n').returncode">def test_repair_cli_derives_flipped_healthy_table():
+        root = Path(tempfile.mkdtemp(prefix="fat32-s1-", dir="/tmp"))
+        try:
+            hidden = root / "hidden.img"
+            output = root / "output.img"
+            healthy, low, high = make_flipped_hidden(WORK / "disk.img", hidden)
+&gt;           run_script(WORK / "repair.sh", hidden, output)
+
+/tests/test_outputs.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+script = PosixPath('/work/repair.sh')
+args = (PosixPath('/tmp/fat32-s1-146wjicx/hidden.img'), PosixPath('/tmp/fat32-s1-146wjicx/output.img'))
+result = CompletedProcess(args=['bash', '/work/repair.sh', '/tmp/fat32-s1-146wjicx/hidden.img', '/tmp/fat32-s1-146wjicx/output.img'], returncode=127, stdout='', stderr='bash: /work/repair.sh: No such file or directory\n')
+@py_assert1 = 127, @py_assert4 = 0
+
+    def run_script(script, *args):
+        result = subprocess.run(
+            ["bash", str(script), *map(str, args)],
+            cwd="/tmp",
+            text=True,
+            capture_output=True,
+            env={"PATH": "/usr/local/bin:/usr/bin:/bin"},
+        )
+&gt;       assert result.returncode == 0, result.stderr
+E       AssertionError: bash: /work/repair.sh: No such file or directory
+E
+E       assert 127 == 0
+E        +  where 127 = CompletedProcess(args=['bash', '/work/repair.sh', '/tmp/fat32-s1-146wjicx/hidden.img', '/tmp/fat32-s1-146wjicx/output.img'], returncode=127, stdout='', stderr='bash: /work/repair.sh: No such file or directory\n').returncode
+
+/tests/test_outputs.py:56: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_original_is_unchanged_and_artifacts_are_nonempty" time="0.052"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/work/repaired.img'">def test_original_is_unchanged_and_artifacts_are_nonempty():
+        original = WORK / "disk.img"
+        assert original.stat().st_mode &amp; 0o222 == 0
+&gt;       assert hashlib.sha256(original.read_bytes()).hexdigest() != hashlib.sha256(
+            (WORK / "repaired.img").read_bytes()
+        ).hexdigest()
+
+/tests/test_outputs.py:92:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/repaired.img'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/repaired.img'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests
+STEP 1 1_triage  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /solution
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/steps/1_triage/solution/. tbench-mt-fat32-carved-extent-repair-chain:/solution
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-fat32-carved-extent-repair-chain bash /solution/solve.sh
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /solution
+STEP 1 1_triage  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/steps/1_triage/tests/. tbench-mt-fat32-carved-extent-repair-chain:/tests
+$ docker exec -w /app tbench-mt-fat32-carved-extent-repair-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_public_decision_and_repaired_image
+PASSED ../tests/test_outputs.py::test_repair_cli_derives_flipped_healthy_table
+PASSED ../tests/test_outputs.py::test_original_is_unchanged_and_artifacts_are_nonempty
+3 passed in 0.43s
+reward=1 (3 passed, 0 skipped)
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.437" timestamp="2026-09-30T16:52:05.099807" hostname="a432e7a79087"><testcase classname="test_outputs" name="test_public_decision_and_repaired_image" time="0.075" /><testcase classname="test_outputs" name="test_repair_cli_derives_flipped_healthy_table" time="0.235" /><testcase classname="test_outputs" name="test_original_is_unchanged_and_artifacts_are_nonempty" time="0.100" /></testsuite></testsuites>
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests
+STEP 1 1_triage  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/steps/2_carve/tests/. tbench-mt-fat32-carved-extent-repair-chain:/tests
+$ docker exec -w /app tbench-mt-fat32-carved-extent-repair-chain bash /tests/test.sh
+FFF.                                                                     [100%]
+=================================== FAILURES ===================================
+_____________ test_public_manifest_matches_independent_chain_truth _____________
+
+    def test_public_manifest_matches_independent_chain_truth():
+>       manifest = json.loads((WORK / "files_manifest.json").read_text())
+
+/tests/test_outputs.py:206:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/files_manifest.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/files_manifest.json'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError
+____ test_restored_image_contains_exact_manifest_bytes_and_preserves_step1 _____
+
+    def test_restored_image_contains_exact_manifest_bytes_and_preserves_step1():
+        image = bytearray((WORK / "repaired.img").read_bytes())
+        geo = geometry(image)
+        one = image[geo["fat1"]:geo["fat1"] + geo["fat_bytes"]]
+        two = image[geo["fat2"]:geo["fat2"] + geo["fat_bytes"]]
+        assert one == two
+>       manifest = json.loads((WORK / "files_manifest.json").read_text())
+
+/tests/test_outputs.py:220:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/files_manifest.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/files_manifest.json'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError
+____________ test_carve_cli_accepts_disjoint_names_hashes_and_heads ____________
+
+    def test_carve_cli_accepts_disjoint_names_hashes_and_heads():
+        root = Path(tempfile.mkdtemp(prefix="fat32-s2-", dir="/tmp"))
+        try:
+            hidden = root / "hidden.img"
+            manifest_path = root / "manifest.json"
+            expected = make_hidden(hidden)
+            result = subprocess.run(
+                ["bash", str(WORK / "carve.sh"), str(hidden), str(manifest_path)],
+                cwd="/tmp", text=True, capture_output=True,
+                env={"PATH": "/usr/local/bin:/usr/bin:/bin"},
+            )
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: bash: /work/carve.sh: No such file or directory
+E
+E           assert 127 == 0
+E            +  where 127 = CompletedProcess(args=['bash', '/work/carve.sh', '/tmp/fat32-s2-3009dktc/hidden.img', '/tmp/fat32-s2-3009dktc/manifest.json'], returncode=127, stdout='', stderr='bash: /work/carve.sh: No such file or directory\n').returncode
+
+/tests/test_outputs.py:243: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_compatible_early_outcome_artifact_is_not_forbidden
+FAILED ../tests/test_outputs.py::test_public_manifest_matches_independent_chain_truth
+FAILED ../tests/test_outputs.py::test_restored_image_contains_exact_manifest_bytes_and_preserves_step1
+FAILED ../tests/test_outputs.py::test_carve_cli_accepts_disjoint_names_hashes_and_heads
+3 failed, 1 passed in 0.26s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="4" time="0.266" timestamp="2026-09-30T16:52:06.249672" hostname="a432e7a79087"><testcase classname="test_outputs" name="test_public_manifest_matches_independent_chain_truth" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/work/files_manifest.json'">def test_public_manifest_matches_independent_chain_truth():
+&gt;       manifest = json.loads((WORK / "files_manifest.json").read_text())
+
+/tests/test_outputs.py:206:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/files_manifest.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/files_manifest.json'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_restored_image_contains_exact_manifest_bytes_and_preserves_step1" time="0.041"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/work/files_manifest.json'">def test_restored_image_contains_exact_manifest_bytes_and_preserves_step1():
+        image = bytearray((WORK / "repaired.img").read_bytes())
+        geo = geometry(image)
+        one = image[geo["fat1"]:geo["fat1"] + geo["fat_bytes"]]
+        two = image[geo["fat2"]:geo["fat2"] + geo["fat_bytes"]]
+        assert one == two
+&gt;       manifest = json.loads((WORK / "files_manifest.json").read_text())
+
+/tests/test_outputs.py:220:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/files_manifest.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/files_manifest.json'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_carve_cli_accepts_disjoint_names_hashes_and_heads" time="0.101"><failure message="AssertionError: bash: /work/carve.sh: No such file or directory&#10;  &#10;assert 127 == 0&#10; +  where 127 = CompletedProcess(args=['bash', '/work/carve.sh', '/tmp/fat32-s2-3009dktc/hidden.img', '/tmp/fat32-s2-3009dktc/manifest.json'], returncode=127, stdout='', stderr='bash: /work/carve.sh: No such file or directory\n').returncode">def test_carve_cli_accepts_disjoint_names_hashes_and_heads():
+        root = Path(tempfile.mkdtemp(prefix="fat32-s2-", dir="/tmp"))
+        try:
+            hidden = root / "hidden.img"
+            manifest_path = root / "manifest.json"
+            expected = make_hidden(hidden)
+            result = subprocess.run(
+                ["bash", str(WORK / "carve.sh"), str(hidden), str(manifest_path)],
+                cwd="/tmp", text=True, capture_output=True,
+                env={"PATH": "/usr/local/bin:/usr/bin:/bin"},
+            )
+&gt;           assert result.returncode == 0, result.stderr
+E           AssertionError: bash: /work/carve.sh: No such file or directory
+E
+E           assert 127 == 0
+E            +  where 127 = CompletedProcess(args=['bash', '/work/carve.sh', '/tmp/fat32-s2-3009dktc/hidden.img', '/tmp/fat32-s2-3009dktc/manifest.json'], returncode=127, stdout='', stderr='bash: /work/carve.sh: No such file or directory\n').returncode
+
+/tests/test_outputs.py:243: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_compatible_early_outcome_artifact_is_not_forbidden" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests
+STEP 2 2_carve  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /solution
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/steps/2_carve/solution/. tbench-mt-fat32-carved-extent-repair-chain:/solution
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-fat32-carved-extent-repair-chain bash /solution/solve.sh
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /solution
+STEP 2 2_carve  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/steps/2_carve/tests/. tbench-mt-fat32-carved-extent-repair-chain:/tests
+$ docker exec -w /app tbench-mt-fat32-carved-extent-repair-chain bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_public_manifest_matches_independent_chain_truth
+PASSED ../tests/test_outputs.py::test_restored_image_contains_exact_manifest_bytes_and_preserves_step1
+PASSED ../tests/test_outputs.py::test_carve_cli_accepts_disjoint_names_hashes_and_heads
+PASSED ../tests/test_outputs.py::test_compatible_early_outcome_artifact_is_not_forbidden
+4 passed in 0.38s
+reward=1 (4 passed, 0 skipped)
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.387" timestamp="2026-09-30T16:52:07.879197" hostname="a432e7a79087"><testcase classname="test_outputs" name="test_public_manifest_matches_independent_chain_truth" time="0.069" /><testcase classname="test_outputs" name="test_restored_image_contains_exact_manifest_bytes_and_preserves_step1" time="0.040" /><testcase classname="test_outputs" name="test_carve_cli_accepts_disjoint_names_hashes_and_heads" time="0.238" /><testcase classname="test_outputs" name="test_compatible_early_outcome_artifact_is_not_forbidden" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests
+STEP 2 2_carve  GREEN       OK    4 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/steps/3_verify/tests/. tbench-mt-fat32-carved-extent-repair-chain:/tests
+$ docker exec -w /app tbench-mt-fat32-carved-extent-repair-chain bash /tests/test.sh
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+__________ test_public_outcome_recomputes_rows_hashes_and_cleanliness __________
+
+    def test_public_outcome_recomputes_rows_hashes_and_cleanliness():
+        manifest = json.loads((WORK / "files_manifest.json").read_text())
+        total = expected_total(WORK / "repaired.img", manifest)
+>       assert (WORK / "outcome.txt").read_bytes() == f"FS_CLEAN ROWS={total} HASHES_OK\n".encode()
+
+/tests/test_outputs.py:165:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/outcome.txt'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/outcome.txt'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError
+________________ test_verify_cli_recomputes_disjoint_row_total _________________
+
+    def test_verify_cli_recomputes_disjoint_row_total():
+        root = Path(tempfile.mkdtemp(prefix="fat32-s3-", dir="/tmp"))
+        try:
+            manifest = json.loads((WORK / "files_manifest.json").read_text())
+            hidden_image = root / "hidden.img"
+            hidden_manifest = make_hidden(WORK / "repaired.img", manifest, hidden_image)
+            manifest_path = root / "manifest.json"
+            manifest_path.write_text(json.dumps(hidden_manifest) + "\n")
+            outcome = root / "outcome.txt"
+            expected = expected_total(hidden_image, hidden_manifest)
+            result = subprocess.run(
+                ["bash", str(WORK / "verify.sh"), str(hidden_image), str(manifest_path), str(outcome)],
+                cwd="/tmp", text=True, capture_output=True,
+                env={"PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"},
+            )
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: bash: /work/verify.sh: No such file or directory
+E
+E           assert 127 == 0
+E            +  where 127 = CompletedProcess(args=['bash', '/work/verify.sh', '/tmp/fat32-s3-uztfpgya/hidden.img', '/tmp/fat32-s3-uztfpgya/manifes...at32-s3-uztfpgya/outcome.txt'], returncode=127, stdout='', stderr='bash: /work/verify.sh: No such file or directory\n').returncode
+
+/tests/test_outputs.py:186: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_prior_manifest_and_carve_artifacts_remain_valid
+FAILED ../tests/test_outputs.py::test_public_outcome_recomputes_rows_hashes_and_cleanliness
+FAILED ../tests/test_outputs.py::test_verify_cli_recomputes_disjoint_row_total
+2 failed, 1 passed in 0.23s
+reward=0 (2 failed, 0 errored)
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.236" timestamp="2026-09-30T16:52:09.052682" hostname="a432e7a79087"><testcase classname="test_outputs" name="test_public_outcome_recomputes_rows_hashes_and_cleanliness" time="0.036"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/work/outcome.txt'">def test_public_outcome_recomputes_rows_hashes_and_cleanliness():
+        manifest = json.loads((WORK / "files_manifest.json").read_text())
+        total = expected_total(WORK / "repaired.img", manifest)
+&gt;       assert (WORK / "outcome.txt").read_bytes() == f"FS_CLEAN ROWS={total} HASHES_OK\n".encode()
+
+/tests/test_outputs.py:165:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/work/outcome.txt'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/outcome.txt'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_verify_cli_recomputes_disjoint_row_total" time="0.127"><failure message="AssertionError: bash: /work/verify.sh: No such file or directory&#10;  &#10;assert 127 == 0&#10; +  where 127 = CompletedProcess(args=['bash', '/work/verify.sh', '/tmp/fat32-s3-uztfpgya/hidden.img', '/tmp/fat32-s3-uztfpgya/manifes...at32-s3-uztfpgya/outcome.txt'], returncode=127, stdout='', stderr='bash: /work/verify.sh: No such file or directory\n').returncode">def test_verify_cli_recomputes_disjoint_row_total():
+        root = Path(tempfile.mkdtemp(prefix="fat32-s3-", dir="/tmp"))
+        try:
+            manifest = json.loads((WORK / "files_manifest.json").read_text())
+            hidden_image = root / "hidden.img"
+            hidden_manifest = make_hidden(WORK / "repaired.img", manifest, hidden_image)
+            manifest_path = root / "manifest.json"
+            manifest_path.write_text(json.dumps(hidden_manifest) + "\n")
+            outcome = root / "outcome.txt"
+            expected = expected_total(hidden_image, hidden_manifest)
+            result = subprocess.run(
+                ["bash", str(WORK / "verify.sh"), str(hidden_image), str(manifest_path), str(outcome)],
+                cwd="/tmp", text=True, capture_output=True,
+                env={"PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"},
+            )
+&gt;           assert result.returncode == 0, result.stderr
+E           AssertionError: bash: /work/verify.sh: No such file or directory
+E
+E           assert 127 == 0
+E            +  where 127 = CompletedProcess(args=['bash', '/work/verify.sh', '/tmp/fat32-s3-uztfpgya/hidden.img', '/tmp/fat32-s3-uztfpgya/manifes...at32-s3-uztfpgya/outcome.txt'], returncode=127, stdout='', stderr='bash: /work/verify.sh: No such file or directory\n').returncode
+
+/tests/test_outputs.py:186: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_prior_manifest_and_carve_artifacts_remain_valid" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests
+STEP 3 3_verify  DO-NOTHING  OK    red before the work (3 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /solution
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/steps/3_verify/solution/. tbench-mt-fat32-carved-extent-repair-chain:/solution
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-fat32-carved-extent-repair-chain bash /solution/solve.sh
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /solution
+STEP 3 3_verify  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/steps/3_verify/tests/. tbench-mt-fat32-carved-extent-repair-chain:/tests
+$ docker exec -w /app tbench-mt-fat32-carved-extent-repair-chain bash /tests/test.sh
+...                                                                      [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_public_outcome_recomputes_rows_hashes_and_cleanliness
+PASSED ../tests/test_outputs.py::test_verify_cli_recomputes_disjoint_row_total
+PASSED ../tests/test_outputs.py::test_prior_manifest_and_carve_artifacts_remain_valid
+3 passed in 0.25s
+reward=1 (3 passed, 0 skipped)
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="3" time="0.256" timestamp="2026-09-30T16:52:10.544704" hostname="a432e7a79087"><testcase classname="test_outputs" name="test_public_outcome_recomputes_rows_hashes_and_cleanliness" time="0.037" /><testcase classname="test_outputs" name="test_verify_cli_recomputes_disjoint_row_total" time="0.189" /><testcase classname="test_outputs" name="test_prior_manifest_and_carve_artifacts_remain_valid" time="0.000" /></testsuite></testsuites>
+$ docker exec tbench-mt-fat32-carved-extent-repair-chain rm -rf /tests
+STEP 3 3_verify  GREEN       OK    3 executed, 0 skipped, 0 failed, 0 errored
+STEP 1 1_triage  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+STEP 2 2_carve  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+$ docker rm -f tbench-mt-fat32-carved-extent-repair-chain
+tbench-mt-fat32-carved-extent-repair-chain
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/fat32-carved-extent-repair/.validation/chain-20260930T165200Z.json

@@ -1,0 +1,11 @@
+CONTROL alt_s1_reorder ACCEPT
+CONTROL alt_s2_subset ACCEPT
+CONTROL alt_s3_table ACCEPT
+CONTROL mutant_split255 REJECT
+CONTROL mutant_fe_run REJECT
+CONTROL mutant_empty REJECT
+CONTROL delegation_exact REJECT
+CONTROL delegation_renamed REJECT
+CONTROL delegation_light REJECT
+CONTROL delegation_wrapper REJECT
+controls complete: 3 alternatives accepted; 7 mutants rejected

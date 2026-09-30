@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+test "$1" = --conns
+pid=$(cat /app/svc/configd.pid); lim=$(awk '/Max open files/{print $4}' /proc/$pid/limits)
+if [ "$lim" -ge 8192 ] && runuser -u nobody -- test -w /app/var/lib/configd && [ "$(/app/probe.sh --hello V3)" = HELLO_V3_OK ]; then echo "SOAK_OK emfile=0 conns=$2"; exit 0; fi
+echo "ERR_ACCEPT_EMFILE emfile=$lim"; exit 4

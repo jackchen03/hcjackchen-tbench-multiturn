@@ -1,0 +1,81 @@
+{
+  "task": "fat32-carved-extent-repair",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-fat32-carved-extent-repair:validate"
+    },
+    {
+      "step": "1_triage",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "1_triage",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_triage",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_carve",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 3 failed, 0 errored"
+    },
+    {
+      "step": "2_carve",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_carve",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "3_verify",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "3_verify",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "3_verify",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "3 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_triage",
+      "phase": "OVER-EXEC",
+      "status": "NOT_REQUIRED",
+      "detail": "current instruction has no explicit prohibition overlapping successor behavior"
+    },
+    {
+      "step": "2_carve",
+      "phase": "OVER-EXEC",
+      "status": "NOT_REQUIRED",
+      "detail": "current instruction has no explicit prohibition overlapping successor behavior"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

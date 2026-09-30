@@ -1,0 +1,147 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-09-30T16:53:30.421456Z",
+    "harbor": {},
+    "invocation": [
+        "/usr/local/bin/__codimango__resources/aai__codimango_cli__bench/codimango-bench.par",
+        "bench",
+        "run",
+        "-p",
+        "fat32-carved-extent-repair",
+        "-a",
+        "oracle",
+        "-k",
+        "3",
+        "-o",
+        "fat32-carved-extent-repair/.validation/oracle-x3-job",
+        "--json"
+    ],
+    "n_concurrent_trials": 3,
+    "retry": {
+        "max_retries": 3,
+        "include_exceptions": [
+            "AgentInstallError",
+            "AgentSetupTimeoutError",
+            "EnvironmentStartTimeoutError"
+        ],
+        "exclude_exceptions": [
+            "AgentTimeoutError",
+            "RewardFileEmptyError",
+            "RewardFileNotFoundError",
+            "VerifierTimeoutError",
+            "VerifierOutputParseError",
+            "EnsureDirsError"
+        ],
+        "wait_multiplier": 2.0,
+        "min_wait_sec": 10.0,
+        "max_wait_sec": 120.0,
+        "replay_stop_after_consecutive": 0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "fat32-carved-extent-repair",
+                "type": "local",
+                "digest": "sha256:a6164c82ffa719bf7e8da5f9e981c948a8d3b8c55bc4a9700867853d952051b1",
+                "path": "fat32-carved-extent-repair"
+            },
+            "start_step": 1,
+            "restore_checkpoint_session": true,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "model_name": "oracle",
+                "skills": [],
+                "skills_remove": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "mounts": [],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "fat32-carved-extent-repair",
+                "type": "local",
+                "digest": "sha256:a6164c82ffa719bf7e8da5f9e981c948a8d3b8c55bc4a9700867853d952051b1",
+                "path": "fat32-carved-extent-repair"
+            },
+            "start_step": 1,
+            "restore_checkpoint_session": true,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "model_name": "oracle",
+                "skills": [],
+                "skills_remove": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "mounts": [],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "fat32-carved-extent-repair",
+                "type": "local",
+                "digest": "sha256:a6164c82ffa719bf7e8da5f9e981c948a8d3b8c55bc4a9700867853d952051b1",
+                "path": "fat32-carved-extent-repair"
+            },
+            "start_step": 1,
+            "restore_checkpoint_session": true,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "model_name": "oracle",
+                "skills": [],
+                "skills_remove": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "mounts": [],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+record GEN_S21 ACCEPT in=343 tape=29 runs=5 lens=[127, 73, 5, 127, 3] trailers=[0, 4, 13, 17, 21, 28] sha=9d891a50
+record GEN_S22 ACCEPT in=10 tape=10 runs=1 lens=[5] trailers=[2, 9] sha=83f106e7
+record GEN_S23 ACCEPT in=11 tape=12 runs=0 lens=[] trailers=[11] sha=9e1b0435
+record GEN_S31 ACCEPT in=6 tape=10 runs=0 lens=[] trailers=[9] sha=4733b0c8
+record GEN_S32 ACCEPT in=5 tape=11 runs=0 lens=[] trailers=[10] sha=80915a7c
+record GEN_S33 ACCEPT in=7 tape=8 runs=1 lens=[5] trailers=[0, 7] sha=4e8911b6
+record GEN_S34 ACCEPT in=5 tape=6 runs=0 lens=[] trailers=[5] sha=4c874d2f
+record GEN_S81 ACCEPT in=218 tape=22 runs=3 lens=[127, 23, 60] trailers=[0, 4, 13, 21] sha=42e93a64
+record GEN_S82 ACCEPT in=435 tape=28 runs=5 lens=[127, 127, 46, 4, 127] trailers=[0, 4, 8, 16, 23, 27] sha=c28a3047
+record starter_s1 REJECT naive tape=18 vs truth tape=29 first-diff=0
+record starter_s2 REJECT naive TOKEN_FE fails edge 31 and WHOLE_STREAM fails reset seed 33
+record starter_s3 REJECT naive port on held-out seed 81: got=14 truth=22 first-diff=0
+record mutant_SPLIT_255 REJECT split-255 got=21 truth=29 first-diff=2
+record mutant_SPLIT_128 REJECT split-128 got=29 truth=29 first-diff=2
+record mutant_NO_TRAILER REJECT no-trailer got=23 truth=29 first-diff=0
+record mutant_FE_RUN REJECT FE tokens got=12 truth=10 first-diff=1
+record mutant_CRC_ALL REJECT whole-stream CHK got=8 truth=8 first-diff=0
+record mutant_CRC_TOKEN REJECT token-cover CHK got=8 truth=8 first-diff=7
+record mutant_HARDCODE_PUB REJECT canned public tape=29 vs held-out truth=22
+record mutant_EMPTY_OUT REJECT empty output vs truth=22 bytes
+record trans_12_under REJECT carried SPLITCAP 255 predicts trailers [0, 9, 13, 20] vs truth [0, 4, 13, 17, 21, 28]
+record trans_23_under REJECT carried rules TOKEN_FE+WHOLE_STREAM break held-out encode first-diff=0
+record control_s1 ACCEPT run table holds lens=[127, 73, 5, 127, 3] trailers=[0, 4, 13, 17, 21, 28] size=29
+record control_s2 ACCEPT edge rules hold 31:fe=3,trk=1 32:fe=5,trk=1 33:fe=1,trk=2 34:fe=0,trk=1
+record control_s3 ACCEPT spec encoder matches held-out seeds 81 and 82
+record alt_s1_reorder ACCEPT reordered blocks 23,22,21 with blank lines parse to identical rows
+record alt_s2_subset ACCEPT variant subsets escape=[8, 9] checksum=[13, 17, 21, 28] validate
+record alt_s3_table ACCEPT table encoder matches held-out seeds 81 and 82
+record reg_12 ACCEPT s1-run-table green on held-out mix lens=[127, 23, 60]
+record reg_23 ACCEPT s2-edge-rules green on held-out mix fe=1 trk=4
+record iface_s1 ACCEPT od verified 343 input bytes and 29 tape bytes
+record iface_s2 ACCEPT wc verified sizes in=5 tape=11
+record iface_s3 ACCEPT encoder CLI shape ok with exit 0 on seeds 81,82
+record fix_s1a ACCEPT fixture seed=21 in=343 tape=29 runs=5 lens=[127, 73, 5, 127, 3]
+record fix_s1b ACCEPT fixture seed=23 in=11 tape=12 runs=0 lens=[]
+record fix_s2a ACCEPT fixture seed=31 in=6 tape=10 fe=3
+record fix_s2b ACCEPT fixture seed=32 in=5 tape=11 fe=5
+record fix_s3a ACCEPT fixture seed=81 in=218 tape=22 runs=[127, 23, 60] disjoint
+record fix_s3b ACCEPT fixture seed=82 in=435 tape=28 runs=[127, 127, 46, 4, 127] disjoint
+record runtime_premise ACCEPT python=3.12.14+meta od (GNU coreutils) 8.32 tools=od,wc,cmp

@@ -1,0 +1,23 @@
+{
+  "schema": "fat32-phase2-host-controls-v1",
+  "bundle_fingerprint": "bundle-sha256-v1:cf8cc00ca1864ebccfb89785f318c5fc89fb37ce426d3d9fb24ade1fa6beeb92",
+  "valid_alternatives": [
+    {"name": "alt_dd_cmp", "step": 1, "status": "ACCEPTED", "reward": 1},
+    {"name": "alt_chain_copy", "step": 2, "status": "ACCEPTED", "reward": 1},
+    {"name": "alt_raw_read", "step": 3, "status": "ACCEPTED", "reward": 1}
+  ],
+  "rejected_mutants": [
+    {"name": "mutant_fscka", "step": 1, "status": "REJECTED", "reward": 0},
+    {"name": "mutant_fit_range", "step": 1, "status": "REJECTED", "reward": 0},
+    {"name": "mutant_hardcode_decision", "step": 1, "status": "REJECTED", "reward": 0},
+    {"name": "mutant_c2start", "step": 2, "status": "REJECTED", "reward": 0},
+    {"name": "mutant_first_extent", "step": 2, "status": "REJECTED", "reward": 0},
+    {"name": "mutant_fit_head", "step": 2, "status": "REJECTED", "reward": 0},
+    {"name": "mutant_hardcode_manifest", "step": 2, "status": "REJECTED", "reward": 0},
+    {"name": "mutant_photorec", "step": 2, "status": "REJECTED", "reward": 0},
+    {"name": "mutant_listonly", "step": 3, "status": "REJECTED", "reward": 0},
+    {"name": "mutant_hardcode_rows", "step": 3, "status": "REJECTED", "reward": 0}
+  ],
+  "runner": ".validation/host-control-matrix.sh",
+  "result": "PASS"
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "escape-rle-tape-codec",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {"path": "steps/1_detect/instruction.md", "baseline_sha256": "5139ca0fd59592be578bd728d57488b5c6c7199af9dcdf92c580295cb5e42c10", "current_sha256": "5139ca0fd59592be578bd728d57488b5c6c7199af9dcdf92c580295cb5e42c10"},
+    {"path": "steps/2_isolate/instruction.md", "baseline_sha256": "ee03c9691605a5597b37faa20ddd74857604276652b1bb7385098356e1cd44b9", "current_sha256": "ee03c9691605a5597b37faa20ddd74857604276652b1bb7385098356e1cd44b9"},
+    {"path": "steps/3_implement/instruction.md", "baseline_sha256": "6e33af5ec42f4417ab7150faa668cdf53608cc826997deabb5fc1dc5143c7479", "current_sha256": "6e33af5ec42f4417ab7150faa668cdf53608cc826997deabb5fc1dc5143c7479"}
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/phase2-mt-reaudit-20260930/escape-rle-tape-codec",
+    "inputs_sha256": {
+      "dossier.md": "dacb048eb7333ce8e4128d9596e0278a88c481680d1d708c05c272130d960d89",
+      "environment.spec.md": "6dadd67db02af46b14a692112c7ed9570bd593ae36635ec50ca1d489d694488b",
+      ".meta/handoff.json": "a2a3a5ae5006fde3b64ac633543bd73ab8f05a95681f9b7ac74a5f6367a6d2a2",
+      "evidence/coverage.json": "50d11729c52533fa8bd029dfa586f964b723c14bf03e27ed257a5587d8423784"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:5eb5ea3bbea24e3c44d6ee44aa2577389379e67428b53c390bbeb0f87518b500",
+  "contract_map": {"rows": 8, "mapped": 8, "non_unique_surfaces": 3, "valid_alternatives_covered": 3, "evidence": ".validation/contract-map.md"},
+  "findings": [
+    {"id": "REFERENCE_DELEGATION", "disposition": "FIXED", "evidence": [".validation/controls-v1.log", ".validation/runtime-audit-final.log"]},
+    {"id": "OVEREXEC_1_2", "disposition": "NOT_APPLICABLE", "evidence": [".validation/chain-20260930T195823Z.json"]},
+    {"id": "OVEREXEC_2_3", "disposition": "NOT_APPLICABLE", "evidence": [".validation/chain-20260930T195823Z.json"]}
+  ],
+  "proof": {
+    "static": {"status": "PASS", "evidence": ".validation/static-final.log"},
+    "starter": {"status": "REJECTED", "executed": 6, "skipped": 0, "evidence": ".validation/chain-20260930T195823Z.json"},
+    "oracle_runs": [
+      {"run_id": "escape-rle-tape-codec__3iAo69j", "status": "PASS", "evidence": ".validation/oracle-x3.md"},
+      {"run_id": "escape-rle-tape-codec__5z9qNLR", "status": "PASS", "evidence": ".validation/oracle-x3.md"},
+      {"run_id": "escape-rle-tape-codec__8gbvh92", "status": "PASS", "evidence": ".validation/oracle-x3.md"}
+    ],
+    "valid_alternatives": [
+      {"name": "alt_s1_reorder", "status": "ACCEPTED", "evidence": ".validation/controls-v1.log"},
+      {"name": "alt_s2_subset", "status": "ACCEPTED", "evidence": ".validation/controls-v1.log"},
+      {"name": "alt_s3_table", "status": "ACCEPTED", "evidence": ".validation/controls-v1.log"}
+    ],
+    "rejected_mutants": [
+      {"name": "mutant_SPLIT_255", "status": "REJECTED", "finding_ids": ["REFERENCE_DELEGATION"], "evidence": ".validation/controls-v1.log"},
+      {"name": "mutant_FE_RUN", "status": "REJECTED", "finding_ids": ["REFERENCE_DELEGATION"], "evidence": ".validation/controls-v1.log"},
+      {"name": "delegation_exact_renamed_light_wrapper", "status": "REJECTED", "finding_ids": ["REFERENCE_DELEGATION"], "evidence": ".validation/controls-v1.log"}
+    ],
+    "public_hidden_disjoint": {"status": "PASS", "evidence": ".validation/phase1-controls-fresh.log"},
+    "grader_isolation": {"status": "PASS", "evidence": ".validation/runtime-audit-final.log"},
+    "hygiene": {"status": "PASS", "evidence": ".validation/hygiene-final.log"},
+    "projected_fingerprint": {"status": "PASS", "value": "bundle-sha256-v1:5eb5ea3bbea24e3c44d6ee44aa2577389379e67428b53c390bbeb0f87518b500", "evidence": ".validation/projected-final.log"}
+  },
+  "transitions": [
+    {"boundary": "1->2", "entry_state": "valid S1 report", "carried_artifacts": ["/app/report_S1.md"], "mutated_artifacts": [], "read_only_artifacts": ["/app/report_S1.md"], "override": "none", "retirement": "none", "future_isolation": "S2 report absent initially", "prior_regressions": ["S1 report remains valid"], "over_exec_status": "NOT_REQUIRED", "evidence": ".validation/chain-20260930T195823Z.json"},
+    {"boundary": "2->3", "entry_state": "valid S1 and S2 reports", "carried_artifacts": ["/app/report_S1.md", "/app/report_S2.md"], "mutated_artifacts": [], "read_only_artifacts": ["/app/report_S1.md", "/app/report_S2.md"], "override": "none", "retirement": "reference quarantined during grading", "future_isolation": "encoder absent initially and reference inaccessible during candidate run", "prior_regressions": ["S1/S2 reports remain valid"], "over_exec_status": "NOT_REQUIRED", "evidence": ".validation/chain-20260930T195823Z.json"}
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

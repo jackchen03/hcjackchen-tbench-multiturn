@@ -1,0 +1,24 @@
+{
+  "schema": "heavy-hitter-phase2-host-controls-v1",
+  "bundle_fingerprint": "bundle-sha256-v1:35b8eb86a7efec7902cf03ef4c6270f067f01bfaac7dd25142f4ad3a41063e3a",
+  "valid_alternatives": [
+    {"name": "alt_sorted_key", "step": 1, "status": "ACCEPTED"},
+    {"name": "alt_independent_measure", "step": 2, "status": "ACCEPTED"},
+    {"name": "alt_array_cms", "step": 3, "status": "ACCEPTED"}
+  ],
+  "rejected_mutants": [
+    {"name": "mutant_most_common", "step": 1, "status": "REJECTED"},
+    {"name": "mutant_public_hardcode", "step": 1, "status": "REJECTED"},
+    {"name": "mutant_abs_time", "step": 2, "status": "REJECTED"},
+    {"name": "mutant_no_quote", "step": 2, "status": "REJECTED"},
+    {"name": "mutant_sampled_dict", "step": 3, "status": "REJECTED"},
+    {"name": "mutant_narrow_cms", "step": 3, "status": "REJECTED"},
+    {"name": "mutant_exact_as_approx", "step": 3, "status": "REJECTED"},
+    {"name": "mutant_int_cms_memory", "step": 3, "status": "REJECTED"},
+    {"name": "mutant_hardcoded_approx", "step": 3, "status": "REJECTED"},
+    {"name": "mutant_fabricated_time", "step": 3, "status": "REJECTED"},
+    {"name": "mutant_wrong_citation", "step": 3, "status": "REJECTED"}
+  ],
+  "evidence": ".validation/host-controls.log",
+  "result": "PASS"
+}
