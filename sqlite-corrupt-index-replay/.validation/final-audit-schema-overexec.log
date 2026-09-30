@@ -1,0 +1,42 @@
+{
+  "s1": {
+    "expected": "REJECT",
+    "matched": false,
+    "name": "audit-s1-extra-schema",
+    "observed": "ACCEPT",
+    "tests": [
+      {
+        "name": "test_recovered_primary_database_is_integral_and_durable",
+        "passed": true
+      },
+      {
+        "name": "test_recovery_report_has_exact_strict_contract",
+        "passed": true
+      },
+      {
+        "name": "test_configuration_is_crash_safe",
+        "passed": true
+      },
+      {
+        "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+        "passed": true
+      }
+    ]
+  },
+  "s2": {
+    "expected": "REJECT",
+    "matched": false,
+    "name": "audit-s2-extra-schema",
+    "observed": "ACCEPT",
+    "tests": [
+      {
+        "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+        "passed": true
+      },
+      {
+        "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+        "passed": true
+      }
+    ]
+  }
+}

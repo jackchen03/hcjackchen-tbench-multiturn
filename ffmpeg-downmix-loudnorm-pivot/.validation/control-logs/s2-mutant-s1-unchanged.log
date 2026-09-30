@@ -1,0 +1,66 @@
+$ docker run ...
+4d34ec2e38e1018e43045366093bd2dd56d6e22676c4a4bd0720df9706f04565
+
+$ docker cp private test/solution trees
+
+$ /solution1/solve.sh
+
+$ /tests1/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_clean_downmix_contract_and_stage_next_turn
+1 passed in 4.04s
+reward=1 (1 passed, 0 skipped)
+
+$ install control
+
+$ public pair setup
+
+$ /tests2/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________________ test_loudness_pivot_and_step1_regressions ___________________
+
+    def test_loudness_pivot_and_step1_regressions():
+        shutil.rmtree(str(SCRATCH), ignore_errors=True)
+        SCRATCH.mkdir(parents=True)
+        SCRATCH.chmod(0o777)
+        for required in ("mix.wav", "episodeB.wav", "broadcast_spec.txt", "mixA.wav", "mixB.wav"):
+            assert (APP / required).is_file(), "/app/%s is missing" % required
+        assert_carried_hash(APP / "mix.wav", STATE / "mix.sha256")
+        assert_carried_hash(APP / "episodeB.wav", STATE / "episodeB.sha256")
+
+>       assert_broadcast_pair(
+            [APP / "mix.wav", APP / "episodeB.wav"],
+            [APP / "mixA.wav", APP / "mixB.wav"],
+            "carried pair",
+        )
+
+/tests2/test_outputs.py:310:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+inputs = [PosixPath('/app/mix.wav'), PosixPath('/app/episodeB.wav')]
+outputs = [PosixPath('/app/mixA.wav'), PosixPath('/app/mixB.wav')]
+label = 'carried pair'
+
+    def assert_broadcast_pair(inputs, outputs, label):
+        measured = []
+        for index, (source, output) in enumerate(zip(inputs, outputs)):
+            assert Path(output).is_file() and Path(output).stat().st_size > 0
+            integrated, true_peak = loudnorm_measure(output)
+            crosscheck = ebur128_loudness(output)
+>           assert -16.5 <= integrated <= -15.5, "%s[%d] LUFS=%s" % (label, index, integrated)
+E           AssertionError: carried pair[0] LUFS=-21.41
+E           assert -16.5 <= -21.41
+
+/tests2/test_outputs.py:183: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests2/test_outputs.py::test_loudness_pivot_and_step1_regressions
+1 failed in 0.76s
+reward=0 (1 failed, 0 errored)
+
+$ docker rm -f
+ffctrl-2487116-15

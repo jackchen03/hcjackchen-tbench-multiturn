@@ -1,0 +1,61 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "ffmpeg-downmix-loudnorm-pivot",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {"path": "steps/1_fix_downmix/instruction.md", "baseline_sha256": "f5fcdb9c443484ea6358de3061b0a6e8f5923139c81f6dd16ef287289311e8b3", "current_sha256": "f5fcdb9c443484ea6358de3061b0a6e8f5923139c81f6dd16ef287289311e8b3"},
+    {"path": "steps/2_loudnorm_pivot/instruction.md", "baseline_sha256": "023426e78545b30d251cb56541a51f019fd3576007b67349be23d5310bcbf471", "current_sha256": "023426e78545b30d251cb56541a51f019fd3576007b67349be23d5310bcbf471"}
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot",
+    "inputs_sha256": {
+      "dossier.md": "66513d8ea64a53015d56edd02f8e32bc3f7da15cc3813c4ac69bcb6564cffae8",
+      "environment.spec.md": "57035a1ec92d6949143e7e5daac0c620f6c27da4fcf7b83d10ae075f5bf31bdd",
+      ".meta/handoff.json": "1aeba5c97f31caffd1c9e07c3254608988261875a0303f4bfbef5e5abacde603"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:06fb263d455d1f5b3a94e495e982db33d0c9c7df993539e638d8cc891671250f",
+  "contract_map": {"rows": 6, "mapped": 6, "non_unique_surfaces": 2, "valid_alternatives_covered": 2, "evidence": ".validation/phase2-findings.md"},
+  "findings": [],
+  "proof": {
+    "static": {"status": "PASS", "evidence": ".validation/static-closure.log"},
+    "starter": {"status": "REJECTED", "executed": 2, "skipped": 0, "evidence": ".validation/chain-20260930T171231Z.json"},
+    "oracle_runs": [
+      {"run_id": "20260930T171231Z", "status": "PASS", "evidence": ".validation/chain-20260930T171231Z.json"},
+      {"run_id": "20260930T171249Z", "status": "PASS", "evidence": ".validation/chain-20260930T171249Z.json"},
+      {"run_id": "20260930T171306Z", "status": "PASS", "evidence": ".validation/chain-20260930T171306Z.json"}
+    ],
+    "valid_alternatives": [
+      {"name": "awk-dsp-linear", "status": "ACCEPTED", "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "dual-pass-loudnorm", "status": "ACCEPTED", "evidence": ".validation/exact-grader-controls-v1.json"}
+    ],
+    "rejected_mutants": [
+      {"name": "naive-oneliner", "status": "REJECTED", "finding_ids": ["FF-S1-DISCRIMINATION"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "public-path-hardcode", "status": "REJECTED", "finding_ids": ["FF-HIDDEN-DISJOINT"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "peak-only", "status": "REJECTED", "finding_ids": ["FF-S2-DISCRIMINATION"], "evidence": ".validation/exact-grader-controls-v1.json"}
+    ],
+    "public_hidden_disjoint": {"status": "PASS", "evidence": ".validation/exact-grader-controls-summary.md"},
+    "grader_isolation": {"status": "PASS", "evidence": ".validation/exact-grader-controls-summary.md"},
+    "hygiene": {"status": "PASS", "evidence": ".validation/hygiene-closure.log"},
+    "projected_fingerprint": {"status": "PASS", "value": "bundle-sha256-v1:06fb263d455d1f5b3a94e495e982db33d0c9c7df993539e638d8cc891671250f", "evidence": ".validation/fingerprint-closure.log"}
+  },
+  "transitions": [
+    {
+      "from": "1_fix_downmix",
+      "to": "2_loudnorm_pivot",
+      "entry_state": "Step-1 downmix.sh and mix.wav",
+      "carried_read_only": ["mix.wav", "audio_spec.txt"],
+      "mutated": ["downmix.sh"],
+      "added": ["mixA.wav", "mixB.wav"],
+      "override": "loudness targeting supersedes peak targeting while waveform constraints remain",
+      "retirement": "none",
+      "future_isolation": "episodeB.wav and broadcast_spec.txt appear only after Step-1 success",
+      "prior_step_regressions": "Step 2 rechecks both outputs against all Step-1 waveform contracts",
+      "over_exec_status": "NOT_REQUIRED",
+      "over_exec_justification": "Step 1 has no prohibition against a compatible loudness-processing superset",
+      "evidence": ".validation/exact-grader-controls-summary.md"
+    }
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

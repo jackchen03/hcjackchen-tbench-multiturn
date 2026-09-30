@@ -1,0 +1,17 @@
+{
+  "schema": "tbench-multiturn-pass3-proof-v1",
+  "result": "PASS",
+  "run_id": "phase2-v9-presubmit-20260930",
+  "task": "ffmpeg-downmix-loudnorm-pivot",
+  "validation_state": "uncommitted dedicated worktree at 448d1b0c2b40d4b800b094d5e23e092426d17747",
+  "bundle_fingerprint": "bundle-sha256-v1:06fb263d455d1f5b3a94e495e982db33d0c9c7df993539e638d8cc891671250f",
+  "build_closure": {"evidence_path": ".validation/build-closure-v1.json", "sha256": "fa0f43d17334922b629ff056bff35e81eb7216f35df7bc3d5d54174594f1aa3e", "result": "PASS"},
+  "final_audit": {"evidence_path": ".validation/final-audit-v1.json", "sha256": "c07b5d49818dd57eb8cb08a2c4282ca5fe46a38657e064f06d43df0c6c8ad09f", "result": "PASS"},
+  "preflight": {"evidence_path": ".validation/submission-preflight-v1.json", "sha256": "a463ca0eb7c0de5aff35218c6a26c4ed7ab322de1379cdbb3790fb7db859ae5c", "result": "PASS"},
+  "oracle_x3": {"evidence_path": ".validation/oracle-x3-v1.json", "sha256": "dbec6c4168c3db4776f829444be05d1511dc463f108456a7dddd6cedf7284490", "result": "PASS"},
+  "adjacent_boundaries": [
+    {"transition": "1_fix_downmix->2_loudnorm_pivot", "under_execution": {"result": "PASS"}, "over_execution": {"result": "NOT_REQUIRED", "reason": "compatible supersets are permitted"}, "evidence_path": ".validation/final-audit-v1.json"}
+  ],
+  "mutants": [{"evidence_path": ".validation/exact-grader-controls-v1.json", "sha256": "5fdef7847aaed36fe3e04fde9319bc477787f48107d49e09e419116205dd8fef", "result": "REJECTED", "count": 11}],
+  "proof_evidence": [".validation/build-closure-v1.json", ".validation/final-audit-v1.json", ".validation/oracle-x3-v1.json", ".validation/submission-preflight-v1.json", ".validation/exact-grader-controls-v1.json"]
+}

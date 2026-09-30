@@ -1,0 +1,140 @@
+== oracle chain: ffmpeg-downmix-loudnorm-pivot (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-ffmpeg-downmix-loudnorm-pivot:validate /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/environment
+sha256:cca3f47ce47cddbc3583417ac55820440fe5a369a9e1553843692d7b98e828a2
+$ docker rm -f tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain
+$ docker run -d --name tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain tbench-mt-ffmpeg-downmix-loudnorm-pivot:validate sleep infinity
+f0bc9d1d2abc6875c754ce17857580cf24f33c27793afcbd1ca247cfa7dc9f46
+NETWORK_POLICY docker run --network none
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/steps/1_fix_downmix/tests/. tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain bash /tests/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________ test_clean_downmix_contract_and_stage_next_turn ________________
+
+    def test_clean_downmix_contract_and_stage_next_turn():
+        shutil.rmtree(str(SCRATCH), ignore_errors=True)
+        SCRATCH.mkdir(parents=True)
+>       assert (APP / "mix.wav").is_file(), "/app/mix.wav was not produced"
+E       AssertionError: /app/mix.wav was not produced
+E       assert False
+E        +  where False = is_file()
+E        +    where is_file = (PosixPath('/app') / 'mix.wav').is_file
+
+/tests/test_outputs.py:236: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_clean_downmix_contract_and_stage_next_turn
+1 failed in 0.03s
+reward=0 (1 failed, 0 errored)
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.037" timestamp="2026-09-30T17:13:08.186596+00:00" hostname="f0bc9d1d2abc"><testcase classname="test_outputs" name="test_clean_downmix_contract_and_stage_next_turn" time="0.002"><failure message="AssertionError: /app/mix.wav was not produced&#10;assert False&#10; +  where False = is_file()&#10; +    where is_file = (PosixPath('/app') / 'mix.wav').is_file">def test_clean_downmix_contract_and_stage_next_turn():
+        shutil.rmtree(str(SCRATCH), ignore_errors=True)
+        SCRATCH.mkdir(parents=True)
+&gt;       assert (APP / "mix.wav").is_file(), "/app/mix.wav was not produced"
+E       AssertionError: /app/mix.wav was not produced
+E       assert False
+E        +  where False = is_file()
+E        +    where is_file = (PosixPath('/app') / 'mix.wav').is_file
+
+/tests/test_outputs.py:236: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /tests
+STEP 1 1_fix_downmix  DO-NOTHING  OK    red before the work (1 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/steps/1_fix_downmix/solution/. tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain:/solution
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /solution
+STEP 1 1_fix_downmix  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/steps/1_fix_downmix/tests/. tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain bash /tests/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_clean_downmix_contract_and_stage_next_turn
+1 passed in 3.25s
+reward=1 (1 passed, 0 skipped)
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="3.257" timestamp="2026-09-30T17:13:09.576655+00:00" hostname="f0bc9d1d2abc"><testcase classname="test_outputs" name="test_clean_downmix_contract_and_stage_next_turn" time="3.235" /></testsuite></testsuites>
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /tests
+STEP 1 1_fix_downmix  GREEN       OK    1 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/steps/2_loudnorm_pivot/tests/. tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain bash /tests/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________________ test_loudness_pivot_and_step1_regressions ___________________
+
+    def test_loudness_pivot_and_step1_regressions():
+        shutil.rmtree(str(SCRATCH), ignore_errors=True)
+        SCRATCH.mkdir(parents=True)
+        for required in ("mix.wav", "episodeB.wav", "broadcast_spec.txt", "mixA.wav", "mixB.wav"):
+>           assert (APP / required).is_file(), "/app/%s is missing" % required
+E           AssertionError: /app/mixA.wav is missing
+E           assert False
+E            +  where False = is_file()
+E            +    where is_file = (PosixPath('/app') / 'mixA.wav').is_file
+
+/tests/test_outputs.py:290: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_loudness_pivot_and_step1_regressions - ...
+1 failed in 0.04s
+reward=0 (1 failed, 0 errored)
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.041" timestamp="2026-09-30T17:13:13.554732+00:00" hostname="f0bc9d1d2abc"><testcase classname="test_outputs" name="test_loudness_pivot_and_step1_regressions" time="0.001"><failure message="AssertionError: /app/mixA.wav is missing&#10;assert False&#10; +  where False = is_file()&#10; +    where is_file = (PosixPath('/app') / 'mixA.wav').is_file">def test_loudness_pivot_and_step1_regressions():
+        shutil.rmtree(str(SCRATCH), ignore_errors=True)
+        SCRATCH.mkdir(parents=True)
+        for required in ("mix.wav", "episodeB.wav", "broadcast_spec.txt", "mixA.wav", "mixB.wav"):
+&gt;           assert (APP / required).is_file(), "/app/%s is missing" % required
+E           AssertionError: /app/mixA.wav is missing
+E           assert False
+E            +  where False = is_file()
+E            +    where is_file = (PosixPath('/app') / 'mixA.wav').is_file
+
+/tests/test_outputs.py:290: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /tests
+STEP 2 2_loudnorm_pivot  DO-NOTHING  OK    red before the work (1 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/steps/2_loudnorm_pivot/solution/. tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain:/solution
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /solution
+STEP 2 2_loudnorm_pivot  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/steps/2_loudnorm_pivot/tests/. tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain bash /tests/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_loudness_pivot_and_step1_regressions
+1 passed in 4.70s
+reward=1 (1 passed, 0 skipped)
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="4.705" timestamp="2026-09-30T17:13:16.089240+00:00" hostname="f0bc9d1d2abc"><testcase classname="test_outputs" name="test_loudness_pivot_and_step1_regressions" time="4.677" /></testsuite></testsuites>
+$ docker exec tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain rm -rf /tests
+STEP 2 2_loudnorm_pivot  GREEN       OK    1 executed, 0 skipped, 0 failed, 0 errored
+STEP 1 1_fix_downmix  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+$ docker rm -f tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain
+tbench-mt-ffmpeg-downmix-loudnorm-pivot-chain
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/.validation/chain-20260930T171306Z.json

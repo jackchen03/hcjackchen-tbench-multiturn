@@ -1,0 +1,168 @@
+$ docker run --network none ...
+fc8fe10441cb34523b05e78d1ee4179e8e70f0c6366dcc5b1c7f099e0c689bc2
+
+$ docker cp private test trees
+
+$ install LINK_TARGET_FLIP_SH
+
+$ /tests1/test.sh
+FF.F                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_pack_reproducible_on_metadata_and_order_variation ____________
+
+    def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+>       _exercise(31)
+
+/tests1/test_outputs.py:213:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests1/test_outputs.py:172: in _exercise
+    _audit_archive(target, snap_left)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-gzip-31-ptdx36ol/out/release-0.tgz')
+snapshot = [('alpha.txt', 'file', 'c0df216c8b7efaf40234b185bf50f764f399757079f9942d820b3e45d34c5acc', b'alpha-31\n'), ('current',...\xb4\xc1\xce\xdb\xe8\xf5\x02\x0f\x1c)6CP]jw\x84\x91\x9e\xab\xb8\xc5\xd2\xdf\xec\xf9\x06\x13 -:GTan{\x88\x95\xa2'), ...]
+
+    def _audit_archive(path, snapshot):
+        assert path.read_bytes()[:2] == b"\x1f\x8b"
+        members = []
+        with tarfile.open(path, "r:gz") as tf:
+            for m in tf.getmembers():
+                norm = _norm_member(m.name)
+                if norm is None:
+                    continue
+                if m.isdir():
+                    kind, payload = "dir", b""
+                elif m.issym():
+                    kind, payload = "symlink", m.linkname.encode("utf-8")
+                elif m.isfile():
+                    kind = "file"
+                    f = tf.extractfile(m)
+                    assert f is not None
+                    payload = f.read()
+                else:
+                    kind, payload = "other", b""
+                members.append((norm, kind, hashlib.sha256(payload).hexdigest(), payload))
+        names = [m[0] for m in members]
+        assert len(names) == len(set(names)), f"duplicate archive paths: {names}"
+        assert len(members) == len(snapshot)
+        got = {r: (k, h) for r, k, h, _ in members}
+        want = {r: (k, h) for r, k, h, _ in snapshot}
+>       assert got == want
+E       AssertionError: assert {'alpha.txt':...d8799c'), ...} == {'alpha.txt':...d8799c'), ...}
+E
+E         Omitting 8 identical items, use -vv to show
+E         Differing items:
+E         {'current': ('symlink', 'c22b65d15687a509d996019e8d60b2d48ffe928b99a9df0d914d068f1b669e8f')} != {'current': ('symlink', '9b331f95797e6a85455f22fa7f7133a5ea5c131bbecad6758444175ef20e882b')}
+E         Use -v to get more diff
+
+/tests1/test_outputs.py:133: AssertionError
+_____________ test_pack_handles_second_hidden_name_and_size_family _____________
+
+    def test_pack_handles_second_hidden_name_and_size_family():
+>       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests1/test_outputs.py:217:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests1/test_outputs.py:172: in _exercise
+    _audit_archive(target, snap_left)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-gzip-47-okkiu8__/out/release-0.tgz')
+snapshot = [('alpha.txt', 'file', 'eecb1085ec5311acedfc898d12e70b3f74ff76be81456f2c352540599d5fce4a', b'alpha-47\n'), ('current',...x87\x94\xa1\xae\xbb\xc8\xd5\xe2\xef\xfc\t\x16#0=JWdq~\x8b\x98\xa5\xb2\xbf\xcc\xd9\xe6\xf3\x00\r\x1a\'4AN[hu\x82'), ...]
+
+    def _audit_archive(path, snapshot):
+        assert path.read_bytes()[:2] == b"\x1f\x8b"
+        members = []
+        with tarfile.open(path, "r:gz") as tf:
+            for m in tf.getmembers():
+                norm = _norm_member(m.name)
+                if norm is None:
+                    continue
+                if m.isdir():
+                    kind, payload = "dir", b""
+                elif m.issym():
+                    kind, payload = "symlink", m.linkname.encode("utf-8")
+                elif m.isfile():
+                    kind = "file"
+                    f = tf.extractfile(m)
+                    assert f is not None
+                    payload = f.read()
+                else:
+                    kind, payload = "other", b""
+                members.append((norm, kind, hashlib.sha256(payload).hexdigest(), payload))
+        names = [m[0] for m in members]
+        assert len(names) == len(set(names)), f"duplicate archive paths: {names}"
+        assert len(members) == len(snapshot)
+        got = {r: (k, h) for r, k, h, _ in members}
+        want = {r: (k, h) for r, k, h, _ in snapshot}
+>       assert got == want
+E       AssertionError: assert {'alpha.txt':...6752e0'), ...} == {'alpha.txt':...6752e0'), ...}
+E
+E         Omitting 8 identical items, use -vv to show
+E         Differing items:
+E         {'current': ('symlink', 'c22b65d15687a509d996019e8d60b2d48ffe928b99a9df0d914d068f1b669e8f')} != {'current': ('symlink', '9b331f95797e6a85455f22fa7f7133a5ea5c131bbecad6758444175ef20e882b')}
+E         Use -v to get more diff
+
+/tests1/test_outputs.py:133: AssertionError
+__________________ test_zz_complete_step_and_stage_layer_spec __________________
+
+    def test_zz_complete_step_and_stage_layer_spec():
+>       _exercise(83)
+
+/tests1/test_outputs.py:236:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests1/test_outputs.py:172: in _exercise
+    _audit_archive(target, snap_left)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-gzip-83-gbo6j6ik/out/release-0.tgz')
+snapshot = [('alpha.txt', 'file', '2a732b96f0cb68792d5c11c9ae461c6afffd6bdd09f3dd68281a3716c137e25f', b'alpha-83\n'), ('current',...cc\xd9\xe6\xf3\x00\r\x1a\'4AN[hu\x82\x8f\x9c\xa9\xb6\xc3\xd0\xdd\xea\xf7\x04\x11\x1e+8ER_ly\x86\x93\xa0\xad\xba'), ...]
+
+    def _audit_archive(path, snapshot):
+        assert path.read_bytes()[:2] == b"\x1f\x8b"
+        members = []
+        with tarfile.open(path, "r:gz") as tf:
+            for m in tf.getmembers():
+                norm = _norm_member(m.name)
+                if norm is None:
+                    continue
+                if m.isdir():
+                    kind, payload = "dir", b""
+                elif m.issym():
+                    kind, payload = "symlink", m.linkname.encode("utf-8")
+                elif m.isfile():
+                    kind = "file"
+                    f = tf.extractfile(m)
+                    assert f is not None
+                    payload = f.read()
+                else:
+                    kind, payload = "other", b""
+                members.append((norm, kind, hashlib.sha256(payload).hexdigest(), payload))
+        names = [m[0] for m in members]
+        assert len(names) == len(set(names)), f"duplicate archive paths: {names}"
+        assert len(members) == len(snapshot)
+        got = {r: (k, h) for r, k, h, _ in members}
+        want = {r: (k, h) for r, k, h, _ in snapshot}
+>       assert got == want
+E       AssertionError: assert {'alpha.txt':...5e661b'), ...} == {'alpha.txt':...5e661b'), ...}
+E
+E         Omitting 8 identical items, use -vv to show
+E         Differing items:
+E         {'current': ('symlink', 'c22b65d15687a509d996019e8d60b2d48ffe928b99a9df0d914d068f1b669e8f')} != {'current': ('symlink', '9b331f95797e6a85455f22fa7f7133a5ea5c131bbecad6758444175ef20e882b')}
+E         Use -v to get more diff
+
+/tests1/test_outputs.py:133: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+FAILED ../tests1/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+FAILED ../tests1/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+FAILED ../tests1/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+3 failed, 1 passed in 0.22s
+reward=0 (3 failed, 0 errored)
+
+$ docker rm -f
+gzipctrl-2293774-07

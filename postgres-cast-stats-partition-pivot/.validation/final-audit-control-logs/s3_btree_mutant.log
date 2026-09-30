@@ -1,0 +1,81 @@
+081a51cc7285df89b7c6e755f88f90c64a26c693b93608fce0912c67d27111fc
+
+
+
+
+
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_partitioned_hot_report_and_point_lookup_regression ____________
+
+    def test_partitioned_hot_report_and_point_lookup_regression():
+        assert Path("/app/growth/layout.sql").is_file()
+        assert CUTOFF in Path("/app/growth/layout.sql").read_text()
+        assert Path("/app/hot_query.sql").is_file()
+
+        db = "grade_s3_growth"
+        recreate(db, growth_generator())
+        expected_hot = hot_expected(db)
+        hot_id = int(sql(
+            db,
+            f"SELECT customer_id FROM orders WHERE created_at >= TIMESTAMPTZ '{CUTOFF}' "
+            "GROUP BY customer_id ORDER BY count(*) DESC, customer_id LIMIT 1",
+        ).strip())
+        point_expected = expected_rows(db, f"customer_id={hot_id}")
+        assert 12000 <= len(expected_hot) <= 15500
+        assert point_expected
+
+        Path("/app/bounds.txt").write_text("point_lookup_buffers_le=1090\nhot_report_buffers_le=1081\n")
+        apply_candidate_schema(db)
+        assert int(sql(db, "SELECT count(*) FROM orders").strip()) == 500000
+
+        children = set(sql(
+            db,
+            "SELECT c.relname FROM pg_inherits i JOIN pg_class c ON c.oid=i.inhrelid "
+            "JOIN pg_class p ON p.oid=i.inhparent WHERE p.relname='orders_all'",
+        ).splitlines())
+>       assert "orders_hist" in children
+E       AssertionError: assert 'orders_hist' in set()
+
+/tests/test_outputs.py:187: AssertionError
+----------------------------- Captured stdout call -----------------------------
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /tmp/pgbench-data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default time zone ... Etc/UTC
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /tmp/pgbench-data -l logfile start
+
+waiting for server to start....2026-09-30 17:42:38.551 UTC [58] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-09-30 17:42:38.551 UTC [58] LOG:  listening on IPv4 address "0.0.0.0", port 55432
+2026-09-30 17:42:38.551 UTC [58] LOG:  listening on IPv6 address "::", port 55432
+2026-09-30 17:42:38.551 UTC [58] LOG:  listening on Unix socket "/tmp/pgbench-socket/.s.PGSQL.55432"
+2026-09-30 17:42:38.554 UTC [61] LOG:  database system was shut down at 2026-09-30 17:42:36 UTC
+2026-09-30 17:42:38.557 UTC [58] LOG:  database system is ready to accept connections
+ done
+server started
+----------------------------- Captured stderr call -----------------------------
+initdb: warning: enabling "trust" authentication for local connections
+initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_partitioned_hot_report_and_point_lookup_regression
+1 failed in 6.27s
+reward=0 (1 failed, 0 errored)

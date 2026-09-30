@@ -1,0 +1,21 @@
+$ docker run --network none ...
+905629e1f44a1f10a76d782737e89fde2100aca87a8aec481da6ab5c4fa90b78
+
+$ docker cp private test trees
+
+$ install GNU_ALT_SH
+
+$ /tests1/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+PASSED ../tests1/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+PASSED ../tests1/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+PASSED ../tests1/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+4 passed in 0.62s
+reward=1 (4 passed, 0 skipped)
+
+$ docker rm -f
+gzipctrl-2293774-19

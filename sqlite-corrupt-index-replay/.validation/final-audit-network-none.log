@@ -1,0 +1,2 @@
+docker run intercepted with --network none
+docker run intercepted with --network none

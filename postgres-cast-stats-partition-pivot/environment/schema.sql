@@ -1,0 +1,3 @@
+-- Candidate-maintained schema migration.  The grading database already owns
+-- the orders table described in TASK_NOTES.md.  Add the required physical
+-- design here; the verifier replays this file on each pristine database.

@@ -1,0 +1,38 @@
+{
+  "schema": "phase2-contract-map-v1",
+  "task": "postgres-cast-stats-partition-pivot",
+  "bundle_fingerprint": "bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800",
+  "rows": 24,
+  "mapped": 24,
+  "non_unique_surfaces": 7,
+  "valid_alternatives_covered": 7,
+  "steps": {
+    "1_fix_slow_query": {
+      "requirements": 8,
+      "tests": ["test_fast_exact_lookups_on_disjoint_500k_fixtures"],
+      "fixtures": ["500000-row public range", "500000-row disjoint hidden range"],
+      "alternatives": ["type-stable plain btree", "expression index with cast retained", "composite customer/date index"],
+      "mutants": ["starter", "cast plus plain index", "rewrite without index", "settings only", "bloat", "public literal hardcode"]
+    },
+    "2_harden_query": {
+      "requirements": 6,
+      "tests": ["test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract"],
+      "fixtures": ["500000-row hidden range with five 40000-row skew ids"],
+      "alternatives": ["covering INCLUDE plus vacuum", "CLUSTER plus vacuum"],
+      "mutants": ["plain btree", "vacuum only", "partial only", "partial plus plain"]
+    },
+    "3_partition_pivot": {
+      "requirements": 10,
+      "tests": ["test_partitioned_hot_report_and_point_lookup_regression"],
+      "fixtures": ["500000-row history-dominated growth database with fixed 2023-12-02 cutoff"],
+      "alternatives": ["hist plus one hot RANGE partition", "hist plus monthly hot RANGE partitions"],
+      "mutants": ["retune without partitions", "hot-range btree without partitions"]
+    }
+  },
+  "evidence": {
+    "chain": ".validation/chain-20260930T165806Z.json",
+    "controls": ".validation/control-matrix.log",
+    "network_none": ".validation/network-none-oracle.log",
+    "instruction_hashes": ".validation/instruction-sha256-current.txt"
+  }
+}

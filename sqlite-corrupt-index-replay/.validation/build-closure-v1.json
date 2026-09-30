@@ -1,0 +1,73 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "sqlite-corrupt-index-replay",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {"path": "steps/1_recover_index/instruction.md", "baseline_sha256": "fb26d2b7266248f4a7be2912ffde35065f87d3d1a42d6f8236ce668c62232bac", "current_sha256": "fb26d2b7266248f4a7be2912ffde35065f87d3d1a42d6f8236ce668c62232bac"},
+    {"path": "steps/2_idempotent_replay/instruction.md", "baseline_sha256": "acbf1cda3971d5baadbdc9ae2e8e171945575d58811d171f8c87b5770875e522", "current_sha256": "acbf1cda3971d5baadbdc9ae2e8e171945575d58811d171f8c87b5770875e522"}
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/phase2-v9-four-20260930/sqlite-corrupt-index-replay",
+    "inputs_sha256": {
+      "dossier.md": "cf18673ae25ad1a12777112870a29617fc2df9a8517b4a76c38be123215ba12e",
+      "environment.spec.md": "a07a838227d571b155924ef9fc5f03924eb21439f107d46e7a76df40bcc23f35",
+      ".meta/handoff.json": "609b373c9a59e766d390df472c8734493f108a8502532780021c8979274c5364"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489",
+  "contract_map": {"rows": 11, "mapped": 11, "non_unique_surfaces": 2, "valid_alternatives_covered": 2, "evidence": ".validation/build-findings.md"},
+  "findings": [
+    {"id": "F1", "disposition": "FIXED", "evidence": [".validation/build-findings.md"]},
+    {"id": "F2", "disposition": "FIXED", "evidence": [".validation/build-findings.md"]},
+    {"id": "F3", "disposition": "FIXED", "evidence": [".validation/build-findings.md"]},
+    {"id": "F4", "disposition": "FIXED", "evidence": [".validation/controls-v1.json"]},
+    {"id": "F5", "disposition": "FIXED", "evidence": [".validation/controls-v1.json"]},
+    {"id": "F6", "disposition": "FIXED", "evidence": [".validation/phase2-handoff.md"]},
+    {"id": "F7", "disposition": "FIXED", "evidence": [".validation/controls-v1.json"]},
+    {"id": "F8", "disposition": "FIXED", "evidence": [".validation/phase2-handoff.md"]},
+    {"id": "F9", "disposition": "FIXED", "evidence": [".validation/phase2-handoff.md"]},
+    {"id": "F10", "disposition": "FIXED", "evidence": [".validation/controls-v1.json"]},
+    {"id": "FA-SCHEMA-EXACTNESS", "disposition": "FIXED", "evidence": [".validation/final-audit-repair-controls.log"]}
+  ],
+  "proof": {
+    "static": {"status": "PASS", "evidence": ".validation/static-closure.log"},
+    "starter": {"status": "REJECTED", "executed": 6, "skipped": 0, "evidence": ".validation/chain-20260930T175653Z.json"},
+    "oracle_runs": [
+      {"run_id": "20260930T175653Z", "status": "PASS", "evidence": ".validation/chain-20260930T175653Z.json"},
+      {"run_id": "20260930T175702Z", "status": "PASS", "evidence": ".validation/chain-20260930T175702Z.json"},
+      {"run_id": "20260930T175712Z", "status": "PASS", "evidence": ".validation/chain-20260930T175712Z.json"}
+    ],
+    "valid_alternatives": [
+      {"name": "dump_restore_recovery", "status": "ACCEPTED", "evidence": ".validation/controls-v1.json"},
+      {"name": "staging_merge_replay", "status": "ACCEPTED", "evidence": ".validation/controls-v1.json"}
+    ],
+    "rejected_mutants": [
+      {"name": "wal_delete", "status": "REJECTED", "finding_ids": ["F1", "F2"], "evidence": ".validation/controls-v1.json"},
+      {"name": "behavioral_sample_hardcode", "status": "REJECTED", "finding_ids": ["F4"], "evidence": ".validation/controls-v1.json"},
+      {"name": "last_write_wins", "status": "REJECTED", "finding_ids": ["F7"], "evidence": ".validation/controls-v1.json"}
+    ],
+    "public_hidden_disjoint": {"status": "PASS", "evidence": ".validation/phase2-handoff.md"},
+    "grader_isolation": {"status": "PASS", "evidence": ".validation/controls-v1.json"},
+    "hygiene": {"status": "PASS", "evidence": ".validation/hygiene-closure.log"},
+    "projected_fingerprint": {"status": "PASS", "value": "bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489", "evidence": ".validation/fingerprint-closure.log"}
+  },
+  "transitions": [
+    {
+      "from": "1_recover_index",
+      "to": "2_idempotent_replay",
+      "entry_state": "repaired store.db, strict recovery report, and crash-safe app.conf",
+      "carried_read_only": ["app.conf", "schema.sql", "replay input"],
+      "mutated": ["store.db", "replay.py"],
+      "added": ["replayed rows and higher-sequence corrections"],
+      "override": "append-only replay is replaced by highest-sequence idempotent replay",
+      "retirement": "WAL/SHM state is retired by the Step-1 checkpoint",
+      "future_isolation": "no Step-2 expected multiset is present in the initial image",
+      "prior_step_regressions": "Step 2 rechecks S1 rows, integrity, config bytes, schema/index, and indexed query",
+      "over_exec_status": "NOT_REQUIRED",
+      "over_exec_justification": "Step 1 does not prohibit an already-hardened compatible replay",
+      "evidence": ".validation/build-findings.md"
+    }
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

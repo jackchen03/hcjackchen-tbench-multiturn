@@ -1,0 +1,25 @@
+== oracle chain: ffmpeg-downmix-loudnorm-pivot (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-ffmpeg-downmix-loudnorm-pivot:validate /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/environment
+Dockerfile:9
+--------------------
+   8 |
+   9 | >>> RUN apt-get update \
+  10 | >>>     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  11 | >>>         python3=3.8.2-0ubuntu2 \
+  12 | >>>         python3-pip=20.0.2-5ubuntu1.10 \
+  13 | >>>     && python3 -m pip install --no-cache-dir \
+  14 | >>>         pytest==8.3.5 \
+  15 | >>>         iniconfig==2.1.0 \
+  16 | >>>         packaging==25.0 \
+  17 | >>>         pluggy==1.5.0 \
+  18 | >>>         exceptiongroup==1.2.2 \
+  19 | >>>         tomli==2.2.1 \
+  20 | >>>     && rm -rf /var/lib/apt/lists/*
+  21 |
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c apt-get update     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         python3=3.8.2-0ubuntu2         python3-pip=20.0.2-5ubuntu1.10     && python3 -m pip install --no-cache-dir         pytest==8.3.5         iniconfig==2.1.0         packaging==25.0         pluggy==1.5.0         exceptiongroup==1.2.2         tomli==2.2.1     && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+BUILD  FAIL   environment/Dockerfile does not build - see /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/.validation/chain-20260930T165751Z.log
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/.validation/chain-20260930T165751Z.json   full log: /home/hcjackchen/worktrees/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot/.validation/chain-20260930T165751Z.log

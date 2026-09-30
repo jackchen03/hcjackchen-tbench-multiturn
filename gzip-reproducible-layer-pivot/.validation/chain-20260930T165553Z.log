@@ -1,0 +1,561 @@
+== oracle chain: gzip-reproducible-layer-pivot (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-gzip-reproducible-layer-pivot:validate /home/hcjackchen/worktrees/phase2-v9-four-20260930/gzip-reproducible-layer-pivot/environment
+sha256:571b47ba9fffab04f9c164c66b8a023bd4ef4bb5915dd1d6b2b982aafc731d6d
+$ docker rm -f tbench-mt-gzip-reproducible-layer-pivot-chain
+$ docker run -d --name tbench-mt-gzip-reproducible-layer-pivot-chain tbench-mt-gzip-reproducible-layer-pivot:validate sleep infinity
+1ef0a3f92ecc6b6f2455b1ccbf80100db27b095cad63c16f8fae6e85cb4d7306
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/gzip-reproducible-layer-pivot/steps/1_fix_reproducibility/tests/. tbench-mt-gzip-reproducible-layer-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-gzip-reproducible-layer-pivot-chain bash /tests/test.sh
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_pack_reproducible_on_metadata_and_order_variation ____________
+
+    def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+>       _exercise(31)
+
+/tests/test_outputs.py:214:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 31
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: tar (child): /tmp/codimango-gzip-31-ssqwd94r/out/release-0.tgz: Cannot open: Permission denied
+E             tar (child): Error is not recoverable: exiting now
+E             tar: /tmp/codimango-gzip-31-ssqwd94r/out/release-0.tgz: Cannot write: Broken pipe
+E             tar: Child returned status 2
+E             tar: Error is not recoverable: exiting now
+E
+E           assert 2 == 0
+E            +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-31-ssqwd94r/left', '/tmp/codimango-gzip-31-ssqwd94r/out/re.../release-0.tgz: Cannot write: Broken pipe\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\n').returncode
+
+/tests/test_outputs.py:170: AssertionError
+_____________ test_pack_handles_second_hidden_name_and_size_family _____________
+
+    def test_pack_handles_second_hidden_name_and_size_family():
+>       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests/test_outputs.py:218:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 47
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: tar (child): /tmp/codimango-gzip-47-c6fy7lnj/out/release-0.tgz: Cannot open: Permission denied
+E             tar (child): Error is not recoverable: exiting now
+E             tar: /tmp/codimango-gzip-47-c6fy7lnj/out/release-0.tgz: Cannot write: Broken pipe
+E             tar: Child returned status 2
+E             tar: Error is not recoverable: exiting now
+E
+E           assert 2 == 0
+E            +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-47-c6fy7lnj/left', '/tmp/codimango-gzip-47-c6fy7lnj/out/re.../release-0.tgz: Cannot write: Broken pipe\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\n').returncode
+
+/tests/test_outputs.py:170: AssertionError
+______ test_verifier_accepts_materially_different_python_tarfile_solution ______
+
+    def test_verifier_accepts_materially_different_python_tarfile_solution():
+        base = _case_dir("alternative")
+        src, outdir = base / "src", base / "out"
+        _make_tree(src, 59, 0)
+        snap = _scan(src)
+        _lock_tree(src)
+        outdir.mkdir(mode=0o777)
+        out, man = outdir / "alt.tgz", outdir / "manifest.jsonl"
+        _write_python_alternative(src, out, man)
+        _audit_archive(out, snap)
+        _audit_manifest(man.read_bytes(), snap)
+>       assert out.stat().st_size > 1024 and len(man.read_bytes().splitlines()) == 9
+E       AssertionError: assert (677 > 1024)
+E        +  where 677 = os.stat_result(st_mode=33188, st_ino=541256561, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787365, st_mtime=1790787365, st_ctime=1790787365).st_size
+E        +    where os.stat_result(st_mode=33188, st_ino=541256561, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787365, st_mtime=1790787365, st_ctime=1790787365) = stat()
+E        +      where stat = PosixPath('/tmp/codimango-gzip-alternative-cd8h3j_q/out/alt.tgz').stat
+
+/tests/test_outputs.py:232: AssertionError
+__________________ test_zz_complete_step_and_stage_layer_spec __________________
+
+    def test_zz_complete_step_and_stage_layer_spec():
+>       _exercise(83)
+
+/tests/test_outputs.py:236:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 83
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: tar (child): /tmp/codimango-gzip-83-m6064j7_/out/release-0.tgz: Cannot open: Permission denied
+E             tar (child): Error is not recoverable: exiting now
+E             tar: /tmp/codimango-gzip-83-m6064j7_/out/release-0.tgz: Cannot write: Broken pipe
+E             tar: Child returned status 2
+E             tar: Error is not recoverable: exiting now
+E
+E           assert 2 == 0
+E            +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-83-m6064j7_/left', '/tmp/codimango-gzip-83-m6064j7_/out/re.../release-0.tgz: Cannot write: Broken pipe\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\n').returncode
+
+/tests/test_outputs.py:170: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+FAILED ../tests/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+FAILED ../tests/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+FAILED ../tests/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+4 failed in 0.12s
+reward=0 (4 failed, 0 errored)
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="0.119" timestamp="2026-09-30T16:56:05.381232+00:00" hostname="1ef0a3f92ecc"><testcase classname="test_outputs" name="test_pack_reproducible_on_metadata_and_order_variation" time="0.010"><failure message="AssertionError: tar (child): /tmp/codimango-gzip-31-ssqwd94r/out/release-0.tgz: Cannot open: Permission denied&#10;  tar (child): Error is not recoverable: exiting now&#10;  tar: /tmp/codimango-gzip-31-ssqwd94r/out/release-0.tgz: Cannot write: Broken pipe&#10;  tar: Child returned status 2&#10;  tar: Error is not recoverable: exiting now&#10;  &#10;assert 2 == 0&#10; +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-31-ssqwd94r/left', '/tmp/codimango-gzip-31-ssqwd94r/out/re.../release-0.tgz: Cannot write: Broken pipe\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\n').returncode">def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+&gt;       _exercise(31)
+
+/tests/test_outputs.py:214:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 31
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+&gt;           assert result.returncode == 0, result.stderr
+E           AssertionError: tar (child): /tmp/codimango-gzip-31-ssqwd94r/out/release-0.tgz: Cannot open: Permission denied
+E             tar (child): Error is not recoverable: exiting now
+E             tar: /tmp/codimango-gzip-31-ssqwd94r/out/release-0.tgz: Cannot write: Broken pipe
+E             tar: Child returned status 2
+E             tar: Error is not recoverable: exiting now
+E
+E           assert 2 == 0
+E            +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-31-ssqwd94r/left', '/tmp/codimango-gzip-31-ssqwd94r/out/re.../release-0.tgz: Cannot write: Broken pipe\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\n').returncode
+
+/tests/test_outputs.py:170: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_pack_handles_second_hidden_name_and_size_family" time="0.010"><failure message="AssertionError: tar (child): /tmp/codimango-gzip-47-c6fy7lnj/out/release-0.tgz: Cannot open: Permission denied&#10;  tar (child): Error is not recoverable: exiting now&#10;  tar: /tmp/codimango-gzip-47-c6fy7lnj/out/release-0.tgz: Cannot write: Broken pipe&#10;  tar: Child returned status 2&#10;  tar: Error is not recoverable: exiting now&#10;  &#10;assert 2 == 0&#10; +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-47-c6fy7lnj/left', '/tmp/codimango-gzip-47-c6fy7lnj/out/re.../release-0.tgz: Cannot write: Broken pipe\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\n').returncode">def test_pack_handles_second_hidden_name_and_size_family():
+&gt;       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests/test_outputs.py:218:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 47
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+&gt;           assert result.returncode == 0, result.stderr
+E           AssertionError: tar (child): /tmp/codimango-gzip-47-c6fy7lnj/out/release-0.tgz: Cannot open: Permission denied
+E             tar (child): Error is not recoverable: exiting now
+E             tar: /tmp/codimango-gzip-47-c6fy7lnj/out/release-0.tgz: Cannot write: Broken pipe
+E             tar: Child returned status 2
+E             tar: Error is not recoverable: exiting now
+E
+E           assert 2 == 0
+E            +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-47-c6fy7lnj/left', '/tmp/codimango-gzip-47-c6fy7lnj/out/re.../release-0.tgz: Cannot write: Broken pipe\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\n').returncode
+
+/tests/test_outputs.py:170: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_verifier_accepts_materially_different_python_tarfile_solution" time="0.005"><failure message="AssertionError: assert (677 &gt; 1024)&#10; +  where 677 = os.stat_result(st_mode=33188, st_ino=541256561, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787365, st_mtime=1790787365, st_ctime=1790787365).st_size&#10; +    where os.stat_result(st_mode=33188, st_ino=541256561, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787365, st_mtime=1790787365, st_ctime=1790787365) = stat()&#10; +      where stat = PosixPath('/tmp/codimango-gzip-alternative-cd8h3j_q/out/alt.tgz').stat">def test_verifier_accepts_materially_different_python_tarfile_solution():
+        base = _case_dir("alternative")
+        src, outdir = base / "src", base / "out"
+        _make_tree(src, 59, 0)
+        snap = _scan(src)
+        _lock_tree(src)
+        outdir.mkdir(mode=0o777)
+        out, man = outdir / "alt.tgz", outdir / "manifest.jsonl"
+        _write_python_alternative(src, out, man)
+        _audit_archive(out, snap)
+        _audit_manifest(man.read_bytes(), snap)
+&gt;       assert out.stat().st_size &gt; 1024 and len(man.read_bytes().splitlines()) == 9
+E       AssertionError: assert (677 &gt; 1024)
+E        +  where 677 = os.stat_result(st_mode=33188, st_ino=541256561, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787365, st_mtime=1790787365, st_ctime=1790787365).st_size
+E        +    where os.stat_result(st_mode=33188, st_ino=541256561, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787365, st_mtime=1790787365, st_ctime=1790787365) = stat()
+E        +      where stat = PosixPath('/tmp/codimango-gzip-alternative-cd8h3j_q/out/alt.tgz').stat
+
+/tests/test_outputs.py:232: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_zz_complete_step_and_stage_layer_spec" time="0.013"><failure message="AssertionError: tar (child): /tmp/codimango-gzip-83-m6064j7_/out/release-0.tgz: Cannot open: Permission denied&#10;  tar (child): Error is not recoverable: exiting now&#10;  tar: /tmp/codimango-gzip-83-m6064j7_/out/release-0.tgz: Cannot write: Broken pipe&#10;  tar: Child returned status 2&#10;  tar: Error is not recoverable: exiting now&#10;  &#10;assert 2 == 0&#10; +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-83-m6064j7_/left', '/tmp/codimango-gzip-83-m6064j7_/out/re.../release-0.tgz: Cannot write: Broken pipe\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\n').returncode">def test_zz_complete_step_and_stage_layer_spec():
+&gt;       _exercise(83)
+
+/tests/test_outputs.py:236:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 83
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+&gt;           assert result.returncode == 0, result.stderr
+E           AssertionError: tar (child): /tmp/codimango-gzip-83-m6064j7_/out/release-0.tgz: Cannot open: Permission denied
+E             tar (child): Error is not recoverable: exiting now
+E             tar: /tmp/codimango-gzip-83-m6064j7_/out/release-0.tgz: Cannot write: Broken pipe
+E             tar: Child returned status 2
+E             tar: Error is not recoverable: exiting now
+E
+E           assert 2 == 0
+E            +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-83-m6064j7_/left', '/tmp/codimango-gzip-83-m6064j7_/out/re.../release-0.tgz: Cannot write: Broken pipe\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\n').returncode
+
+/tests/test_outputs.py:170: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain rm -rf /tests
+STEP 1 1_fix_reproducibility  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 4 failed, 0 errored)
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/gzip-reproducible-layer-pivot/steps/1_fix_reproducibility/solution/. tbench-mt-gzip-reproducible-layer-pivot-chain:/solution
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-gzip-reproducible-layer-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain rm -rf /solution
+STEP 1 1_fix_reproducibility  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/gzip-reproducible-layer-pivot/steps/1_fix_reproducibility/tests/. tbench-mt-gzip-reproducible-layer-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-gzip-reproducible-layer-pivot-chain bash /tests/test.sh
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_pack_reproducible_on_metadata_and_order_variation ____________
+
+    def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+>       _exercise(31)
+
+/tests/test_outputs.py:214:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 31
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "<stdin>", line 50, in <module>
+E               File "/usr/local/lib/python3.11/pathlib.py", line 1044, in open
+E                 return io.open(self, mode, buffering, encoding, errors, newline)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             PermissionError: [Errno 13] Permission denied: '/tmp/codimango-gzip-31-v5a5_ikc/out/release-0.tgz.tmp'
+E
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-31-v5a5_ikc/left', '/tmp/codimango-gzip-31-v5a5_ikc/out/re...^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-gzip-31-v5a5_ikc/out/release-0.tgz.tmp\'\n').returncode
+
+/tests/test_outputs.py:170: AssertionError
+_____________ test_pack_handles_second_hidden_name_and_size_family _____________
+
+    def test_pack_handles_second_hidden_name_and_size_family():
+>       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests/test_outputs.py:218:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 47
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "<stdin>", line 50, in <module>
+E               File "/usr/local/lib/python3.11/pathlib.py", line 1044, in open
+E                 return io.open(self, mode, buffering, encoding, errors, newline)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             PermissionError: [Errno 13] Permission denied: '/tmp/codimango-gzip-47-r7di3tgw/out/release-0.tgz.tmp'
+E
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-47-r7di3tgw/left', '/tmp/codimango-gzip-47-r7di3tgw/out/re...^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-gzip-47-r7di3tgw/out/release-0.tgz.tmp\'\n').returncode
+
+/tests/test_outputs.py:170: AssertionError
+______ test_verifier_accepts_materially_different_python_tarfile_solution ______
+
+    def test_verifier_accepts_materially_different_python_tarfile_solution():
+        base = _case_dir("alternative")
+        src, outdir = base / "src", base / "out"
+        _make_tree(src, 59, 0)
+        snap = _scan(src)
+        _lock_tree(src)
+        outdir.mkdir(mode=0o777)
+        out, man = outdir / "alt.tgz", outdir / "manifest.jsonl"
+        _write_python_alternative(src, out, man)
+        _audit_archive(out, snap)
+        _audit_manifest(man.read_bytes(), snap)
+>       assert out.stat().st_size > 1024 and len(man.read_bytes().splitlines()) == 9
+E       AssertionError: assert (677 > 1024)
+E        +  where 677 = os.stat_result(st_mode=33188, st_ino=541256853, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787367, st_mtime=1790787367, st_ctime=1790787367).st_size
+E        +    where os.stat_result(st_mode=33188, st_ino=541256853, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787367, st_mtime=1790787367, st_ctime=1790787367) = stat()
+E        +      where stat = PosixPath('/tmp/codimango-gzip-alternative-9ryv9jzb/out/alt.tgz').stat
+
+/tests/test_outputs.py:232: AssertionError
+__________________ test_zz_complete_step_and_stage_layer_spec __________________
+
+    def test_zz_complete_step_and_stage_layer_spec():
+>       _exercise(83)
+
+/tests/test_outputs.py:236:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 83
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "<stdin>", line 50, in <module>
+E               File "/usr/local/lib/python3.11/pathlib.py", line 1044, in open
+E                 return io.open(self, mode, buffering, encoding, errors, newline)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             PermissionError: [Errno 13] Permission denied: '/tmp/codimango-gzip-83-3zu3vvvm/out/release-0.tgz.tmp'
+E
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-83-3zu3vvvm/left', '/tmp/codimango-gzip-83-3zu3vvvm/out/re...^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-gzip-83-3zu3vvvm/out/release-0.tgz.tmp\'\n').returncode
+
+/tests/test_outputs.py:170: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+FAILED ../tests/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+FAILED ../tests/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+FAILED ../tests/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+4 failed in 0.25s
+reward=0 (4 failed, 0 errored)
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="0.253" timestamp="2026-09-30T16:56:06.968091+00:00" hostname="1ef0a3f92ecc"><testcase classname="test_outputs" name="test_pack_reproducible_on_metadata_and_order_variation" time="0.057"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;&lt;stdin&gt;&quot;, line 50, in &lt;module&gt;&#10;    File &quot;/usr/local/lib/python3.11/pathlib.py&quot;, line 1044, in open&#10;      return io.open(self, mode, buffering, encoding, errors, newline)&#10;             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#10;  PermissionError: [Errno 13] Permission denied: '/tmp/codimango-gzip-31-v5a5_ikc/out/release-0.tgz.tmp'&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-31-v5a5_ikc/left', '/tmp/codimango-gzip-31-v5a5_ikc/out/re...^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-gzip-31-v5a5_ikc/out/release-0.tgz.tmp\'\n').returncode">def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+&gt;       _exercise(31)
+
+/tests/test_outputs.py:214:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 31
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+&gt;           assert result.returncode == 0, result.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "&lt;stdin&gt;", line 50, in &lt;module&gt;
+E               File "/usr/local/lib/python3.11/pathlib.py", line 1044, in open
+E                 return io.open(self, mode, buffering, encoding, errors, newline)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             PermissionError: [Errno 13] Permission denied: '/tmp/codimango-gzip-31-v5a5_ikc/out/release-0.tgz.tmp'
+E
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-31-v5a5_ikc/left', '/tmp/codimango-gzip-31-v5a5_ikc/out/re...^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-gzip-31-v5a5_ikc/out/release-0.tgz.tmp\'\n').returncode
+
+/tests/test_outputs.py:170: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_pack_handles_second_hidden_name_and_size_family" time="0.045"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;&lt;stdin&gt;&quot;, line 50, in &lt;module&gt;&#10;    File &quot;/usr/local/lib/python3.11/pathlib.py&quot;, line 1044, in open&#10;      return io.open(self, mode, buffering, encoding, errors, newline)&#10;             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#10;  PermissionError: [Errno 13] Permission denied: '/tmp/codimango-gzip-47-r7di3tgw/out/release-0.tgz.tmp'&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-47-r7di3tgw/left', '/tmp/codimango-gzip-47-r7di3tgw/out/re...^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-gzip-47-r7di3tgw/out/release-0.tgz.tmp\'\n').returncode">def test_pack_handles_second_hidden_name_and_size_family():
+&gt;       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests/test_outputs.py:218:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 47
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+&gt;           assert result.returncode == 0, result.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "&lt;stdin&gt;", line 50, in &lt;module&gt;
+E               File "/usr/local/lib/python3.11/pathlib.py", line 1044, in open
+E                 return io.open(self, mode, buffering, encoding, errors, newline)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             PermissionError: [Errno 13] Permission denied: '/tmp/codimango-gzip-47-r7di3tgw/out/release-0.tgz.tmp'
+E
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-47-r7di3tgw/left', '/tmp/codimango-gzip-47-r7di3tgw/out/re...^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-gzip-47-r7di3tgw/out/release-0.tgz.tmp\'\n').returncode
+
+/tests/test_outputs.py:170: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_verifier_accepts_materially_different_python_tarfile_solution" time="0.005"><failure message="AssertionError: assert (677 &gt; 1024)&#10; +  where 677 = os.stat_result(st_mode=33188, st_ino=541256853, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787367, st_mtime=1790787367, st_ctime=1790787367).st_size&#10; +    where os.stat_result(st_mode=33188, st_ino=541256853, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787367, st_mtime=1790787367, st_ctime=1790787367) = stat()&#10; +      where stat = PosixPath('/tmp/codimango-gzip-alternative-9ryv9jzb/out/alt.tgz').stat">def test_verifier_accepts_materially_different_python_tarfile_solution():
+        base = _case_dir("alternative")
+        src, outdir = base / "src", base / "out"
+        _make_tree(src, 59, 0)
+        snap = _scan(src)
+        _lock_tree(src)
+        outdir.mkdir(mode=0o777)
+        out, man = outdir / "alt.tgz", outdir / "manifest.jsonl"
+        _write_python_alternative(src, out, man)
+        _audit_archive(out, snap)
+        _audit_manifest(man.read_bytes(), snap)
+&gt;       assert out.stat().st_size &gt; 1024 and len(man.read_bytes().splitlines()) == 9
+E       AssertionError: assert (677 &gt; 1024)
+E        +  where 677 = os.stat_result(st_mode=33188, st_ino=541256853, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787367, st_mtime=1790787367, st_ctime=1790787367).st_size
+E        +    where os.stat_result(st_mode=33188, st_ino=541256853, st_dev=1048591, st_nlink=1, st_uid=0, st_gid=0, st_size=677, st_atime=1790787367, st_mtime=1790787367, st_ctime=1790787367) = stat()
+E        +      where stat = PosixPath('/tmp/codimango-gzip-alternative-9ryv9jzb/out/alt.tgz').stat
+
+/tests/test_outputs.py:232: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_zz_complete_step_and_stage_layer_spec" time="0.046"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;&lt;stdin&gt;&quot;, line 50, in &lt;module&gt;&#10;    File &quot;/usr/local/lib/python3.11/pathlib.py&quot;, line 1044, in open&#10;      return io.open(self, mode, buffering, encoding, errors, newline)&#10;             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#10;  PermissionError: [Errno 13] Permission denied: '/tmp/codimango-gzip-83-3zu3vvvm/out/release-0.tgz.tmp'&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-83-3zu3vvvm/left', '/tmp/codimango-gzip-83-3zu3vvvm/out/re...^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-gzip-83-3zu3vvvm/out/release-0.tgz.tmp\'\n').returncode">def test_zz_complete_step_and_stage_layer_spec():
+&gt;       _exercise(83)
+
+/tests/test_outputs.py:236:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 83
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir(mode=0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+&gt;           assert result.returncode == 0, result.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "&lt;stdin&gt;", line 50, in &lt;module&gt;
+E               File "/usr/local/lib/python3.11/pathlib.py", line 1044, in open
+E                 return io.open(self, mode, buffering, encoding, errors, newline)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E             PermissionError: [Errno 13] Permission denied: '/tmp/codimango-gzip-83-3zu3vvvm/out/release-0.tgz.tmp'
+E
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-83-3zu3vvvm/left', '/tmp/codimango-gzip-83-3zu3vvvm/out/re...^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-gzip-83-3zu3vvvm/out/release-0.tgz.tmp\'\n').returncode
+
+/tests/test_outputs.py:170: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-gzip-reproducible-layer-pivot-chain rm -rf /tests
+STEP 1 1_fix_reproducibility  GREEN       FAIL  tests do not pass after the oracle ran (4 executed, 0 skipped, 4 failed, 0 errored)
+$ docker rm -f tbench-mt-gzip-reproducible-layer-pivot-chain
+tbench-mt-gzip-reproducible-layer-pivot-chain
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-v9-four-20260930/gzip-reproducible-layer-pivot/.validation/chain-20260930T165553Z.json   full log: /home/hcjackchen/worktrees/phase2-v9-four-20260930/gzip-reproducible-layer-pivot/.validation/chain-20260930T165553Z.log

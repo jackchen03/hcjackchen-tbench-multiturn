@@ -1,0 +1,3 @@
+NETWORK_NONE step=1_fix_slow_query reward=1
+NETWORK_NONE step=2_harden_query reward=1
+NETWORK_NONE step=3_partition_pivot reward=1

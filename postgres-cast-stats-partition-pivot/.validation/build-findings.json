@@ -1,0 +1,15 @@
+{
+  "schema": "phase2-build-findings-v1",
+  "bundle_fingerprint": "bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800",
+  "findings": [
+    {"id": "PG-STATUS", "disposition": "FIXED", "evidence": ["authoritative Nest not_found before mutation"]},
+    {"id": "PG-HASHES", "disposition": "FIXED", "evidence": [".validation/instruction-sha256-before.txt", ".validation/instruction-sha256-current.txt"]},
+    {"id": "PG-500K", "disposition": "FIXED", "evidence": ["steps/1_fix_slow_query/tests/test_outputs.py", "steps/2_harden_query/tests/test_outputs.py", "steps/3_partition_pivot/tests/test_outputs.py"]},
+    {"id": "PG-ISOLATION", "disposition": "FIXED", "evidence": [".validation/control-matrix.log"]},
+    {"id": "PG-ALTERNATIVES", "disposition": "FIXED", "evidence": [".validation/control-matrix.log"]},
+    {"id": "PG-MUTANTS", "disposition": "FIXED", "evidence": [".validation/control-matrix.log"]},
+    {"id": "PG-TRANSITIONS", "disposition": "FIXED", "evidence": [".validation/chain-20260930T165806Z.json"]},
+    {"id": "PG-NETWORK", "disposition": "FIXED", "evidence": [".validation/network-none-oracle.log"]}
+  ],
+  "open_findings": []
+}

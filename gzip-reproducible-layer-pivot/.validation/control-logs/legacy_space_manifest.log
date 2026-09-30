@@ -1,0 +1,146 @@
+$ docker run --network none ...
+f2f05a8bb10bcdcfa06bebae736d3bfdf966e92f0a1ca4d127b18c3b69bab8f6
+
+$ docker cp private test trees
+
+$ install LEGACY_MANIFEST_SH
+
+$ /tests1/test.sh
+FF.F                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_pack_reproducible_on_metadata_and_order_variation ____________
+
+    def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+>       _exercise(31)
+
+/tests1/test_outputs.py:213:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests1/test_outputs.py:173: in _exercise
+    _audit_manifest(raw, snap_left)
+/tests1/test_outputs.py:139: in _audit_manifest
+    records = [json.loads(line) for line in physical]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests1/test_outputs.py:139: in <listcomp>
+    records = [json.loads(line) for line in physical]
+               ^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <json.decoder.JSONDecoder object at 0x7f73c557c090>
+s = 'c0df216c8b7efaf40234b185bf50f764f399757079f9942d820b3e45d34c5acc  alpha.txt'
+idx = 0
+
+    def raw_decode(self, s, idx=0):
+        """Decode a JSON document from ``s`` (a ``str`` beginning with
+        a JSON document) and return a 2-tuple of the Python
+        representation and the index in ``s`` where the document ended.
+
+        This can be used to decode a JSON document from a string that may
+        have extraneous data at the end.
+
+        """
+        try:
+            obj, end = self.scan_once(s, idx)
+        except StopIteration as err:
+>           raise JSONDecodeError("Expecting value", s, err.value) from None
+E           json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+/usr/local/lib/python3.11/json/decoder.py:355: JSONDecodeError
+_____________ test_pack_handles_second_hidden_name_and_size_family _____________
+
+    def test_pack_handles_second_hidden_name_and_size_family():
+>       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests1/test_outputs.py:217:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests1/test_outputs.py:173: in _exercise
+    _audit_manifest(raw, snap_left)
+/tests1/test_outputs.py:139: in _audit_manifest
+    records = [json.loads(line) for line in physical]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests1/test_outputs.py:139: in <listcomp>
+    records = [json.loads(line) for line in physical]
+               ^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <json.decoder.JSONDecoder object at 0x7f73c557c090>
+s = 'eecb1085ec5311acedfc898d12e70b3f74ff76be81456f2c352540599d5fce4a  alpha.txt'
+idx = 0
+
+    def raw_decode(self, s, idx=0):
+        """Decode a JSON document from ``s`` (a ``str`` beginning with
+        a JSON document) and return a 2-tuple of the Python
+        representation and the index in ``s`` where the document ended.
+
+        This can be used to decode a JSON document from a string that may
+        have extraneous data at the end.
+
+        """
+        try:
+            obj, end = self.scan_once(s, idx)
+        except StopIteration as err:
+>           raise JSONDecodeError("Expecting value", s, err.value) from None
+E           json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+/usr/local/lib/python3.11/json/decoder.py:355: JSONDecodeError
+__________________ test_zz_complete_step_and_stage_layer_spec __________________
+
+    def test_zz_complete_step_and_stage_layer_spec():
+>       _exercise(83)
+
+/tests1/test_outputs.py:236:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests1/test_outputs.py:173: in _exercise
+    _audit_manifest(raw, snap_left)
+/tests1/test_outputs.py:139: in _audit_manifest
+    records = [json.loads(line) for line in physical]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests1/test_outputs.py:139: in <listcomp>
+    records = [json.loads(line) for line in physical]
+               ^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <json.decoder.JSONDecoder object at 0x7f73c557c090>
+s = '2a732b96f0cb68792d5c11c9ae461c6afffd6bdd09f3dd68281a3716c137e25f  alpha.txt'
+_w = <built-in method match of re.Pattern object at 0x7f73c5580450>
+
+    def decode(self, s, _w=WHITESPACE.match):
+        """Return the Python representation of ``s`` (a ``str`` instance
+        containing a JSON document).
+
+        """
+        obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+        end = _w(s, end).end()
+        if end != len(s):
+>           raise JSONDecodeError("Extra data", s, end)
+E           json.decoder.JSONDecodeError: Extra data: line 1 column 2 (char 1)
+
+/usr/local/lib/python3.11/json/decoder.py:340: JSONDecodeError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+FAILED ../tests1/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+FAILED ../tests1/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+FAILED ../tests1/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+3 failed, 1 passed in 0.24s
+reward=0 (3 failed, 0 errored)
+
+$ docker rm -f
+gzipctrl-2293774-04

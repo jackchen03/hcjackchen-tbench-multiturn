@@ -1,0 +1,27 @@
+task=postgres-cast-stats-partition-pivot
+build-closure-v1=PASS
+task diff hygiene PASS
+working=bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800
+projected=bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800
+untracked-included=README.md
+untracked-included=environment/Dockerfile
+untracked-included=environment/TASK_NOTES.md
+untracked-included=environment/bounds.txt
+untracked-included=environment/query.sql
+untracked-included=environment/run_query.sh
+untracked-included=environment/schema.sql
+untracked-included=steps/1_fix_slow_query/instruction.md
+untracked-included=steps/1_fix_slow_query/solution/solve.sh
+untracked-included=steps/1_fix_slow_query/tests/test.sh
+untracked-included=steps/1_fix_slow_query/tests/test_outputs.py
+untracked-included=steps/2_harden_query/instruction.md
+untracked-included=steps/2_harden_query/solution/solve.sh
+untracked-included=steps/2_harden_query/tests/test.sh
+untracked-included=steps/2_harden_query/tests/test_outputs.py
+untracked-included=steps/3_partition_pivot/instruction.md
+untracked-included=steps/3_partition_pivot/solution/solve.sh
+untracked-included=steps/3_partition_pivot/tests/test.sh
+untracked-included=steps/3_partition_pivot/tests/test_outputs.py
+untracked-included=task.toml
+projection-check=PASS
+preflight_checks=PASS

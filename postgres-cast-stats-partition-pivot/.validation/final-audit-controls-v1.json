@@ -1,0 +1,359 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800",
+  "cases": [
+    {
+      "case": "s1_expression",
+      "expected": "ACCEPT",
+      "fresh_container": true,
+      "handoff_id": "expr_index_cast_kept",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s1_expression.log",
+      "matches": true,
+      "network": "none",
+      "observed": "ACCEPT",
+      "reward": "1",
+      "step": "1_fix_slow_query",
+      "verifier_exit": 0
+    },
+    {
+      "case": "s1_composite",
+      "expected": "ACCEPT",
+      "fresh_container": true,
+      "handoff_id": "typestable_composite_cust_created",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s1_composite.log",
+      "matches": true,
+      "network": "none",
+      "observed": "ACCEPT",
+      "reward": "1",
+      "step": "1_fix_slow_query",
+      "verifier_exit": 0
+    },
+    {
+      "case": "s1_cast_plain_mutant",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "index_only_cast_kept",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s1_cast_plain_mutant.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "1_fix_slow_query",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s1_rewrite_no_index",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "rewrite_no_index",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s1_rewrite_no_index.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "1_fix_slow_query",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s1_settings_only",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "settings_only",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s1_settings_only.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "1_fix_slow_query",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s1_bloat",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "table_bloat",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s1_bloat.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "1_fix_slow_query",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s1_hardcode_mutant",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "id_hardcoding",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s1_hardcode_mutant.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "1_fix_slow_query",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s2_cluster",
+      "expected": "ACCEPT",
+      "fresh_container": true,
+      "handoff_id": "cluster_by_cust_vacuum",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s2_cluster.log",
+      "matches": true,
+      "network": "none",
+      "observed": "ACCEPT",
+      "reward": "1",
+      "step": "2_harden_query",
+      "verifier_exit": 0
+    },
+    {
+      "case": "s2_plain_mutant",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "plain_index_skew",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s2_plain_mutant.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "2_harden_query",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s2_vacuum_only",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "plain_plus_vacuum",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s2_vacuum_only.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "2_harden_query",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s2_partial_only",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "partial_alone",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s2_partial_only.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "2_harden_query",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s2_partial_plain",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "partial_plus_plain",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s2_partial_plain.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "2_harden_query",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s3_monthly",
+      "expected": "ACCEPT",
+      "fresh_container": true,
+      "handoff_id": "monthly_hot_layout_variant",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s3_monthly.log",
+      "matches": true,
+      "network": "none",
+      "observed": "ACCEPT",
+      "reward": "1",
+      "step": "3_partition_pivot",
+      "verifier_exit": 0
+    },
+    {
+      "case": "s3_retune_mutant",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "retune_no_partition",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s3_retune_mutant.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "3_partition_pivot",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s3_btree_mutant",
+      "expected": "REJECT",
+      "fresh_container": true,
+      "handoff_id": "hot_btree",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s3_btree_mutant.log",
+      "matches": true,
+      "network": "none",
+      "observed": "REJECT",
+      "reward": "0",
+      "step": "3_partition_pivot",
+      "verifier_exit": 1
+    },
+    {
+      "case": "s1_compatible_early_cluster",
+      "expected": "ACCEPT",
+      "fresh_container": true,
+      "handoff_id": "compatible_s2_superset_on_s1",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s1_compatible_early_cluster.log",
+      "matches": true,
+      "network": "none",
+      "observed": "ACCEPT",
+      "reward": "1",
+      "step": "1_fix_slow_query",
+      "verifier_exit": 0
+    },
+    {
+      "case": "s2_compatible_early_partition",
+      "expected": "ACCEPT",
+      "fresh_container": true,
+      "handoff_id": "compatible_s3_superset_on_s2",
+      "junit": {
+        "errors": 0,
+        "executed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "total": 1
+      },
+      "log": ".validation/final-audit-control-logs/s2_compatible_early_partition.log",
+      "matches": true,
+      "network": "none",
+      "observed": "ACCEPT",
+      "reward": "1",
+      "step": "2_harden_query",
+      "verifier_exit": 0
+    }
+  ],
+  "ended_at": "2026-09-30T17:43:08.270269+00:00",
+  "fresh_container_per_case": true,
+  "image": "tbench-mt-postgres-cast-stats-partition-pivot:validate",
+  "network": "none",
+  "schema": "tbench-final-audit-controls-v1",
+  "started_at": "2026-09-30T17:40:30.675846+00:00",
+  "summary": {
+    "accepted": 6,
+    "cases": 17,
+    "mismatches": 0,
+    "rejected": 11,
+    "skipped": 0
+  },
+  "task": "postgres-cast-stats-partition-pivot"
+}

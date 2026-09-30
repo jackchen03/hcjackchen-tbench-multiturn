@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+if [ "${1:-}" = "run" ]; then
+  shift
+  printf '%s\n' 'docker run intercepted with --network none' >> /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/.validation/final-audit-network-none.log
+  exec /usr/bin/docker run --network none "$@"
+fi
+exec /usr/bin/docker "$@"

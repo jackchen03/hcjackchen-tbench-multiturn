@@ -1,0 +1,64 @@
+$ docker run ...
+db45ce6355532c9d4bef2c8c636ef525e62636448399206c1ebffa1c019680e7
+
+$ docker cp private test/solution trees
+
+$ /solution1/solve.sh
+
+$ /tests1/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_clean_downmix_contract_and_stage_next_turn
+1 passed in 3.51s
+reward=1 (1 passed, 0 skipped)
+
+$ install control
+
+$ public pair setup
+
+$ /tests2/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________________ test_loudness_pivot_and_step1_regressions ___________________
+
+    def test_loudness_pivot_and_step1_regressions():
+        shutil.rmtree(str(SCRATCH), ignore_errors=True)
+        SCRATCH.mkdir(parents=True)
+        SCRATCH.chmod(0o777)
+        for required in ("mix.wav", "episodeB.wav", "broadcast_spec.txt", "mixA.wav", "mixB.wav"):
+            assert (APP / required).is_file(), "/app/%s is missing" % required
+        assert_carried_hash(APP / "mix.wav", STATE / "mix.sha256")
+        assert_carried_hash(APP / "episodeB.wav", STATE / "episodeB.sha256")
+
+>       assert_broadcast_pair(
+            [APP / "mix.wav", APP / "episodeB.wav"],
+            [APP / "mixA.wav", APP / "mixB.wav"],
+            "carried pair",
+        )
+
+/tests2/test_outputs.py:310:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests2/test_outputs.py:188: in assert_broadcast_pair
+    assert_step1_rows(source, output, "%s[%d]" % (label, index))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+source = PosixPath('/app/mix.wav'), candidate = PosixPath('/app/mixA.wav')
+label = 'carried pair[0]'
+
+    def assert_step1_rows(source, candidate, label):
+        observed = metrics(source, candidate)
+>       assert observed["rate"] == 48000, "%s rate: %r" % (label, observed)
+E       AssertionError: carried pair[0] rate: {'rate': 192000, 'channels': 1, 'duration_delta': 90.0, 'peak_dbfs': -3.0702888507714294, 'dc': 5.333179897732205e-06, 'nrmse_db': -8.206796701210762e-06}
+E       assert 192000 == 48000
+
+/tests2/test_outputs.py:137: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests2/test_outputs.py::test_loudness_pivot_and_step1_regressions
+1 failed in 2.66s
+reward=0 (1 failed, 0 errored)
+
+$ docker rm -f
+ffctrl-2487116-16

@@ -1,0 +1,15 @@
+CASE s1_expression            expected=ACCEPT observed=ACCEPT reward=1 rc=0
+CASE s1_composite             expected=ACCEPT observed=ACCEPT reward=1 rc=0
+CASE s1_cast_plain_mutant     expected=REJECT observed=REJECT reward=0 rc=1
+CASE s1_rewrite_no_index      expected=REJECT observed=REJECT reward=0 rc=1
+CASE s1_settings_only         expected=REJECT observed=REJECT reward=0 rc=1
+CASE s1_bloat                 expected=REJECT observed=REJECT reward=0 rc=1
+CASE s1_hardcode_mutant       expected=REJECT observed=REJECT reward=0 rc=1
+CASE s2_cluster               expected=ACCEPT observed=ACCEPT reward=1 rc=0
+CASE s2_plain_mutant          expected=REJECT observed=REJECT reward=0 rc=1
+CASE s2_vacuum_only           expected=REJECT observed=REJECT reward=0 rc=1
+CASE s2_partial_only          expected=REJECT observed=REJECT reward=0 rc=1
+CASE s2_partial_plain         expected=REJECT observed=REJECT reward=0 rc=1
+CASE s3_monthly               expected=ACCEPT observed=ACCEPT reward=1 rc=0
+CASE s3_retune_mutant         expected=REJECT observed=REJECT reward=0 rc=1
+CASE s3_btree_mutant          expected=REJECT observed=REJECT reward=0 rc=1

@@ -1,0 +1,135 @@
+{
+  "schema": "tbench-multiturn-final-audit-v1",
+  "task": "sqlite-corrupt-index-replay",
+  "audited_at": "2026-09-30T17:40:59Z",
+  "result": "PASS",
+  "status": {
+    "nest": "UNREGISTERED",
+    "evidence": "fresh codimango task show returned kind=not_found in this audit turn"
+  },
+  "scope": {
+    "worktree": "/home/hcjackchen/worktrees/phase2-v9-four-20260930",
+    "branch": "codex/phase2-v9-four-20260930",
+    "head": "448d1b0c2b40d4b800b094d5e23e092426d17747",
+    "orchestrated": false,
+    "repair_closure_required": false,
+    "included_files_modified_by_auditor": false
+  },
+  "bundle": {
+    "working_fingerprint": "bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489",
+    "projected_fingerprint": "bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489",
+    "projection_status": "PASS",
+    "hygiene_status": "PASS",
+    "static_findings": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "warning": 0
+    }
+  },
+  "instruction_hashes": [
+    {
+      "path": "steps/1_recover_index/instruction.md",
+      "baseline_sha256": "fb26d2b7266248f4a7be2912ffde35065f87d3d1a42d6f8236ce668c62232bac",
+      "current_sha256": "fb26d2b7266248f4a7be2912ffde35065f87d3d1a42d6f8236ce668c62232bac",
+      "status": "PASS"
+    },
+    {
+      "path": "steps/2_idempotent_replay/instruction.md",
+      "baseline_sha256": "acbf1cda3971d5baadbdc9ae2e8e171945575d58811d171f8c87b5770875e522",
+      "current_sha256": "acbf1cda3971d5baadbdc9ae2e8e171945575d58811d171f8c87b5770875e522",
+      "status": "PASS"
+    }
+  ],
+  "chain": {
+    "network": "none",
+    "evidence": ".validation/chain-20260930T174059Z.json",
+    "network_injection_evidence": ".validation/final-audit-network-none.log",
+    "failures": 0,
+    "unproven": false,
+    "steps": [
+      {
+        "step": "1_recover_index",
+        "do_nothing": {"status": "OK", "executed": 4, "skipped": 0, "failed": 4},
+        "oracle": "OK",
+        "green": {"status": "OK", "executed": 4, "skipped": 0, "failed": 0}
+      },
+      {
+        "step": "2_idempotent_replay",
+        "do_nothing": {"status": "OK", "executed": 2, "skipped": 0, "failed": 2},
+        "oracle": "OK",
+        "green": {"status": "OK", "executed": 2, "skipped": 0, "failed": 0}
+      }
+    ],
+    "boundary": {
+      "from": "1_recover_index",
+      "to": "2_idempotent_replay",
+      "status": "NOT_REQUIRED",
+      "justification": "Step 1 has no solver-visible prohibition against a compatible idempotent replay implementation."
+    }
+  },
+  "controls": {
+    "evidence": ".validation/controls-v1.json",
+    "replay_log": ".validation/final-audit-controls.log",
+    "total": 20,
+    "matched": 20,
+    "accepted_valid_alternatives": 7,
+    "rejected_named_mutants": 13,
+    "public_hidden_hardcoding_rejected": true,
+    "isolation": {
+      "tests": "denied:PermissionError",
+      "seal_list": "denied:PermissionError",
+      "harness_mem": "denied:PermissionError",
+      "harness_fds": "denied:PermissionError"
+    },
+    "repair_replay": {
+      "evidence": ".validation/final-audit-repair-controls.log",
+      "valid_reindex": "ACCEPT",
+      "valid_dump_restore": "ACCEPT",
+      "valid_vacuum": "ACCEPT",
+      "s1_extra_table_and_index": "REJECT",
+      "s2_extra_table_and_index": "REJECT",
+      "mismatches": 0
+    }
+  },
+  "transition_audit": [
+    {
+      "from": "1_recover_index",
+      "to": "2_idempotent_replay",
+      "entry_state": "actual Step-1 repaired store.db, recovery_report.json, crash-safe app.conf, unchanged schema witness, and replay input",
+      "carried_artifacts": ["/app/store.db", "/app/app.conf", "/app/schema.sql", "/app/orders_input.jsonl"],
+      "mutated": ["/app/store.db", "/app/replay.py"],
+      "override": "naive append-only replay is replaced by max-sequence idempotent replay",
+      "retired": ["unsafe WAL-only durability state", "naive append-only replay behavior"],
+      "future_isolation": "expected rows and hidden fixtures are created under verifier-only root-owned paths after candidate execution; adversarial access probes are denied",
+      "under_execution": "Step-1 replay fails both Step-2 tests before the Step-2 oracle",
+      "over_execution": "NOT_REQUIRED",
+      "prior_regressions": ["exact carried rows", "integrity ok", "crash-safe app.conf bytes", "orders columns", "idx_big definition and indexed query"],
+      "status": "PASS",
+      "schema_exactness": "Complete sqlite_master table/index object sets are compared against independently derived pristine references; public checks also require exactly orders, idx_big, and sqlite_autoindex_orders_1."
+    }
+  ],
+  "contract_coverage": {
+    "declared_rows": 11,
+    "mapped_rows": 11,
+    "status": "PASS",
+    "reason": "All declared rows are behaviorally mapped, including complete logical-schema object-set preservation."
+  },
+  "closed_findings": [
+    {
+      "id": "FA-SCHEMA-EXACTNESS",
+      "severity": "HIGH",
+      "disposition": "FIXED",
+      "contract": "steps/1_recover_index/instruction.md: Keep the logical schema unchanged — same tables, columns, and index definitions; steps/2_idempotent_replay/instruction.md: logical schema and idx_big index definition are unchanged.",
+      "implementation_evidence": [
+        "steps/1_recover_index/tests/test_outputs.py:_schema",
+        "steps/2_idempotent_replay/tests/test_outputs.py:_schema"
+      ],
+      "counterexample_evidence": ".validation/final-audit-repair-controls.log",
+      "observed": "The repaired grader rejects unauthorized_extra and unauthorized_status_idx at both steps, while REINDEX, dump/restore, and VACUUM remain accepted.",
+      "status": "PASS"
+    }
+  ],
+  "blocking_findings": [],
+  "supporting_log": ".validation/final-audit-v1.log"
+}

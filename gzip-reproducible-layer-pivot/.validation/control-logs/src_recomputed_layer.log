@@ -1,0 +1,180 @@
+$ docker run --network none ...
+c980ae037ea26b4525d5ad7f203324a630d47ae267663e3fbb5f6fff89be62e6
+
+$ docker cp private test trees
+
+$ mkdir /solution1
+
+$ copy Step-1 oracle
+
+$ /solution1/solve.sh
+
+$ /tests1/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+PASSED ../tests1/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+PASSED ../tests1/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+PASSED ../tests1/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+4 passed in 0.49s
+reward=1 (4 passed, 0 skipped)
+
+$ install SRC_RECOMPUTED_LAYER_SH
+
+$ public make_layer interface
+
+$ /tests2/test.sh
+FF..F                                                                    [100%]
+=================================== FAILURES ===================================
+_____ test_layer_uses_manifest_hash_order_and_excludes_extra_source_files ______
+
+    def test_layer_uses_manifest_hash_order_and_excludes_extra_source_files():
+        assert MAKE_LAYER.is_file() and os.access(MAKE_LAYER, os.X_OK)
+        assert Path("/app/LAYER_SPEC.md").is_file()
+>       _exercise(71)
+
+/tests2/test_outputs.py:195:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests2/test_outputs.py:151: in _exercise
+    _audit_layer(out, rows)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-layer-71-vzah756v/out/layer-0.tar')
+rows = [{'kind': 'file', 'path_b64': 'YWxwaGEudHh0', 'payload': b'alpha-71\n', 'rel': 'alpha.txt', ...}, {'kind': 'dir', 'pat...'rel': 'nested', ...}, {'kind': 'dir', 'path_b64': 'bmVzdGVkL2RlZXA=', 'payload': b'', 'rel': 'nested/deep', ...}, ...]
+
+    def _audit_layer(path, rows):
+        assert path.read_bytes()[:2] != b"\x1f\x8b"
+        got = []
+        with tarfile.open(path, "r:") as tf:
+            for m in tf.getmembers():
+                rel = _norm(m.name)
+                if rel is None:
+                    continue
+                assert m.uid == 0 and m.gid == 0 and m.mtime == 0
+                assert m.uname == "" and m.gname == "" and not m.pax_headers
+                if m.isdir():
+                    kind, payload = "dir", b""
+                elif m.issym():
+                    kind, payload = "symlink", m.linkname.encode("utf-8")
+                elif m.isfile():
+                    kind = "file"
+                    f = tf.extractfile(m)
+                    assert f is not None
+                    payload = f.read()
+                else:
+                    kind, payload = "other", b""
+                got.append((rel, kind, hashlib.sha256(payload).hexdigest()))
+        names = [x[0] for x in got]
+>       assert len(names) == len(set(names)) == len(rows)
+E       AssertionError: assert 8 == 7
+E        +  where 8 = len({'alpha.txt', 'empty', 'line\nitem.txt', 'link', 'nested', 'nested/deep', ...})
+E        +    where {'alpha.txt', 'empty', 'line\nitem.txt', 'link', 'nested', 'nested/deep', ...} = set(['empty', 'nested', 'nested/deep', 'nested/deep/blob.bin', 'unmanifested-extra.bin', 'line\nitem.txt', ...])
+E        +  and   7 = len([{'kind': 'file', 'path_b64': 'YWxwaGEudHh0', 'payload': b'alpha-71\n', 'rel': 'alpha.txt', ...}, {'kind': 'dir', 'pat...'rel': 'nested', ...}, {'kind': 'dir', 'path_b64': 'bmVzdGVkL2RlZXA=', 'payload': b'', 'rel': 'nested/deep', ...}, ...])
+
+/tests2/test_outputs.py:129: AssertionError
+________________ test_layer_handles_independent_manifest_family ________________
+
+    def test_layer_handles_independent_manifest_family():
+>       assert len(_exercise(97)) == 7
+                   ^^^^^^^^^^^^^
+
+/tests2/test_outputs.py:199:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests2/test_outputs.py:151: in _exercise
+    _audit_layer(out, rows)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-layer-97-m_fg0n2b/out/layer-0.tar')
+rows = [{'kind': 'file', 'path_b64': 'YWxwaGEudHh0', 'payload': b'alpha-97\n', 'rel': 'alpha.txt', ...}, {'kind': 'dir', 'pat...'rel': 'nested', ...}, {'kind': 'dir', 'path_b64': 'bmVzdGVkL2RlZXA=', 'payload': b'', 'rel': 'nested/deep', ...}, ...]
+
+    def _audit_layer(path, rows):
+        assert path.read_bytes()[:2] != b"\x1f\x8b"
+        got = []
+        with tarfile.open(path, "r:") as tf:
+            for m in tf.getmembers():
+                rel = _norm(m.name)
+                if rel is None:
+                    continue
+                assert m.uid == 0 and m.gid == 0 and m.mtime == 0
+                assert m.uname == "" and m.gname == "" and not m.pax_headers
+                if m.isdir():
+                    kind, payload = "dir", b""
+                elif m.issym():
+                    kind, payload = "symlink", m.linkname.encode("utf-8")
+                elif m.isfile():
+                    kind = "file"
+                    f = tf.extractfile(m)
+                    assert f is not None
+                    payload = f.read()
+                else:
+                    kind, payload = "other", b""
+                got.append((rel, kind, hashlib.sha256(payload).hexdigest()))
+        names = [x[0] for x in got]
+>       assert len(names) == len(set(names)) == len(rows)
+E       AssertionError: assert 8 == 7
+E        +  where 8 = len({'alpha.txt', 'empty', 'line\nitem.txt', 'link', 'nested', 'nested/deep', ...})
+E        +    where {'alpha.txt', 'empty', 'line\nitem.txt', 'link', 'nested', 'nested/deep', ...} = set(['empty', 'nested', 'nested/deep', 'nested/deep/blob.bin', 'unmanifested-extra.bin', 'line\nitem.txt', ...])
+E        +  and   7 = len([{'kind': 'file', 'path_b64': 'YWxwaGEudHh0', 'payload': b'alpha-97\n', 'rel': 'alpha.txt', ...}, {'kind': 'dir', 'pat...'rel': 'nested', ...}, {'kind': 'dir', 'path_b64': 'bmVzdGVkL2RlZXA=', 'payload': b'', 'rel': 'nested/deep', ...}, ...])
+
+/tests2/test_outputs.py:129: AssertionError
+________ test_final_layer_artifact_matches_carried_source_and_manifest _________
+
+    def test_final_layer_artifact_matches_carried_source_and_manifest():
+        rows = _audit_manifest_for_source(MANIFEST.read_bytes(), Path("/app/src"))
+>       _audit_layer(Path("/app/layer.tar"), rows)
+
+/tests2/test_outputs.py:257:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/app/layer.tar')
+rows = [{'kind': 'file', 'path_b64': 'YWxwaGEudHh0', 'payload': b'alpha\n', 'rel': 'alpha.txt', ...}, {'kind': 'symlink', 'pa...x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !"#$%&\'()*+,-./0123456789:;<=>?', 'rel': 'pkg/payload.bin', ...}, ...]
+
+    def _audit_layer(path, rows):
+        assert path.read_bytes()[:2] != b"\x1f\x8b"
+        got = []
+        with tarfile.open(path, "r:") as tf:
+            for m in tf.getmembers():
+                rel = _norm(m.name)
+                if rel is None:
+                    continue
+                assert m.uid == 0 and m.gid == 0 and m.mtime == 0
+                assert m.uname == "" and m.gname == "" and not m.pax_headers
+                if m.isdir():
+                    kind, payload = "dir", b""
+                elif m.issym():
+                    kind, payload = "symlink", m.linkname.encode("utf-8")
+                elif m.isfile():
+                    kind = "file"
+                    f = tf.extractfile(m)
+                    assert f is not None
+                    payload = f.read()
+                else:
+                    kind, payload = "other", b""
+                got.append((rel, kind, hashlib.sha256(payload).hexdigest()))
+        names = [x[0] for x in got]
+        assert len(names) == len(set(names)) == len(rows)
+        expected_order = sorted(rows, key=lambda r: (r["sha256"].encode("ascii"),
+                                                      r["path_b64"].encode("ascii")))
+        want = [(r["rel"], r["kind"], r["sha256"]) for r in expected_order]
+>       assert got == want
+E       AssertionError: assert [('empty', 'd...b51060'), ...] == [('line\nbrea...52b855'), ...]
+E
+E         At index 0 diff: ('empty', 'dir', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855') != ('line\nbreak.txt', 'file', '39e8f5fd5b359d0fc75d45daeea918adcc0e4cfe1e0a2543e51bd870f6f74e88')
+E         Use -v to get more diff
+
+/tests2/test_outputs.py:133: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests2/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_layer
+PASSED ../tests2/test_outputs.py::test_preserves_carried_manifest_packer_and_release_contract
+FAILED ../tests2/test_outputs.py::test_layer_uses_manifest_hash_order_and_excludes_extra_source_files
+FAILED ../tests2/test_outputs.py::test_layer_handles_independent_manifest_family
+FAILED ../tests2/test_outputs.py::test_final_layer_artifact_matches_carried_source_and_manifest
+3 failed, 2 passed in 0.33s
+reward=0 (3 failed, 0 errored)
+
+$ docker rm -f
+gzipctrl-2293774-15

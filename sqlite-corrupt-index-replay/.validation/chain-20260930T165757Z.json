@@ -1,0 +1,33 @@
+{
+  "task": "sqlite-corrupt-index-replay",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-sqlite-corrupt-index-replay:validate"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 4 failed, 0 errored"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "GREEN",
+      "status": "FAIL",
+      "detail": "4 executed, 0 skipped, 3 failed, 0 errored"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

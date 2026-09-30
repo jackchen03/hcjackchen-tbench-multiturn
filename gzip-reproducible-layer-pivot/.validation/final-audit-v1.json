@@ -1,0 +1,66 @@
+{
+  "schema": "tbench-multiturn-final-audit-v1",
+  "task": "gzip-reproducible-layer-pivot",
+  "audited_at": "2026-09-30T17:52:33Z",
+  "status": "UNREGISTERED",
+  "status_evidence": "fresh Nest not_found confirmed by coordinator for this turn",
+  "result": "PASS",
+  "repair_closure": {"required": false, "reason": "fresh non-orchestrated Phase-2 build"},
+  "bundle_fingerprint": "bundle-sha256-v1:2aa10d734985b7e3bd8c9540e0525c4188d60923d5e98e2b4d7eefa0c0471e67",
+  "projected_fingerprint": "bundle-sha256-v1:2aa10d734985b7e3bd8c9540e0525c4188d60923d5e98e2b4d7eefa0c0471e67",
+  "projection_check": "PASS",
+  "archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/phase2-v9-four-20260930/gzip-reproducible-layer-pivot",
+    "manifest_sha256": "061f34c6ca81a9f0477eb41a00f7a67c5e523aa0e01bf16aebf69fa584a301a5",
+    "manifest_check": "PASS"
+  },
+  "instruction_hashes": {
+    "result": "PASS",
+    "steps/1_fix_reproducibility/instruction.md": "ff36a45d3b8556162e6bc629334a21d47479440a0b2e72a7d4c951ec36a21bae",
+    "steps/2_layer_pivot/instruction.md": "0e9f6eb5db1c114930958a91be288f59ad5563ec81387fad051b90c0dd1ccf8a"
+  },
+  "static": {
+    "result": "PASS", "critical": 0, "high": 0, "medium": 0, "warn": 0,
+    "hygiene": "PASS", "git_diff_check": "PASS", "git_cached_diff_check": "PASS",
+    "build_closure": "PASS", "included_cache_or_diagnose_artifacts": 0
+  },
+  "chain": {
+    "result": "PASS", "network": "none",
+    "json": ".validation/chain-20260930T174947Z.json",
+    "json_sha256": "d0ecf14ba7c9ddc3cfba9746853c3b826dc9297c8b5da0b71d0e80d184ac6609",
+    "log": ".validation/chain-20260930T174947Z.log",
+    "log_sha256": "6e53a5503b40b0c54e703a101ddcdc9a89e6bac85b00a3146252d54fe783a2d4",
+    "failures": 0, "unproven": false, "skipped": 0,
+    "steps": {
+      "1_fix_reproducibility": {"do_nothing": "RED", "do_nothing_executed": 4, "oracle": "PASS", "green": "PASS", "green_executed": 4, "skipped": 0},
+      "2_layer_pivot": {"do_nothing": "RED", "do_nothing_executed": 5, "oracle": "PASS", "green": "PASS", "green_executed": 5, "skipped": 0}
+    },
+    "boundary": {"1_fix_reproducibility->2_layer_pivot": "NOT_REQUIRED"}
+  },
+  "controls": {
+    "result": "PASS", "network": "none", "fresh_container_per_case": true,
+    "manifest": ".validation/exact-grader-controls-v1.json",
+    "manifest_sha256": "3ff43c2f3609811513dbaa6ea1847baf3df72030c5e96519057c30a73c1b51c1",
+    "runner_sha256": "ddba1bfb5516a2e8792c98d85799063bde8556fadb180cedd1860ff9baa05ebe",
+    "logs": ".validation/control-logs/*.log",
+    "cases": 22, "accepted": 4, "rejected": 18, "mismatches": 0, "skipped": 0, "harness_errors": 0
+  },
+  "isolation": {
+    "result": "PASS",
+    "normal_private_delivery": "both step directories mode 0700 and test files mode 0600; nobody reads rejected with PermissionError",
+    "readonly_mount": "FAIL_CLOSED_BEFORE_CANDIDATE",
+    "readonly_mount_log": ".validation/control-logs/readonly-mount-fail-closed.log",
+    "readonly_mount_log_sha256": "862bf275a48609bff87247316e064416bd1a650720fc391e3ab99e859772135a"
+  },
+  "semantic_matrix": {
+    "contract_mapping": "PASS", "positive_controls": "PASS", "negative_controls": "PASS",
+    "valid_alternatives": "PASS", "solver_authored_manifest": "PASS",
+    "public_hidden_disjointness": "PASS", "public_sample_hardcoding": "PASS",
+    "recursive_traversal": "PASS", "carried_state": "PASS", "override_precedence": "PASS",
+    "prior_step_regressions": "PASS", "under_execution": "PASS",
+    "over_execution": "NOT_REQUIRED", "future_artifact_isolation": "PASS",
+    "initial_image_pre_solution": "PASS", "grader_isolation": "PASS"
+  },
+  "open_findings": [],
+  "remaining_action": "Run the separately authorized oracle x3 workflow."
+}

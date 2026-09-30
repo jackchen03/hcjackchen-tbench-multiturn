@@ -1,0 +1,20 @@
+$ docker run ...
+c1dda38e19374e237b37cb3bff5c20c5478d023a8e09ac804bac3d60e7110180
+
+$ docker cp private test/solution trees
+
+$ install control
+
+$ public output setup
+
+$ /tests1/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_clean_downmix_contract_and_stage_next_turn
+1 passed in 5.98s
+reward=1 (1 passed, 0 skipped)
+
+$ docker rm -f
+ffctrl-2487116-03

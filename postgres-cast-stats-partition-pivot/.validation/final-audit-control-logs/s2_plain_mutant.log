@@ -1,0 +1,88 @@
+8aba63721c07ca61ce8aa479092bc2fecdf6b26a8b2370f3e4d0391113d40f7e
+
+
+
+
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract ___
+
+    def test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract():
+        db = "grade_s2_hidden"
+        recreate(db, point_generator(400001, 700000, 910001, 0.77))
+        ordinary = int(sql(db, (
+            "SELECT customer_id FROM orders WHERE customer_id BETWEEN 400001 AND 700000 "
+            "GROUP BY customer_id HAVING count(*) BETWEEN 2 AND 8 ORDER BY customer_id LIMIT 1"
+        )).strip())
+        skew = 910001
+        ordinary_expected = expected_rows(db, f"customer_id={ordinary}")
+        skew_expected = expected_rows(db, f"customer_id={skew}")
+        assert 2 <= len(ordinary_expected) <= 8
+        assert len(skew_expected) == 40000
+        Path("/app/bounds.txt").write_text("point_lookup_buffers_le=1090\nhot_report_buffers_le=1081\n")
+        apply_candidate_schema(db)
+        assert int(sql(db, "SELECT count(*) FROM orders").strip()) == 500000
+        assert_point_contract(db, ordinary, ordinary_expected)
+>       assert_point_contract(db, skew, skew_expected)
+
+/tests/test_outputs.py:162:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+db = 'grade_s2_hidden', cid = 910001
+expected = ['910001\tshipped\t2023-06-01 00:00:00+00\t105.21', '910001\tshipped\t2023-06-01 00:00:00+00\t106.16', '910001\tshippe...00\t108.62', '910001\tshipped\t2023-06-01 00:00:00+00\t111.06', '910001\tshipped\t2023-06-01 00:00:00+00\t112.30', ...]
+
+    def assert_point_contract(db, cid, expected):
+        got = candidate_rows(db, cid)
+        assert got == expected
+        plan = explain_query(db, cid)
+        seq_orders = [
+            n for n in walk(plan)
+            if n.get("Node Type") == "Seq Scan" and n.get("Relation Name") == "orders"
+        ]
+        assert seq_orders == []
+>       assert buffer_sum(plan) <= 1090
+E       AssertionError: assert 3062 <= 1090
+E        +  where 3062 = buffer_sum({'Actual Loops': 1, 'Actual Rows': 40000, 'Async Capable': False, 'Local Dirtied Blocks': 0, ...})
+
+/tests/test_outputs.py:113: AssertionError
+----------------------------- Captured stdout call -----------------------------
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /tmp/pgbench-data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default time zone ... Etc/UTC
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /tmp/pgbench-data -l logfile start
+
+waiting for server to start....2026-09-30 17:41:43.769 UTC [50] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-09-30 17:41:43.769 UTC [50] LOG:  listening on IPv4 address "0.0.0.0", port 55432
+2026-09-30 17:41:43.770 UTC [50] LOG:  listening on IPv6 address "::", port 55432
+2026-09-30 17:41:43.770 UTC [50] LOG:  listening on Unix socket "/tmp/pgbench-socket/.s.PGSQL.55432"
+2026-09-30 17:41:43.771 UTC [53] LOG:  database system was shut down at 2026-09-30 17:41:41 UTC
+2026-09-30 17:41:43.774 UTC [50] LOG:  database system is ready to accept connections
+ done
+server started
+----------------------------- Captured stderr call -----------------------------
+initdb: warning: enabling "trust" authentication for local connections
+initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract
+1 failed in 4.50s
+reward=0 (1 failed, 0 errored)

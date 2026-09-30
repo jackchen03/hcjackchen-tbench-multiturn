@@ -1,0 +1,2 @@
+-- Cutoff: 2023-12-02
+-- RANGE partition orders on created_at with orders_hist and monthly orders_hot partitions.

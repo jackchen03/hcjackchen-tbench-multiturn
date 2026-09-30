@@ -1,0 +1,327 @@
+== oracle chain: postgres-cast-stats-partition-pivot (3 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-postgres-cast-stats-partition-pivot:validate /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/environment
+sha256:c48e9a8ec3935eb8bbd66f92948f821c729413c123c360924e9057d7122a9c0e
+$ docker rm -f tbench-mt-postgres-cast-stats-partition-pivot-chain
+$ docker run -d --name tbench-mt-postgres-cast-stats-partition-pivot-chain tbench-mt-postgres-cast-stats-partition-pivot:validate sleep infinity
+f75ce117ffa30fb089c2c5bd887ec28011cee9bead406543a6b1b6cbfc63b060
+NETWORK_POLICY docker run --network none
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/steps/1_fix_slow_query/tests/. tbench-mt-postgres-cast-stats-partition-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-postgres-cast-stats-partition-pivot-chain bash /tests/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_fast_exact_lookups_on_disjoint_500k_fixtures _______________
+
+    def test_fast_exact_lookups_on_disjoint_500k_fixtures():
+>       public_id = exercise_family("grade_s1_public", 1, 300000, 900001, 0.42)
+
+/tests/test_outputs.py:154:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:149: in exercise_family
+    assert_point_contract(db, cid, expected)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+db = 'grade_s1_public', cid = 4
+expected = ['4\tpaid\t2023-04-19 05:54:17.544709+00\t564.77', '4\tshipped\t2021-11-29 23:27:40.642797+00\t243.05']
+
+    def assert_point_contract(db, cid, expected):
+        got = candidate_rows(db, cid)
+        assert got == expected
+        plan = explain_query(db, cid)
+        seq_orders = [
+            n for n in walk(plan)
+            if n.get("Node Type") == "Seq Scan" and n.get("Relation Name") == "orders"
+        ]
+>       assert seq_orders == []
+E       AssertionError: assert [{'Actual Loo...: False, ...}] == []
+E
+E         Left contains one more item: {'Actual Loops': 3, 'Actual Rows': 1, 'Alias': 'orders', 'Async Capable': False, ...}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:112: AssertionError
+----------------------------- Captured stdout call -----------------------------
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /tmp/pgbench-data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default time zone ... Etc/UTC
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /tmp/pgbench-data -l logfile start
+
+waiting for server to start....2026-09-30 17:13:03.174 UTC [57] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-09-30 17:13:03.174 UTC [57] LOG:  listening on IPv4 address "0.0.0.0", port 55432
+2026-09-30 17:13:03.174 UTC [57] LOG:  listening on IPv6 address "::", port 55432
+2026-09-30 17:13:03.175 UTC [57] LOG:  listening on Unix socket "/tmp/pgbench-socket/.s.PGSQL.55432"
+2026-09-30 17:13:03.176 UTC [60] LOG:  database system was shut down at 2026-09-30 17:13:01 UTC
+2026-09-30 17:13:03.179 UTC [57] LOG:  database system is ready to accept connections
+ done
+server started
+----------------------------- Captured stderr call -----------------------------
+initdb: warning: enabling "trust" authentication for local connections
+initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_fast_exact_lookups_on_disjoint_500k_fixtures
+1 failed in 3.96s
+reward=0 (1 failed, 0 errored)
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="3.967" timestamp="2026-09-30T17:13:00.808392+00:00" hostname="f75ce117ffa3"><testcase classname="test_outputs" name="test_fast_exact_lookups_on_disjoint_500k_fixtures" time="3.935"><failure message="AssertionError: assert [{'Actual Loo...: False, ...}] == []&#10;  &#10;  Left contains one more item: {'Actual Loops': 3, 'Actual Rows': 1, 'Alias': 'orders', 'Async Capable': False, ...}&#10;  Use -v to get more diff">def test_fast_exact_lookups_on_disjoint_500k_fixtures():
+&gt;       public_id = exercise_family("grade_s1_public", 1, 300000, 900001, 0.42)
+
+/tests/test_outputs.py:154:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:149: in exercise_family
+    assert_point_contract(db, cid, expected)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+db = 'grade_s1_public', cid = 4
+expected = ['4\tpaid\t2023-04-19 05:54:17.544709+00\t564.77', '4\tshipped\t2021-11-29 23:27:40.642797+00\t243.05']
+
+    def assert_point_contract(db, cid, expected):
+        got = candidate_rows(db, cid)
+        assert got == expected
+        plan = explain_query(db, cid)
+        seq_orders = [
+            n for n in walk(plan)
+            if n.get("Node Type") == "Seq Scan" and n.get("Relation Name") == "orders"
+        ]
+&gt;       assert seq_orders == []
+E       AssertionError: assert [{'Actual Loo...: False, ...}] == []
+E
+E         Left contains one more item: {'Actual Loops': 3, 'Actual Rows': 1, 'Alias': 'orders', 'Async Capable': False, ...}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:112: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests
+STEP 1 1_fix_slow_query  DO-NOTHING  OK    red before the work (1 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/steps/1_fix_slow_query/solution/. tbench-mt-postgres-cast-stats-partition-pivot-chain:/solution
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-postgres-cast-stats-partition-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /solution
+STEP 1 1_fix_slow_query  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/steps/1_fix_slow_query/tests/. tbench-mt-postgres-cast-stats-partition-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-postgres-cast-stats-partition-pivot-chain bash /tests/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_fast_exact_lookups_on_disjoint_500k_fixtures
+1 passed in 3.34s
+reward=1 (1 passed, 0 skipped)
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="3.346" timestamp="2026-09-30T17:13:05.948210+00:00" hostname="f75ce117ffa3"><testcase classname="test_outputs" name="test_fast_exact_lookups_on_disjoint_500k_fixtures" time="3.328" /></testsuite></testsuites>
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests
+STEP 1 1_fix_slow_query  GREEN       OK    1 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/steps/2_harden_query/tests/. tbench-mt-postgres-cast-stats-partition-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-postgres-cast-stats-partition-pivot-chain bash /tests/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract ___
+
+    def test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract():
+        db = "grade_s2_hidden"
+        recreate(db, point_generator(400001, 700000, 910001, 0.77))
+        ordinary = int(sql(db, (
+            "SELECT customer_id FROM orders WHERE customer_id BETWEEN 400001 AND 700000 "
+            "GROUP BY customer_id HAVING count(*) BETWEEN 2 AND 8 ORDER BY customer_id LIMIT 1"
+        )).strip())
+        skew = 910001
+        ordinary_expected = expected_rows(db, f"customer_id={ordinary}")
+        skew_expected = expected_rows(db, f"customer_id={skew}")
+        assert 2 <= len(ordinary_expected) <= 8
+        assert len(skew_expected) == 40000
+        Path("/app/bounds.txt").write_text("point_lookup_buffers_le=1090\nhot_report_buffers_le=1081\n")
+        apply_candidate_schema(db)
+        assert int(sql(db, "SELECT count(*) FROM orders").strip()) == 500000
+        assert_point_contract(db, ordinary, ordinary_expected)
+>       assert_point_contract(db, skew, skew_expected)
+
+/tests/test_outputs.py:162:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+db = 'grade_s2_hidden', cid = 910001
+expected = ['910001\tshipped\t2023-06-01 00:00:00+00\t105.21', '910001\tshipped\t2023-06-01 00:00:00+00\t106.16', '910001\tshippe...00\t108.62', '910001\tshipped\t2023-06-01 00:00:00+00\t111.06', '910001\tshipped\t2023-06-01 00:00:00+00\t112.30', ...]
+
+    def assert_point_contract(db, cid, expected):
+        got = candidate_rows(db, cid)
+        assert got == expected
+        plan = explain_query(db, cid)
+        seq_orders = [
+            n for n in walk(plan)
+            if n.get("Node Type") == "Seq Scan" and n.get("Relation Name") == "orders"
+        ]
+        assert seq_orders == []
+>       assert buffer_sum(plan) <= 1090
+E       AssertionError: assert 3062 <= 1090
+E        +  where 3062 = buffer_sum({'Actual Loops': 1, 'Actual Rows': 40000, 'Async Capable': False, 'Local Dirtied Blocks': 0, ...})
+
+/tests/test_outputs.py:113: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract
+1 failed in 2.08s
+reward=0 (1 failed, 0 errored)
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.079" timestamp="2026-09-30T17:13:09.968515+00:00" hostname="f75ce117ffa3"><testcase classname="test_outputs" name="test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract" time="2.047"><failure message="AssertionError: assert 3062 &lt;= 1090&#10; +  where 3062 = buffer_sum({'Actual Loops': 1, 'Actual Rows': 40000, 'Async Capable': False, 'Local Dirtied Blocks': 0, ...})">def test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract():
+        db = "grade_s2_hidden"
+        recreate(db, point_generator(400001, 700000, 910001, 0.77))
+        ordinary = int(sql(db, (
+            "SELECT customer_id FROM orders WHERE customer_id BETWEEN 400001 AND 700000 "
+            "GROUP BY customer_id HAVING count(*) BETWEEN 2 AND 8 ORDER BY customer_id LIMIT 1"
+        )).strip())
+        skew = 910001
+        ordinary_expected = expected_rows(db, f"customer_id={ordinary}")
+        skew_expected = expected_rows(db, f"customer_id={skew}")
+        assert 2 &lt;= len(ordinary_expected) &lt;= 8
+        assert len(skew_expected) == 40000
+        Path("/app/bounds.txt").write_text("point_lookup_buffers_le=1090\nhot_report_buffers_le=1081\n")
+        apply_candidate_schema(db)
+        assert int(sql(db, "SELECT count(*) FROM orders").strip()) == 500000
+        assert_point_contract(db, ordinary, ordinary_expected)
+&gt;       assert_point_contract(db, skew, skew_expected)
+
+/tests/test_outputs.py:162:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+db = 'grade_s2_hidden', cid = 910001
+expected = ['910001\tshipped\t2023-06-01 00:00:00+00\t105.21', '910001\tshipped\t2023-06-01 00:00:00+00\t106.16', '910001\tshippe...00\t108.62', '910001\tshipped\t2023-06-01 00:00:00+00\t111.06', '910001\tshipped\t2023-06-01 00:00:00+00\t112.30', ...]
+
+    def assert_point_contract(db, cid, expected):
+        got = candidate_rows(db, cid)
+        assert got == expected
+        plan = explain_query(db, cid)
+        seq_orders = [
+            n for n in walk(plan)
+            if n.get("Node Type") == "Seq Scan" and n.get("Relation Name") == "orders"
+        ]
+        assert seq_orders == []
+&gt;       assert buffer_sum(plan) &lt;= 1090
+E       AssertionError: assert 3062 &lt;= 1090
+E        +  where 3062 = buffer_sum({'Actual Loops': 1, 'Actual Rows': 40000, 'Async Capable': False, 'Local Dirtied Blocks': 0, ...})
+
+/tests/test_outputs.py:113: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests
+STEP 2 2_harden_query  DO-NOTHING  OK    red before the work (1 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/steps/2_harden_query/solution/. tbench-mt-postgres-cast-stats-partition-pivot-chain:/solution
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-postgres-cast-stats-partition-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /solution
+STEP 2 2_harden_query  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/steps/2_harden_query/tests/. tbench-mt-postgres-cast-stats-partition-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-postgres-cast-stats-partition-pivot-chain bash /tests/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract
+1 passed in 2.04s
+reward=1 (1 passed, 0 skipped)
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="2.044" timestamp="2026-09-30T17:13:13.110971+00:00" hostname="f75ce117ffa3"><testcase classname="test_outputs" name="test_skew_hardening_preserves_ordinary_lookups_and_stages_growth_contract" time="2.025" /></testsuite></testsuites>
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests
+STEP 2 2_harden_query  GREEN       OK    1 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/steps/3_partition_pivot/tests/. tbench-mt-postgres-cast-stats-partition-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-postgres-cast-stats-partition-pivot-chain bash /tests/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_partitioned_hot_report_and_point_lookup_regression ____________
+
+    def test_partitioned_hot_report_and_point_lookup_regression():
+        assert Path("/app/growth/layout.sql").is_file()
+        assert CUTOFF in Path("/app/growth/layout.sql").read_text()
+>       assert Path("/app/hot_query.sql").is_file()
+E       AssertionError: assert False
+E        +  where False = is_file()
+E        +    where is_file = PosixPath('/app/hot_query.sql').is_file
+E        +      where PosixPath('/app/hot_query.sql') = Path('/app/hot_query.sql')
+
+/tests/test_outputs.py:164: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_partitioned_hot_report_and_point_lookup_regression
+1 failed in 0.03s
+reward=0 (1 failed, 0 errored)
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.037" timestamp="2026-09-30T17:13:15.823881+00:00" hostname="f75ce117ffa3"><testcase classname="test_outputs" name="test_partitioned_hot_report_and_point_lookup_regression" time="0.001"><failure message="AssertionError: assert False&#10; +  where False = is_file()&#10; +    where is_file = PosixPath('/app/hot_query.sql').is_file&#10; +      where PosixPath('/app/hot_query.sql') = Path('/app/hot_query.sql')">def test_partitioned_hot_report_and_point_lookup_regression():
+        assert Path("/app/growth/layout.sql").is_file()
+        assert CUTOFF in Path("/app/growth/layout.sql").read_text()
+&gt;       assert Path("/app/hot_query.sql").is_file()
+E       AssertionError: assert False
+E        +  where False = is_file()
+E        +    where is_file = PosixPath('/app/hot_query.sql').is_file
+E        +      where PosixPath('/app/hot_query.sql') = Path('/app/hot_query.sql')
+
+/tests/test_outputs.py:164: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests
+STEP 3 3_partition_pivot  DO-NOTHING  OK    red before the work (1 executed, 0 skipped, 1 failed, 0 errored)
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/steps/3_partition_pivot/solution/. tbench-mt-postgres-cast-stats-partition-pivot-chain:/solution
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-postgres-cast-stats-partition-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /solution
+STEP 3 3_partition_pivot  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/steps/3_partition_pivot/tests/. tbench-mt-postgres-cast-stats-partition-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-postgres-cast-stats-partition-pivot-chain bash /tests/test.sh
+.                                                                        [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_partitioned_hot_report_and_point_lookup_regression
+1 passed in 2.31s
+reward=1 (1 passed, 0 skipped)
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="2.314" timestamp="2026-09-30T17:13:17.078981+00:00" hostname="f75ce117ffa3"><testcase classname="test_outputs" name="test_partitioned_hot_report_and_point_lookup_regression" time="2.293" /></testsuite></testsuites>
+$ docker exec tbench-mt-postgres-cast-stats-partition-pivot-chain rm -rf /tests
+STEP 3 3_partition_pivot  GREEN       OK    1 executed, 0 skipped, 0 failed, 0 errored
+STEP 1 1_fix_slow_query  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+STEP 2 2_harden_query  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+$ docker rm -f tbench-mt-postgres-cast-stats-partition-pivot-chain
+tbench-mt-postgres-cast-stats-partition-pivot-chain
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/worktrees/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot/.validation/chain-20260930T171258Z.json

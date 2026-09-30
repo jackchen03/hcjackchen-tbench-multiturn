@@ -1,0 +1,453 @@
+== oracle chain: sqlite-corrupt-index-replay (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-sqlite-corrupt-index-replay:validate /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/environment
+sha256:1f42134d6c65502c5eb31f61965ea34d50fec3297eeb5190d35712e25133d671
+$ docker rm -f tbench-mt-sqlite-corrupt-index-replay-chain
+$ docker run -d --name tbench-mt-sqlite-corrupt-index-replay-chain tbench-mt-sqlite-corrupt-index-replay:validate sleep infinity
+2c91683f78a40a8418a323022680653ffa6915c0d5b0b847119bccc92656b257
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/steps/1_recover_index/tests/. tbench-mt-sqlite-corrupt-index-replay-chain:/tests
+$ docker exec -w /app tbench-mt-sqlite-corrupt-index-replay-chain bash /tests/test.sh
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+___________ test_recovered_primary_database_is_integral_and_durable ____________
+
+    def test_recovered_primary_database_is_integral_and_durable():
+>       assert (APP / "recover.sh").is_file()
+E       AssertionError: assert False
+E        +  where False = <bound method Path.is_file of PosixPath('/app/recover.sh')>()
+E        +    where <bound method Path.is_file of PosixPath('/app/recover.sh')> = (PosixPath('/app') / 'recover.sh').is_file
+
+/tests/test_outputs.py:250: AssertionError
+________________ test_recovery_report_has_exact_strict_contract ________________
+
+    def test_recovery_report_has_exact_strict_contract():
+>       durable = _main_file_rows(APP / "store.db")
+
+/tests/test_outputs.py:271:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:89: in _main_file_rows
+    root = Path(tempfile.mkdtemp(prefix="durable-", dir="/tmp/codimango"))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+suffix = '', prefix = 'durable-', dir = '/tmp/codimango'
+
+    def mkdtemp(suffix=None, prefix=None, dir=None):
+        """User-callable function to create and return a unique temporary
+        directory.  The return value is the pathname of the directory.
+
+        Arguments are as for mkstemp, except that the 'text' argument is
+        not accepted.
+
+        The directory is readable, writable, and searchable only by the
+        creating user.
+
+        Caller is responsible for deleting the directory when done with it.
+        """
+
+        prefix, suffix, dir, output_type = _sanitize_params(prefix, suffix, dir)
+
+        names = _get_candidate_names()
+        if output_type is bytes:
+            names = map(_os.fsencode, names)
+
+        for seq in range(TMP_MAX):
+            name = next(names)
+            file = _os.path.join(dir, prefix + name + suffix)
+            _sys.audit("tempfile.mkdtemp", file)
+            try:
+>               _os.mkdir(file, 0o700)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/tmp/codimango/durable-9k5e2b05'
+
+/usr/local/lib/python3.11/tempfile.py:385: FileNotFoundError
+_______________________ test_configuration_is_crash_safe _______________________
+
+    def test_configuration_is_crash_safe():
+>       values = _safe_config()
+
+/tests/test_outputs.py:277:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _safe_config():
+        values = {}
+        for line in (APP / "app.conf").read_text().splitlines():
+            if "=" in line:
+                key, value = line.split("=", 1)
+                values[key.strip()] = value.strip()
+>       assert values.get("synchronous") in {"NORMAL", "FULL"}
+E       AssertionError: assert 'OFF' in {'FULL', 'NORMAL'}
+E        +  where 'OFF' = <built-in method get of dict object at 0x7f583b3aaf00>('synchronous')
+E        +    where <built-in method get of dict object at 0x7f583b3aaf00> = {'synchronous': 'OFF', 'wal_autocheckpoint': '0'}.get
+
+/tests/test_outputs.py:111: AssertionError
+___________ test_family_general_recovery_uses_sealed_post_exit_truth ___________
+
+    def test_family_general_recovery_uses_sealed_post_exit_truth():
+>       assert (APP / "recover.sh").is_file()
+E       AssertionError: assert False
+E        +  where False = <bound method Path.is_file of PosixPath('/app/recover.sh')>()
+E        +    where <bound method Path.is_file of PosixPath('/app/recover.sh')> = (PosixPath('/app') / 'recover.sh').is_file
+
+/tests/test_outputs.py:282: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable
+FAILED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract
+FAILED ../tests/test_outputs.py::test_configuration_is_crash_safe - Assertion...
+FAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth
+4 failed in 0.08s
+reward=0 (4 failed, 0 errored)
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="0.080" timestamp="2026-09-30T16:58:04.862507" hostname="2c91683f78a4"><testcase classname="test_outputs" name="test_recovered_primary_database_is_integral_and_durable" time="0.001"><failure message="AssertionError: assert False&#10; +  where False = &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt;()&#10; +    where &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt; = (PosixPath('/app') / 'recover.sh').is_file">def test_recovered_primary_database_is_integral_and_durable():
+&gt;       assert (APP / "recover.sh").is_file()
+E       AssertionError: assert False
+E        +  where False = &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt;()
+E        +    where &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt; = (PosixPath('/app') / 'recover.sh').is_file
+
+/tests/test_outputs.py:250: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_recovery_report_has_exact_strict_contract" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/tmp/codimango/durable-9k5e2b05'">def test_recovery_report_has_exact_strict_contract():
+&gt;       durable = _main_file_rows(APP / "store.db")
+
+/tests/test_outputs.py:271:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:89: in _main_file_rows
+    root = Path(tempfile.mkdtemp(prefix="durable-", dir="/tmp/codimango"))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+suffix = '', prefix = 'durable-', dir = '/tmp/codimango'
+
+    def mkdtemp(suffix=None, prefix=None, dir=None):
+        """User-callable function to create and return a unique temporary
+        directory.  The return value is the pathname of the directory.
+
+        Arguments are as for mkstemp, except that the 'text' argument is
+        not accepted.
+
+        The directory is readable, writable, and searchable only by the
+        creating user.
+
+        Caller is responsible for deleting the directory when done with it.
+        """
+
+        prefix, suffix, dir, output_type = _sanitize_params(prefix, suffix, dir)
+
+        names = _get_candidate_names()
+        if output_type is bytes:
+            names = map(_os.fsencode, names)
+
+        for seq in range(TMP_MAX):
+            name = next(names)
+            file = _os.path.join(dir, prefix + name + suffix)
+            _sys.audit("tempfile.mkdtemp", file)
+            try:
+&gt;               _os.mkdir(file, 0o700)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/tmp/codimango/durable-9k5e2b05'
+
+/usr/local/lib/python3.11/tempfile.py:385: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_configuration_is_crash_safe" time="0.001"><failure message="AssertionError: assert 'OFF' in {'FULL', 'NORMAL'}&#10; +  where 'OFF' = &lt;built-in method get of dict object at 0x7f583b3aaf00&gt;('synchronous')&#10; +    where &lt;built-in method get of dict object at 0x7f583b3aaf00&gt; = {'synchronous': 'OFF', 'wal_autocheckpoint': '0'}.get">def test_configuration_is_crash_safe():
+&gt;       values = _safe_config()
+
+/tests/test_outputs.py:277:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _safe_config():
+        values = {}
+        for line in (APP / "app.conf").read_text().splitlines():
+            if "=" in line:
+                key, value = line.split("=", 1)
+                values[key.strip()] = value.strip()
+&gt;       assert values.get("synchronous") in {"NORMAL", "FULL"}
+E       AssertionError: assert 'OFF' in {'FULL', 'NORMAL'}
+E        +  where 'OFF' = &lt;built-in method get of dict object at 0x7f583b3aaf00&gt;('synchronous')
+E        +    where &lt;built-in method get of dict object at 0x7f583b3aaf00&gt; = {'synchronous': 'OFF', 'wal_autocheckpoint': '0'}.get
+
+/tests/test_outputs.py:111: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_family_general_recovery_uses_sealed_post_exit_truth" time="0.000"><failure message="AssertionError: assert False&#10; +  where False = &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt;()&#10; +    where &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt; = (PosixPath('/app') / 'recover.sh').is_file">def test_family_general_recovery_uses_sealed_post_exit_truth():
+&gt;       assert (APP / "recover.sh").is_file()
+E       AssertionError: assert False
+E        +  where False = &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt;()
+E        +    where &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt; = (PosixPath('/app') / 'recover.sh').is_file
+
+/tests/test_outputs.py:282: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests
+STEP 1 1_recover_index  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 4 failed, 0 errored)
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /solution
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/steps/1_recover_index/solution/. tbench-mt-sqlite-corrupt-index-replay-chain:/solution
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-sqlite-corrupt-index-replay-chain bash /solution/solve.sh
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /solution
+STEP 1 1_recover_index  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/steps/1_recover_index/tests/. tbench-mt-sqlite-corrupt-index-replay-chain:/tests
+$ docker exec -w /app tbench-mt-sqlite-corrupt-index-replay-chain bash /tests/test.sh
+FF.F                                                                     [100%]
+=================================== FAILURES ===================================
+___________ test_recovered_primary_database_is_integral_and_durable ____________
+
+    def test_recovered_primary_database_is_integral_and_durable():
+        assert (APP / "recover.sh").is_file()
+>       probe = Path(tempfile.mkdtemp(prefix="primary-", dir="/tmp/codimango")) / "store.db"
+
+/tests/test_outputs.py:251:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+suffix = '', prefix = 'primary-', dir = '/tmp/codimango'
+
+    def mkdtemp(suffix=None, prefix=None, dir=None):
+        """User-callable function to create and return a unique temporary
+        directory.  The return value is the pathname of the directory.
+
+        Arguments are as for mkstemp, except that the 'text' argument is
+        not accepted.
+
+        The directory is readable, writable, and searchable only by the
+        creating user.
+
+        Caller is responsible for deleting the directory when done with it.
+        """
+
+        prefix, suffix, dir, output_type = _sanitize_params(prefix, suffix, dir)
+
+        names = _get_candidate_names()
+        if output_type is bytes:
+            names = map(_os.fsencode, names)
+
+        for seq in range(TMP_MAX):
+            name = next(names)
+            file = _os.path.join(dir, prefix + name + suffix)
+            _sys.audit("tempfile.mkdtemp", file)
+            try:
+>               _os.mkdir(file, 0o700)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/tmp/codimango/primary-zp4waajh'
+
+/usr/local/lib/python3.11/tempfile.py:385: FileNotFoundError
+________________ test_recovery_report_has_exact_strict_contract ________________
+
+    def test_recovery_report_has_exact_strict_contract():
+>       durable = _main_file_rows(APP / "store.db")
+
+/tests/test_outputs.py:271:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:89: in _main_file_rows
+    root = Path(tempfile.mkdtemp(prefix="durable-", dir="/tmp/codimango"))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+suffix = '', prefix = 'durable-', dir = '/tmp/codimango'
+
+    def mkdtemp(suffix=None, prefix=None, dir=None):
+        """User-callable function to create and return a unique temporary
+        directory.  The return value is the pathname of the directory.
+
+        Arguments are as for mkstemp, except that the 'text' argument is
+        not accepted.
+
+        The directory is readable, writable, and searchable only by the
+        creating user.
+
+        Caller is responsible for deleting the directory when done with it.
+        """
+
+        prefix, suffix, dir, output_type = _sanitize_params(prefix, suffix, dir)
+
+        names = _get_candidate_names()
+        if output_type is bytes:
+            names = map(_os.fsencode, names)
+
+        for seq in range(TMP_MAX):
+            name = next(names)
+            file = _os.path.join(dir, prefix + name + suffix)
+            _sys.audit("tempfile.mkdtemp", file)
+            try:
+>               _os.mkdir(file, 0o700)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/tmp/codimango/durable-fvi2kjh2'
+
+/usr/local/lib/python3.11/tempfile.py:385: FileNotFoundError
+___________ test_family_general_recovery_uses_sealed_post_exit_truth ___________
+
+    def test_family_general_recovery_uses_sealed_post_exit_truth():
+        assert (APP / "recover.sh").is_file()
+        SCRATCH.mkdir(parents=True, exist_ok=True)
+        os.chmod(SCRATCH, 0o700)
+        seal = Path(tempfile.mkdtemp(prefix="sqlite-seal-", dir=SCRATCH))
+        os.chmod(seal, 0o700)
+        hidden_db = _make_hidden_fixture(seal, random.SystemRandom().randrange(10000, 2**31))
+        for path in seal.iterdir():
+            os.chmod(path, 0o600)
+            old = time.time() - 2
+            os.utime(path, (old, old))
+        candidate = _make_candidate_tree(hidden_db)
+        runner = candidate / "recover.sh"
+        shutil.copy2(APP / "recover.sh", runner)
+        uid, gid = _candidate_identity()
+        os.chown(runner, uid, gid)
+        os.chmod(runner, 0o700)
+        (APP / "app.conf").write_text("synchronous=OFF\nwal_autocheckpoint=0\n")
+        os.chown(APP / "app.conf", uid, gid)
+        if (APP / "recovery_report.json").exists():
+            (APP / "recovery_report.json").unlink()
+        os.chown(APP, uid, gid)
+        holder = _connect(candidate / "store.db")
+        holder.execute("SELECT COUNT(*) FROM orders NOT INDEXED").fetchone()
+        try:
+            rc, _stdout, stderr, exit_time = _run_candidate(
+                ["sh", str(runner), str(candidate / "store.db")]
+            )
+            runner.unlink()
+            reference = _derive_reference_after_exit(seal, exit_time)
+            actual_rows = _rows(candidate / "store.db")
+            durable_rows = _main_file_rows(candidate / "store.db")
+            actual_schema = _schema(candidate / "store.db")
+            big, plan = _big_rows_and_plan(candidate / "store.db")
+            assert rc == 0, stderr[-500:]
+            assert _integrity(candidate / "store.db") == "ok"
+            assert actual_rows == reference["rows"]
+            assert durable_rows == reference["rows"]
+            assert actual_schema == reference["schema"]
+>           assert big == reference["big"]
+E           AssertionError: assert [('hidden-139...', 56.0), ...] == [('hidden-139...', 70.0), ...]
+E
+E             At index 0 diff: ('hidden-1392a53e-base-0012', 51.0) != ('hidden-1392a53e-base-0003', 73.0)
+E             Use -v to get more diff
+
+/tests/test_outputs.py:320: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_configuration_is_crash_safe
+FAILED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable
+FAILED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract
+FAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth
+3 failed, 1 passed in 0.26s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="4" time="0.261" timestamp="2026-09-30T16:58:06.656641" hostname="2c91683f78a4"><testcase classname="test_outputs" name="test_recovered_primary_database_is_integral_and_durable" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/tmp/codimango/primary-zp4waajh'">def test_recovered_primary_database_is_integral_and_durable():
+        assert (APP / "recover.sh").is_file()
+&gt;       probe = Path(tempfile.mkdtemp(prefix="primary-", dir="/tmp/codimango")) / "store.db"
+
+/tests/test_outputs.py:251:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+suffix = '', prefix = 'primary-', dir = '/tmp/codimango'
+
+    def mkdtemp(suffix=None, prefix=None, dir=None):
+        """User-callable function to create and return a unique temporary
+        directory.  The return value is the pathname of the directory.
+
+        Arguments are as for mkstemp, except that the 'text' argument is
+        not accepted.
+
+        The directory is readable, writable, and searchable only by the
+        creating user.
+
+        Caller is responsible for deleting the directory when done with it.
+        """
+
+        prefix, suffix, dir, output_type = _sanitize_params(prefix, suffix, dir)
+
+        names = _get_candidate_names()
+        if output_type is bytes:
+            names = map(_os.fsencode, names)
+
+        for seq in range(TMP_MAX):
+            name = next(names)
+            file = _os.path.join(dir, prefix + name + suffix)
+            _sys.audit("tempfile.mkdtemp", file)
+            try:
+&gt;               _os.mkdir(file, 0o700)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/tmp/codimango/primary-zp4waajh'
+
+/usr/local/lib/python3.11/tempfile.py:385: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_recovery_report_has_exact_strict_contract" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/tmp/codimango/durable-fvi2kjh2'">def test_recovery_report_has_exact_strict_contract():
+&gt;       durable = _main_file_rows(APP / "store.db")
+
+/tests/test_outputs.py:271:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:89: in _main_file_rows
+    root = Path(tempfile.mkdtemp(prefix="durable-", dir="/tmp/codimango"))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+suffix = '', prefix = 'durable-', dir = '/tmp/codimango'
+
+    def mkdtemp(suffix=None, prefix=None, dir=None):
+        """User-callable function to create and return a unique temporary
+        directory.  The return value is the pathname of the directory.
+
+        Arguments are as for mkstemp, except that the 'text' argument is
+        not accepted.
+
+        The directory is readable, writable, and searchable only by the
+        creating user.
+
+        Caller is responsible for deleting the directory when done with it.
+        """
+
+        prefix, suffix, dir, output_type = _sanitize_params(prefix, suffix, dir)
+
+        names = _get_candidate_names()
+        if output_type is bytes:
+            names = map(_os.fsencode, names)
+
+        for seq in range(TMP_MAX):
+            name = next(names)
+            file = _os.path.join(dir, prefix + name + suffix)
+            _sys.audit("tempfile.mkdtemp", file)
+            try:
+&gt;               _os.mkdir(file, 0o700)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/tmp/codimango/durable-fvi2kjh2'
+
+/usr/local/lib/python3.11/tempfile.py:385: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_configuration_is_crash_safe" time="0.001" /><testcase classname="test_outputs" name="test_family_general_recovery_uses_sealed_post_exit_truth" time="0.171"><failure message="AssertionError: assert [('hidden-139...', 56.0), ...] == [('hidden-139...', 70.0), ...]&#10;  &#10;  At index 0 diff: ('hidden-1392a53e-base-0012', 51.0) != ('hidden-1392a53e-base-0003', 73.0)&#10;  Use -v to get more diff">def test_family_general_recovery_uses_sealed_post_exit_truth():
+        assert (APP / "recover.sh").is_file()
+        SCRATCH.mkdir(parents=True, exist_ok=True)
+        os.chmod(SCRATCH, 0o700)
+        seal = Path(tempfile.mkdtemp(prefix="sqlite-seal-", dir=SCRATCH))
+        os.chmod(seal, 0o700)
+        hidden_db = _make_hidden_fixture(seal, random.SystemRandom().randrange(10000, 2**31))
+        for path in seal.iterdir():
+            os.chmod(path, 0o600)
+            old = time.time() - 2
+            os.utime(path, (old, old))
+        candidate = _make_candidate_tree(hidden_db)
+        runner = candidate / "recover.sh"
+        shutil.copy2(APP / "recover.sh", runner)
+        uid, gid = _candidate_identity()
+        os.chown(runner, uid, gid)
+        os.chmod(runner, 0o700)
+        (APP / "app.conf").write_text("synchronous=OFF\nwal_autocheckpoint=0\n")
+        os.chown(APP / "app.conf", uid, gid)
+        if (APP / "recovery_report.json").exists():
+            (APP / "recovery_report.json").unlink()
+        os.chown(APP, uid, gid)
+        holder = _connect(candidate / "store.db")
+        holder.execute("SELECT COUNT(*) FROM orders NOT INDEXED").fetchone()
+        try:
+            rc, _stdout, stderr, exit_time = _run_candidate(
+                ["sh", str(runner), str(candidate / "store.db")]
+            )
+            runner.unlink()
+            reference = _derive_reference_after_exit(seal, exit_time)
+            actual_rows = _rows(candidate / "store.db")
+            durable_rows = _main_file_rows(candidate / "store.db")
+            actual_schema = _schema(candidate / "store.db")
+            big, plan = _big_rows_and_plan(candidate / "store.db")
+            assert rc == 0, stderr[-500:]
+            assert _integrity(candidate / "store.db") == "ok"
+            assert actual_rows == reference["rows"]
+            assert durable_rows == reference["rows"]
+            assert actual_schema == reference["schema"]
+&gt;           assert big == reference["big"]
+E           AssertionError: assert [('hidden-139...', 56.0), ...] == [('hidden-139...', 70.0), ...]
+E
+E             At index 0 diff: ('hidden-1392a53e-base-0012', 51.0) != ('hidden-1392a53e-base-0003', 73.0)
+E             Use -v to get more diff
+
+/tests/test_outputs.py:320: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests
+STEP 1 1_recover_index  GREEN       FAIL  tests do not pass after the oracle ran (4 executed, 0 skipped, 3 failed, 0 errored)
+$ docker rm -f tbench-mt-sqlite-corrupt-index-replay-chain
+tbench-mt-sqlite-corrupt-index-replay-chain
+
+oracle chain FAILED: 1 phase(s) did not behave as required.
+evidence: /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/.validation/chain-20260930T165757Z.json   full log: /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/.validation/chain-20260930T165757Z.log

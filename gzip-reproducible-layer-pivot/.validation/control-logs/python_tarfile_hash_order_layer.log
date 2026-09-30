@@ -1,0 +1,42 @@
+$ docker run --network none ...
+23b5dc9510ad1ef1ca66075b9efc226f327bd5fd95eb1a1e3d73e7d8c45005fd
+
+$ docker cp private test trees
+
+$ mkdir /solution1
+
+$ copy Step-1 oracle
+
+$ /solution1/solve.sh
+
+$ /tests1/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+PASSED ../tests1/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+PASSED ../tests1/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+PASSED ../tests1/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+4 passed in 0.55s
+reward=1 (4 passed, 0 skipped)
+
+$ install TARFILE_LAYER_ALT_SH
+
+$ public make_layer interface
+
+$ /tests2/test.sh
+.....                                                                    [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests2/test_outputs.py::test_layer_uses_manifest_hash_order_and_excludes_extra_source_files
+PASSED ../tests2/test_outputs.py::test_layer_handles_independent_manifest_family
+PASSED ../tests2/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_layer
+PASSED ../tests2/test_outputs.py::test_preserves_carried_manifest_packer_and_release_contract
+PASSED ../tests2/test_outputs.py::test_final_layer_artifact_matches_carried_source_and_manifest
+5 passed in 0.44s
+reward=1 (5 passed, 0 skipped)
+
+$ docker rm -f
+gzipctrl-2293774-22

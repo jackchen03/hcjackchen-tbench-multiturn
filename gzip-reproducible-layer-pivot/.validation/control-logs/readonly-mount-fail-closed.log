@@ -1,0 +1,19 @@
+$ docker run --network none -v tests:/tests:ro ...
+05338dce9fb691a70fa959d9b12d2ea0f4e3f5eef5062094c2bd707bea7f3c78
+
+$ /tests/test.sh
+
+==================================== ERRORS ====================================
+_______________________ ERROR collecting test_outputs.py _______________________
+/tests/test_outputs.py:21: in <module>
+    os.chmod(Path(__file__).parent, 0o700)
+E   OSError: [Errno 30] Read-only file system: '/tests'
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+ERROR ../tests/test_outputs.py - OSError: [Errno 30] Read-only file system: '...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.13s
+reward=0 (0 failed, 1 errored)
+
+$ docker rm -f
+gzipctrl-isolation-2293774

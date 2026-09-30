@@ -1,0 +1,33 @@
+FINAL AUDIT postgres-cast-stats-partition-pivot
+completed_utc=2026-09-30T17:43:54Z
+result=PASS
+nest_status=UNREGISTERED (fresh `codimango task show` returned not_found)
+mode=non-orchestrated; repair closure not required
+bundle_fingerprint=bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800
+working_projected_equal=true
+archive_manifest=PASS (16/16 entries)
+instruction_hashes=PASS (3/3 equal to Phase-1 handoff and pre-build baseline)
+contract_map=PASS (24/24 requirements mapped)
+static=PASS (0 critical, 0 high, 0 medium, 0 warn)
+hygiene=PASS (combined scanner, git diff --check, git diff --cached --check)
+chain=.validation/chain-20260930T173632Z.json
+chain_network=none
+chain_result=PASS failures=0 skipped=0 unproven=false
+step1=DO-NOTHING reject 1/0; ORACLE exit 0; GREEN pass 1/0
+step2=DO-NOTHING reject 1/0 at skew buffer 3062>1090; ORACLE exit 0; GREEN pass 1/0
+step3=DO-NOTHING reject 1/0 (missing new hot path); ORACLE exit 0; GREEN pass 1/0
+boundary_1_to_2=NOT_REQUIRED plus compatible early CLUSTER control ACCEPT
+boundary_2_to_3=NOT_REQUIRED plus compatible early partition control ACCEPT
+controls=.validation/final-audit-controls-v1.json
+controls_result=PASS cases=17 accepted=6 rejected=11 mismatches=0 skipped=0
+named_valid_alternatives=7/7 (three oracle mechanisms plus four explicit controls)
+phase1_mutants=12/12 (starter through Step-1 DO-NOTHING plus eleven explicit controls)
+fresh_control_containers=17/17
+control_network=none
+fixture_truth=pre-candidate SQL rows; public/hidden ranges disjoint; fixed verifier-owned budgets
+future_isolation=growth/layout.sql absent from image and staged only by successful Step-2 grading
+carried_state=Step-1 and Step-2 files exercised cumulatively in one chain container
+retired_behavior=unpartitioned hot path rejected; Step-3 GREEN proves history pruning
+runtime_image=sha256:71c5e628fd4983accad1558bdf09496364c5a481a847a52a8b977495bfb328da
+residual_audit_containers=none
+remaining_action=oracle x3 only; not run by this audit

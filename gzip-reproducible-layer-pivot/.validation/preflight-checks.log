@@ -1,0 +1,19 @@
+task=gzip-reproducible-layer-pivot
+build-closure-v1=PASS
+task diff hygiene PASS
+working=bundle-sha256-v1:2aa10d734985b7e3bd8c9540e0525c4188d60923d5e98e2b4d7eefa0c0471e67
+projected=bundle-sha256-v1:2aa10d734985b7e3bd8c9540e0525c4188d60923d5e98e2b4d7eefa0c0471e67
+untracked-included=README.md
+untracked-included=environment/Dockerfile
+untracked-included=environment/starter_pack.sh
+untracked-included=steps/1_fix_reproducibility/instruction.md
+untracked-included=steps/1_fix_reproducibility/solution/solve.sh
+untracked-included=steps/1_fix_reproducibility/tests/test.sh
+untracked-included=steps/1_fix_reproducibility/tests/test_outputs.py
+untracked-included=steps/2_layer_pivot/instruction.md
+untracked-included=steps/2_layer_pivot/solution/solve.sh
+untracked-included=steps/2_layer_pivot/tests/test.sh
+untracked-included=steps/2_layer_pivot/tests/test_outputs.py
+untracked-included=task.toml
+projection-check=PASS
+preflight_checks=PASS

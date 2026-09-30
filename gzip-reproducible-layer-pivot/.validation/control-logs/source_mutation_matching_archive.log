@@ -1,0 +1,123 @@
+$ docker run --network none ...
+62c9f99403b2d76a696f4beb4e5458a1403787539d0beb517bd94b1aeb4df451
+
+$ docker cp private test trees
+
+$ install SOURCE_MUT_SH
+
+$ /tests1/test.sh
+FF.F                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_pack_reproducible_on_metadata_and_order_variation ____________
+
+    def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+>       _exercise(31)
+
+/tests1/test_outputs.py:213:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 31
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir()
+        out.chmod(0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: /app/pack.sh: 29: cannot create /tmp/codimango-gzip-31-k7f_1ffv/left/alpha.txt: Permission denied
+E
+E           assert 2 == 0
+E            +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-31-k7f_1ffv/left', '/tmp/codimango-gzip-31-k7f_1ffv/out/re...tdout='', stderr='/app/pack.sh: 29: cannot create /tmp/codimango-gzip-31-k7f_1ffv/left/alpha.txt: Permission denied\n').returncode
+
+/tests1/test_outputs.py:169: AssertionError
+_____________ test_pack_handles_second_hidden_name_and_size_family _____________
+
+    def test_pack_handles_second_hidden_name_and_size_family():
+>       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests1/test_outputs.py:217:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 47
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir()
+        out.chmod(0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: /app/pack.sh: 29: cannot create /tmp/codimango-gzip-47-53leoqhx/left/alpha.txt: Permission denied
+E
+E           assert 2 == 0
+E            +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-47-53leoqhx/left', '/tmp/codimango-gzip-47-53leoqhx/out/re...tdout='', stderr='/app/pack.sh: 29: cannot create /tmp/codimango-gzip-47-53leoqhx/left/alpha.txt: Permission denied\n').returncode
+
+/tests1/test_outputs.py:169: AssertionError
+__________________ test_zz_complete_step_and_stage_layer_spec __________________
+
+    def test_zz_complete_step_and_stage_layer_spec():
+>       _exercise(83)
+
+/tests1/test_outputs.py:236:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 83
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir()
+        out.chmod(0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: /app/pack.sh: 29: cannot create /tmp/codimango-gzip-83-av74xmjv/left/alpha.txt: Permission denied
+E
+E           assert 2 == 0
+E            +  where 2 = CompletedProcess(args=['/app/pack.sh', '/tmp/codimango-gzip-83-av74xmjv/left', '/tmp/codimango-gzip-83-av74xmjv/out/re...tdout='', stderr='/app/pack.sh: 29: cannot create /tmp/codimango-gzip-83-av74xmjv/left/alpha.txt: Permission denied\n').returncode
+
+/tests1/test_outputs.py:169: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+FAILED ../tests1/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+FAILED ../tests1/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+FAILED ../tests1/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+3 failed, 1 passed in 0.20s
+reward=0 (3 failed, 0 errored)
+
+$ docker rm -f
+gzipctrl-2293774-08

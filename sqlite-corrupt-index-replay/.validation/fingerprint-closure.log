@@ -1,0 +1,15 @@
+working=bundle-sha256-v1:417329d3b362e97f9f1be9699d26ee4ef8d47dae94386a1a45a76ca319a16f31
+projected=bundle-sha256-v1:417329d3b362e97f9f1be9699d26ee4ef8d47dae94386a1a45a76ca319a16f31
+untracked-included=README.md
+untracked-included=environment/Dockerfile
+untracked-included=environment/setup_fixture.py
+untracked-included=steps/1_recover_index/instruction.md
+untracked-included=steps/1_recover_index/solution/solve.sh
+untracked-included=steps/1_recover_index/tests/test.sh
+untracked-included=steps/1_recover_index/tests/test_outputs.py
+untracked-included=steps/2_idempotent_replay/instruction.md
+untracked-included=steps/2_idempotent_replay/solution/solve.sh
+untracked-included=steps/2_idempotent_replay/tests/test.sh
+untracked-included=steps/2_idempotent_replay/tests/test_outputs.py
+untracked-included=task.toml
+projection-check=PASS

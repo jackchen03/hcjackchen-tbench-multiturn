@@ -1,0 +1,129 @@
+$ docker run --network none ...
+fb687723e9bb91b9c6e0e6bbff14ba938828bce354ea122a89d4878c27c9af50
+
+$ docker cp private test trees
+
+$ install STARTER_SH
+
+$ /tests1/test.sh
+FF.F                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_pack_reproducible_on_metadata_and_order_variation ____________
+
+    def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+>       _exercise(31)
+
+/tests1/test_outputs.py:213:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 31
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir()
+        out.chmod(0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+            assert result.returncode == 0, result.stderr
+>           assert target.is_file() and MANIFEST.is_file()
+E           AssertionError: assert (True and False)
+E            +  where True = is_file()
+E            +    where is_file = PosixPath('/tmp/codimango-gzip-31-qzv0q_ry/out/release-0.tgz').is_file
+E            +  and   False = is_file()
+E            +    where is_file = PosixPath('/app/manifest.jsonl').is_file
+
+/tests1/test_outputs.py:170: AssertionError
+_____________ test_pack_handles_second_hidden_name_and_size_family _____________
+
+    def test_pack_handles_second_hidden_name_and_size_family():
+>       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests1/test_outputs.py:217:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 47
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir()
+        out.chmod(0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+            assert result.returncode == 0, result.stderr
+>           assert target.is_file() and MANIFEST.is_file()
+E           AssertionError: assert (True and False)
+E            +  where True = is_file()
+E            +    where is_file = PosixPath('/tmp/codimango-gzip-47-sp4nkmub/out/release-0.tgz').is_file
+E            +  and   False = is_file()
+E            +    where is_file = PosixPath('/app/manifest.jsonl').is_file
+
+/tests1/test_outputs.py:170: AssertionError
+__________________ test_zz_complete_step_and_stage_layer_spec __________________
+
+    def test_zz_complete_step_and_stage_layer_spec():
+>       _exercise(83)
+
+/tests1/test_outputs.py:236:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 83
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir()
+        out.chmod(0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+            assert result.returncode == 0, result.stderr
+>           assert target.is_file() and MANIFEST.is_file()
+E           AssertionError: assert (True and False)
+E            +  where True = is_file()
+E            +    where is_file = PosixPath('/tmp/codimango-gzip-83-5r6woz5w/out/release-0.tgz').is_file
+E            +  and   False = is_file()
+E            +    where is_file = PosixPath('/app/manifest.jsonl').is_file
+
+/tests1/test_outputs.py:170: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+FAILED ../tests1/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+FAILED ../tests1/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+FAILED ../tests1/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+3 failed, 1 passed in 0.12s
+reward=0 (3 failed, 0 errored)
+
+$ docker rm -f
+gzipctrl-2293774-01

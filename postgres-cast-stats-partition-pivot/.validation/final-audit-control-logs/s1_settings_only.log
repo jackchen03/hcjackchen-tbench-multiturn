@@ -1,0 +1,77 @@
+22d5d0bda5f14d60da55f1c4b85f2c2f634e6cf2ea8ed481368ba00ecf217309
+
+
+
+
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_fast_exact_lookups_on_disjoint_500k_fixtures _______________
+
+    def test_fast_exact_lookups_on_disjoint_500k_fixtures():
+>       public_id = exercise_family("grade_s1_public", 1, 300000, 900001, 0.42)
+
+/tests/test_outputs.py:154:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:149: in exercise_family
+    assert_point_contract(db, cid, expected)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+db = 'grade_s1_public', cid = 4
+expected = ['4\tpaid\t2023-04-19 05:54:17.544709+00\t564.77', '4\tshipped\t2021-11-29 23:27:40.642797+00\t243.05']
+
+    def assert_point_contract(db, cid, expected):
+        got = candidate_rows(db, cid)
+        assert got == expected
+        plan = explain_query(db, cid)
+        seq_orders = [
+            n for n in walk(plan)
+            if n.get("Node Type") == "Seq Scan" and n.get("Relation Name") == "orders"
+        ]
+>       assert seq_orders == []
+E       AssertionError: assert [{'Actual Loo...: False, ...}] == []
+E
+E         Left contains one more item: {'Actual Loops': 3, 'Actual Rows': 1, 'Alias': 'orders', 'Async Capable': False, ...}
+E         Use -v to get more diff
+
+/tests/test_outputs.py:112: AssertionError
+----------------------------- Captured stdout call -----------------------------
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /tmp/pgbench-data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default time zone ... Etc/UTC
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /tmp/pgbench-data -l logfile start
+
+waiting for server to start....2026-09-30 17:41:13.829 UTC [49] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-09-30 17:41:13.829 UTC [49] LOG:  listening on IPv4 address "0.0.0.0", port 55432
+2026-09-30 17:41:13.829 UTC [49] LOG:  listening on IPv6 address "::", port 55432
+2026-09-30 17:41:13.829 UTC [49] LOG:  listening on Unix socket "/tmp/pgbench-socket/.s.PGSQL.55432"
+2026-09-30 17:41:13.831 UTC [52] LOG:  database system was shut down at 2026-09-30 17:41:12 UTC
+2026-09-30 17:41:13.833 UTC [49] LOG:  database system is ready to accept connections
+ done
+server started
+----------------------------- Captured stderr call -----------------------------
+initdb: warning: enabling "trust" authentication for local connections
+initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_fast_exact_lookups_on_disjoint_500k_fixtures
+1 failed in 4.16s
+reward=0 (1 failed, 0 errored)

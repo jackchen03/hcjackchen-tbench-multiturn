@@ -1,0 +1,18 @@
+{
+  "schema": "tbench-multiturn-oracle-x3-v1",
+  "run_id": "phase2-v9-presubmit-20260930",
+  "task": "gzip-reproducible-layer-pivot",
+  "validation_state": "uncommitted dedicated worktree at 448d1b0c2b40d4b800b094d5e23e092426d17747",
+  "bundle_fingerprint": "bundle-sha256-v1:2aa10d734985b7e3bd8c9540e0525c4188d60923d5e98e2b4d7eefa0c0471e67",
+  "build_closure_path": ".validation/build-closure-v1.json",
+  "build_closure_sha256": "33bcc2e96dd07482cd14b5021d5a1ada564a69334177471f57e598c5b8afc2c9",
+  "final_audit_path": ".validation/final-audit-v1.json",
+  "final_audit_sha256": "63d9a3f8d0018400f958bcd5d9128caa3acf771f43eaf485812384508af980e7",
+  "network": "none",
+  "runs": [
+    {"run_id": "oracle-1", "result": "PASS", "evidence_path": ".validation/chain-20260930T175512Z.json", "sha256": "d0ecf14ba7c9ddc3cfba9746853c3b826dc9297c8b5da0b71d0e80d184ac6609", "step_rewards": {"1_fix_reproducibility": 1.0, "2_layer_pivot": 1.0}, "skipped_tests": 0},
+    {"run_id": "oracle-2", "result": "PASS", "evidence_path": ".validation/chain-20260930T175520Z.json", "sha256": "d0ecf14ba7c9ddc3cfba9746853c3b826dc9297c8b5da0b71d0e80d184ac6609", "step_rewards": {"1_fix_reproducibility": 1.0, "2_layer_pivot": 1.0}, "skipped_tests": 0},
+    {"run_id": "oracle-3", "result": "PASS", "evidence_path": ".validation/chain-20260930T175528Z.json", "sha256": "d0ecf14ba7c9ddc3cfba9746853c3b826dc9297c8b5da0b71d0e80d184ac6609", "step_rewards": {"1_fix_reproducibility": 1.0, "2_layer_pivot": 1.0}, "skipped_tests": 0}
+  ],
+  "result": "PASS"
+}

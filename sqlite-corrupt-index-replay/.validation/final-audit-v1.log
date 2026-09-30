@@ -1,0 +1,221 @@
+FINAL AUDIT SUPPORT sqlite-corrupt-index-replay
+audited_at=2026-09-30T17:40:59Z
+result=PASS
+== instruction hashes
+fb26d2b7266248f4a7be2912ffde35065f87d3d1a42d6f8236ce668c62232bac  steps/1_recover_index/instruction.md
+acbf1cda3971d5baadbdc9ae2e8e171945575d58811d171f8c87b5770875e522  steps/2_idempotent_replay/instruction.md
+== baseline comparison
+== static
+== static gates: sqlite-corrupt-index-replay
+   -> 0 critical, 0 high, 0 medium, 0 warn
+static gates PASSED (this is necessary, not sufficient - now run run_oracle_chain.py)
+== full controls
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489",
+  "summary": {
+    "accepted": 7,
+    "mismatches": 0,
+    "rejected": 13,
+    "total": 20
+  },
+  "isolation": {
+    "harness_fds": "denied:PermissionError",
+    "harness_mem": "denied:PermissionError",
+    "seal_list": "denied:PermissionError",
+    "tests": "denied:PermissionError"
+  }
+}
+== repair controls
+{
+  "fingerprint": "bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489",
+  "mismatches": 0,
+  "results": [
+    {
+      "expected": "ACCEPT",
+      "matched": true,
+      "name": "reaudit-s1-valid-reindex",
+      "observed": "ACCEPT",
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "ACCEPT",
+      "matched": true,
+      "name": "reaudit-s1-valid-dump-restore",
+      "observed": "ACCEPT",
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "ACCEPT",
+      "matched": true,
+      "name": "reaudit-s1-valid-vacuum",
+      "observed": "ACCEPT",
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "matched": true,
+      "name": "reaudit-s1-extra-schema",
+      "observed": "REJECT",
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": false
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "matched": true,
+      "name": "reaudit-s2-extra-schema",
+      "observed": "REJECT",
+      "tests": [
+        {
+          "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+          "passed": false
+        },
+        {
+          "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+          "passed": false
+        }
+      ]
+    }
+  ]
+}
+== network-none
+docker run intercepted with --network none
+{
+  "failures": 0,
+  "unproven": false,
+  "overexec": "all required boundaries probed",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-sqlite-corrupt-index-replay:validate"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 4 failed, 0 errored"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_idempotent_replay",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_idempotent_replay",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_idempotent_replay",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "OVER-EXEC",
+      "status": "NOT_REQUIRED",
+      "detail": "current instruction has no explicit prohibition overlapping successor behavior"
+    }
+  ]
+}
+== hygiene
+task diff hygiene PASS
+== fingerprint
+working=bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489
+projected=bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489
+untracked-included=README.md
+untracked-included=environment/Dockerfile
+untracked-included=environment/setup_fixture.py
+untracked-included=steps/1_recover_index/instruction.md
+untracked-included=steps/1_recover_index/solution/solve.sh
+untracked-included=steps/1_recover_index/tests/test.sh
+untracked-included=steps/1_recover_index/tests/test_outputs.py
+untracked-included=steps/2_idempotent_replay/instruction.md
+untracked-included=steps/2_idempotent_replay/solution/solve.sh
+untracked-included=steps/2_idempotent_replay/tests/test.sh
+untracked-included=steps/2_idempotent_replay/tests/test_outputs.py
+untracked-included=task.toml
+projection-check=PASS

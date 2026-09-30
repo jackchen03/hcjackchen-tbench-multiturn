@@ -1,0 +1,82 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "gzip-reproducible-layer-pivot",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {"path": "steps/1_fix_reproducibility/instruction.md", "baseline_sha256": "ff36a45d3b8556162e6bc629334a21d47479440a0b2e72a7d4c951ec36a21bae", "current_sha256": "ff36a45d3b8556162e6bc629334a21d47479440a0b2e72a7d4c951ec36a21bae"},
+    {"path": "steps/2_layer_pivot/instruction.md", "baseline_sha256": "0e9f6eb5db1c114930958a91be288f59ad5563ec81387fad051b90c0dd1ccf8a", "current_sha256": "0e9f6eb5db1c114930958a91be288f59ad5563ec81387fad051b90c0dd1ccf8a"}
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/phase2-v9-four-20260930/gzip-reproducible-layer-pivot",
+    "inputs_sha256": {
+      "dossier.md": "9a4699605f9f0dff4100c918aa4c69c1a90c108d6cf4f832f5c57a54a8f7b2c8",
+      "environment.spec.md": "0e5f276175481596210853fd82f996b06b1fd4da3203e91875375e37ed6d5fed",
+      ".meta/handoff.json": "4bc6b4ed9bb98d07370c2253055550f2b2e4f1b8151a8c6c3a4d3601967368c3"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:2aa10d734985b7e3bd8c9540e0525c4188d60923d5e98e2b4d7eefa0c0471e67",
+  "contract_map": {"rows": 10, "mapped": 10, "non_unique_surfaces": 2, "valid_alternatives_covered": 2, "evidence": ".validation/phase2-findings.md"},
+  "findings": [
+    {"id": "P2-GZ-001", "disposition": "FIXED", "evidence": [".validation/phase2-findings.md"]},
+    {"id": "P2-GZ-002", "disposition": "FIXED", "evidence": [".validation/phase2-findings.md"]},
+    {"id": "P2-GZ-003", "disposition": "NOT_APPLICABLE", "evidence": [".validation/phase2-findings.md"]}
+  ],
+  "proof": {
+    "static": {"status": "PASS", "evidence": ".validation/static-closure.log"},
+    "starter": {"status": "REJECTED", "executed": 9, "skipped": 0, "evidence": ".validation/chain-20260930T171231Z.json"},
+    "oracle_runs": [
+      {"run_id": "20260930T171231Z", "status": "PASS", "evidence": ".validation/chain-20260930T171231Z.json"},
+      {"run_id": "20260930T171240Z", "status": "PASS", "evidence": ".validation/chain-20260930T171240Z.json"},
+      {"run_id": "20260930T171249Z", "status": "PASS", "evidence": ".validation/chain-20260930T171249Z.json"}
+    ],
+    "valid_alternatives": [
+      {"name": "gnu_tar_clamp_chain", "status": "ACCEPTED", "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "python_tarfile_impl", "status": "ACCEPTED", "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "gnu_tar_explicit_order_layer", "status": "ACCEPTED", "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "python_tarfile_hash_order_layer", "status": "ACCEPTED", "evidence": ".validation/exact-grader-controls-v1.json"}
+    ],
+    "rejected_mutants": [
+      {"name": "plain_targz", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "gzip_n_only", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "clamp_no_manifest", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "legacy_space_manifest", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "wrong_file_payload", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "wrong_member_kind", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "wrong_symlink_target", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "source_mutation_matching_archive", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "uncompressed_tar_named_tgz", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "starter_noop", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "duplicate_member_exact_spelling", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "duplicate_member_dot_slash_alias", "status": "REJECTED", "finding_ids": ["P2-GZ-001"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "name_sorted_layer", "status": "REJECTED", "finding_ids": ["P2-GZ-002"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "gzipped_layer", "status": "REJECTED", "finding_ids": ["P2-GZ-002"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "src_recomputed_layer", "status": "REJECTED", "finding_ids": ["P2-GZ-002"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "manifest_mutation_matching_layer", "status": "REJECTED", "finding_ids": ["P2-GZ-002"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "nonnumeric_owner_metadata", "status": "REJECTED", "finding_ids": ["P2-GZ-002"], "evidence": ".validation/exact-grader-controls-v1.json"},
+      {"name": "targz_unchanged", "status": "REJECTED", "finding_ids": ["P2-GZ-002"], "evidence": ".validation/exact-grader-controls-v1.json"}
+    ],
+    "public_hidden_disjoint": {"status": "PASS", "evidence": ".validation/exact-grader-controls-summary.md"},
+    "grader_isolation": {"status": "PASS", "evidence": ".validation/exact-grader-controls-summary.md"},
+    "hygiene": {"status": "PASS", "evidence": ".validation/hygiene-closure.log"},
+    "projected_fingerprint": {"status": "PASS", "value": "bundle-sha256-v1:2aa10d734985b7e3bd8c9540e0525c4188d60923d5e98e2b4d7eefa0c0471e67", "evidence": ".validation/fingerprint-closure.log"}
+  },
+  "transitions": [
+    {
+      "from": "1_fix_reproducibility",
+      "to": "2_layer_pivot",
+      "entry_state": "pack.sh, manifest.jsonl, release.tgz, and source tree from Step 1",
+      "carried_read_only": ["manifest.jsonl", "release.tgz", "src"],
+      "mutated": [],
+      "added": ["LAYER_SPEC.md", "make_layer.sh", "layer.tar"],
+      "override": "layer.tar becomes the artifact of record; release.tgz remains valid",
+      "retirement": "none",
+      "future_isolation": "LAYER_SPEC.md is staged only after Step-1 verification succeeds",
+      "prior_step_regressions": "Step 2 re-executes pack.sh and verifies exact carried manifest/release behavior",
+      "over_exec_status": "NOT_REQUIRED",
+      "over_exec_justification": "Step 1 has no prohibition against compatible layer support",
+      "evidence": ".validation/phase2-findings.md"
+    }
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

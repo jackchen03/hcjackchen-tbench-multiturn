@@ -1,0 +1,15 @@
+Clean-mix contract for /app/downmix.sh <input_wav> <output_wav>:
+
+- output is mono PCM audio at 48000 Hz;
+- output duration differs from the input by no more than 0.05 seconds;
+- decoded output peak is strictly below 0.0 dBFS;
+- absolute signed sample mean (DC offset) is below 0.005 full scale;
+- gain-aligned waveform fidelity NRMSE is at most -20 dB.
+
+The fidelity reference is the stereo input's linear channel mean passed through a
+20 Hz first-order DC blocker, with residual mean removed and linearly normalized
+to -1 dBFS. The candidate is decoded as mono, its mean is removed, and the best
+scalar gain is fitted before NRMSE is computed. Run the same public measurement
+with:
+
+    sh /app/fidelity_recipe.sh <input_wav> <output_wav>

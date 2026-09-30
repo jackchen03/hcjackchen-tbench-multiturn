@@ -1,0 +1,47 @@
+schema_version = "1.1"
+
+[task]
+name = "codimango/ffmpeg-downmix-loudnorm-pivot"
+description = "Repair a clipping-prone float downmix, then pivot the carried mix to per-episode broadcast loudness."
+authors = [{ name = "hcjackchen" }]
+
+[metadata]
+category = "media"
+category_usecase = "audio-post-production"
+category_subdomain = "downmix-loudness-conformance"
+author_name = "hcjackchen"
+difficulty = "hard"
+reward_type = "binary"
+tags = ["multi-turn", "context-following", "context-overriding", "ffmpeg", "audio"]
+# canary: a5946311-1131-466c-bb20-c6432ebe9d6c
+
+[environment]
+build_timeout_sec = 1200.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+allow_internet = false
+mcp_servers = []
+
+[environment.env]
+[solution.env]
+
+[[steps]]
+name = "1_fix_downmix"
+dependencies = []
+min_reward = 1.0
+[steps.verifier]
+timeout_sec = 1800
+[steps.agent]
+timeout_sec = 1800
+
+[[steps]]
+name = "2_loudnorm_pivot"
+min_reward = 1.0
+inherit_prior_session = true
+dependencies = ["1_fix_downmix"]
+[steps.verifier]
+timeout_sec = 1800
+[steps.agent]
+timeout_sec = 1800

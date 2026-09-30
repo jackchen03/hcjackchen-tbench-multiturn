@@ -1,0 +1,57 @@
+{
+  "task": "sqlite-corrupt-index-replay",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-sqlite-corrupt-index-replay:validate"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 4 failed, 0 errored"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "2_idempotent_replay",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 2 failed, 0 errored"
+    },
+    {
+      "step": "2_idempotent_replay",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "2_idempotent_replay",
+      "phase": "GREEN",
+      "status": "OK",
+      "detail": "2 executed, 0 skipped, 0 failed, 0 errored"
+    },
+    {
+      "step": "1_recover_index",
+      "phase": "OVER-EXEC",
+      "status": "NOT_REQUIRED",
+      "detail": "current instruction has no explicit prohibition overlapping successor behavior"
+    }
+  ],
+  "failures": 0,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

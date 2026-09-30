@@ -1,0 +1,57 @@
+$ docker run ...
+101b56e9f90fbd5cda0327d16d55fe4a50783e77b20556fdd9358b4c49ed9e65
+
+$ docker cp private test/solution trees
+
+$ install control
+
+$ public output setup
+
+$ /tests1/test.sh
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________ test_clean_downmix_contract_and_stage_next_turn ________________
+
+    def test_clean_downmix_contract_and_stage_next_turn():
+        shutil.rmtree(str(SCRATCH), ignore_errors=True)
+        SCRATCH.mkdir(parents=True)
+        SCRATCH.chmod(0o777)
+        assert (APP / "mix.wav").is_file(), "/app/mix.wav was not produced"
+        assert_clean(APP / "source.wav", APP / "mix.wav", "public mix")
+
+        fixtures = [
+            ("sustain", 330, 0.15),
+            ("mixed", 550, 0.0),
+            ("impulse", 330, 0.0),
+        ]
+        for index, (shape, frequency, dc) in enumerate(fixtures):
+            source = SCRATCH / ("hidden-%d.wav" % index)
+            output = SCRATCH / ("candidate-%d.wav" % index)
+            synth_stereo(source, 6, shape, frequency, dc)
+            invoke_candidate(source, output)
+>           assert_clean(source, output, "hidden %s/%s/%s" % (shape, frequency, dc))
+
+/tests1/test_outputs.py:264:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+source = PosixPath('/tmp/codimango/ffmpeg-downmix-step1/hidden-0.wav')
+candidate = PosixPath('/tmp/codimango/ffmpeg-downmix-step1/candidate-0.wav')
+label = 'hidden sustain/330/0.15'
+
+    def assert_clean(source, candidate, label):
+        observed = metrics(source, candidate)
+        assert observed["rate"] == 48000, "%s rate: %r" % (label, observed)
+        assert observed["channels"] == 1, "%s channels: %r" % (label, observed)
+>       assert observed["duration_delta"] <= 0.05, "%s duration: %r" % (label, observed)
+E       AssertionError: hidden sustain/330/0.15 duration: {'rate': 48000, 'channels': 1, 'duration_delta': 24.0, 'peak_dbfs': -8.486919817388639, 'dc': 2.8532452053493922e-06, 'nrmse_db': -0.0005837785108641446}
+E       assert 24.0 <= 0.05
+
+/tests1/test_outputs.py:139: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests1/test_outputs.py::test_clean_downmix_contract_and_stage_next_turn
+1 failed in 2.15s
+reward=0 (1 failed, 0 errored)
+
+$ docker rm -f
+ffctrl-2487116-10

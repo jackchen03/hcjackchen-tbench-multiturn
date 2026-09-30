@@ -1,0 +1,19 @@
+task=sqlite-corrupt-index-replay
+build-closure-v1=PASS
+task diff hygiene PASS
+working=bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489
+projected=bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489
+untracked-included=README.md
+untracked-included=environment/Dockerfile
+untracked-included=environment/setup_fixture.py
+untracked-included=steps/1_recover_index/instruction.md
+untracked-included=steps/1_recover_index/solution/solve.sh
+untracked-included=steps/1_recover_index/tests/test.sh
+untracked-included=steps/1_recover_index/tests/test_outputs.py
+untracked-included=steps/2_idempotent_replay/instruction.md
+untracked-included=steps/2_idempotent_replay/solution/solve.sh
+untracked-included=steps/2_idempotent_replay/tests/test.sh
+untracked-included=steps/2_idempotent_replay/tests/test_outputs.py
+untracked-included=task.toml
+projection-check=PASS
+preflight_checks=PASS

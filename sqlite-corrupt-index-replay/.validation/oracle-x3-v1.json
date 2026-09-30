@@ -1,0 +1,18 @@
+{
+  "schema": "tbench-multiturn-oracle-x3-v1",
+  "run_id": "phase2-v9-presubmit-20260930",
+  "task": "sqlite-corrupt-index-replay",
+  "validation_state": "uncommitted dedicated worktree at 448d1b0c2b40d4b800b094d5e23e092426d17747",
+  "bundle_fingerprint": "bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489",
+  "build_closure_path": ".validation/build-closure-v1.json",
+  "build_closure_sha256": "c39040082b63e9d1b8f46c1919bca549dac5594d5fa3e6ed6dce4cfb75dfbe12",
+  "final_audit_path": ".validation/final-audit-v1.json",
+  "final_audit_sha256": "14aa471080be986a55377a0be829febf7c73463b7d1b43eadb31dde00b7d5c22",
+  "network": "none",
+  "runs": [
+    {"run_id": "oracle-1", "result": "PASS", "evidence_path": ".validation/chain-20260930T175653Z.json", "sha256": "e4377394e8285860ad8652ff283b749b6ca8986eaeb273fb7c782fe258504787", "step_rewards": {"1_recover_index": 1.0, "2_idempotent_replay": 1.0}, "skipped_tests": 0},
+    {"run_id": "oracle-2", "result": "PASS", "evidence_path": ".validation/chain-20260930T175702Z.json", "sha256": "e4377394e8285860ad8652ff283b749b6ca8986eaeb273fb7c782fe258504787", "step_rewards": {"1_recover_index": 1.0, "2_idempotent_replay": 1.0}, "skipped_tests": 0},
+    {"run_id": "oracle-3", "result": "PASS", "evidence_path": ".validation/chain-20260930T175712Z.json", "sha256": "e4377394e8285860ad8652ff283b749b6ca8986eaeb273fb7c782fe258504787", "step_rewards": {"1_recover_index": 1.0, "2_idempotent_replay": 1.0}, "skipped_tests": 0}
+  ],
+  "result": "PASS"
+}

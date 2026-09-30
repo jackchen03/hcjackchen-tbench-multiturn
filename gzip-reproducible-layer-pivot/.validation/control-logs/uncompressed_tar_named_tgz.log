@@ -1,0 +1,90 @@
+$ docker run --network none ...
+5ae1463b997b0e8b0400d5bbca38cd0e839a4ad0d3329d66bbe0dbcdf174b297
+
+$ docker cp private test trees
+
+$ install UNCOMPRESSED_SH
+
+$ /tests1/test.sh
+FF.F                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_pack_reproducible_on_metadata_and_order_variation ____________
+
+    def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+>       _exercise(31)
+
+/tests1/test_outputs.py:213:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests1/test_outputs.py:172: in _exercise
+    _audit_archive(target, snap_left)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-gzip-31-mdjf56wd/out/release-0.tgz')
+snapshot = [('alpha.txt', 'file', 'c0df216c8b7efaf40234b185bf50f764f399757079f9942d820b3e45d34c5acc', b'alpha-31\n'), ('current',...\xb4\xc1\xce\xdb\xe8\xf5\x02\x0f\x1c)6CP]jw\x84\x91\x9e\xab\xb8\xc5\xd2\xdf\xec\xf9\x06\x13 -:GTan{\x88\x95\xa2'), ...]
+
+    def _audit_archive(path, snapshot):
+>       assert path.read_bytes()[:2] == b"\x1f\x8b"
+E       AssertionError: assert b'./' == b'\x1f\x8b'
+E
+E         At index 0 diff: b'.' != b'\x1f'
+E         Use -v to get more diff
+
+/tests1/test_outputs.py:109: AssertionError
+_____________ test_pack_handles_second_hidden_name_and_size_family _____________
+
+    def test_pack_handles_second_hidden_name_and_size_family():
+>       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests1/test_outputs.py:217:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests1/test_outputs.py:172: in _exercise
+    _audit_archive(target, snap_left)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-gzip-47-60qsy53k/out/release-0.tgz')
+snapshot = [('alpha.txt', 'file', 'eecb1085ec5311acedfc898d12e70b3f74ff76be81456f2c352540599d5fce4a', b'alpha-47\n'), ('current',...x87\x94\xa1\xae\xbb\xc8\xd5\xe2\xef\xfc\t\x16#0=JWdq~\x8b\x98\xa5\xb2\xbf\xcc\xd9\xe6\xf3\x00\r\x1a\'4AN[hu\x82'), ...]
+
+    def _audit_archive(path, snapshot):
+>       assert path.read_bytes()[:2] == b"\x1f\x8b"
+E       AssertionError: assert b'./' == b'\x1f\x8b'
+E
+E         At index 0 diff: b'.' != b'\x1f'
+E         Use -v to get more diff
+
+/tests1/test_outputs.py:109: AssertionError
+__________________ test_zz_complete_step_and_stage_layer_spec __________________
+
+    def test_zz_complete_step_and_stage_layer_spec():
+>       _exercise(83)
+
+/tests1/test_outputs.py:236:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests1/test_outputs.py:172: in _exercise
+    _audit_archive(target, snap_left)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-gzip-83-zvxv9fbl/out/release-0.tgz')
+snapshot = [('alpha.txt', 'file', '2a732b96f0cb68792d5c11c9ae461c6afffd6bdd09f3dd68281a3716c137e25f', b'alpha-83\n'), ('current',...cc\xd9\xe6\xf3\x00\r\x1a\'4AN[hu\x82\x8f\x9c\xa9\xb6\xc3\xd0\xdd\xea\xf7\x04\x11\x1e+8ER_ly\x86\x93\xa0\xad\xba'), ...]
+
+    def _audit_archive(path, snapshot):
+>       assert path.read_bytes()[:2] == b"\x1f\x8b"
+E       AssertionError: assert b'./' == b'\x1f\x8b'
+E
+E         At index 0 diff: b'.' != b'\x1f'
+E         Use -v to get more diff
+
+/tests1/test_outputs.py:109: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+FAILED ../tests1/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+FAILED ../tests1/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+FAILED ../tests1/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+3 failed, 1 passed in 0.31s
+reward=0 (3 failed, 0 errored)
+
+$ docker rm -f
+gzipctrl-2293774-09

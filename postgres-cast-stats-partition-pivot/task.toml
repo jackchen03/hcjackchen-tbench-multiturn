@@ -1,0 +1,61 @@
+schema_version = "1.1"
+
+[task]
+name = "codimango/postgres-cast-stats-partition-pivot"
+title = "postgres-cast-stats-partition-pivot"
+
+[metadata]
+category = "data-eng"
+category_usecase = "query-performance"
+category_subdomain = "planner-statistics-partitioning"
+author = "phase1-ideation"
+difficulty = "hard"
+novelty = "UNKNOWN"
+tags = ["multi-turn", "context-following", "context-overriding", "postgres", "query-planning"]
+# canary: f2ea3795-f77e-4369-862b-79c3efaad225
+
+[environment]
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 12288
+gpus = 0
+allow_internet = false
+mcp_servers = []
+
+[environment.env]
+
+[solution.env]
+
+[[steps]]
+name = "1_fix_slow_query"
+dir = "1_fix_slow_query"
+min_reward = 1.0
+inherit_prior_session = false
+dependencies = []
+[steps.verifier]
+timeout_sec = 1800
+[steps.agent]
+timeout_sec = 1800
+
+[[steps]]
+name = "2_harden_query"
+dir = "2_harden_query"
+min_reward = 1.0
+inherit_prior_session = true
+dependencies = ["1_fix_slow_query"]
+[steps.verifier]
+timeout_sec = 1800
+[steps.agent]
+timeout_sec = 1800
+
+[[steps]]
+name = "3_partition_pivot"
+dir = "3_partition_pivot"
+min_reward = 1.0
+inherit_prior_session = true
+dependencies = ["2_harden_query"]
+[steps.verifier]
+timeout_sec = 1800
+[steps.agent]
+timeout_sec = 1800

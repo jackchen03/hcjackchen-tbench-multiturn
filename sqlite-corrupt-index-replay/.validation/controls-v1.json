@@ -1,0 +1,516 @@
+{
+  "bundle_fingerprint": "bundle-sha256-v1:b11fa616287cddbe35435ab978034f8c2126053400360f04cf9a015dad0c0489",
+  "canary": "6ed650ac-e37a-43df-b61c-6e07b1a7be30",
+  "generated_at": "2026-09-30T17:39:50Z",
+  "image": "tbench-mt-sqlite-corrupt-index-replay:controls",
+  "results": [
+    {
+      "expected": "ACCEPT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-valid-reindex",
+      "observed": "ACCEPT",
+      "stderr_tail": "",
+      "stdout_tail": "....                                                                     [100%]\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nPASSED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n4 passed in 0.37s\nreward=1 (4 passed, 0 skipped)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "ACCEPT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-valid-dump-restore",
+      "observed": "ACCEPT",
+      "stderr_tail": "",
+      "stdout_tail": "....                                                                     [100%]\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nPASSED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n4 passed in 0.49s\nreward=1 (4 passed, 0 skipped)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "ACCEPT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-valid-vacuum",
+      "observed": "ACCEPT",
+      "stderr_tail": "",
+      "stdout_tail": "....                                                                     [100%]\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nPASSED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n4 passed in 0.23s\nreward=1 (4 passed, 0 skipped)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "ACCEPT",
+      "isolation_probe": {
+        "harness_fds": "denied:PermissionError",
+        "harness_mem": "denied:PermissionError",
+        "seal_list": "denied:PermissionError",
+        "tests": "denied:PermissionError"
+      },
+      "matched": true,
+      "name": "s1-valid-adversarial-isolation",
+      "observed": "ACCEPT",
+      "stderr_tail": "",
+      "stdout_tail": "....                                                                     [100%]\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nPASSED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n4 passed in 0.20s\nreward=1 (4 passed, 0 skipped)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-mutant-noop",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": "codimango/sqlite-candidate-rxwjfkag/store.db')\n\n    def _big_rows_and_plan(path):\n        db = _connect(path)\n        try:\n            sql = (\n                \"SELECT order_id, amount FROM orders INDEXED BY idx_big \"\n                \"WHERE amount > 50 ORDER BY amount, order_id\"\n            )\n>           rows = db.execute(sql).fetchall()\nE           sqlite3.DatabaseError: database disk image is malformed\n\n/tests/test_outputs.py:93: DatabaseError\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nFAILED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nFAILED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nFAILED ../tests/test_outputs.py::test_configuration_is_crash_safe - Assertion...\nFAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n4 failed in 0.33s\nreward=0 (4 failed, 0 errored)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": false
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": false
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": false
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-mutant-wal-delete",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": "-candidate-0uu05eon/store.db')\n\n    def _rows(path):\n        db = _connect(path)\n        try:\n            return sorted(\n>               db.execute(\n                    \"SELECT order_id, seq, amount, status FROM orders NOT INDEXED\"\n                ).fetchall()\n            )\nE           sqlite3.OperationalError: disk I/O error\n\n/tests/test_outputs.py:46: OperationalError\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nFAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n1 failed, 3 passed in 0.23s\nreward=0 (1 failed, 0 errored)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-mutant-no-config",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": "ous\") in {\"NORMAL\", \"FULL\"}\nE       AssertionError: assert 'OFF' in {'FULL', 'NORMAL'}\nE        +  where 'OFF' = <built-in method get of dict object at 0x7f9147b3d040>('synchronous')\nE        +    where <built-in method get of dict object at 0x7f9147b3d040> = {'synchronous': 'OFF', 'wal_autocheckpoint': '0'}.get\n\n/tests/test_outputs.py:124: AssertionError\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nFAILED ../tests/test_outputs.py::test_configuration_is_crash_safe - Assertion...\nFAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n2 failed, 2 passed in 0.21s\nreward=0 (2 failed, 0 errored)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": false
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-mutant-no-checkpoint",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": "erence[\"rows\"]\n>           assert durable_rows == reference[\"rows\"]\nE           AssertionError: assert [('hidden-000...0, 'ok'), ...] == [('hidden-000...0, 'ok'), ...]\nE             \nE             Right contains 20 more items, first extra item: ('hidden-00000063-tail-0000', 1, 48.57, 'ok')\nE             Use -v to get more diff\n\n/tests/test_outputs.py:362: AssertionError\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nFAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n1 failed, 3 passed in 0.41s\nreward=0 (1 failed, 0 errored)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-mutant-behavioral-hardcode",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": " _integrity(candidate / \"store.db\") == \"ok\"\n>           assert actual_rows == reference[\"rows\"]\nE           AssertionError: assert [] == [('hidden-000...0, 'ok'), ...]\nE             \nE             Right contains 120 more items, first extra item: ('hidden-00000063-base-0000', 1, 37.0, 'ok')\nE             Use -v to get more diff\n\n/tests/test_outputs.py:361: AssertionError\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nFAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n1 failed, 3 passed in 0.30s\nreward=0 (1 failed, 0 errored)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": true
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-mutant-report-string",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": "ict_report(final_durable_count, baseline=None):\n        report = json.loads((APP / \"recovery_report.json\").read_text())\n        assert set(report) == {\"rows_recovered\", \"method\"}\n>       assert type(report[\"rows_recovered\"]) is int\nE       AssertionError: assert <class 'str'> is int\nE        +  where <class 'str'> = type('20')\n\n/tests/test_outputs.py:132: AssertionError\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nFAILED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nFAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n2 failed, 2 passed in 0.25s\nreward=0 (2 failed, 0 errored)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": false
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-mutant-report-bool",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": "t_report(final_durable_count, baseline=None):\n        report = json.loads((APP / \"recovery_report.json\").read_text())\n        assert set(report) == {\"rows_recovered\", \"method\"}\n>       assert type(report[\"rows_recovered\"]) is int\nE       AssertionError: assert <class 'bool'> is int\nE        +  where <class 'bool'> = type(True)\n\n/tests/test_outputs.py:132: AssertionError\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nFAILED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nFAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n2 failed, 2 passed in 0.19s\nreward=0 (2 failed, 0 errored)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": false
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s1-mutant-report-extra",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": ":\n        report = json.loads((APP / \"recovery_report.json\").read_text())\n>       assert set(report) == {\"rows_recovered\", \"method\"}\nE       AssertionError: assert {'debug', 'me...ws_recovered'} == {'method', 'rows_recovered'}\nE         \nE         Extra items in the left set:\nE         'debug'\nE         Use -v to get more diff\n\n/tests/test_outputs.py:131: AssertionError\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable\nPASSED ../tests/test_outputs.py::test_configuration_is_crash_safe\nFAILED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract\nFAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth\n2 failed, 2 passed in 0.22s\nreward=0 (2 failed, 0 errored)\n",
+      "step": 1,
+      "tests": [
+        {
+          "name": "test_recovered_primary_database_is_integral_and_durable",
+          "passed": true
+        },
+        {
+          "name": "test_recovery_report_has_exact_strict_contract",
+          "passed": false
+        },
+        {
+          "name": "test_configuration_is_crash_safe",
+          "passed": true
+        },
+        {
+          "name": "test_family_general_recovery_uses_sealed_post_exit_truth",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "ACCEPT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s2-valid-upsert",
+      "observed": "ACCEPT",
+      "stderr_tail": "",
+      "stdout_tail": "..                                                                       [100%]\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state\nPASSED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants\n2 passed in 0.98s\nreward=1 (2 passed, 0 skipped)\n",
+      "step": 2,
+      "tests": [
+        {
+          "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+          "passed": true
+        },
+        {
+          "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "ACCEPT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s2-valid-guard-update",
+      "observed": "ACCEPT",
+      "stderr_tail": "",
+      "stdout_tail": "..                                                                       [100%]\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state\nPASSED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants\n2 passed in 0.70s\nreward=1 (2 passed, 0 skipped)\n",
+      "step": 2,
+      "tests": [
+        {
+          "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+          "passed": true
+        },
+        {
+          "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "ACCEPT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s2-valid-staging-merge",
+      "observed": "ACCEPT",
+      "stderr_tail": "",
+      "stdout_tail": "..                                                                       [100%]\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state\nPASSED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants\n2 passed in 0.68s\nreward=1 (2 passed, 0 skipped)\n",
+      "step": 2,
+      "tests": [
+        {
+          "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+          "passed": true
+        },
+        {
+          "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s2-mutant-naive",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": "it = _run_candidate(argv)\n>       assert rc == 0, stderr[-500:]\nE       AssertionError: Traceback (most recent call last):\nE           File \"/app/replay.py\", line 6, in <module>\nE             r=json.loads(raw); db.execute('INSERT INTO orders VALUES(?,?,?,?)',(r['order_id'],r['seq'],r['amount'],r['status']))\nE                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE         sqlite3.IntegrityError: UNIQUE constraint failed: orders.order_id\nE         \nE       assert 1 == 0\n\n/tests/test_outputs.py:430: AssertionError\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nFAILED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state\nFAILED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants\n2 failed in 0.32s\nreward=0 (2 failed, 0 errored)\n",
+      "step": 2,
+      "tests": [
+        {
+          "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+          "passed": false
+        },
+        {
+          "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s2-mutant-skip",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": ", 1, 3.0, 'ok'), ('heldout-...0.0, 'new'), ('heldout-00000063-base-0004', 1, 70.0, 'new'), ('heldout-00000063-base-0005', 1, 16.0, 'new'), ...], ...}\n\n    def _assert_full_contract(db_path, reference):\n        actual = _rows(db_path)\n>       assert actual == reference[\"expected\"]\nE       AssertionError: assert [('heldout-00..., 'new'), ...] == [('heldout-00..., 'new'), ...]\nE         \nE         At index 6 diff: ('heldout-00000063-base-0006', 1, 99.0, 'ok') != ('heldout-00000063-base-0006', 2, 701.25, 'fixed')\nE         Use -v to get more diff\n\n/tests/test_outputs.py:219: AssertionError\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nFAILED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state\nFAILED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants\n2 failed in 0.63s\nreward=0 (2 failed, 0 errored)\n",
+      "step": 2,
+      "tests": [
+        {
+          "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+          "passed": false
+        },
+        {
+          "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s2-mutant-ignore",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": ", 1, 3.0, 'ok'), ('heldout-...0.0, 'new'), ('heldout-00000063-base-0004', 1, 70.0, 'new'), ('heldout-00000063-base-0005', 1, 16.0, 'new'), ...], ...}\n\n    def _assert_full_contract(db_path, reference):\n        actual = _rows(db_path)\n>       assert actual == reference[\"expected\"]\nE       AssertionError: assert [('heldout-00..., 'new'), ...] == [('heldout-00..., 'new'), ...]\nE         \nE         At index 6 diff: ('heldout-00000063-base-0006', 1, 99.0, 'ok') != ('heldout-00000063-base-0006', 2, 701.25, 'fixed')\nE         Use -v to get more diff\n\n/tests/test_outputs.py:219: AssertionError\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nFAILED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state\nFAILED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants\n2 failed in 0.90s\nreward=0 (2 failed, 0 errored)\n",
+      "step": 2,
+      "tests": [
+        {
+          "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+          "passed": false
+        },
+        {
+          "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s2-mutant-last-write-wins",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": "ok'), ('heldout-...0.0, 'new'), ('heldout-00000063-base-0004', 1, 70.0, 'new'), ('heldout-00000063-base-0005', 1, 16.0, 'new'), ...], ...}\n\n    def _assert_full_contract(db_path, reference):\n        actual = _rows(db_path)\n>       assert actual == reference[\"expected\"]\nE       AssertionError: assert [('heldout-00..., 'new'), ...] == [('heldout-00..., 'new'), ...]\nE         \nE         At index 29 diff: ('heldout-00000063-base-0029', 2, 701.25, 'fixed') != ('heldout-00000063-base-0029', 3, 909.5, 'fixed-again')\nE         Use -v to get more diff\n\n/tests/test_outputs.py:219: AssertionError\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nFAILED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state\nFAILED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants\n2 failed in 0.51s\nreward=0 (2 failed, 0 errored)\n",
+      "step": 2,
+      "tests": [
+        {
+          "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+          "passed": false
+        },
+        {
+          "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "expected": "REJECT",
+      "isolation_probe": null,
+      "matched": true,
+      "name": "s2-mutant-hardcode",
+      "observed": "REJECT",
+      "stderr_tail": "",
+      "stdout_tail": "nce):\n        actual = _rows(db_path)\n>       assert actual == reference[\"expected\"]\nE       AssertionError: assert [('heldout-00..., 'new'), ...] == [('heldout-00..., 'new'), ...]\nE         \nE         At index 6 diff: ('heldout-00000063-base-0006', 1, 99.0, 'ok') != ('heldout-00000063-base-0006', 2, 701.25, 'fixed')\nE         Right contains 12 more items, first extra item: ('heldout-00000063-tail-0008', 1, 42.18, 'ok')\nE         Use -v to get more diff\n\n/tests/test_outputs.py:219: AssertionError\n==================================== PASSES ====================================\n----------------- generated xml file: /logs/verifier/junit.xml -----------------\n=========================== short test summary info ============================\nPASSED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state\nFAILED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants\n1 failed, 1 passed in 0.67s\nreward=0 (1 failed, 0 errored)\n",
+      "step": 2,
+      "tests": [
+        {
+          "name": "test_replay_supports_every_argv_form_on_the_carried_s1_state",
+          "passed": true
+        },
+        {
+          "name": "test_hidden_family_replay_is_general_and_preserves_all_s1_invariants",
+          "passed": false
+        }
+      ]
+    }
+  ],
+  "schema": "sqlite-phase2-controls-v1",
+  "summary": {
+    "accepted": 7,
+    "mismatches": 0,
+    "rejected": 13,
+    "total": 20
+  }
+}

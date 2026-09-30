@@ -1,0 +1,33 @@
+{
+  "task": "gzip-reproducible-layer-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-gzip-reproducible-layer-pivot:validate"
+    },
+    {
+      "step": "1_fix_reproducibility",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "4 executed, 0 skipped, 4 failed, 0 errored"
+    },
+    {
+      "step": "1_fix_reproducibility",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_fix_reproducibility",
+      "phase": "GREEN",
+      "status": "FAIL",
+      "detail": "4 executed, 0 skipped, 4 failed, 0 errored"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

@@ -1,0 +1,21 @@
+s1-valid-reindex ACCEPT matched=True
+s1-valid-dump-restore ACCEPT matched=True
+s1-valid-vacuum ACCEPT matched=True
+s1-valid-adversarial-isolation ACCEPT matched=True
+s1-mutant-noop REJECT matched=True
+s1-mutant-wal-delete REJECT matched=True
+s1-mutant-no-config REJECT matched=True
+s1-mutant-no-checkpoint REJECT matched=True
+s1-mutant-behavioral-hardcode REJECT matched=True
+s1-mutant-report-string REJECT matched=True
+s1-mutant-report-bool REJECT matched=True
+s1-mutant-report-extra REJECT matched=True
+s2-valid-upsert ACCEPT matched=True
+s2-valid-guard-update ACCEPT matched=True
+s2-valid-staging-merge ACCEPT matched=True
+s2-mutant-naive REJECT matched=True
+s2-mutant-skip REJECT matched=True
+s2-mutant-ignore REJECT matched=True
+s2-mutant-last-write-wins REJECT matched=True
+s2-mutant-hardcode REJECT matched=True
+{"accepted": 7, "mismatches": 0, "rejected": 13, "total": 20}

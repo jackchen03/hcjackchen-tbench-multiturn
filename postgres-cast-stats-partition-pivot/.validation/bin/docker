@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+if [ "${1:-}" = "run" ]; then
+  shift
+  echo "NETWORK_POLICY docker run --network none" >&2
+  exec /usr/bin/docker run --network none "$@"
+fi
+exec /usr/bin/docker "$@"

@@ -1,0 +1,192 @@
+{
+  "schema": "tbench-multiturn-final-audit-v1",
+  "task": "postgres-cast-stats-partition-pivot",
+  "completed_at": "2026-09-30T17:43:54Z",
+  "result": "PASS",
+  "status_gate": {
+    "result": "UNREGISTERED",
+    "evidence": "fresh codimango task show returned not_found before audit writes"
+  },
+  "mode": {
+    "orchestrated": false,
+    "repair_closure": "NOT_REQUIRED",
+    "reason": "fresh non-orchestrated Phase-2 build per audit assignment"
+  },
+  "bundle_fingerprint": {
+    "working": "bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800",
+    "projected": "bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800",
+    "equal": true,
+    "ignored_included": [],
+    "untracked_included": [
+      "README.md",
+      "environment/Dockerfile",
+      "environment/TASK_NOTES.md",
+      "environment/bounds.txt",
+      "environment/query.sql",
+      "environment/run_query.sh",
+      "environment/schema.sql",
+      "steps/1_fix_slow_query/instruction.md",
+      "steps/1_fix_slow_query/solution/solve.sh",
+      "steps/1_fix_slow_query/tests/test.sh",
+      "steps/1_fix_slow_query/tests/test_outputs.py",
+      "steps/2_harden_query/instruction.md",
+      "steps/2_harden_query/solution/solve.sh",
+      "steps/2_harden_query/tests/test.sh",
+      "steps/2_harden_query/tests/test_outputs.py",
+      "steps/3_partition_pivot/instruction.md",
+      "steps/3_partition_pivot/solution/solve.sh",
+      "steps/3_partition_pivot/tests/test.sh",
+      "steps/3_partition_pivot/tests/test_outputs.py",
+      "task.toml"
+    ]
+  },
+  "instruction_baseline": {
+    "result": "PASS",
+    "changes_since_phase1": 0,
+    "baseline": ".validation/instruction-sha256-before.txt",
+    "hashes": {
+      "steps/1_fix_slow_query/instruction.md": "6b5c895fa19d5732160a6bb42e694eb2ac1443185bb41f9e451561ab2b4cf338",
+      "steps/2_harden_query/instruction.md": "a2f2cdb44154bcce0f10b3e21dc53789fcfda5223c295dec944783ed02bd5729",
+      "steps/3_partition_pivot/instruction.md": "146fdc2c5677913bf6d91c0e75c06dd91b611c67fb6c36e3baab4b92cebff374"
+    }
+  },
+  "phase1_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot",
+    "manifest": "MANIFEST.sha256",
+    "manifest_sha256": "4c466e2ed1967e2006f328d539019fdf68a389eca5567829dba53d8aeb716fcd",
+    "entries_checked": 16,
+    "result": "PASS"
+  },
+  "static": {
+    "result": "PASS",
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "warn": 0
+  },
+  "hygiene": {
+    "combined_scanner": "PASS",
+    "git_diff_check": "PASS",
+    "git_diff_cached_check": "PASS",
+    "live_handoff": false,
+    "live_harden_suggestion": false,
+    "cache_or_bytecode_in_included_tree": false
+  },
+  "contract_coverage": {
+    "result": "PASS",
+    "requirements_mapped": 24,
+    "requirements_total": 24,
+    "non_unique_surfaces": 7,
+    "independent_truth": "expected SQL rows are captured before candidate schema execution; plan and buffer observations are produced after it",
+    "fixture_isolation": "public and hidden customer ranges are disjoint; every explicit control uses a fresh container and fresh databases",
+    "evidence": ".validation/contract-map.json"
+  },
+  "chain": {
+    "result": "PASS",
+    "network": "none",
+    "image": "tbench-mt-postgres-cast-stats-partition-pivot:validate",
+    "image_id": "sha256:71c5e628fd4983accad1558bdf09496364c5a481a847a52a8b977495bfb328da",
+    "json": ".validation/chain-20260930T173632Z.json",
+    "json_sha256": "b371074744c52040352529c85b25904912cd645b3c3b6283e528b6b5b5072828",
+    "log": ".validation/chain-20260930T173632Z.log",
+    "log_sha256": "a875e9fc71ec41ad1783888018249e8a642dbcb735c20dcced99c9a87a228994",
+    "failures": 0,
+    "skipped": 0,
+    "unproven": false,
+    "steps": {
+      "1_fix_slow_query": {"do_nothing": "REJECT", "do_nothing_executed": 1, "oracle_exit": 0, "green_executed": 1, "skipped": 0},
+      "2_harden_query": {"do_nothing": "REJECT", "do_nothing_executed": 1, "oracle_exit": 0, "green_executed": 1, "skipped": 0},
+      "3_partition_pivot": {"do_nothing": "REJECT", "do_nothing_executed": 1, "oracle_exit": 0, "green_executed": 1, "skipped": 0}
+    }
+  },
+  "controls": {
+    "result": "PASS",
+    "manifest": ".validation/final-audit-controls-v1.json",
+    "manifest_sha256": "d8005e018b50be7ab1ec19b18040a76be494d3473760e7083b842a4c5343626d",
+    "logs": ".validation/final-audit-control-logs/*.log",
+    "cases": 17,
+    "accepted": 6,
+    "rejected": 11,
+    "mismatches": 0,
+    "skipped": 0,
+    "fresh_network_none_containers": 17,
+    "named_valid_alternatives": {
+      "covered": 7,
+      "total": 7,
+      "oracle_mechanisms": [
+        "typestable_plain_btree",
+        "covering_include_vacuum",
+        "range_partition_hot_hist_routing"
+      ],
+      "explicit_controls": [
+        "typestable_composite_cust_created",
+        "expr_index_cast_kept",
+        "cluster_by_cust_vacuum",
+        "monthly_hot_layout_variant"
+      ]
+    },
+    "phase1_mutants": {
+      "covered": 12,
+      "total": 12,
+      "starter_via_chain_do_nothing": ["starter_noop"],
+      "explicit_controls": [
+        "index_only_cast_kept",
+        "rewrite_no_index",
+        "settings_only",
+        "table_bloat",
+        "id_hardcoding",
+        "plain_index_skew",
+        "plain_plus_vacuum",
+        "partial_alone",
+        "partial_plus_plain",
+        "retune_no_partition",
+        "hot_btree"
+      ]
+    }
+  },
+  "transitions": {
+    "1->2": {
+      "result": "PASS",
+      "kind": "compatible additive",
+      "under_execution": "Step-1 end state rejected at 3062 buffers against the 1090 skew budget",
+      "prior_regression": "Step-2 GREEN rechecks ordinary exact rows, plan shape, and point budget",
+      "future_isolation": "/app/growth/layout.sql absent before successful Step-2 grading",
+      "over_execution": "NOT_REQUIRED",
+      "compatible_superset_control": "s1_compatible_early_cluster ACCEPT"
+    },
+    "2->3": {
+      "result": "PASS",
+      "kind": "overriding hot-path pivot",
+      "under_execution": "Step-2 end state rejected before Step 3 because the required hot path is absent",
+      "prior_regression": "Step-3 GREEN rechecks hot-id point lookup exactness and budget",
+      "retired_behavior": "unpartitioned hot-path controls reject; GREEN proves orders_hist pruning",
+      "over_execution": "NOT_REQUIRED",
+      "compatible_superset_control": "s2_compatible_early_partition ACCEPT"
+    }
+  },
+  "artifact_lifecycle": {
+    "result": "PASS",
+    "carried": ["/app/query.sql", "/app/schema.sql", "/app/run_query.sh", "/app/bounds.txt"],
+    "step3_created": ["/app/hot_query.sql"],
+    "step3_staged": ["/app/growth/layout.sql"],
+    "future_artifact_pre_staged": false,
+    "retired_full_history_path_rejected": true,
+    "cumulative_same_container_chain": true
+  },
+  "review_readiness": {
+    "canonical_test_files_per_step": 2,
+    "test_entrypoint_hashes_identical": true,
+    "opaque_reference_applicable": false,
+    "base_image_digest_pinned": true,
+    "runtime_network_disabled": true,
+    "taxonomy_complete": true,
+    "readme_matches_local_evidence": true,
+    "difficulty_cloud_measurement": "UNMEASURED"
+  },
+  "supporting_log": {
+    "path": ".validation/final-audit-v1.log",
+    "sha256": "f3d5b65087c298948222a73b28ac2b37ac708545a09fe9a956fe3a22c323aefb"
+  },
+  "remaining_action": "oracle x3 only; excluded from this audit",
+  "open_findings": []
+}

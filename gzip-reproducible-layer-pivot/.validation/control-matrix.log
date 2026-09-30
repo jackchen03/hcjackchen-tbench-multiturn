@@ -1,0 +1,229 @@
+FF.F                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_pack_reproducible_on_metadata_and_order_variation ____________
+
+    def test_pack_reproducible_on_metadata_and_order_variation():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+>       _exercise(31)
+
+/tests/test_outputs.py:215:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 31
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir()
+        out.chmod(0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+            assert result.returncode == 0, result.stderr
+>           assert target.is_file() and MANIFEST.is_file()
+E           AssertionError: assert (True and False)
+E            +  where True = is_file()
+E            +    where is_file = PosixPath('/tmp/codimango-gzip-31-cl7ntvpa/out/release-0.tgz').is_file
+E            +  and   False = is_file()
+E            +    where is_file = PosixPath('/app/manifest.jsonl').is_file
+
+/tests/test_outputs.py:172: AssertionError
+_____________ test_pack_handles_second_hidden_name_and_size_family _____________
+
+    def test_pack_handles_second_hidden_name_and_size_family():
+>       assert len(_exercise(47)) == 9
+                   ^^^^^^^^^^^^^
+
+/tests/test_outputs.py:219:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 47
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir()
+        out.chmod(0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+            assert result.returncode == 0, result.stderr
+>           assert target.is_file() and MANIFEST.is_file()
+E           AssertionError: assert (True and False)
+E            +  where True = is_file()
+E            +    where is_file = PosixPath('/tmp/codimango-gzip-47-75j6zvuk/out/release-0.tgz').is_file
+E            +  and   False = is_file()
+E            +    where is_file = PosixPath('/app/manifest.jsonl').is_file
+
+/tests/test_outputs.py:172: AssertionError
+__________________ test_zz_complete_step_and_stage_layer_spec __________________
+
+    def test_zz_complete_step_and_stage_layer_spec():
+>       _exercise(83)
+
+/tests/test_outputs.py:238:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 83
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        left, right, out = base / "left", base / "right", base / "out"
+        _make_tree(left, seed, 0)
+        _make_tree(right, seed, 1)
+        snap_left, snap_right = _scan(left), _scan(right)
+        assert snap_left == snap_right
+        _lock_tree(left)
+        _lock_tree(right)
+        out.mkdir()
+        out.chmod(0o777)
+        artifacts = []
+        manifests = []
+        for i, src in enumerate((left, left, right)):
+            target = out / f"release-{i}.tgz"
+            result = _run_pack(src, target)
+            assert result.returncode == 0, result.stderr
+>           assert target.is_file() and MANIFEST.is_file()
+E           AssertionError: assert (True and False)
+E            +  where True = is_file()
+E            +    where is_file = PosixPath('/tmp/codimango-gzip-83-ah2ptdse/out/release-0.tgz').is_file
+E            +  and   False = is_file()
+E            +    where is_file = PosixPath('/app/manifest.jsonl').is_file
+
+/tests/test_outputs.py:172: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+FAILED ../tests/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+FAILED ../tests/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+FAILED ../tests/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+3 failed, 1 passed in 0.20s
+reward=0 (3 failed, 0 errored)
+CONTROL step=1_fix_reproducibility rc=1 reward=0
+MUTANT plain_targz=REJECTED
+FF..F                                                                    [100%]
+=================================== FAILURES ===================================
+_____ test_layer_uses_manifest_hash_order_and_excludes_extra_source_files ______
+
+    def test_layer_uses_manifest_hash_order_and_excludes_extra_source_files():
+        assert MAKE_LAYER.is_file() and os.access(MAKE_LAYER, os.X_OK)
+        assert Path("/app/LAYER_SPEC.md").is_file()
+>       _exercise(71)
+
+/tests/test_outputs.py:197:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:153: in _exercise
+    _audit_layer(out, rows)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-layer-71-yy_l4ytl/out/layer-0.tar')
+rows = [{'kind': 'file', 'path_b64': 'YWxwaGEudHh0', 'payload': b'alpha-71\n', 'rel': 'alpha.txt', ...}, {'kind': 'dir', 'pat...'rel': 'nested', ...}, {'kind': 'dir', 'path_b64': 'bmVzdGVkL2RlZXA=', 'payload': b'', 'rel': 'nested/deep', ...}, ...]
+
+    def _audit_layer(path, rows):
+        assert path.read_bytes()[:2] != b"\x1f\x8b"
+        got = []
+        with tarfile.open(path, "r:") as tf:
+            for m in tf.getmembers():
+                rel = _norm(m.name)
+                if rel is None:
+                    continue
+>               assert m.uid == 0 and m.gid == 0 and m.mtime == 0
+E               AssertionError: assert (0 == 0 and 0 == 0 and 1790788002 == 0)
+E                +  where 0 = <TarInfo './nested' at 0x7f1cb6b8cf40>.uid
+E                +  and   0 = <TarInfo './nested' at 0x7f1cb6b8cf40>.gid
+E                +  and   1790788002 = <TarInfo './nested' at 0x7f1cb6b8cf40>.mtime
+
+/tests/test_outputs.py:116: AssertionError
+________________ test_layer_handles_independent_manifest_family ________________
+
+    def test_layer_handles_independent_manifest_family():
+>       assert len(_exercise(97)) == 7
+                   ^^^^^^^^^^^^^
+
+/tests/test_outputs.py:201:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:153: in _exercise
+    _audit_layer(out, rows)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/codimango-layer-97-uvaqtc21/out/layer-0.tar')
+rows = [{'kind': 'file', 'path_b64': 'YWxwaGEudHh0', 'payload': b'alpha-97\n', 'rel': 'alpha.txt', ...}, {'kind': 'dir', 'pat...'rel': 'nested', ...}, {'kind': 'dir', 'path_b64': 'bmVzdGVkL2RlZXA=', 'payload': b'', 'rel': 'nested/deep', ...}, ...]
+
+    def _audit_layer(path, rows):
+        assert path.read_bytes()[:2] != b"\x1f\x8b"
+        got = []
+        with tarfile.open(path, "r:") as tf:
+            for m in tf.getmembers():
+                rel = _norm(m.name)
+                if rel is None:
+                    continue
+>               assert m.uid == 0 and m.gid == 0 and m.mtime == 0
+E               AssertionError: assert (0 == 0 and 0 == 0 and 1790788002 == 0)
+E                +  where 0 = <TarInfo './nested' at 0x7f1cb6b8f700>.uid
+E                +  and   0 = <TarInfo './nested' at 0x7f1cb6b8f700>.gid
+E                +  and   1790788002 = <TarInfo './nested' at 0x7f1cb6b8f700>.mtime
+
+/tests/test_outputs.py:116: AssertionError
+________ test_final_layer_artifact_matches_carried_source_and_manifest _________
+
+    def test_final_layer_artifact_matches_carried_source_and_manifest():
+        rows = _audit_manifest_for_source(MANIFEST.read_bytes(), Path("/app/src"))
+>       _audit_layer(Path("/app/layer.tar"), rows)
+
+/tests/test_outputs.py:259:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:109: in _audit_layer
+    assert path.read_bytes()[:2] != b"\x1f\x8b"
+           ^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/pathlib.py:1050: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/layer.tar'), mode = 'rb', buffering = -1, encoding = None
+errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/layer.tar'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_layer
+PASSED ../tests/test_outputs.py::test_preserves_carried_manifest_packer_and_release_contract
+FAILED ../tests/test_outputs.py::test_layer_uses_manifest_hash_order_and_excludes_extra_source_files
+FAILED ../tests/test_outputs.py::test_layer_handles_independent_manifest_family
+FAILED ../tests/test_outputs.py::test_final_layer_artifact_matches_carried_source_and_manifest
+3 failed, 2 passed in 0.23s
+reward=0 (3 failed, 0 errored)
+CONTROL step=2_layer_pivot rc=1 reward=0
+MUTANT src_recomputed_name_sorted_layer=REJECTED
+VALID_ALTERNATIVE python_tarfile_impl=ACCEPTED_BY_STEP1_TEST
+VALID_ALTERNATIVE python_tarfile_hash_order_layer=ACCEPTED_BY_STEP2_TEST

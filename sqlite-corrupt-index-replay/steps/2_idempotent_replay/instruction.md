@@ -1,0 +1,5 @@
+Retrying that replay script breaks: running it again errors out, and re-sent orders carry corrections it cannot apply. Make /app/replay.py idempotent under the usage `python3 /app/replay.py [input.jsonl] [dbpath]`, defaulting to /app/orders_input.jsonl and the database you already fixed when arguments are omitted.
+
+Each input line carries order_id, seq, amount, and status. When several lines share an order_id, the line with the highest seq wins; equal seq lines are identical. Running the same file twice in a row must leave the database unchanged the second time. Replays run one at a time; there are no concurrent writers.
+
+The replay mutates the database: after your replay, the table must hold exactly the S1-end-state rows plus the input's max-seq rows, while the repaired state stays repaired — `PRAGMA integrity_check` still returns ok, /app/app.conf keeps its crash-safe values, the logical schema and the `idx_big` index definition are unchanged, and the index-backed big-order query (`WHERE amount > 50` using `idx_big`) still runs cleanly. A replay that drops or damages `idx_big` fails.

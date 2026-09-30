@@ -1,0 +1,89 @@
+{
+  "schema": "tbench-phase2-build-closure-v1",
+  "task": "postgres-cast-stats-partition-pivot",
+  "task_type": "multi-turn",
+  "instruction_hashes": [
+    {"path": "steps/1_fix_slow_query/instruction.md", "baseline_sha256": "6b5c895fa19d5732160a6bb42e694eb2ac1443185bb41f9e451561ab2b4cf338", "current_sha256": "6b5c895fa19d5732160a6bb42e694eb2ac1443185bb41f9e451561ab2b4cf338"},
+    {"path": "steps/2_harden_query/instruction.md", "baseline_sha256": "a2f2cdb44154bcce0f10b3e21dc53789fcfda5223c295dec944783ed02bd5729", "current_sha256": "a2f2cdb44154bcce0f10b3e21dc53789fcfda5223c295dec944783ed02bd5729"},
+    {"path": "steps/3_partition_pivot/instruction.md", "baseline_sha256": "146fdc2c5677913bf6d91c0e75c06dd91b611c67fb6c36e3baab4b92cebff374", "current_sha256": "146fdc2c5677913bf6d91c0e75c06dd91b611c67fb6c36e3baab4b92cebff374"}
+  ],
+  "authoring_archive": {
+    "path": "/home/hcjackchen/tbench-authoring-archives/phase2-v9-four-20260930/postgres-cast-stats-partition-pivot",
+    "inputs_sha256": {
+      "dossier.md": "44e1cc5fc542b18ccc997123fdb35f0dc3ab4f4cda4cb04ba4193b667b4df515",
+      "environment.spec.md": "df8f3c48189e2f77faf529ddec4eb16b03c52f076ddee7d4091741b2aa39b925",
+      ".meta/handoff.json": "f917cb64b7a34321b4662d912830020c282648c9c7f3e9449752b36d364fe57e"
+    }
+  },
+  "bundle_fingerprint": "bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800",
+  "contract_map": {"rows": 24, "mapped": 24, "non_unique_surfaces": 7, "valid_alternatives_covered": 7, "evidence": ".validation/contract-map.json"},
+  "findings": [
+    {"id": "PG-500K", "disposition": "FIXED", "evidence": [".validation/build-findings.json"]},
+    {"id": "PG-ISOLATION", "disposition": "FIXED", "evidence": [".validation/build-findings.json"]},
+    {"id": "PG-ALTERNATIVES", "disposition": "FIXED", "evidence": [".validation/build-findings.json"]},
+    {"id": "PG-MUTANTS", "disposition": "FIXED", "evidence": [".validation/build-findings.json"]},
+    {"id": "PG-TRANSITIONS", "disposition": "FIXED", "evidence": [".validation/build-findings.json"]},
+    {"id": "PG-NETWORK", "disposition": "FIXED", "evidence": [".validation/build-findings.json"]}
+  ],
+  "proof": {
+    "static": {"status": "PASS", "evidence": ".validation/static-closure.log"},
+    "starter": {"status": "REJECTED", "executed": 3, "skipped": 0, "evidence": ".validation/chain-20260930T171231Z.json"},
+    "oracle_runs": [
+      {"run_id": "20260930T171231Z", "status": "PASS", "evidence": ".validation/chain-20260930T171231Z.json"},
+      {"run_id": "20260930T171258Z", "status": "PASS", "evidence": ".validation/chain-20260930T171258Z.json"},
+      {"run_id": "20260930T171321Z", "status": "PASS", "evidence": ".validation/chain-20260930T171321Z.json"}
+    ],
+    "valid_alternatives": [
+      {"name": "plain_btree", "status": "ACCEPTED", "evidence": ".validation/control-matrix.log"},
+      {"name": "covering_index", "status": "ACCEPTED", "evidence": ".validation/control-matrix.log"},
+      {"name": "single_hot_partition", "status": "ACCEPTED", "evidence": ".validation/control-matrix.log"},
+      {"name": "expression_index", "status": "ACCEPTED", "evidence": ".validation/control-matrix.log"},
+      {"name": "composite_index", "status": "ACCEPTED", "evidence": ".validation/control-matrix.log"},
+      {"name": "clustered_table", "status": "ACCEPTED", "evidence": ".validation/control-matrix.log"},
+      {"name": "monthly_partitions", "status": "ACCEPTED", "evidence": ".validation/control-matrix.log"}
+    ],
+    "rejected_mutants": [
+      {"name": "cast_plus_plain_index", "status": "REJECTED", "finding_ids": ["PG-MUTANTS"], "evidence": ".validation/control-matrix.log"},
+      {"name": "partial_plus_plain", "status": "REJECTED", "finding_ids": ["PG-MUTANTS"], "evidence": ".validation/control-matrix.log"},
+      {"name": "retune_without_partitions", "status": "REJECTED", "finding_ids": ["PG-MUTANTS"], "evidence": ".validation/control-matrix.log"}
+    ],
+    "public_hidden_disjoint": {"status": "PASS", "evidence": ".validation/contract-map.json"},
+    "grader_isolation": {"status": "PASS", "evidence": ".validation/build-findings.json"},
+    "hygiene": {"status": "PASS", "evidence": ".validation/hygiene-closure.log"},
+    "projected_fingerprint": {"status": "PASS", "value": "bundle-sha256-v1:34237c502d83eca6f0cb200ac342385e2bf33df6fd3f60829ec0ab51aefcf800", "evidence": ".validation/fingerprint-closure.log"}
+  },
+  "transitions": [
+    {
+      "from": "1_fix_slow_query",
+      "to": "2_harden_query",
+      "entry_state": "type-stable query and efficient ordinary lookup index",
+      "carried_read_only": ["query.sql", "bounds.txt"],
+      "mutated": ["database index/layout"],
+      "added": [],
+      "override": "ordinary lookup tuning is extended for skew",
+      "retirement": "none",
+      "future_isolation": "skew fixture is created only by the Step-2 verifier",
+      "prior_step_regressions": "Step 2 rechecks exact ordinary lookup results and plans",
+      "over_exec_status": "NOT_REQUIRED",
+      "over_exec_justification": "Step 1 permits compatible future hardening",
+      "evidence": ".validation/contract-map.json"
+    },
+    {
+      "from": "2_harden_query",
+      "to": "3_partition_pivot",
+      "entry_state": "skew-hardened query and indexes",
+      "carried_read_only": ["query.sql", "bounds.txt"],
+      "mutated": ["orders table physical design"],
+      "added": ["range partitions"],
+      "override": "partition pruning becomes the dominant history-growth mechanism",
+      "retirement": "unpartitioned layout",
+      "future_isolation": "history-growth fixture is created only by the Step-3 verifier",
+      "prior_step_regressions": "Step 3 rechecks exact point lookup results and index use",
+      "over_exec_status": "NOT_REQUIRED",
+      "over_exec_justification": "Step 2 permits a compatible partitioned superset",
+      "evidence": ".validation/contract-map.json"
+    }
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

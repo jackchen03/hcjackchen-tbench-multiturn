@@ -1,0 +1,41 @@
+Final audit: ffmpeg-downmix-loudnorm-pivot
+Audited at: 2026-09-30T17:52:33Z
+Status/result: UNREGISTERED / PASS
+
+Identity
+- Worktree `/home/hcjackchen/worktrees/phase2-v9-four-20260930`, branch `codex/phase2-v9-four-20260930`, HEAD/base `448d1b0c2b40d4b800b094d5e23e092426d17747`.
+- Fresh Nest `not_found` was confirmed by the coordinator for this turn.
+- Phase-1 archive `/home/hcjackchen/tbench-authoring-archives/phase2-v9-four-20260930/ffmpeg-downmix-loudnorm-pivot`; `MANIFEST.sha256` hash `94ada63ea8c5c547d04692e241dda35fe1c3bbf06292a098fa5fd8de94fba8c7`; all manifest entries verified.
+- Instruction SHA-256 values match archive and pre-build baseline: S1 `f5fcdb9c443484ea6358de3061b0a6e8f5923139c81f6dd16ef287289311e8b3`; S2 `023426e78545b30d251cb56541a51f019fd3576007b67349be23d5310bcbf471`.
+- Fresh non-orchestrated build: repair closure not required. No live handoff or `harden_suggestion.md`.
+
+Static and fingerprint gates
+- `validate_task.py`: 0 critical, 0 high, 0 medium, 0 warn.
+- Diff hygiene, unstaged/staged `git diff --check`, and build-closure validation: PASS.
+- Working/projected fingerprint equality and projection check: PASS at `bundle-sha256-v1:06fb263d455d1f5b3a94e495e982db33d0c9c7df993539e638d8cc891671250f`.
+- The task directory is an intentionally untracked complete bundle; no ignored included bytes, caches, `.diagnose`, credentials, or live task-root handoff were found.
+
+Fresh real chain (`--network none`)
+- `.validation/chain-20260930T174947Z.json`, SHA-256 `b040a956985e230c459825da16664ab24888a789aa52668284232b2ab38d09ff`.
+- `.validation/chain-20260930T174947Z.log`, SHA-256 `4d83678e284e05438e220b4ae60ddca7c9cb9e5210f2e0c89d9eca66b5a5d4b3`; contains `NETWORK_POLICY docker run --network none`.
+- Build OK; failures 0; unproven false; skipped 0.
+- S1 do-nothing RED: 1 executed, 0 skipped, 1 failed, 0 errors; oracle exit 0; green 1 executed, 0 skipped.
+- S2 do-nothing RED: 1 executed, 0 skipped, 1 failed, 0 errors; oracle exit 0; green 1 executed, 0 skipped.
+- S1->S2 over-execution: `NOT_REQUIRED`; S1 contains no prohibition against compatible early loudness behavior, and that positive control passes.
+
+Exact control replay (`--network none`, fresh container per case)
+- `.validation/exact-grader-controls-v1.json`, SHA-256 `5fdef7847aaed36fe3e04fde9319bc477787f48107d49e09e419116205dd8fef`.
+- `.validation/run_exact_grader_controls.py`, SHA-256 `6f7532be55f332ce43287bedc8b295d2ef861d0ef7b9453ce14f8fb7dc9f3378`.
+- 17/17 outcomes matched: 6 accepts, 11 rejects, 0 mismatches, 0 skips, 0 harness errors.
+- Accepted S1 volume/highpass/pan, staging-corner, independent awk-DSP, and compatible-early-loudnorm witnesses; accepted S2 single-pass and dual-pass loudnorm witnesses. The dual-pass witness uses ordinary `/tmp` for its transient first-pass log under uid demotion.
+- Rejected S1 naive/starter, clip-first, no-DC-blocker, limiter-only, and public-path-hardcode; rejected S2 peak-only, tag-only, unchanged-S1, no-resample, and public-path-hardcode.
+- Per-case logs: `.validation/control-logs/*.log`.
+
+Isolation and lifecycle
+- Canonical private test delivery was replayed for both steps: after module initialization each `/testsN` directory was mode 0700 and `test_outputs.py` mode 0600; uid/gid `nobody` reads failed with `PermissionError` for both files.
+- Candidate subprocesses are demoted before every hidden invocation (`steps/1_fix_downmix/tests/test_outputs.py:22-26,231-240`; `steps/2_loudnorm_pivot/tests/test_outputs.py:25-29,275-287`). Hidden fixture construction and truth remain verifier-owned.
+- Read-only-mount fail-closed probe: `.validation/control-logs/readonly-mount-fail-closed.log`, SHA-256 `60e8bc82ec2e2092a3c3372cd2545a141d6ce5862e6ed1d23994a25aea9863c4`. Permission hardening raises `EROFS` during collection, produces reward 0, and stops before candidate execution.
+- Initial-image probe found `episodeB.wav`, `broadcast_spec.txt`, `mix.wav`, `mixA.wav`, and `mixB.wav` absent. S1 stages future episode/spec only after all assertions pass.
+- S2 consumes and hash-checks actual S1 `mix.wav`, validates the staged pair and a disjoint hidden crest pair, and reasserts rate/channel/duration/peak/DC/fidelity regressions plus loudnorm/ebur128 broadcast constraints.
+
+Verdict: PASS. Remaining authorized action is separate oracle x3; this audit did not run it.

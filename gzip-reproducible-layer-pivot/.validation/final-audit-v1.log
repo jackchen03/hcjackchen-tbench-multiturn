@@ -1,0 +1,42 @@
+Final audit: gzip-reproducible-layer-pivot
+Audited at: 2026-09-30T17:52:33Z
+Status/result: UNREGISTERED / PASS
+
+Identity
+- Worktree `/home/hcjackchen/worktrees/phase2-v9-four-20260930`, branch `codex/phase2-v9-four-20260930`, HEAD/base `448d1b0c2b40d4b800b094d5e23e092426d17747`.
+- Fresh Nest `not_found` was confirmed by the coordinator for this turn.
+- Phase-1 archive `/home/hcjackchen/tbench-authoring-archives/phase2-v9-four-20260930/gzip-reproducible-layer-pivot`; `MANIFEST.sha256` hash `061f34c6ca81a9f0477eb41a00f7a67c5e523aa0e01bf16aebf69fa584a301a5`; all manifest entries verified.
+- Instruction SHA-256 values match archive and pre-build baseline: S1 `ff36a45d3b8556162e6bc629334a21d47479440a0b2e72a7d4c951ec36a21bae`; S2 `0e9f6eb5db1c114930958a91be288f59ad5563ec81387fad051b90c0dd1ccf8a`.
+- Fresh non-orchestrated build: repair closure not required. No live handoff or `harden_suggestion.md`.
+
+Static and fingerprint gates
+- `validate_task.py`: 0 critical, 0 high, 0 medium, 0 warn.
+- Diff hygiene, unstaged/staged `git diff --check`, and build-closure validation: PASS.
+- Working/projected fingerprint equality and projection check: PASS at `bundle-sha256-v1:2aa10d734985b7e3bd8c9540e0525c4188d60923d5e98e2b4d7eefa0c0471e67`.
+- The task directory is an intentionally untracked complete bundle; no ignored included bytes, caches, `.diagnose`, credentials, or live task-root handoff were found.
+
+Fresh real chain (`--network none`)
+- `.validation/chain-20260930T174947Z.json`, SHA-256 `d0ecf14ba7c9ddc3cfba9746853c3b826dc9297c8b5da0b71d0e80d184ac6609`.
+- `.validation/chain-20260930T174947Z.log`, SHA-256 `6e53a5503b40b0c54e703a101ddcdc9a89e6bac85b00a3146252d54fe783a2d4`; contains `NETWORK_POLICY docker run --network none`.
+- Build OK; failures 0; unproven false; skipped 0.
+- S1 do-nothing RED: 4 executed, 0 skipped, 3 failed, 0 errors; oracle exit 0; green 4 executed, 0 skipped.
+- S2 do-nothing RED: 5 executed, 0 skipped, 3 failed, 0 errors; oracle exit 0; green 5 executed, 0 skipped.
+- S1->S2 over-execution: `NOT_REQUIRED`; S1 does not prohibit compatible future layer support.
+
+Exact control replay (`--network none`, fresh container per case)
+- `.validation/exact-grader-controls-v1.json`, SHA-256 `3ff43c2f3609811513dbaa6ea1847baf3df72030c5e96519057c30a73c1b51c1`.
+- `.validation/run_exact_grader_controls.py`, SHA-256 `ddba1bfb5516a2e8792c98d85799063bde8556fadb180cedd1860ff9baa05ebe`.
+- 22/22 outcomes matched: 4 accepts, 18 rejects, 0 mismatches, 0 skips, 0 harness errors.
+- Accepted independent GNU-tar and Python-tarfile implementations at both steps.
+- Rejected all 12 S1 handoff mutants (including exact/normalized duplicates, payload/kind/link mismatch, source mutation, wrong compression, starter) and all 6 S2 mutants (wrong order/compression/source authority/manifest mutation/ownership and unchanged Step-1 state).
+- Per-case logs: `.validation/control-logs/*.log`.
+
+Isolation and lifecycle
+- Canonical private test delivery was replayed for both steps: after module initialization each `/testsN` directory was mode 0700 and `test_outputs.py` mode 0600; uid/gid `nobody` reads failed with `PermissionError` for both files.
+- Candidate subprocesses are demoted before every hidden invocation (`steps/1_fix_reproducibility/tests/test_outputs.py:25-29,86-98`; `steps/2_layer_pivot/tests/test_outputs.py:24-28,84-96`). Hidden seeds, formulas, expected rows, and truth remain verifier-owned.
+- Read-only-mount fail-closed probe: `.validation/control-logs/readonly-mount-fail-closed.log`, SHA-256 `862bf275a48609bff87247316e064416bd1a650720fc391e3ab99e859772135a`. Permission hardening raises `EROFS` during collection, produces reward 0, and stops before candidate execution.
+- Initial-image probe found `LAYER_SPEC.md`, `manifest.jsonl`, `release.tgz`, `make_layer.sh`, and `layer.tar` absent. S1 stages the future layer spec only after all S1 assertions pass.
+- S1 covers independent name/size families, metadata/order variation, unicode/newline names, symlink/empty-dir semantics, normalized duplicates, archive/manifest integrity, reproducibility, and source immutability. S2 consumes the actual manifest, excludes extras, enforces hash/path order and deterministic POSIX tar metadata/content, preserves source/manifest, and reruns the complete carried packer/release contract.
+- Manifest field authority is contract-fixed/derived; independent valid witnesses pass and provenance pinning is absent.
+
+Verdict: PASS. Remaining authorized action is separate oracle x3; this audit did not run it.

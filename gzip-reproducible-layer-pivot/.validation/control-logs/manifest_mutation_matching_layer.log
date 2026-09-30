@@ -1,0 +1,164 @@
+$ docker run --network none ...
+50460e1dda5823d917a449ccf48edce24bc170864f09a25df0281a679455bfd1
+
+$ docker cp private test trees
+
+$ mkdir /solution1
+
+$ copy Step-1 oracle
+
+$ /solution1/solve.sh
+
+$ /tests1/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests1/test_outputs.py::test_pack_reproducible_on_metadata_and_order_variation
+PASSED ../tests1/test_outputs.py::test_pack_handles_second_hidden_name_and_size_family
+PASSED ../tests1/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_solution
+PASSED ../tests1/test_outputs.py::test_zz_complete_step_and_stage_layer_spec
+4 passed in 0.46s
+reward=1 (4 passed, 0 skipped)
+
+$ install MANIFEST_MUT_SH
+
+$ public make_layer interface
+
+$ /tests2/test.sh
+FF.FF                                                                    [100%]
+=================================== FAILURES ===================================
+_____ test_layer_uses_manifest_hash_order_and_excludes_extra_source_files ______
+
+    def test_layer_uses_manifest_hash_order_and_excludes_extra_source_files():
+        assert MAKE_LAYER.is_file() and os.access(MAKE_LAYER, os.X_OK)
+        assert Path("/app/LAYER_SPEC.md").is_file()
+>       _exercise(71)
+
+/tests2/test_outputs.py:195:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 71
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        src, outdir = base / "src", base / "out"
+        rows = _make_hidden_tree(src, seed, extra=True)
+        outdir.mkdir()
+        outdir.chmod(0o777)
+        manifest = base / "manifest.jsonl"
+        _write_manifest(manifest, rows)
+        before_manifest = manifest.read_bytes()
+        before_source = _scan(src)
+        outputs = []
+        for i in range(2):
+            out = outdir / f"layer-{i}.tar"
+            result = _run_layer(src, manifest, out)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "<stdin>", line 23, in <module>
+E             PermissionError: [Errno 13] Permission denied: '/tmp/codimango-layer-71-fyfwgnbb/manifest.jsonl'
+E
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/app/make_layer.sh', '/tmp/codimango-layer-71-fyfwgnbb/src', '/tmp/codimango-layer-71-fyfwgnbb...23, in <module>\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-layer-71-fyfwgnbb/manifest.jsonl\'\n').returncode
+
+/tests2/test_outputs.py:150: AssertionError
+________________ test_layer_handles_independent_manifest_family ________________
+
+    def test_layer_handles_independent_manifest_family():
+>       assert len(_exercise(97)) == 7
+                   ^^^^^^^^^^^^^
+
+/tests2/test_outputs.py:199:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+seed = 97
+
+    def _exercise(seed):
+        base = _case_dir(str(seed))
+        src, outdir = base / "src", base / "out"
+        rows = _make_hidden_tree(src, seed, extra=True)
+        outdir.mkdir()
+        outdir.chmod(0o777)
+        manifest = base / "manifest.jsonl"
+        _write_manifest(manifest, rows)
+        before_manifest = manifest.read_bytes()
+        before_source = _scan(src)
+        outputs = []
+        for i in range(2):
+            out = outdir / f"layer-{i}.tar"
+            result = _run_layer(src, manifest, out)
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "<stdin>", line 23, in <module>
+E             PermissionError: [Errno 13] Permission denied: '/tmp/codimango-layer-97-8ljq25ds/manifest.jsonl'
+E
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/app/make_layer.sh', '/tmp/codimango-layer-97-8ljq25ds/src', '/tmp/codimango-layer-97-8ljq25ds...23, in <module>\nPermissionError: [Errno 13] Permission denied: \'/tmp/codimango-layer-97-8ljq25ds/manifest.jsonl\'\n').returncode
+
+/tests2/test_outputs.py:150: AssertionError
+_________ test_preserves_carried_manifest_packer_and_release_contract __________
+
+    def test_preserves_carried_manifest_packer_and_release_contract():
+        assert PACK.is_file() and os.access(PACK, os.X_OK)
+        assert MANIFEST.is_file() and Path("/app/release.tgz").is_file()
+        carried_manifest = MANIFEST.read_bytes()
+        carried_release = Path("/app/release.tgz").read_bytes()
+>       source_rows = _audit_manifest_for_source(carried_manifest, Path("/app/src"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests2/test_outputs.py:217:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+raw = b'{"kind":"symlink","path_b64":"Y3VycmVudA==","sha256":"9b331f95797e6a85455f22fa7f7133a5ea5c131bbecad6758444175ef20e88...", "path_b64": "Ym9ndXNfcmlkZ2UuYmlu", "sha256": "0000000000000000000000000000000000000000000000000000000000000000"}\n'
+source = PosixPath('/app/src')
+
+    def _audit_manifest_for_source(raw, source):
+        records = [json.loads(line) for line in raw.splitlines()]
+        assert raw.endswith(b"\n") and records
+        assert all(set(r) == {"kind", "path_b64", "sha256"} for r in records)
+        keys = [r["path_b64"] for r in records]
+>       assert keys == sorted(keys, key=lambda x: x.encode("ascii"))
+E       AssertionError: assert ['Y3VycmVudA=...WQuYmlu', ...] == ['Y3VycmVudA=..., 'cGtn', ...]
+E
+E         At index 2 diff: 'ZW1wdHk=' != 'Ym9ndXNfcmlkZ2UuYmlu'
+E         Use -v to get more diff
+
+/tests2/test_outputs.py:164: AssertionError
+________ test_final_layer_artifact_matches_carried_source_and_manifest _________
+
+    def test_final_layer_artifact_matches_carried_source_and_manifest():
+>       rows = _audit_manifest_for_source(MANIFEST.read_bytes(), Path("/app/src"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests2/test_outputs.py:256:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+raw = b'{"kind":"symlink","path_b64":"Y3VycmVudA==","sha256":"9b331f95797e6a85455f22fa7f7133a5ea5c131bbecad6758444175ef20e88...", "path_b64": "Ym9ndXNfcmlkZ2UuYmlu", "sha256": "0000000000000000000000000000000000000000000000000000000000000000"}\n'
+source = PosixPath('/app/src')
+
+    def _audit_manifest_for_source(raw, source):
+        records = [json.loads(line) for line in raw.splitlines()]
+        assert raw.endswith(b"\n") and records
+        assert all(set(r) == {"kind", "path_b64", "sha256"} for r in records)
+        keys = [r["path_b64"] for r in records]
+>       assert keys == sorted(keys, key=lambda x: x.encode("ascii"))
+E       AssertionError: assert ['Y3VycmVudA=...WQuYmlu', ...] == ['Y3VycmVudA=..., 'cGtn', ...]
+E
+E         At index 2 diff: 'ZW1wdHk=' != 'Ym9ndXNfcmlkZ2UuYmlu'
+E         Use -v to get more diff
+
+/tests2/test_outputs.py:164: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests2/test_outputs.py::test_verifier_accepts_materially_different_python_tarfile_layer
+FAILED ../tests2/test_outputs.py::test_layer_uses_manifest_hash_order_and_excludes_extra_source_files
+FAILED ../tests2/test_outputs.py::test_layer_handles_independent_manifest_family
+FAILED ../tests2/test_outputs.py::test_preserves_carried_manifest_packer_and_release_contract
+FAILED ../tests2/test_outputs.py::test_final_layer_artifact_matches_carried_source_and_manifest
+4 failed, 1 passed in 0.16s
+reward=0 (4 failed, 0 errored)
+
+$ docker rm -f
+gzipctrl-2293774-16

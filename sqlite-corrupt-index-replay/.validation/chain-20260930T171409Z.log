@@ -1,0 +1,384 @@
+== oracle chain: sqlite-corrupt-index-replay (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-sqlite-corrupt-index-replay:validate /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/environment
+sha256:1892314b5e3b4df9faf32fb596274b6ea2a336d0b7f35cf3ba1559101969cb7a
+$ docker rm -f tbench-mt-sqlite-corrupt-index-replay-chain
+$ docker run -d --name tbench-mt-sqlite-corrupt-index-replay-chain tbench-mt-sqlite-corrupt-index-replay:validate sleep infinity
+ac9d024c2e535dd5a3559d432858e123a5fddaf40b85dc939d0e0a3157832d95
+NETWORK_POLICY docker run --network none
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/steps/1_recover_index/tests/. tbench-mt-sqlite-corrupt-index-replay-chain:/tests
+$ docker exec -w /app tbench-mt-sqlite-corrupt-index-replay-chain bash /tests/test.sh
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+___________ test_recovered_primary_database_is_integral_and_durable ____________
+
+    def test_recovered_primary_database_is_integral_and_durable():
+>       assert (APP / "recover.sh").is_file()
+E       AssertionError: assert False
+E        +  where False = <bound method Path.is_file of PosixPath('/app/recover.sh')>()
+E        +    where <bound method Path.is_file of PosixPath('/app/recover.sh')> = (PosixPath('/app') / 'recover.sh').is_file
+
+/tests/test_outputs.py:265: AssertionError
+________________ test_recovery_report_has_exact_strict_contract ________________
+
+    def test_recovery_report_has_exact_strict_contract():
+        checker = (APP / "checker.log").read_text().splitlines()
+        assert checker == [
+            "integrity_check: *** in database main *** (index idx_big)",
+            "durable_rows=100",
+        ]
+        durable = _main_file_rows(APP / "store.db")
+>       report = _strict_report(len(durable))
+
+/tests/test_outputs.py:296:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:118: in _strict_report
+    report = json.loads((APP / "recovery_report.json").read_text())
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/recovery_report.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/recovery_report.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError
+_______________________ test_configuration_is_crash_safe _______________________
+
+    def test_configuration_is_crash_safe():
+>       values = _safe_config()
+
+/tests/test_outputs.py:301:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _safe_config():
+        values = {}
+        for line in (APP / "app.conf").read_text().splitlines():
+            if "=" in line:
+                key, value = line.split("=", 1)
+                values[key.strip()] = value.strip()
+>       assert values.get("synchronous") in {"NORMAL", "FULL"}
+E       AssertionError: assert 'OFF' in {'FULL', 'NORMAL'}
+E        +  where 'OFF' = <built-in method get of dict object at 0x7f8985a651c0>('synchronous')
+E        +    where <built-in method get of dict object at 0x7f8985a651c0> = {'synchronous': 'OFF', 'wal_autocheckpoint': '0'}.get
+
+/tests/test_outputs.py:112: AssertionError
+___________ test_family_general_recovery_uses_sealed_post_exit_truth ___________
+
+    def test_family_general_recovery_uses_sealed_post_exit_truth():
+>       assert (APP / "recover.sh").is_file()
+E       AssertionError: assert False
+E        +  where False = <bound method Path.is_file of PosixPath('/app/recover.sh')>()
+E        +    where <bound method Path.is_file of PosixPath('/app/recover.sh')> = (PosixPath('/app') / 'recover.sh').is_file
+
+/tests/test_outputs.py:306: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable
+FAILED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract
+FAILED ../tests/test_outputs.py::test_configuration_is_crash_safe - Assertion...
+FAILED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth
+4 failed in 0.09s
+reward=0 (4 failed, 0 errored)
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="0.098" timestamp="2026-09-30T17:14:15.803710" hostname="ac9d024c2e53"><testcase classname="test_outputs" name="test_recovered_primary_database_is_integral_and_durable" time="0.001"><failure message="AssertionError: assert False&#10; +  where False = &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt;()&#10; +    where &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt; = (PosixPath('/app') / 'recover.sh').is_file">def test_recovered_primary_database_is_integral_and_durable():
+&gt;       assert (APP / "recover.sh").is_file()
+E       AssertionError: assert False
+E        +  where False = &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt;()
+E        +    where &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt; = (PosixPath('/app') / 'recover.sh').is_file
+
+/tests/test_outputs.py:265: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_recovery_report_has_exact_strict_contract" time="0.002"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/recovery_report.json'">def test_recovery_report_has_exact_strict_contract():
+        checker = (APP / "checker.log").read_text().splitlines()
+        assert checker == [
+            "integrity_check: *** in database main *** (index idx_big)",
+            "durable_rows=100",
+        ]
+        durable = _main_file_rows(APP / "store.db")
+&gt;       report = _strict_report(len(durable))
+
+/tests/test_outputs.py:296:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:118: in _strict_report
+    report = json.loads((APP / "recovery_report.json").read_text())
+/usr/local/lib/python3.11/pathlib.py:1058: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/recovery_report.json'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/recovery_report.json'
+
+/usr/local/lib/python3.11/pathlib.py:1044: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_configuration_is_crash_safe" time="0.001"><failure message="AssertionError: assert 'OFF' in {'FULL', 'NORMAL'}&#10; +  where 'OFF' = &lt;built-in method get of dict object at 0x7f8985a651c0&gt;('synchronous')&#10; +    where &lt;built-in method get of dict object at 0x7f8985a651c0&gt; = {'synchronous': 'OFF', 'wal_autocheckpoint': '0'}.get">def test_configuration_is_crash_safe():
+&gt;       values = _safe_config()
+
+/tests/test_outputs.py:301:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _safe_config():
+        values = {}
+        for line in (APP / "app.conf").read_text().splitlines():
+            if "=" in line:
+                key, value = line.split("=", 1)
+                values[key.strip()] = value.strip()
+&gt;       assert values.get("synchronous") in {"NORMAL", "FULL"}
+E       AssertionError: assert 'OFF' in {'FULL', 'NORMAL'}
+E        +  where 'OFF' = &lt;built-in method get of dict object at 0x7f8985a651c0&gt;('synchronous')
+E        +    where &lt;built-in method get of dict object at 0x7f8985a651c0&gt; = {'synchronous': 'OFF', 'wal_autocheckpoint': '0'}.get
+
+/tests/test_outputs.py:112: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_family_general_recovery_uses_sealed_post_exit_truth" time="0.000"><failure message="AssertionError: assert False&#10; +  where False = &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt;()&#10; +    where &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt; = (PosixPath('/app') / 'recover.sh').is_file">def test_family_general_recovery_uses_sealed_post_exit_truth():
+&gt;       assert (APP / "recover.sh").is_file()
+E       AssertionError: assert False
+E        +  where False = &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt;()
+E        +    where &lt;bound method Path.is_file of PosixPath('/app/recover.sh')&gt; = (PosixPath('/app') / 'recover.sh').is_file
+
+/tests/test_outputs.py:306: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests
+STEP 1 1_recover_index  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 4 failed, 0 errored)
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /solution
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/steps/1_recover_index/solution/. tbench-mt-sqlite-corrupt-index-replay-chain:/solution
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-sqlite-corrupt-index-replay-chain bash /solution/solve.sh
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /solution
+STEP 1 1_recover_index  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/steps/1_recover_index/tests/. tbench-mt-sqlite-corrupt-index-replay-chain:/tests
+$ docker exec -w /app tbench-mt-sqlite-corrupt-index-replay-chain bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_recovered_primary_database_is_integral_and_durable
+PASSED ../tests/test_outputs.py::test_recovery_report_has_exact_strict_contract
+PASSED ../tests/test_outputs.py::test_configuration_is_crash_safe
+PASSED ../tests/test_outputs.py::test_family_general_recovery_uses_sealed_post_exit_truth
+4 passed in 0.35s
+reward=1 (4 passed, 0 skipped)
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.357" timestamp="2026-09-30T17:14:18.467024" hostname="ac9d024c2e53"><testcase classname="test_outputs" name="test_recovered_primary_database_is_integral_and_durable" time="0.053" /><testcase classname="test_outputs" name="test_recovery_report_has_exact_strict_contract" time="0.009" /><testcase classname="test_outputs" name="test_configuration_is_crash_safe" time="0.000" /><testcase classname="test_outputs" name="test_family_general_recovery_uses_sealed_post_exit_truth" time="0.251" /></testsuite></testsuites>
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests
+STEP 1 1_recover_index  GREEN       OK    4 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/steps/2_idempotent_replay/tests/. tbench-mt-sqlite-corrupt-index-replay-chain:/tests
+$ docker exec -w /app tbench-mt-sqlite-corrupt-index-replay-chain bash /tests/test.sh
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_________ test_replay_supports_every_argv_form_on_the_carried_s1_state _________
+
+    def test_replay_supports_every_argv_form_on_the_carried_s1_state():
+        assert (APP / "recovery_report.json").is_file()
+        assert _integrity(CARRIED_DB) == "ok"
+        _assert_safe_config()
+        _assert_logical_schema(CARRIED_DB)
+>       _exercise_carried_mode("zero", rerun=True)
+
+/tests/test_outputs.py:391:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+mode = 'zero', rerun = True
+
+    def _exercise_carried_mode(mode, rerun):
+        seal = _seal_from(APP / "store.db", APP / "orders_input.jsonl", APP / "app.conf")
+        uid, gid = _candidate_identity()
+        os.chown(APP, uid, gid)
+        for name in ("store.db", "store.db-wal", "store.db-shm", "orders_input.jsonl", "app.conf"):
+            path = APP / name
+            if path.exists():
+                os.chown(path, uid, gid)
+        explicit = None
+        if mode == "zero":
+            argv = ["python3", "/app/replay.py"]
+            target = APP / "store.db"
+        elif mode == "input":
+            argv = ["python3", "/app/replay.py", "/app/orders_input.jsonl"]
+            target = APP / "store.db"
+        else:
+            explicit = _make_candidate_tree(seal / "store.db", seal / "orders_input.jsonl")
+            argv = [
+                "python3",
+                "/app/replay.py",
+                str(explicit / "orders_input.jsonl"),
+                str(explicit / "store.db"),
+            ]
+            target = explicit / "store.db"
+        try:
+            rc, _stdout, stderr, exit_time = _run_candidate(argv)
+>           assert rc == 0, stderr[-500:]
+E           AssertionError: Traceback (most recent call last):
+E               File "/app/replay.py", line 8, in <module>
+E                 db.execute('INSERT INTO orders VALUES(?,?,?,?)', (row['order_id'], row['seq'], row['amount'], row['status']))
+E             sqlite3.IntegrityError: UNIQUE constraint failed: orders.order_id
+E
+E           assert 1 == 0
+
+/tests/test_outputs.py:282: AssertionError
+_____ test_hidden_family_replay_is_general_and_preserves_all_s1_invariants _____
+
+    def test_hidden_family_replay_is_general_and_preserves_all_s1_invariants():
+        assert (APP / "replay.py").is_file()
+        _assert_safe_config()
+        SCRATCH.mkdir(parents=True, exist_ok=True)
+        os.chmod(SCRATCH, 0o700)
+        source = Path(tempfile.mkdtemp(prefix="hidden-source-", dir=SCRATCH))
+        db_path, input_path = _make_hidden_repaired_family(source, 99)
+        safe_conf = (APP / "app.conf").read_bytes()
+        seal = _seal_from(db_path, input_path, APP / "app.conf")
+        candidate = _make_candidate_tree(seal / "store.db", seal / "orders_input.jsonl")
+        argv = [
+            "python3",
+            "/app/replay.py",
+            str(candidate / "orders_input.jsonl"),
+            str(candidate / "store.db"),
+        ]
+        rc, _stdout, stderr, _first_exit = _run_candidate(argv)
+>       assert rc == 0, stderr[-500:]
+E       AssertionError: Traceback (most recent call last):
+E           File "/app/replay.py", line 8, in <module>
+E             db.execute('INSERT INTO orders VALUES(?,?,?,?)', (row['order_id'], row['seq'], row['amount'], row['status']))
+E         sqlite3.IntegrityError: UNIQUE constraint failed: orders.order_id
+E
+E       assert 1 == 0
+
+/tests/test_outputs.py:413: AssertionError
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state
+FAILED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants
+2 failed in 0.41s
+reward=0 (2 failed, 0 errored)
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="0.410" timestamp="2026-09-30T17:14:20.193743" hostname="ac9d024c2e53"><testcase classname="test_outputs" name="test_replay_supports_every_argv_form_on_the_carried_s1_state" time="0.139"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;/app/replay.py&quot;, line 8, in &lt;module&gt;&#10;      db.execute('INSERT INTO orders VALUES(?,?,?,?)', (row['order_id'], row['seq'], row['amount'], row['status']))&#10;  sqlite3.IntegrityError: UNIQUE constraint failed: orders.order_id&#10;  &#10;assert 1 == 0">def test_replay_supports_every_argv_form_on_the_carried_s1_state():
+        assert (APP / "recovery_report.json").is_file()
+        assert _integrity(CARRIED_DB) == "ok"
+        _assert_safe_config()
+        _assert_logical_schema(CARRIED_DB)
+&gt;       _exercise_carried_mode("zero", rerun=True)
+
+/tests/test_outputs.py:391:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+mode = 'zero', rerun = True
+
+    def _exercise_carried_mode(mode, rerun):
+        seal = _seal_from(APP / "store.db", APP / "orders_input.jsonl", APP / "app.conf")
+        uid, gid = _candidate_identity()
+        os.chown(APP, uid, gid)
+        for name in ("store.db", "store.db-wal", "store.db-shm", "orders_input.jsonl", "app.conf"):
+            path = APP / name
+            if path.exists():
+                os.chown(path, uid, gid)
+        explicit = None
+        if mode == "zero":
+            argv = ["python3", "/app/replay.py"]
+            target = APP / "store.db"
+        elif mode == "input":
+            argv = ["python3", "/app/replay.py", "/app/orders_input.jsonl"]
+            target = APP / "store.db"
+        else:
+            explicit = _make_candidate_tree(seal / "store.db", seal / "orders_input.jsonl")
+            argv = [
+                "python3",
+                "/app/replay.py",
+                str(explicit / "orders_input.jsonl"),
+                str(explicit / "store.db"),
+            ]
+            target = explicit / "store.db"
+        try:
+            rc, _stdout, stderr, exit_time = _run_candidate(argv)
+&gt;           assert rc == 0, stderr[-500:]
+E           AssertionError: Traceback (most recent call last):
+E               File "/app/replay.py", line 8, in &lt;module&gt;
+E                 db.execute('INSERT INTO orders VALUES(?,?,?,?)', (row['order_id'], row['seq'], row['amount'], row['status']))
+E             sqlite3.IntegrityError: UNIQUE constraint failed: orders.order_id
+E
+E           assert 1 == 0
+
+/tests/test_outputs.py:282: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_hidden_family_replay_is_general_and_preserves_all_s1_invariants" time="0.198"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;/app/replay.py&quot;, line 8, in &lt;module&gt;&#10;      db.execute('INSERT INTO orders VALUES(?,?,?,?)', (row['order_id'], row['seq'], row['amount'], row['status']))&#10;  sqlite3.IntegrityError: UNIQUE constraint failed: orders.order_id&#10;  &#10;assert 1 == 0">def test_hidden_family_replay_is_general_and_preserves_all_s1_invariants():
+        assert (APP / "replay.py").is_file()
+        _assert_safe_config()
+        SCRATCH.mkdir(parents=True, exist_ok=True)
+        os.chmod(SCRATCH, 0o700)
+        source = Path(tempfile.mkdtemp(prefix="hidden-source-", dir=SCRATCH))
+        db_path, input_path = _make_hidden_repaired_family(source, 99)
+        safe_conf = (APP / "app.conf").read_bytes()
+        seal = _seal_from(db_path, input_path, APP / "app.conf")
+        candidate = _make_candidate_tree(seal / "store.db", seal / "orders_input.jsonl")
+        argv = [
+            "python3",
+            "/app/replay.py",
+            str(candidate / "orders_input.jsonl"),
+            str(candidate / "store.db"),
+        ]
+        rc, _stdout, stderr, _first_exit = _run_candidate(argv)
+&gt;       assert rc == 0, stderr[-500:]
+E       AssertionError: Traceback (most recent call last):
+E           File "/app/replay.py", line 8, in &lt;module&gt;
+E             db.execute('INSERT INTO orders VALUES(?,?,?,?)', (row['order_id'], row['seq'], row['amount'], row['status']))
+E         sqlite3.IntegrityError: UNIQUE constraint failed: orders.order_id
+E
+E       assert 1 == 0
+
+/tests/test_outputs.py:413: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests
+STEP 2 2_idempotent_replay  DO-NOTHING  OK    red before the work (2 executed, 0 skipped, 2 failed, 0 errored)
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /solution
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/steps/2_idempotent_replay/solution/. tbench-mt-sqlite-corrupt-index-replay-chain:/solution
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-sqlite-corrupt-index-replay-chain bash /solution/solve.sh
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /solution
+STEP 2 2_idempotent_replay  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/steps/2_idempotent_replay/tests/. tbench-mt-sqlite-corrupt-index-replay-chain:/tests
+$ docker exec -w /app tbench-mt-sqlite-corrupt-index-replay-chain bash /tests/test.sh
+..                                                                       [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_replay_supports_every_argv_form_on_the_carried_s1_state
+PASSED ../tests/test_outputs.py::test_hidden_family_replay_is_general_and_preserves_all_s1_invariants
+2 passed in 1.00s
+reward=1 (2 passed, 0 skipped)
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="1.002" timestamp="2026-09-30T17:14:22.657962" hostname="ac9d024c2e53"><testcase classname="test_outputs" name="test_replay_supports_every_argv_form_on_the_carried_s1_state" time="0.656" /><testcase classname="test_outputs" name="test_hidden_family_replay_is_general_and_preserves_all_s1_invariants" time="0.311" /></testsuite></testsuites>
+$ docker exec tbench-mt-sqlite-corrupt-index-replay-chain rm -rf /tests
+STEP 2 2_idempotent_replay  GREEN       OK    2 executed, 0 skipped, 0 failed, 0 errored
+STEP 1 1_recover_index  OVER-EXEC   NOT_REQUIRED  current instruction has no explicit prohibition overlapping successor behavior
+$ docker rm -f tbench-mt-sqlite-corrupt-index-replay-chain
+tbench-mt-sqlite-corrupt-index-replay-chain
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/worktrees/phase2-v9-four-20260930/sqlite-corrupt-index-replay/.validation/chain-20260930T171409Z.json
