@@ -1,0 +1,33 @@
+{
+  "task": "lease-fence-contention-pivot",
+  "phases": [
+    {
+      "step": "-",
+      "phase": "BUILD",
+      "status": "OK",
+      "detail": "tbench-mt-lease-fence-contention-pivot:validate"
+    },
+    {
+      "step": "1_harden",
+      "phase": "DO-NOTHING",
+      "status": "OK",
+      "detail": "no readable junit report [no parseable pytest summary]"
+    },
+    {
+      "step": "1_harden",
+      "phase": "ORACLE",
+      "status": "OK",
+      "detail": "exit 0"
+    },
+    {
+      "step": "1_harden",
+      "phase": "GREEN",
+      "status": "FAIL",
+      "detail": "no readable junit report [no parseable pytest summary]"
+    }
+  ],
+  "failures": 1,
+  "skipped": 0,
+  "overexec": "all required boundaries probed",
+  "unproven": false
+}

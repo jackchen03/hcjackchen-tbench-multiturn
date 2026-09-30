@@ -1,0 +1,190 @@
+{
+    "id": "1d7c3532-dcf8-4212-a472-f374e53b7e11",
+    "task_name": "codimango/heavy-hitter-sketch-pivot",
+    "trial_name": "heavy-hitter-sketch-pivot__3AsGPwS",
+    "trial_uri": "file:///home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/heavy-hitter-sketch-pivot/.validation/oracle-x3-job/2026-09-30__12-25-32__aaefc3/heavy-hitter-sketch-pivot__3AsGPwS",
+    "task_id": {
+        "path": "heavy-hitter-sketch-pivot"
+    },
+    "source": null,
+    "task_checksum": "9e58b186c06194c0676c6f63819b793f35fc8badbfa64ca4973e66c8e97cc566",
+    "spec_hash": null,
+    "config": {
+        "task": {
+            "path": "heavy-hitter-sketch-pivot",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "heavy-hitter-sketch-pivot__3AsGPwS",
+        "trials_dir": "heavy-hitter-sketch-pivot/.validation/oracle-x3-job/2026-09-30__12-25-32__aaefc3",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": "oracle",
+            "skills": [],
+            "skills_remove": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_workdir": null,
+            "suppress_override_warnings": false,
+            "mounts": [],
+            "toolshed": null,
+            "toolshed_tools": null,
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "start_step": 1,
+        "end_step": null,
+        "checkpoint_ref": null,
+        "save_checkpoints": false,
+        "save_checkpoint_session": true,
+        "restore_checkpoint_session": true,
+        "max_checkpoint_bytes": null,
+        "job_id": "a36572c7-54e1-4ca4-b47a-6e3ef7078f1d"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": {
+            "name": "oracle",
+            "provider": null
+        }
+    },
+    "agent_result": null,
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "baseline_result": null,
+    "n_tool_calls": 0,
+    "exception_info": null,
+    "failure_mode": "NONE",
+    "started_at": "2026-09-30T19:25:35.765294Z",
+    "finished_at": "2026-09-30T19:26:05.497453Z",
+    "environment_setup": {
+        "started_at": "2026-09-30T19:25:35.844785Z",
+        "finished_at": "2026-09-30T19:25:40.149070Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-30T19:25:40.150434Z",
+        "finished_at": "2026-09-30T19:25:40.150562Z"
+    },
+    "agent_execution": null,
+    "verifier": null,
+    "step_results": [
+        {
+            "step_name": "1_exact",
+            "agent_result": {
+                "n_input_tokens": null,
+                "n_cache_tokens": null,
+                "n_output_tokens": null,
+                "cost_usd": null,
+                "rollout_details": null,
+                "metadata": null
+            },
+            "verifier_result": {
+                "rewards": {
+                    "reward": 1.0
+                }
+            },
+            "exception_info": null,
+            "agent_execution": {
+                "started_at": "2026-09-30T19:25:40.823656Z",
+                "finished_at": "2026-09-30T19:25:41.518295Z"
+            },
+            "verifier": {
+                "started_at": "2026-09-30T19:25:42.611852Z",
+                "finished_at": "2026-09-30T19:25:43.925820Z"
+            }
+        },
+        {
+            "step_name": "2_diagnose",
+            "agent_result": {
+                "n_input_tokens": null,
+                "n_cache_tokens": null,
+                "n_output_tokens": null,
+                "cost_usd": null,
+                "rollout_details": null,
+                "metadata": null
+            },
+            "verifier_result": {
+                "rewards": {
+                    "reward": 1.0
+                }
+            },
+            "exception_info": null,
+            "agent_execution": {
+                "started_at": "2026-09-30T19:25:45.289081Z",
+                "finished_at": "2026-09-30T19:25:46.051882Z"
+            },
+            "verifier": {
+                "started_at": "2026-09-30T19:25:47.139413Z",
+                "finished_at": "2026-09-30T19:25:48.459875Z"
+            }
+        },
+        {
+            "step_name": "3_approx",
+            "agent_result": {
+                "n_input_tokens": null,
+                "n_cache_tokens": null,
+                "n_output_tokens": null,
+                "cost_usd": null,
+                "rollout_details": null,
+                "metadata": null
+            },
+            "verifier_result": {
+                "rewards": {
+                    "reward": 1.0
+                }
+            },
+            "exception_info": null,
+            "agent_execution": {
+                "started_at": "2026-09-30T19:25:49.804665Z",
+                "finished_at": "2026-09-30T19:25:50.535766Z"
+            },
+            "verifier": {
+                "started_at": "2026-09-30T19:25:51.622408Z",
+                "finished_at": "2026-09-30T19:25:53.527762Z"
+            }
+        }
+    ],
+    "skills": null,
+    "logging_metadata": {
+        "infra_retries_used": 0,
+        "is_infra_retry": false
+    }
+}

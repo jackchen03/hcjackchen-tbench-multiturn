@@ -1,0 +1,43 @@
+{
+    "id": "671b9bb6-7b62-42c7-a41a-a0fcb5a51f48",
+    "started_at": "2026-09-30T09:53:30.376726",
+    "updated_at": "2026-09-30T09:54:11.593880",
+    "finished_at": "2026-09-30T09:54:11.593880",
+    "n_total_trials": 3,
+    "stats": {
+        "n_completed_trials": 3,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "oracle__oracle__adhoc": {
+                "n_trials": 3,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 1.0
+                    }
+                ],
+                "pass_at_k": {
+                    "2": 1.0
+                },
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "fat32-carved-extent-repair__CmkcWqc",
+                            "fat32-carved-extent-repair__3cgq9XB",
+                            "fat32-carved-extent-repair__9fYL6Tv"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}

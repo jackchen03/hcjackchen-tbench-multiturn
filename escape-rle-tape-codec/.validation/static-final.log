@@ -1,0 +1,3 @@
+== static gates: escape-rle-tape-codec
+   -> 0 critical, 0 high, 0 medium, 0 warn
+static gates PASSED (this is necessary, not sufficient - now run run_oracle_chain.py)

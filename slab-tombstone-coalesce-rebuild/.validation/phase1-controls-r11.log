@@ -1,0 +1,62 @@
+record GEN_S11 ACCEPT bytes=4096 live=4 kills=[1, 3] sha=681eef1d
+record GEN_S12 ACCEPT bytes=4096 live=3 kills=[5, 3, 2] sha=1273f151
+record GEN_S91 ACCEPT bytes=4096 live=3 kills=[2, 0, 3] sha=c273b1f3
+record GEN_M_order ACCEPT bytes=4096 live=4 kills=[4, 1] sha=ae270b90
+record GEN_M_coalesce ACCEPT bytes=4096 live=4 kills=[2, 3] sha=ad3a4ecc
+record starter_s1 REJECT naive drifts 3497 bytes vs oracle truth
+record control_s1 ACCEPT oracle bytes match truth dead=[1, 3] F=3488 origin=6 drift=3497
+record mutant_ZERO_FILL REJECT zero gap drifts 3488 bytes vs 0xA5 truth
+record mutant_ORIGIN_SHIFT REJECT payload-relative origin misses by 16 on 6 entries
+record alt_mmap_scan ACCEPT mapped scan confirms oracle bytes origin=6 F=3488
+record control_s2 ACCEPT death order and backward survivor hold with origin predictions
+record mutant_SORTED_REBUILD REJECT sorted slots drift 8 bytes vs death order
+record mutant_FWD_COALESCE REJECT forward survivor drifts 1 bytes vs lower addr
+record alt_offset_table ACCEPT offset table confirms filler and order runs=7349
+record control_s3 ACCEPT python rebuild matches oracle bytes drift=0
+record alt_mmap_rebuild ACCEPT mmap parse-based rebuild matches oracle bytes drift=0
+record mutant_ZERO_FILL_s3 REJECT held-out zero gap drifts 3688 bytes
+record mutant_SORTED_s3 REJECT held-out sorted slots drift 8 bytes
+record mutant_FWD_s3 REJECT held-out forward survivor drifts 2 bytes
+record mutant_deleg_shellout REJECT delegation fails without ref: FileNotFoundError
+record mutant_hardcode_public REJECT hardcoded public output drifts 571 bytes on held-out input
+record trans_12_under REJECT carried prior end-state carried report_S1.md ORIGIN flips S2 merged-entry predictions (correct match, shifted miss)
+record trans_23_under REJECT carried prior end-state carried report_S2.md rules flip S3 rebuild (good match, degraded drift=9)
+record reg_12 ACCEPT s1-tail-ranges green drift=3697 gap=3688
+record reg_23 ACCEPT s2-order-direction green
+Traceback (most recent call last):
+  File "/tmp/slab-tombstone-coalesce-rebuild.r11-controls.PMvqpR/evidence/probes/run.py", line 548, in <module>
+    main()
+  File "/tmp/slab-tombstone-coalesce-rebuild.r11-controls.PMvqpR/evidence/probes/run.py", line 543, in main
+    v, detail = verdict(args.case, args.seed, args.iface)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/slab-tombstone-coalesce-rebuild.r11-controls.PMvqpR/evidence/probes/run.py", line 527, in verdict
+    with open(os.path.join("steps", step, "instruction.md")) as fh:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'steps/1_detect/instruction.md'
+Traceback (most recent call last):
+  File "/tmp/slab-tombstone-coalesce-rebuild.r11-controls.PMvqpR/evidence/probes/run.py", line 548, in <module>
+    main()
+  File "/tmp/slab-tombstone-coalesce-rebuild.r11-controls.PMvqpR/evidence/probes/run.py", line 543, in main
+    v, detail = verdict(args.case, args.seed, args.iface)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/slab-tombstone-coalesce-rebuild.r11-controls.PMvqpR/evidence/probes/run.py", line 527, in verdict
+    with open(os.path.join("steps", step, "instruction.md")) as fh:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'steps/2_localize/instruction.md'
+Traceback (most recent call last):
+  File "/tmp/slab-tombstone-coalesce-rebuild.r11-controls.PMvqpR/evidence/probes/run.py", line 548, in <module>
+    main()
+  File "/tmp/slab-tombstone-coalesce-rebuild.r11-controls.PMvqpR/evidence/probes/run.py", line 543, in main
+    v, detail = verdict(args.case, args.seed, args.iface)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/slab-tombstone-coalesce-rebuild.r11-controls.PMvqpR/evidence/probes/run.py", line 527, in verdict
+    with open(os.path.join("steps", step, "instruction.md")) as fh:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'steps/3_rebuild/instruction.md'
+record fix_s1a ACCEPT gap=3488 filler=165 origin=6 F=3488
+record fix_s1b ACCEPT gap=3592 filler=165
+record fix_s2a ACCEPT kills=[4, 1] merged=0 order=death
+record fix_s2b ACCEPT merged=(336, 224) survivor=lower
+record fix_s3a ACCEPT gap=3688 order_discriminates=1 adjacent=1 drift=0
+record fix_s3b ACCEPT second rebuild identity drift=0 naive_drift=3602
+record runtime_premise ACCEPT python=3.12.14+meta

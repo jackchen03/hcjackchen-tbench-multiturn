@@ -1,0 +1,13 @@
+{
+  "schema": "tbench-phase2-findings-v1",
+  "task": "heavy-hitter-sketch-pivot",
+  "bundle_fingerprint": "bundle-sha256-v1:35b8eb86a7efec7902cf03ef4c6270f067f01bfaac7dd25142f4ad3a41063e3a",
+  "findings": [
+    {"id": "HH-BOUNDARY-CONFLICT", "disposition": "FIXED", "evidence": [".validation/transitions.md"]},
+    {"id": "HH-HIDDEN-GENERALIZATION", "disposition": "FIXED", "evidence": ["steps/1_exact/tests/test_outputs.py", "steps/3_approx/tests/test_outputs.py"]},
+    {"id": "HH-EVIDENCE-SCOPE", "disposition": "FIXED", "evidence": ["steps/2_diagnose/tests/test_outputs.py"]},
+    {"id": "HH-CANDIDATE-ISOLATION", "disposition": "FIXED", "evidence": ["environment/run_candidate.c", "steps/3_approx/tests/test_outputs.py"]}
+  ],
+  "open_findings": [],
+  "result": "PASS"
+}

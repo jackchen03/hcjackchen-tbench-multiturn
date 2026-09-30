@@ -1,0 +1,548 @@
+== oracle chain: lease-fence-contention-pivot (2 steps)
+-- docker build environment/
+$ docker build -q -t tbench-mt-lease-fence-contention-pivot:validate /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/environment
+sha256:4daeac34206db01dae8f812da8fb124a5898edeba242f9518fa174c466eed7f6
+$ docker rm -f tbench-mt-lease-fence-contention-pivot-chain
+$ docker run -d --name tbench-mt-lease-fence-contention-pivot-chain tbench-mt-lease-fence-contention-pivot:validate sleep infinity
+a09207fd2459e0be15fcd0abd7cc4a8027dabe4214335a87f227ee232cd3f9ca
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/steps/1_harden/tests/. tbench-mt-lease-fence-contention-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-lease-fence-contention-pivot-chain bash /tests/test.sh
+FFF.                                                                     [100%]
+=================================== FAILURES ===================================
+_____________________ test_durable_exact_grants_and_reopen _____________________
+
+    def test_durable_exact_grants_and_reopen():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d)
+      for _ in range(173): s.grant()
+      s=m.LeaseStore(d)
+      for _ in range(281): s.grant()
+>     assert u64(pathlib.Path(d)/'fence.dat')==454
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:9: in u64
+    raw=pathlib.Path(p).read_bytes(); assert len(raw)==8; return struct.unpack('>Q',raw)[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/tmp4v5c44fc/fence.dat'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/tmp4v5c44fc/fence.dat'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_____________________ test_fencing_hwm_and_exact_log_shape _____________________
+
+    def test_fencing_hwm_and_exact_log_shape():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d); stale=s.grant(); current=s.grant()
+      assert s.commit(stale,991,'stale') is False
+      assert s.commit(current,407,'quartz') is True
+      assert s.commit(current,406,'replay') is False
+>     line=json.loads((pathlib.Path(d)/'log.jsonl').read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:27:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/tmp_jit4_7p/log.jsonl'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/tmp_jit4_7p/log.jsonl'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError
+______________________ test_threaded_grants_are_gap_free _______________________
+
+    def test_threaded_grants_are_gap_free():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d); out=[]; lock=threading.Lock()
+      def work():
+       vals=[s.grant() for _ in range(73)]
+       with lock: out.extend(vals)
+      ts=[threading.Thread(target=work) for _ in range(7)]
+      [t.start() for t in ts]; [t.join() for t in ts]
+>     assert sorted(out)==list(range(1,512)) and u64(pathlib.Path(d)/'fence.dat')==511
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:9: in u64
+    raw=pathlib.Path(p).read_bytes(); assert len(raw)==8; return struct.unpack('>Q',raw)[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/tmps2k95lkq/fence.dat'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/tmps2k95lkq/fence.dat'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_step2_artifacts_not_premature
+FAILED ../tests/test_outputs.py::test_durable_exact_grants_and_reopen - FileN...
+FAILED ../tests/test_outputs.py::test_fencing_hwm_and_exact_log_shape - FileN...
+FAILED ../tests/test_outputs.py::test_threaded_grants_are_gap_free - FileNotF...
+3 failed, 1 passed in 0.12s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="4" time="0.122" timestamp="2026-09-30T17:04:03.590039+00:00" hostname="a09207fd2459"><testcase classname="test_outputs" name="test_durable_exact_grants_and_reopen" time="0.005"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/tmp4v5c44fc/fence.dat'">def test_durable_exact_grants_and_reopen():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d)
+      for _ in range(173): s.grant()
+      s=m.LeaseStore(d)
+      for _ in range(281): s.grant()
+&gt;     assert u64(pathlib.Path(d)/'fence.dat')==454
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:18:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:9: in u64
+    raw=pathlib.Path(p).read_bytes(); assert len(raw)==8; return struct.unpack('&gt;Q',raw)[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/tmp4v5c44fc/fence.dat'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/tmp4v5c44fc/fence.dat'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_fencing_hwm_and_exact_log_shape" time="0.003"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/tmp_jit4_7p/log.jsonl'">def test_fencing_hwm_and_exact_log_shape():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d); stale=s.grant(); current=s.grant()
+      assert s.commit(stale,991,'stale') is False
+      assert s.commit(current,407,'quartz') is True
+      assert s.commit(current,406,'replay') is False
+&gt;     line=json.loads((pathlib.Path(d)/'log.jsonl').read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:27:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/tmp_jit4_7p/log.jsonl'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/tmp_jit4_7p/log.jsonl'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_threaded_grants_are_gap_free" time="0.004"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/tmps2k95lkq/fence.dat'">def test_threaded_grants_are_gap_free():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d); out=[]; lock=threading.Lock()
+      def work():
+       vals=[s.grant() for _ in range(73)]
+       with lock: out.extend(vals)
+      ts=[threading.Thread(target=work) for _ in range(7)]
+      [t.start() for t in ts]; [t.join() for t in ts]
+&gt;     assert sorted(out)==list(range(1,512)) and u64(pathlib.Path(d)/'fence.dat')==511
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/tests/test_outputs.py:9: in u64
+    raw=pathlib.Path(p).read_bytes(); assert len(raw)==8; return struct.unpack('&gt;Q',raw)[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/tmps2k95lkq/fence.dat'), mode = 'rb', buffering = -1
+encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/tmps2k95lkq/fence.dat'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_step2_artifacts_not_premature" time="0.001" /></testsuite></testsuites>
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /tests
+STEP 1 1_harden  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/steps/1_harden/solution/. tbench-mt-lease-fence-contention-pivot-chain:/solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-lease-fence-contention-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /solution
+STEP 1 1_harden  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/steps/1_harden/tests/. tbench-mt-lease-fence-contention-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-lease-fence-contention-pivot-chain bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_durable_exact_grants_and_reopen
+PASSED ../tests/test_outputs.py::test_fencing_hwm_and_exact_log_shape
+PASSED ../tests/test_outputs.py::test_threaded_grants_are_gap_free
+PASSED ../tests/test_outputs.py::test_step2_artifacts_not_premature
+4 passed in 1.43s
+reward=1 (4 passed, 0 skipped)
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="1.433" timestamp="2026-09-30T17:04:05.659504+00:00" hostname="a09207fd2459"><testcase classname="test_outputs" name="test_durable_exact_grants_and_reopen" time="0.716" /><testcase classname="test_outputs" name="test_fencing_hwm_and_exact_log_shape" time="0.008" /><testcase classname="test_outputs" name="test_threaded_grants_are_gap_free" time="0.685" /><testcase classname="test_outputs" name="test_step2_artifacts_not_premature" time="0.001" /></testsuite></testsuites>
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /tests
+STEP 1 1_harden  GREEN       OK    4 executed, 0 skipped, 0 failed, 0 errored
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/steps/2_stripe/tests/. tbench-mt-lease-fence-contention-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-lease-fence-contention-pivot-chain bash /tests/test.sh
+FFF.                                                                     [100%]
+=================================== FAILURES ===================================
+___________________ test_signed_retirement_binds_carried_log ___________________
+
+    def test_signed_retirement_binds_carried_log():
+>    lines=pathlib.Path('/app/ORDERING_DROPPED.signed').read_text().splitlines();assert lines==['GLOBAL_ORDERING=DROPPED',hashlib.sha256(pathlib.Path('/app/log.jsonl').read_bytes()).hexdigest()]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/ORDERING_DROPPED.signed'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/ORDERING_DROPPED.signed'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError
+___________________ test_sixteen_independent_durable_stripes ___________________
+
+    def test_sixteen_independent_durable_stripes():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d)
+      for stripe in range(16):
+>      t=s.acquire_stripe(stripe);assert s.commit_striped(stripe,t,1000+stripe,'v'+str(stripe)) is True
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:15:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <candidate.LeaseStore object at 0x7f0422a7d820>, stripe = 0
+
+>   def acquire_stripe(self,stripe): raise NotImplementedError('step 2')
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: step 2
+
+lease_impl.py:33: NotImplementedError
+___________________ test_stripes_do_not_share_a_global_lock ____________________
+
+    def test_stripes_do_not_share_a_global_lock():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d);barrier=threading.Barrier(2,timeout=2);real=m.os.fsync;hits=[]
+      def gated(fd): barrier.wait();hits.append(fd);return real(fd)
+      m.os.fsync=gated
+      ts=[threading.Thread(target=lambda x=x:s.acquire_stripe(x)) for x in (3,11)]
+      [t.start() for t in ts];[t.join(3) for t in ts]
+      m.os.fsync=real
+>     assert all(not t.is_alive() for t in ts) and len(hits)>=2
+E     assert (True and 0 >= 2)
+E      +  where True = all(<generator object test_stripes_do_not_share_a_global_lock.<locals>.<genexpr> at 0x7f042255f510>)
+E      +  and   0 = len([])
+
+/tests/test_outputs.py:28: AssertionError
+=============================== warnings summary ===============================
+test_outputs.py::test_stripes_do_not_share_a_global_lock
+  /usr/local/lib/python3.12/site-packages/_pytest/threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-2 (<lambda>)
+
+  Traceback (most recent call last):
+    File "/usr/local/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+      self.run()
+    File "/usr/local/lib/python3.12/threading.py", line 1012, in run
+      self._target(*self._args, **self._kwargs)
+    File "/tests/test_outputs.py", line 25, in <lambda>
+      ts=[threading.Thread(target=lambda x=x:s.acquire_stripe(x)) for x in (3,11)]
+                                             ^^^^^^^^^^^^^^^^^^^
+    File "/app/lease_impl.py", line 33, in acquire_stripe
+      def acquire_stripe(self,stripe): raise NotImplementedError('step 2')
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  NotImplementedError: step 2
+
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+test_outputs.py::test_stripes_do_not_share_a_global_lock
+  /usr/local/lib/python3.12/site-packages/_pytest/threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-1 (<lambda>)
+
+  Traceback (most recent call last):
+    File "/usr/local/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+      self.run()
+    File "/usr/local/lib/python3.12/threading.py", line 1012, in run
+      self._target(*self._args, **self._kwargs)
+    File "/tests/test_outputs.py", line 25, in <lambda>
+      ts=[threading.Thread(target=lambda x=x:s.acquire_stripe(x)) for x in (3,11)]
+                                             ^^^^^^^^^^^^^^^^^^^
+    File "/app/lease_impl.py", line 33, in acquire_stripe
+      def acquire_stripe(self,stripe): raise NotImplementedError('step 2')
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  NotImplementedError: step 2
+
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_global_step1_contract_still_works
+FAILED ../tests/test_outputs.py::test_signed_retirement_binds_carried_log - F...
+FAILED ../tests/test_outputs.py::test_sixteen_independent_durable_stripes - N...
+FAILED ../tests/test_outputs.py::test_stripes_do_not_share_a_global_lock - as...
+3 failed, 1 passed, 2 warnings in 0.10s
+reward=0 (3 failed, 0 errored)
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="4" time="0.097" timestamp="2026-09-30T17:04:08.291455+00:00" hostname="a09207fd2459"><testcase classname="test_outputs" name="test_signed_retirement_binds_carried_log" time="0.000"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/app/ORDERING_DROPPED.signed'">def test_signed_retirement_binds_carried_log():
+&gt;    lines=pathlib.Path('/app/ORDERING_DROPPED.signed').read_text().splitlines();assert lines==['GLOBAL_ORDERING=DROPPED',hashlib.sha256(pathlib.Path('/app/log.jsonl').read_bytes()).hexdigest()]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:9:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/app/ORDERING_DROPPED.signed'), mode = 'r', buffering = -1
+encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/ORDERING_DROPPED.signed'
+
+/usr/local/lib/python3.12/pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="test_outputs" name="test_sixteen_independent_durable_stripes" time="0.002"><failure message="NotImplementedError: step 2">def test_sixteen_independent_durable_stripes():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d)
+      for stripe in range(16):
+&gt;      t=s.acquire_stripe(stripe);assert s.commit_striped(stripe,t,1000+stripe,'v'+str(stripe)) is True
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tests/test_outputs.py:15:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;candidate.LeaseStore object at 0x7f0422a7d820&gt;, stripe = 0
+
+&gt;   def acquire_stripe(self,stripe): raise NotImplementedError('step 2')
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: step 2
+
+lease_impl.py:33: NotImplementedError</failure></testcase><testcase classname="test_outputs" name="test_stripes_do_not_share_a_global_lock" time="0.023"><failure message="assert (True and 0 &gt;= 2)&#10; +  where True = all(&lt;generator object test_stripes_do_not_share_a_global_lock.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f042255f510&gt;)&#10; +  and   0 = len([])">def test_stripes_do_not_share_a_global_lock():
+     m=module()
+     with tempfile.TemporaryDirectory(dir='/app') as d:
+      s=m.LeaseStore(d);barrier=threading.Barrier(2,timeout=2);real=m.os.fsync;hits=[]
+      def gated(fd): barrier.wait();hits.append(fd);return real(fd)
+      m.os.fsync=gated
+      ts=[threading.Thread(target=lambda x=x:s.acquire_stripe(x)) for x in (3,11)]
+      [t.start() for t in ts];[t.join(3) for t in ts]
+      m.os.fsync=real
+&gt;     assert all(not t.is_alive() for t in ts) and len(hits)&gt;=2
+E     assert (True and 0 &gt;= 2)
+E      +  where True = all(&lt;generator object test_stripes_do_not_share_a_global_lock.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f042255f510&gt;)
+E      +  and   0 = len([])
+
+/tests/test_outputs.py:28: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_global_step1_contract_still_works" time="0.006" /></testsuite></testsuites>
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /tests
+STEP 2 2_stripe  DO-NOTHING  OK    red before the work (4 executed, 0 skipped, 3 failed, 0 errored)
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/steps/2_stripe/solution/. tbench-mt-lease-fence-contention-pivot-chain:/solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-lease-fence-contention-pivot-chain bash /solution/solve.sh
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /solution
+STEP 2 2_stripe  ORACLE      OK    solve.sh exited 0
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/steps/2_stripe/tests/. tbench-mt-lease-fence-contention-pivot-chain:/tests
+$ docker exec -w /app tbench-mt-lease-fence-contention-pivot-chain bash /tests/test.sh
+....                                                                     [100%]
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_signed_retirement_binds_carried_log
+PASSED ../tests/test_outputs.py::test_sixteen_independent_durable_stripes
+PASSED ../tests/test_outputs.py::test_stripes_do_not_share_a_global_lock
+PASSED ../tests/test_outputs.py::test_global_step1_contract_still_works
+4 passed in 0.13s
+reward=1 (4 passed, 0 skipped)
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain cat /logs/verifier/reward.txt
+1
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="4" time="0.132" timestamp="2026-09-30T17:04:10.179730+00:00" hostname="a09207fd2459"><testcase classname="test_outputs" name="test_signed_retirement_binds_carried_log" time="0.001" /><testcase classname="test_outputs" name="test_sixteen_independent_durable_stripes" time="0.087" /><testcase classname="test_outputs" name="test_stripes_do_not_share_a_global_lock" time="0.007" /><testcase classname="test_outputs" name="test_global_step1_contract_still_works" time="0.007" /></testsuite></testsuites>
+$ docker exec tbench-mt-lease-fence-contention-pivot-chain rm -rf /tests
+STEP 2 2_stripe  GREEN       OK    4 executed, 0 skipped, 0 failed, 0 errored
+$ docker rm -f tbench-mt-lease-fence-contention-pivot-oe1
+$ docker run -d --name tbench-mt-lease-fence-contention-pivot-oe1 tbench-mt-lease-fence-contention-pivot:validate sleep infinity
+2f914e30718b5ce6ff653382ab49a90a63f5ded4ea8ec0728675cb772397e8f6
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/steps/1_harden/solution/. tbench-mt-lease-fence-contention-pivot-oe1:/solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-lease-fence-contention-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 mkdir -p /solution
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/steps/2_stripe/solution/. tbench-mt-lease-fence-contention-pivot-oe1:/solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 chmod -R a+x /solution
+$ docker exec -w /app tbench-mt-lease-fence-contention-pivot-oe1 bash /solution/solve.sh
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 rm -rf /solution
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 rm -rf /tests /logs/verifier
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 mkdir -p /tests /logs/verifier
+$ docker cp /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/steps/1_harden/tests/. tbench-mt-lease-fence-contention-pivot-oe1:/tests
+$ docker exec -w /app tbench-mt-lease-fence-contention-pivot-oe1 bash /tests/test.sh
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+______________________ test_step2_artifacts_not_premature ______________________
+
+    def test_step2_artifacts_not_premature():
+>    assert not pathlib.Path('/app/ORDERING_DROPPED.signed').exists()
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/ORDERING_DROPPED.signed').exists
+E     +      where PosixPath('/app/ORDERING_DROPPED.signed') = <class 'pathlib.Path'>('/app/ORDERING_DROPPED.signed')
+E     +        where <class 'pathlib.Path'> = pathlib.Path
+
+/tests/test_outputs.py:43: AssertionError
+==================================== PASSES ====================================
+----------------- generated xml file: /logs/verifier/junit.xml -----------------
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_durable_exact_grants_and_reopen
+PASSED ../tests/test_outputs.py::test_fencing_hwm_and_exact_log_shape
+PASSED ../tests/test_outputs.py::test_threaded_grants_are_gap_free
+FAILED ../tests/test_outputs.py::test_step2_artifacts_not_premature - Asserti...
+1 failed, 3 passed in 1.42s
+reward=0 (1 failed, 0 errored)
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 cat /logs/verifier/reward.txt
+0
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 cat /logs/verifier/junit.xml
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="1.419" timestamp="2026-09-30T17:04:13.190686+00:00" hostname="2f914e30718b"><testcase classname="test_outputs" name="test_durable_exact_grants_and_reopen" time="0.615" /><testcase classname="test_outputs" name="test_fencing_hwm_and_exact_log_shape" time="0.008" /><testcase classname="test_outputs" name="test_threaded_grants_are_gap_free" time="0.759" /><testcase classname="test_outputs" name="test_step2_artifacts_not_premature" time="0.001"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = PosixPath('/app/ORDERING_DROPPED.signed').exists&#10; +      where PosixPath('/app/ORDERING_DROPPED.signed') = &lt;class 'pathlib.Path'&gt;('/app/ORDERING_DROPPED.signed')&#10; +        where &lt;class 'pathlib.Path'&gt; = pathlib.Path">def test_step2_artifacts_not_premature():
+&gt;    assert not pathlib.Path('/app/ORDERING_DROPPED.signed').exists()
+E    AssertionError: assert not True
+E     +  where True = exists()
+E     +    where exists = PosixPath('/app/ORDERING_DROPPED.signed').exists
+E     +      where PosixPath('/app/ORDERING_DROPPED.signed') = &lt;class 'pathlib.Path'&gt;('/app/ORDERING_DROPPED.signed')
+E     +        where &lt;class 'pathlib.Path'&gt; = pathlib.Path
+
+/tests/test_outputs.py:43: AssertionError</failure></testcase></testsuite></testsuites>
+$ docker exec tbench-mt-lease-fence-contention-pivot-oe1 rm -rf /tests
+STEP 1 1_harden  OVER-EXEC   OK    negatives trip on early work
+$ docker rm -f tbench-mt-lease-fence-contention-pivot-oe1
+tbench-mt-lease-fence-contention-pivot-oe1
+$ docker rm -f tbench-mt-lease-fence-contention-pivot-chain
+tbench-mt-lease-fence-contention-pivot-chain
+$ docker rm -f tbench-mt-lease-fence-contention-pivot-oe1
+
+oracle chain PASSED: every step red before, green after, boundaries guarded.
+evidence: /home/hcjackchen/worktrees/phase2-mt-reaudit-20260930/lease-fence-contention-pivot/.validation/chain-20260930T170400Z.json
