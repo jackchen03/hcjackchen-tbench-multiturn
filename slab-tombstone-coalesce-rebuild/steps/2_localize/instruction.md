@@ -1,3 +1,0 @@
-Probe the /data/pages/mutant_*.bin pages and their slabcompact outputs with hexdump -C, then write report_S2.md with exactly two rule lines shaped ORDER <rule> and COALESCE <direction>, each followed by one EVIDENCE <page> <offsets> PRED <hex> line citing the mutant page and output tail offsets that prove it plus the predicted slot-entry bytes at those offsets. Reuse the ORIGIN slot offsets from your report_S1.md when predicting each mutant page's compacted slot entries: the correct direction is the one whose predicted merged entry matches the probed output tail.
-
-A later step builds on these two rules, so state them in general terms.

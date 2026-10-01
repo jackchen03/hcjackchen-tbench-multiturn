@@ -1,5 +1,0 @@
-image=tbench-mt-escape-rle-tape-codec:validate
-user=app
-uid=1001(app) gid=1001(app) groups=1001(app)
-tape_decode mode=4511
-tape_encode mode=4511

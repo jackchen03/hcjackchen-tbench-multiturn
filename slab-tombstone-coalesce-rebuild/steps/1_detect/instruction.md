@@ -1,5 +1,0 @@
-The compacted pages from /opt/ref/bin/slabcompact differ from naive_rebuild.py on /data/pages/frag_*.bin: cmp -l reports differing bytes and the tail regions differ.
-
-Run /opt/ref/bin/slabcompact on each /data/pages/frag_*.bin input, compare every output against naive_rebuild.py with hexdump -C and cmp -l, and write report_S1.md with exactly one PAGE block per input page. Each block holds lines shaped PAGE <path>, RANGE <start>-<end> len=<n>, and NAIVE <hex> REF <hex> for every differing run, where offsets are decimal byte positions and hex strings cover exactly the differing bytes. On the first page in sorted path order, measure the free-gap filler run length F in that page's slabcompact output and record it as FILLER <n>, then record that input page's slot geometry as ORIGIN <idx> <off> <len> lines, one per slot entry in directory order with decimal values.
-
-Grading checks this report against the same frag pages present during solving; the graded artifact for this step is the report path above.

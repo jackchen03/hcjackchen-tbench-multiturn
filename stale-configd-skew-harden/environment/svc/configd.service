@@ -1,3 +1,0 @@
-[Service]
-LimitNOFILE=1024
-User=nobody

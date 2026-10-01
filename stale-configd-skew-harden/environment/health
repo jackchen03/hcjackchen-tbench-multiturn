@@ -1,6 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-pid=$(cat /app/svc/configd.pid)
-kill -0 "$pid"
-test "$(/app/probe.sh --hello V3)" = HELLO_V3_OK
-echo HEALTH_OK

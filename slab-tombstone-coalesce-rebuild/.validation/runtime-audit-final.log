@@ -1,4 +1,0 @@
-image=tbench-mt-slab-tombstone-coalesce-rebuild:validate
-user=app
-uid=1000(app) gid=1000(app) groups=1000(app)
-slabcompact mode=111

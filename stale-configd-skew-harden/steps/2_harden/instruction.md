@@ -1,3 +1,0 @@
-The daemon answers as nobody but its state dir var/lib/configd is root:root, and svc/configd.service caps LimitNOFILE=1024 while the process requests setrlimit(4096 on this host, up to 8192 elsewhere), so ./soak --conns 2000 dies with ERR_ACCEPT_EMFILE. Reconcile the unit against /proc/<pid>/limits, where <pid> comes from svc/configd.pid, then fix ownership and perms on the state dir.
-
-Set LimitNOFILE plus Restart=on-failure plus bounded accept-retry in svc/configd.service or a drop-in under svc/configd.service.d/ so ./soak --conns 2000 reports SOAK_OK with zero EMFILE while ./health reports HEALTH_OK and the kill-restart check passes. The effective limit must cover the host's request, not just the 4096 you see here.

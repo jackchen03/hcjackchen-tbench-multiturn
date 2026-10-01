@@ -1,8 +1,0 @@
-..                                                                       [100%]
-==================================== PASSES ====================================
------------------ generated xml file: /logs/verifier/junit.xml -----------------
-=========================== short test summary info ============================
-PASSED ../tests/test_outputs.py::test_public_interface_and_exact_result
-PASSED ../tests/test_outputs.py::test_exact_topk_generalizes_with_tie_break
-2 passed in 0.16s
-reward=1 (2 passed, 0 skipped)

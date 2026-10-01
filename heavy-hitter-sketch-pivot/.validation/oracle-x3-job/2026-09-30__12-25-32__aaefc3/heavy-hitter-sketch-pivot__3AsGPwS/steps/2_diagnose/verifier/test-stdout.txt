@@ -1,8 +1,0 @@
-..                                                                       [100%]
-==================================== PASSES ====================================
------------------ generated xml file: /logs/verifier/junit.xml -----------------
-=========================== short test summary info ============================
-PASSED ../tests/test_outputs.py::test_diagnosis_schema_relative_share_and_quoted_evidence
-PASSED ../tests/test_outputs.py::test_preserves_exact_counting_on_disjoint_streams_and_compatible_superset
-2 passed in 0.17s
-reward=1 (2 passed, 0 skipped)

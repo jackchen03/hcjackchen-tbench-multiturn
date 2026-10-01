@@ -1,5 +1,0 @@
-Probe /data/tapes/edge_FE.bin, /data/tapes/edge_FEFE.bin, /data/tapes/edge_41FE41.bin, and /data/tapes/literal_hello.bin with /opt/ref/bin/tape_encode and /opt/ref/bin/tape_decode, recheck the long tape /data/tapes/long_200x41.bin, and check sizes with wc -c.
-Write /app/report_S2.md with exactly two rule lines: ESCAPE <rule> where rule is one of DOUBLE_FE, TOKEN_FE, SINGLE_FE, and CHECKSUM <coverage> <reset> where coverage is one of LITERALS_ONLY, WHOLE_STREAM, WITH_TOKENS and reset is one of RESET_AFTER_RUN, NO_RESET.
-Each rule line is followed by one EVIDENCE <tape> <offsets> line citing the tape basename and one or more ascending comma-separated decimal offsets of proving bytes, where the ESCAPE evidence cites an edge tape and the CHECKSUM evidence cites long_200x41.bin.
-
-Reuse your /app/report_S1.md SPLITCAP value L when predicting trailer positions on the long tape: the correct reset rule is the one whose predicted CHK matches the probed bytes. Grading checks both rules and the cited offsets against these solve-time tapes; later encoder grading reuses these two rules on held-out tapes.

@@ -1,8 +1,0 @@
-..                                                                       [100%]
-==================================== PASSES ====================================
------------------ generated xml file: /logs/verifier/junit.xml -----------------
-=========================== short test summary info ============================
-PASSED ../tests/test_outputs.py::test_approximation_recall_and_memory_on_disjoint_streams
-PASSED ../tests/test_outputs.py::test_retirement_provenance_citation_and_exact_regression
-2 passed in 0.76s
-reward=1 (2 passed, 0 skipped)
